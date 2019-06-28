@@ -1,0 +1,832 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+
+			/*头部搜索*/
+			.mui-bar-nav {
+				background: #fff;
+				padding: 0 1.1rem;
+				box-shadow: none;
+				padding-top:1rem !important;
+				margin-top:.8rem;
+			}
+			.mui-bar-nav>img{
+				width:2.2rem;
+				height: 2.2rem;
+				border-radius:50%;
+			}
+			.mui-bar-nav .search{
+				display:inline-block;
+				width:81%;
+				height:2.2rem;
+				line-height:1.9rem;
+				margin-left:5%;
+				background:rgba(245,245,245,1);
+				border:1px solid rgba(245, 245, 246, 0.55);
+				border-radius:30px;
+				padding-left:.6rem;
+			}
+			.mui-bar-nav .search>span:first-child{
+				color:#C8CCCC;
+				font-size:1.3rem;
+				width:8%;
+			}
+			.mui-bar-nav .search .toSearchAudio{
+				display:inline-block;
+				width:74%;
+				background:rgba(245,245,245,1);
+				padding-left:0;
+				color:rgba(182,182,189,1);
+				height:1rem;
+				font-size:.9rem;
+			}
+			/*.mui-bar-nav .search input::-webkit-input-placeholder{
+				color:rgba(182,182,189,1);
+			}*/
+			/*头部搜索完*/
+			.headerTitle{
+				text-align: center;
+				color:#121212;
+				font-size:1.2rem;
+				font-weight:bold;
+				height:2.8rem;
+				line-height:2.8rem;
+				margin-bottom:0;
+			}
+			.xyBanner .mui-scroll-wrapper .mui-slider{
+				margin-top:0;
+			}
+			.xyBanner .mui-scroll-wrapper .mui-slider{
+				border-radius:0;
+			}
+			.juvenileContent{
+				width:100%;
+			    padding-top:1rem;
+			}
+			.audioTitle {
+				text-align:center;
+			}
+			.audioTitle .iconfont{
+				color:#D32424;
+				font-size:1.2rem;
+			}
+			.audioTitle>span.eq(-2){
+				font-weight:700;
+				color:#121212;
+			}
+			.topImgBottomIntr>img{
+				width:100%;
+				border-radius: 10px;
+			}
+			.gxJuvenile .matchTime{
+				font-weight:600;
+				font-size:.9rem;
+				padding-top:.5rem;
+			}
+			.gxJuvenile .matchTime>.time{
+				color:#EE4E4E;
+				font-size:.8rem;
+				font-weight:normal;
+			}
+			.intrMath{
+				color:#939393;
+				font-size:.9rem;
+			}
+			.enjoinMath,.enjoinMath1{
+				text-align:right;
+				margin-bottom: 1rem;
+			}
+			.enjoinMath>a{
+				display:inline-block;
+				width:6rem;
+				height:2rem;
+				text-align: center;
+				line-height:2.05rem;
+				font-size:.9rem;
+				color:#fff;
+				background:linear-gradient(90deg,rgba(249,94,87,1),rgba(211,36,36,1));
+				border:1px solid rgba(238,78,78,1);
+				border-radius:25px;
+			}
+			.enjoinMath1>a{
+				display:inline-block;
+				width:6rem;
+				height:2rem;
+				text-align: center;
+				line-height:2.05rem;
+				font-size:.9rem;
+				color:rgba(238,78,78,1);
+				border:1px solid rgba(238,78,78,1);
+				background:#fff;
+				border-radius:25px;
+			}
+			/*左图右简介*/
+			.winterCamp,.gxClassical{
+				padding-top:1rem;
+				margin-bottom:1rem;
+			}
+			.winterCamp .leftImgRightIntr .rightIntr{
+				position: relative;
+			}
+			.rightIntr{
+				width:100%;
+			}
+			.leftImgRightIntr>div{
+				display:inline-block;
+				width:49%;
+			}
+			.leftImgRightIntr .leftImg{
+				border-radius:10px;
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+			}
+			 .leftImgRightIntr .leftImg>img{
+			 	width:100%;
+			 	height:100%;
+			 	border-radius:10px;
+			 }
+			  .leftImgRightIntr .rightIntr>p{
+			  	width:100%;
+			  	margin-bottom:5px;
+			  }
+			 .leftImgRightIntr .rightIntr>p.intrTit{
+			 	font-weight:600;
+				font-size:.9rem;
+			 }
+			 .leftImgRightIntr .rightIntr>p.campIntr{
+			 	color:#939393;
+				font-size:.9rem;
+			 }
+			 .winterCamp .leftImgRightIntr p.enjoinMath{
+				position: relative;
+			}
+			 .enjoinMath>span:first-child{
+			 	color:#FF9023;
+			 	font-size:.8rem;
+			 	position:absolute;
+			 	left:0;
+			 	top:50%;
+			 	transform:translateY(-50%);
+			 }
+			 .winterCamp .enjoinMath>a{
+			 	background:#FF9023;
+			 	width:5.5rem;
+			 	vertical-align: middle;
+			 }
+			 .leftRightImg>div{
+			 	width:49%;
+			 	display:inline-block;
+			 }
+			 .leftRightImg>div>img{
+			 	width:100%;
+			 	border-radius:10px;
+			 }
+			 .leftRightImg p{
+			 	color:#121212;
+			 	font-weight:bold;
+			 	font-size:.8rem;
+			 }
+			 .leftRightImg p>a{
+			 	border:1px solid rgba(75, 155, 136, 1);
+				border-radius:4px;
+				color:#4B9B88;
+				font-size:.7rem;
+				font-weight:normal;
+				padding:.2rem .4rem;
+			 }
+			 .winterGive .enjoinMath{
+			 	position:relative;
+			 }
+			 .winterGive .enjoinMath>span{
+			 	position: absolute;
+			 	top:50%;
+			 	left:0;
+			 	transform:translateY(-50%);
+			 	font-weight:600;
+				font-size:.9rem;
+				padding-top:.5rem;
+				color:#121212;
+			 }
+			 .juvenileNews img{
+				width:100%;
+				border-radius:4px;
+			}
+			.juvenileContent>div{
+				padding:0 3%;
+			}
+			 .juvenileContent>div:not(:last-child){
+			 	border-bottom:8px solid #F5F6F7;
+			 	margin-bottom:2rem;
+			 }
+			 .juvenileContent>div .title{
+			 	font-size:1.2rem;
+			 	font-weight: bold;
+			 }
+			 .hasBook{
+			 	display:none;
+			 }
+		</style>
+	</head>
+	<body class="la">
+		<!--<header class="mui-bar mui-bar-nav">
+			<img class="toLogin" src="../resources/images/avator.png" alt="" />
+			<div class="search">
+				<span class="iconfont">&#xe651;</span>
+				<input type="text" class="toSearchAudio" placeholder="搜索你想听的国学" style="outline:none;	border:0px;"/>
+				<!--语音搜索先隐藏-->
+		<!--<span class="iconfont toPlayMusic">&#xe67c;</span>-->
+		<!--</div>
+		</header>-->
+		<div class="mui-scroll-wrapper content" style="padding-top:2rem;">
+			<div class="mui-scroll coment_scroll ">
+				<!--轮播-->
+				<!--<div class="mui-slider" style="display:none;">
+					<div class="mui-slider-group my-slider-group mui-slider-loop">
+					</div>
+					<div class="mui-slider-indicator">
+					</div>
+				</div>-->
+				<div class="juvenileContent">
+					<!--中华之心国学少年荟-->
+					<div class="gxJuvenile topImgBottomIntr">
+						<div class="juvenileNews">
+							<p class="audioTitle"><span class="gxTitle title">中华之星国学少年荟</span></p>
+							<img src="" alt="" />
+							<p class="matchTime"><span class="time">（报名时间：2019.15-2019.3.18）</span></p>
+							<p class="intrMath more3">
+								这可以是一条新闻的内容简介，一条新简介这可以是一条新闻的内容简介，一条新简介这可以是一条新闻的内容简介，一条新简介...
+							</p>
+							<p class="enjoinMath1">
+								<a href="javascript:;">查看详情</a>
+								<a class="hasBook" href="javascript:;" style="margin-left:.5rem;">指导用书</a>
+								<span class="enjoinMath">
+									<a class="libon" style="margin-left:.5rem;" href="javascript:;">立即报名</a>
+								</span>
+							</p>
+						</div>
+
+					</div>
+					<!--冬令营-->
+					<div class="winterCamp juvenileNews" style="padding-bottom:1rem;">
+						<p class="audioTitle winterTitle"><!--<span class="iconfont" style="color:#FF9023">&#xe694;</span>--><span class="title">冬令营开始啦！</span></p>
+						<div class="leftImgRightIntr ">
+							<div class="leftImg">
+								<img src="" alt="" />
+							</div>
+							<div class="rightIntr">
+								<p class="intrTit more">【冬令营报名】</p>
+								<p class="more2 campIntr">“弘扬传统，热爱生活提升素养，培育人格”为理念|1.15～3.15</p>
+								<p class="enjoinMath">
+									<span>报名费:<span class="campPrice">6800</span></span>
+									<a href="javascript:;">立即报名</a>
+								</p>
+							</div>
+						</div>
+					</div>
+					<!--国学经典-->
+					<div class="gxClassical juvenileNews">
+						<p class="audioTitle"><span class="iconfont" style="color:#4B9B88">&#xe624;</span><span class="title">共读国学经典</span></p>
+						<div class="leftRightImg">
+							<div class="left">
+								<img src="" alt="" />
+							</div>
+							<div class="right">
+								<img src="" alt="" />
+							</div>
+							<p class="memo">
+								<a href="javascript:;">夜读</a>
+								<span>好好学习，天天向上</span>
+							</p>
+						</div>
+					</div>
+					<!--寒假特训-->
+					<div class="winterGive topImgBottomIntr juvenileNews">
+						<p class="audioTitle"><span class="iconfont" style="color:#1887DD">&#xe884;</span><span class="title">寒假特训</span></p>
+						<div class="videoPlay" style="height:12rem;"></div>
+						<p style="color:#1987DD;font-size:.7rem;" class="count">100000人已参加</p>
+						<p class="enjoinMath">
+							<span>【亲子训练营】2.1期</span>
+							<a href="javascript:;">参加</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="pay_menu mui-scroll-wrapper" style="z-index: 10000;">
+			<div class="pay_bar">
+				<div class="pay_btn ali_pay">
+					<i class="icon iconfont">&#xe634;</i>
+					<div>支付宝</div>
+				</div>
+				<div class="pay_btn wx_pay">
+					<i class="icon iconfont">&#xe603;</i>
+					<div>微信支付</div>
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var payid = "",
+				channel = {};
+			mui.init();
+			var title;
+			var oneBanner = $(".gxJuvenile").clone();
+			var ongImg = $(".winterCamp").clone();
+			var twoImg = $(".gxClassical").clone();
+			var oneVideo = $(".winterGive").clone();
+			$(".gxJuvenile").hide();
+			$(".gxClassical").hide();
+			$(".winterCamp").hide();
+			$(".winterGive").hide();
+			myFunc(function() {
+				
+				
+				osg.evtAddListener(function(d) {
+					if (d && (d == 'enrollActivity' || d == 'login' || d == 'logout')) {
+						$(".juvenileContent").empty();
+						loadDatas();
+					}
+				});
+				/*未登录状态点击后跳转登录页*/
+				$(".toLogin").tap(function() {
+					if (osg.isLogined())
+						osg.evtFireEvent('toMine1');
+					else
+						osg.open("../mine/login.html")
+				})
+
+				/*轮播*/
+				var gallery = mui('.mui-slider');
+				gallery.slider({
+					interval: 2000 //自动轮播周期，若为0则不自动播放，默认为0;
+				});
+
+				/*请求页面数据*/
+				loadDatas();
+
+				$(".juvenileContent").on("tap", ".juvenileNews", function() {
+					var currActiveId = $(this).find(".audioTitle").attr("data-id");
+					if (currActiveId)
+						osg.open("newsList.html", {
+							"activityId": currActiveId
+						});
+				})
+
+				/*$(".juvenileContent").on("tap",".juvenileNews",function(){
+					var currNewsId=$(this).attr("data-id");
+					if(currNewsId)
+						osg.open("detail.html",{"newsId":currNewsId});
+				})*/
+				/*支付相关*/
+				$(".pay_menu").tap(function() {
+					$(".pay_menu").fadeOut();
+				});
+
+				$(".ali_pay").tap(function() {
+					pay('alipay', payid);
+				});
+				$(".wx_pay").tap(function() {
+
+					pay('wxpay', payid);
+				});
+				// 获取支付通道
+				plus.payment.getChannels(function(channels) {
+					for (var i = 0; i < channels.length; i++) {
+						var c = channels[i];
+						if (c.serviceReady)
+							channel[c.id] = c;
+						//alert(c.id + ":" + c.description + ":" + c.serviceReady);
+					}
+				}, function(e) {
+					alert("获取支付通道失败：" + e.message);
+				});
+
+				function pay(id, typeId) {
+					$(".pay_menu").fadeOut();
+					var url;
+					if (id == 'alipay')
+						url = '/order/payali';
+					else if (id == 'wxpay')
+						url = '/order/payweixin';
+					else
+						return;
+
+					osg.ajax(url, {
+						"typeId": typeId,
+						"type": type,
+						"addressId": "",
+						"count": 0
+					}, function(d) {
+						plus.payment.request(channel[id], d, function(result) {
+							// 支付成功
+							osg.toast('支付成功！');
+							$(".juvenileContent").empty();
+							loadDatas();
+						}, function(error) {
+							// 支付失败
+							if (error.code == 62000) {
+								osg.toast('支付失败--您未安装此应用，请选择其他支付方式 。');
+							} else {
+								osg.toast('支付失败:' + error.code);
+							}
+						});
+					});
+				}
+				/*支付相关结束*/
+			});
+			/* $(".juvenileContent").on("tap",".enjoinMath>a",function(e){
+				e.stopPropagation();
+				osg.open("match.html");
+			}) */
+			/*跳转页面的方法*/
+			function jumpToMath(url) {
+				url.tap(function(e) {
+					e.stopPropagation();
+					if (osg.isLogined()) {
+						osg.open("match.html");
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html', null, null, {
+								im: 1
+							});
+						});
+					}
+				})
+			}
+
+			function loadDatas() {
+				osg.ajax("activity/query", {}, function(data) {
+					var banners = data.banners;
+					/*轮播*/
+					if (banners.length == 0) {
+						$('.mui-slider-group').append(
+							'<div class="mui-slider-item mui-slider-item-duplicate"><a href="javascript:;"><img class="lunbo-img" src="../resources/images/banner1.png" /></a></div>'
+						);
+					} else if (banners.length == 1) {
+						$('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><a href="' + banners[0].url +
+							'"><img class="lunbo-img" src="' + qiniuRoot + banners[0].banner + '!app.banner' + '" /></a></div>');
+					} else {
+						$('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><a href="' + banners[
+								banners.length - 1].url + '"><img class="lunbo-img" src="' + qiniuRoot + banners[banners.length - 1].banner +
+							'!app.banner' + '" /></a></div>');
+						$('.mui-slider-indicator').append('<div class="mui-indicator mui-active"></div>');
+						for (var i = 0; i < banners.length; i++) {
+							$('.mui-slider-group').append('<div class="mui-slider-item"><a href="' + banners[i].url +
+								'"><img class="lunbo-img" src="' + qiniuRoot + banners[i].banner + '!app.banner' + '" /></a></div>');
+						}
+						$('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><a href="' + banners[0].url +
+							'"><img class="lunbo-img" src="' + qiniuRoot + banners[0].banner + '!app.banner' + '" /></a></div>');
+						for (var i = 0; i < banners.length - 1; i++) {
+							$('.mui-slider-indicator').append('<div class="mui-indicator"></div>');
+						}
+						/*轮播*/
+						var gallery = mui('.mui-slider');
+						gallery.slider({
+							interval: 2000 //自动轮播周期，若为0则不自动播放，默认为0；
+						});
+					}
+
+					/*活动部分*/
+					var activities = data.activities;
+					for (var i = 0; i < activities.length; i++) {
+						/*一张banner*/
+						if (activities[i].type == 1) {
+							var currOneBanner = oneBanner.clone();
+							currOneBanner.find(".audioTitle").attr("data-id", activities[i]._id);
+							currOneBanner.find(".audioTitle").attr("news-id", activities[i].newsId);
+							currOneBanner.find(".juvenileNews").attr("data-id", activities[i].newsId);
+							currOneBanner.find(".juvenileNews").attr("data-price", activities[i].price);
+							currOneBanner.find(".gxTitle").html(activities[i].title);
+							currOneBanner.find(".audioTitle .iconfont").html("&#xe617");
+							currOneBanner.find("img").attr("src", qiniuRoot + activities[i].banner + '!app.banner');
+							currOneBanner.find(".matchTime>span:first-child").html(activities[i].title);
+							currOneBanner.find(".audioTitle ").attr("data-form", activities[i].enrollForms);
+							currOneBanner.find(".campPrice").html(activities[i].price);
+							if (activities[i].startDateStr && activities[i].endDateStr && activities[i].timeBtn == 1) {
+								currOneBanner.find(".matchTime .time").html('报名时间：' + activities[i].startDateStr + " - " + activities[i].endDateStr);
+							} else {
+								currOneBanner.find(".matchTime").html('');
+							}
+							currOneBanner.find(".intrMath").html(activities[i].memo);
+							if (activities[i].activityStatus == "未开始" || activities[i].btnbtn != 1) {
+								currOneBanner.find(".enjoinMath").hide();
+								currOneBanner.find(".enjoinMath1").hide();
+
+							} else if (activities[i].activityStatus == "已结束") {
+								currOneBanner.find(".enjoinMath>a").html("已结束");
+							}else if(activities[i].enrolled ==1){
+								currOneBanner.find(".enjoinMath>a").html("我的夏令营");
+							} else if(activities[i].enrollActivity && activities[i].enrolled ==0){
+								currOneBanner.find(".enjoinMath>a").html("去支付");
+							}
+							if (activities[i].activityType == 1 && activities[i].matchSum > 0) {
+								currOneBanner.find(".enjoinMath>a").html("我的少年荟");
+							}
+							$(".juvenileContent").append(currOneBanner);
+							/*如果是少年荟跳转到math*/
+							if (activities[i].activityType == 1) {
+								jumpToMath(currOneBanner.find(".enjoinMath>a"));
+								
+							} else {
+								
+								/* currOneBanner.tap(function(e) {
+									e.stopPropagation();
+									var currNewsId = $(this).find(".juvenileNews").attr('data-id');
+									var activityId = $(this).find(".audioTitle").attr('data-id');
+									var price = $(this).find(".juvenileNews").attr('data-price');
+									var state = $(this).find(".enjoinMath>a").text();
+									if (currNewsId && price && state) {
+										osg.open("detail.html", {
+											"activityId":activityId,
+											"newsId": currNewsId,
+											"price": price,
+											"state": state
+										}); //活动
+									} else {
+										osg.open("detail.html", {
+											"newsId": currNewsId
+										}); //新闻
+									}
+									
+								}) */
+								currOneBanner.find(".enjoinMath").tap(function(e) {
+									var state = $(this).find('a').text();
+									e.stopPropagation();
+									payid = $(this).parent().parent().parent().find(".audioTitle").attr('data-id');
+									var newsId = $(this).parent().parent().parent().find(".audioTitle").attr('news-id');
+									if ('立即报名' == state&&osg.isLogined()) {
+										//去掉自定义字段判断
+										/* var enrollForms = $(this).parent().parent().parent().find(".audioTitle").attr('data-form');
+										if(enrollForms){
+											osg.open('userInfo.html',{"activityId":payid});
+										}else{
+											doPay(payid);
+										} */
+										if(newsId){
+											osg.open("entryInfomation.html",{"fig":"收费活动","newsId":newsId,"activityId":payid});
+										}else{
+											osg.open('userInfo.html',{"activityId":payid});
+										}
+										
+									}else if('去支付'==state &&  osg.isLogined()){
+										doPay(payid);
+									}else if(!osg.isLogined()){
+										osg.confirm("请登录！", function() {
+											osg.open('../mine/login.html', null, null, {
+												im: 1
+											});
+										});
+									}else if('我的夏令营'==state &&  osg.isLogined()){
+										osg.open('payActivity.html',{"activityId":payid});
+									}
+								})
+							}
+							if (activities[i].hasBook == 1) {
+								currOneBanner.find(".hasBook").show();
+								currOneBanner.find(".hasBook").tap(function(e) {
+									e.stopPropagation();
+									osg.evtFireEvent('shaoToMall');
+								});
+							} else {
+								currOneBanner.find(".hasBook").hide();
+							}
+						}
+						/*单图*/
+						else if (activities[i].type == 2) {
+							var currOneBanner = ongImg.clone();
+							currOneBanner.find(".audioTitle").attr("data-id", activities[i]._id);
+							currOneBanner.find(".juvenileNews").attr("data-id", activities[i].newsId);
+							currOneBanner.find(".juvenileNews").attr("data-price", activities[i].price);
+							currOneBanner.find(".winterTitle .title").html(activities[i].title);
+							currOneBanner.find(".campPrice").html(activities[i].price);
+							currOneBanner.find(".winterTitle .iconfont").html("&#xe694;");
+							currOneBanner.find(".audioTitle ").attr("data-form", activities[i].enrollForms);
+							currOneBanner.find(".leftImg>img").attr("src", qiniuRoot + activities[i].images[0]+"!app.shaodan.img");
+							currOneBanner.find(".rightIntr .intrTit").html("【" + activities[i].news.title + "】");
+							currOneBanner.find(".enjoinMath .enjoinMath").html(activities[i].price);
+							if (activities[i].activityStatus == "未开始"){
+								currOneBanner.find(".enjoinMath").hide();
+							}else if (activities[i].activityStatus == "已结束"){
+								currOneBanner.find(".enjoinMath>a").html("已结束");
+							} else if(activities[i].enrolled ==1){
+								currOneBanner.find(".enjoinMath>a").html("已报名");
+							} else if(activities[i].enrollActivity && activities[i].enrolled ==0){
+								currOneBanner.find(".enjoinMath>a").html("去支付");
+							}
+							$(".juvenileContent").append(currOneBanner);
+							/*如果是少年荟跳转到math*/
+							if (activities[i].activityType == 1) {
+								jumpToMath(currOneBanner.find(".enjoinMath>a"));
+								if (activities[i].matchSum > 0) {
+									currOneBanner.find(".libon").text("我的少年荟");
+								}
+							} else {
+								var activityId = $(this).find(".audioTitle").attr('data-id');
+								/* currOneBanner.tap(function(e) {
+									e.stopPropagation();
+									var currNewsId = $(this).find(".juvenileNews").attr('data-id');
+									
+									var price = $(this).find(".juvenileNews").attr('data-price');
+									var state = $(this).find(".enjoinMath>a").text();
+									if (currNewsId && price &&state) {
+										osg.open("detail.html", {
+											"activityId":activityId,
+											"newsId": currNewsId,
+											"price": price,
+											"state": state
+										}); //活动
+									} else {
+										osg.open("detail.html", {
+											"newsId": currNewsId
+										}); //新闻
+									}
+
+								}) */
+								currOneBanner.find(".enjoinMath").tap(function(e) {
+									var state = $(this).find('a').text();
+									e.stopPropagation();
+									payid = $(this).parent().parent().parent().find(".audioTitle").attr('data-id');
+									if ('立即报名' == state&&osg.isLogined()) {
+										/* var enrollForms = $(this).parent().parent().parent().find(".audioTitle").attr('data-form');
+										if(enrollForms){
+											osg.open('userInfo.html',{"activityId":payid});
+										}else{
+											doPay(payid);
+										} */
+										osg.open('userInfo.html',{"activityId":payid});
+									}else if('去支付'==state &&  osg.isLogined()){
+										doPay(payid);
+									}else if(!osg.isLogined()){
+										osg.confirm("请登录！", function() {
+											osg.open('../mine/login.html', null, null, {
+												im: 1
+											});
+										});
+									}
+								})
+							}
+							if (activities[i].hasBook == 1) {
+								currOneBanner.find(".hasBook").show();
+								currOneBanner.find(".hasBook").tap(function(e) {
+									e.stopPropagation();
+									osg.evtFireEvent('shaoToMall');
+								});
+							} else {
+								currOneBanner.find(".hasBook").hide();
+							}
+						}
+						/*两图*/
+						else if (activities[i].type == 3) {
+							var currOneBanner = twoImg.clone();
+							currOneBanner.find(".audioTitle").attr("data-id", activities[i]._id);
+							currOneBanner.find(".juvenileNews").attr("data-id", activities[i].newsId);
+							currOneBanner.find(".juvenileNews").attr("data-price", activities[i].price);
+							currOneBanner.find(".audioTitle .title").html(activities[i].title);
+							currOneBanner.find(".campPrice").html(activities[i].price);
+							currOneBanner.find(".winterTitle .iconfont").html("&#xe624;");
+							currOneBanner.find(".leftRightImg .left>img").attr("src", qiniuRoot + activities[i].images[0]);
+							currOneBanner.find(".leftRightImg .right>img").attr("src", qiniuRoot + activities[i].images[1]);
+							currOneBanner.find(".memo>span").html(activities[i].memo);
+							$(".juvenileContent").append(currOneBanner);
+							/*如果是少年荟跳转到math*/
+							if (activities[i].activityType == 1) {
+								jumpToMath(currOneBanner.find(".enjoinMath>a"));
+								if (activities[i].matchSum > 0) {
+									currOneBanner.find(".libon").text("我的少年荟");
+								}
+							} else {
+								/* currOneBanner.tap(function(e) {
+									e.stopPropagation();
+									var currNewsId = $(this).find(".juvenileNews").attr('data-id');
+									var activityId = $(this).find(".audioTitle").attr('data-id');
+									var price = $(this).find(".juvenileNews").attr('data-price');
+									var state = $(this).find(".enjoinMath>a").text();
+									if (currNewsId && price && state) {//没有状态,无法报名
+										osg.open("detail.html", {
+											"activityId":activityId,
+											"newsId": currNewsId,
+											"price": price,
+											"state": state
+										}); //活动
+									} else {
+										osg.open("detail.html", {
+											"newsId": currNewsId
+										}); //新闻
+									}
+									
+								}) */
+								currOneBanner.find(".enjoinMath").tap(function(e) {
+									e.stopPropagation();
+									var state = $(this).find('a').text();
+									payid = $(this).parent().parent().parent().find(".audioTitle").attr('data-id');
+									if ('立即报名' == state&&osg.isLogined()) {
+										/* var enrollForms = $(this).parent().parent().parent().find(".audioTitle").attr('data-form');
+										if(enrollForms){
+											osg.open('userInfo.html',{"activityId":payid});
+										}else{
+											doPay(payid);
+										} */
+										osg.open('userInfo.html',{"activityId":payid});
+									}else if('去支付'==state&&osg.isLogined()){
+										doPay(payid);
+									}else{
+										osg.confirm("请登录！", function() {
+											osg.open('../mine/login.html', null, null, {
+												im: 1
+											});
+										});
+									}
+								})
+							}
+							if (activities[i].hasBook == 1) {
+								currOneBanner.find(".hasBook").show();
+								currOneBanner.find(".hasBook").tap(function(e) {
+									e.stopPropagation();
+									osg.evtFireEvent('shaoToMall');
+								});
+							} else {
+								currOneBanner.find(".hasBook").hide();
+							}
+						} else {
+							var currOneBanner = oneVideo.clone();
+							currOneBanner.find(".audioTitle").attr("data-id", activities[i]._id)
+							currOneBanner.find(".audioTitle .title").html(activities[i].title);
+							currOneBanner.find(".campPrice").html(activities[i].price);
+							currOneBanner.find(".winterTitle .iconfont").html("&#xe884;");
+							currOneBanner.find(".videoPlay").append(activities[i].news.content);
+							currOneBanner.find(".videoPlay video").css({
+								width: "100%",
+								height: "11rem"
+							});
+							/*视频封面*/
+							currOneBanner.find(".videoPlay video").attr({
+								"poster": qiniuRoot + activities[i].banner
+							});
+							currOneBanner.find(".count").html(activities[i].news.count);
+							currOneBanner.find(".enjoinMath>span").html(activities[i].news.title);
+							$(".juvenileContent").append(currOneBanner);
+							if (activities[i].activityType == 1) {
+								jumpToMath(currOneBanner.find(".enjoinMath>a"));
+								if (activities[i].matchSum > 0) {
+									currOneBanner.find(".libon").text("我的少年荟");
+								}
+							}
+							if (activities[i].hasBook == 1) {
+								currOneBanner.find(".hasBook").show();
+								currOneBanner.find(".hasBook").tap(function(e) {
+									e.stopPropagation();
+									osg.evtFireEvent('shaoToMall');
+								});
+							} else {
+								currOneBanner.find(".hasBook").hide();
+							}
+						}
+					}
+				})
+			}
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+
+			function doShowPayMenu() {
+				if (mui.os.ios && (plus.runtime.version + '') == '1.5')
+					pay('alipay', payid);
+				else
+					$(".pay_menu").fadeIn();
+			}
+
+			function doPay(payid) {
+				if (osg.isLogined()) {
+					if (payid) {
+						type = 4;
+						doShowPayMenu();
+					}
+				} else {
+					osg.confirm("请登录！", function() {
+						osg.open('../mine/login.html', null, null, {
+							im: 1
+						});
+					});
+				}
+			}
+		</script>
+	</body>
+
+</html>

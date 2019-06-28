@@ -1,0 +1,446 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin-bottom:0;
+			}
+			.logoAndmatchName{
+				text-align: center;
+				padding:1rem 0;
+			}
+			.logoAndmatchName>img{
+				width:7rem;
+				height:7rem;
+			}
+			.contents{
+				width:93%;
+				margin:0 auto;
+			}
+			ul{
+				text-align: center;
+			}
+			ul.needShadow{
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				margin-bottom:2rem;
+			}
+			ul>li:nth-child(2n){
+				margin-left:2%;
+				position:relative;
+			}
+			ul>li:nth-child(2n):after{
+				content: "";
+				position:absolute;
+				left:0;
+				top:50%;
+				transform: translateY(-50%);
+				width:1px;
+				height:70%;
+				background:rgba(245,246,247,1);
+			}
+			ul>li{
+				display:inline-block;
+				width:48%;
+				text-align: center;
+				height:7rem;
+				padding-top:2rem;
+			}
+			ul>li>span:first-child{
+				font-size:1.3rem !important;
+				font-weight: bold;
+			}
+			ul>li>p{
+				padding-top:.5rem;
+			}
+			ul>li>p img{
+				width:1rem;
+				margin-right: .3rem;
+				vertical-align: middle;
+			}
+			ul>li>p span{
+				vertical-align: middle;
+			}
+			/*分享*/
+			.starAnswer{
+				height: 3rem;
+				width: 100%;
+				text-align: center;
+				margin:3rem 0;
+				display:none;
+			}
+			
+			/*排行榜*/
+			.rankingList{
+				padding-top:1rem;
+				display:none;
+			}
+			.rankingList>div:first-child{
+				height:3rem;
+				text-align: center;
+			}
+			.rankingList>div:first-child img{
+				width:70%
+			}
+			.listShow{
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+			}
+			.listShow  p{
+				height:3rem;
+				line-height:3rem;
+				text-align: center;
+				background: #FFFFFF;
+			}
+			.listShow  p span{
+				display:inline-block;
+				width:20%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				text-align: center;
+			}
+			.listShow p span>img{
+				width:1.3rem;
+				vertical-align: middle;
+			}
+			.listShow p span:first-child{
+				width:15%;
+			}
+			.listShow p span:nth-child(2){
+				width:36%;
+			}
+			.listShow p span:nth-child(3){
+				width:25%;
+			}
+			.listShow p:first-child span{
+				color:#945B2B;
+				font-weight: bold;
+			}
+			
+			.listShow  p:nth-child(2n){
+				background:#fff5d8;
+			}
+			/*添加辅导老师的弹框*/
+			.shadow{
+				background:rgba(0,0,0,0.3);
+			}
+			.shadow>div{
+				width:90%;
+				height:13.6rem;
+				position:absolute;
+				top:50%;
+				left:50%;
+				transform:translate(-50%,-50%);
+				background:#fff;
+				border-radius:10px;
+			}
+			.shadow>div .addTeacherShadowTitle{
+				height:3rem;
+				line-height:3rem;
+				text-align: center;
+				position: relative;
+				background:#F5F6F7;
+				border-radius:10px 10px 0px 0px;
+				font-weight: bold;
+			}
+			.shadow>div .addTeacherShadowTitle .iconfont{
+				display:inline-block;
+				position: absolute;
+				right:1rem;
+				top:50%;
+				transform: translateY(-50%);
+				padding:0 .5rem;
+				color:#CCCCCC;
+				font-size:1.2rem;
+			}
+			.shadow>div .moduleP{
+				margin:0 1rem;
+				border-bottom:2px solid #ECECEC;
+				padding-top:1rem;
+				background:#fff;
+			}
+			.shadow>div .moduleP input{
+				display:inline-block;
+				width:80%;
+				border:none;
+				background:#fff;
+				height:1.6rem;
+				color:#121212 !important;
+				padding-left:0;
+			}
+			.shadow>div .moduleP span{
+				vertical-align: middle;
+			}
+			.shadow>div>p:last-child{
+				text-align: right;
+				padding:1rem;
+				margin-bottom:0;
+			}
+			.shadow>div>p:last-child a{
+				padding:.3rem 1rem;
+				border-radius:25px;
+				border:1px solid #EE4E4E;
+				background:#EE4E4E;
+				color:#fff;
+				margin:.3rem;
+			}
+			.shadow>div>p:last-child a.cancel{
+				background: #fff;
+				color:#EE4E4E;
+			}
+			/*添加辅导老师的弹框*/
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="padding:.5rem;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212"  class="pageTitle"></h1>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll">
+				<div class="logoAndmatchName">
+					<img class="logo" src="" alt="" />
+				</div>
+				<div class="contents">
+					<div class="module">
+						<ul class="needShadow">
+							<li class="score">
+								<span></span>
+								<p><img src="../resources/images/shoufawen.png" alt="" /><span>成绩</span></p>
+							</li>
+							<li class="allSecond">
+								<span></span>
+								<p><img src="../resources/images/shijian.png" alt="" /><span>耗时秒数</span></p>
+							</li>
+						</ul>
+						<ul class="needShadow">
+							<li class="readNumber">
+								<span></span>
+								<p><img src="../resources/images/xuanze.png" alt="" /><span>正确题数</span></p>
+							</li>
+							<li class="errorNumber">
+								<span></span>
+								<p><img src="../resources/images/tianjia.png" alt="" /><span>错误题数</span></p>
+							</li>
+						</ul>
+						
+						<!--排行榜-->
+						<div class="rankingList">
+							<div>
+								<img src="../resources/images/rankingList.png" alt="" />
+							</div>
+							<div class="listShow">
+								<p>
+									<span>排名</span>
+									<span>手机号</span>
+									<span>得分</span>
+									<span>耗时</span>
+								</p>
+								<div style="position:relative;height:15rem;">
+									<div class="mui-scroll-wrapper">
+										<div class="mui-scroll showScoreList">
+											<p class="oneList">
+												<span class="isImg"><img src="../resources/images/hotListen1.png" alt="" /></span>
+												<span class="phoneNumber"></span>
+												<span class="score"></span>
+												<span class="seconds"></span>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--分享按钮-->
+					<div class="starAnswer share">
+						<a class="linearGradientBtn" href="javascript:;">一键分享</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--分享-->
+		<div class="shareChoose" style="z-index: 10000;">
+			<div>
+				<ul style="padding-top:0rem;">
+					<li class="wechat">
+						<img src="../resources/images/weixin.png" alt="" />
+						<p>微信</p>
+					</li>
+					<li class="pengyouquan">
+						<img src="../resources/images/pengyouquan.png" alt="" />
+						<p>朋友圈</p>
+					</li>
+				</ul>
+				<p class="Cancelshare" style="margin-top:0">取消</p>
+			</div>
+		</div>
+		<!--添加辅导老师的弹框-->
+		<div class="shadow">
+			<div>
+				<p class="addTeacherShadowTitle">
+					<span>请完善电话，方便获奖联系您</span>
+					<span class="iconfont closeAddTeacher">&#xe668;</span>
+				</p>
+				<p class="moduleP">
+					<span>电话：</span>
+					<input class="teacherPhone" type="text" />
+				</p>
+				<p>
+					<a class="cancel" href="javascript:;">取消</a>
+					<a class="confirm" href="javascript:;">确定</a>
+				</p>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var shareMsg={};
+			var oneList=$(".oneList").clone();
+			$(".oneList").remove();
+			var sharLogo = "http://qiniubadoupub.caihongjiankang.com/resultShare.png";
+			var form =null;
+			myFunc(function() {
+				var fig=osg.param("fig");
+				var enrollPhaseId=osg.param("enrollPhaseId");
+				var allTime=osg.param("times");
+				if(enrollPhaseId=="111111"){//闯关答题显示分享按钮
+					$(".starAnswer").show();
+					$(".rankingList").show();
+					$(".pageTitle").text("闯关战绩");
+					$(".readNumber").tap(function(){
+						if(parseInt($(".readNumber>span").html())>0){
+							osg.open("rightAnswer.html");
+						}else{
+							osg.toast("你一个题也没答对！");
+						}
+					});
+					$(".errorNumber").tap(function(){
+						if(parseInt($(".errorNumber>span").html())>0){
+							osg.open("errorAnswer.html");
+						}else{
+							osg.toast("恭喜你全答对啦！");
+						}
+					});
+					osg.ajax('user/mine', null, function(d) {
+						if(!d.phone && !d.matchPhone){
+							$(".shadow").show();
+						}else{
+							$(".shadow").hide();
+						}
+					});
+				}else{
+					$(".pageTitle").text("测试结果");
+					$(".rankingList").hide();
+				}
+				if(fig=="关闭"){
+					plus.webview.close("onlineAnswer.html");
+					plus.webview.close("starAnswer.html");
+					plus.webview.close("myMatchDetail.html");
+				}
+				osg.ajax("form/result",{"menrollPhaseId":enrollPhaseId,"times":allTime},function(data){
+					$(".score>span").html(data.score);
+					$(".allSecond>span").html(data.times);
+					$(".readNumber>span").html(data.trueSubject);
+					$(".errorNumber>span").html(data.erroSubject);
+					if(data.logo){
+						$(".logo").attr("src",qiniuRoot+data.logo);
+						sharLogo = qiniuRoot+data.logo;
+					}
+					if(enrollPhaseId=="111111"){
+						var paihangList = data.paihang;
+						if(data.form){
+							form = data.form;
+							var user = osg.currentUser();
+							shareMsg={
+								href: rootUri.substring(0,rootUri.length-2)+"i/shareResult.do?enrollPhaseId="+enrollPhaseId+"&userId="+user._id,
+					            title: "闯关战绩",
+					            content: form.content,
+					            thumbs: [sharLogo],
+					            pictures: [sharLogo]
+							}
+						}
+						for(var i=0;i<paihangList.length;i++){
+							var temp=oneList.clone();
+							if(i<3){
+								if(i==0){
+									temp.find(".isImg img").attr("src","../resources/images/hotListen1.png");
+								}else if(i==1){
+									temp.find(".isImg img").attr("src","../resources/images/hotListen2.png");
+								}
+								else{
+									temp.find(".isImg img").attr("src","../resources/images/hotListen3.png");
+								}
+							}else{
+								temp.find(".isImg").html(i+1);
+							}
+							if(paihangList[i].user.phone)
+								temp.find(".phoneNumber").html(paihangList[i].user.phone.replace(/(\d{3})(\d{4})(\d{4})/, "$1****$3"));
+							else if(!paihangList[i].user.phone && paihangList[i].user.matchPhone)
+								temp.find(".phoneNumber").html(paihangList[i].user.matchPhone.replace(/(\d{3})(\d{4})(\d{4})/, "$1****$3"));
+							else
+								temp.find(".phoneNumber").html(paihangList[i].user.nickname);
+							temp.find(".score").html(parseFloat(paihangList[i].score).toFixed(2));
+							temp.find(".seconds").html(paihangList[i].times+"s");
+							$(".showScoreList").append(temp);
+						}
+					}
+				})
+				
+			})
+			
+			$(".closeAddTeacher").tap(function(){
+				$(".shadow").hide();
+			})
+			$(".cancel").tap(function(){
+				$(".shadow").hide();
+			});
+			
+			$(".confirm").tap(function(){
+				var teacherPhone=$(".teacherPhone").val();
+				if(teacherPhone){
+					 osg.ajax('user/updateloginUser', {
+						'birthday': "",
+						'sex': "",
+						'nickname': "",
+						'phone':teacherPhone
+					}, function(data) {
+						if(data.status==1){
+							$(".shadow").hide();
+							osg.toast('添加成功！');
+						}else{
+							osg.toast('添加失败！');
+						}
+					}, {
+						noload: true
+					});
+				}else{
+					osg.toast('请填写您的电话！');
+				}
+			})
+			
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+		<script src="../resources/js/share.js"></script>
+	</body>
+
+</html>

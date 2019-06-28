@@ -1,0 +1,515 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.saveAndUse {
+				height: 4rem;
+				line-height: 4rem;
+				text-align: center;
+				margin-top: 1rem;
+			}
+			.information li{
+				border-bottom:1px solid #F5F6F7;
+				padding-top:.6rem;
+				padding-bottom:.2rem;
+			}
+			.information li input,
+			.information li select{
+				width: 71%;
+				margin: 0;
+				padding: 0;
+				border: none;
+				font-size:1rem;				
+			}
+			.information li .hongxing {
+				color: #D32424;
+				margin-right: .3rem;
+			}
+			
+			.information li input::-webkit-input-placeholder {
+				color: #D2D2D2;
+			}
+			.information .leftInfoTip {
+				display: inline-block;
+				width: 24%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p>完善报名信息</p>
+			</div>
+		</header>
+		<div class="my_scroll mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll ">
+				<div style="background: #FFFFFF;margin: 0.5rem;border-radius: 10px;">
+					<ul id="information" class="information">
+						<li class="enroll_field_item1 debug">
+							<p>
+								<span class="leftInfoTip">
+									<span class="hongxing">*</span>
+									<span class="enroll_field_name1"></span>
+								</span>
+								<input class="enroll_field_input1 enroll_field" type="text" label="字段名称" placeholder="点击输入">
+							</p>
+						</li>
+						<li class="enroll_field_item2 debug">
+							<p>
+								<span class="leftInfoTip">
+									<span class="hongxing">*</span>
+									<span class="enroll_field_name2"></span>
+								</span>
+								<select class="enroll_field_select enroll_field" label="字段名称">
+									<option value="">请选择</option>
+								</select>
+							</p>
+						</li>
+						<li class="enroll_field_item3 debug">
+							<p class="student_region_">
+								<span><span><i class="hongxing">*</i>省、市、区</span></span>
+								<span class="student_region">
+									<span class="iconfont valid_readonly" style="float:right" label="地区" required="required">&#xe61c;</span>
+								</span>
+							</p>
+						</li>
+						<li class="enroll_field_item4 debug">
+							<p class="student_Institution_">
+								<span><span><i class="hongxing">*</i>推荐机构</span></span>
+								<span class="student_Institution">
+									<span class="iconfont valid_readonly" style="float:right" label="推荐机构" required="required">&#xe61c;</span>
+								</span>
+							</p>
+						</li>
+					</ul>
+				</div>
+				<div class="saveAndUse">
+					<a class="linearGradientBtn" href="javascript:;">保存</a>
+				</div>
+			</div>
+		</div>
+		<div class="pay_menu mui-scroll-wrapper" style="z-index: 10000;">
+			<div class="pay_bar">
+				<div class="pay_btn ali_pay">
+					<i class="icon iconfont">&#xe634;</i>
+					<div>支付宝</div>
+				</div>
+				<div class="pay_btn wx_pay">
+					<i class="icon iconfont">&#xe603;</i>
+					<div>微信支付</div>
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var data, province, city, district, onetution,twotution,threetution,txt_inst,txt_city;
+			var formFields;
+			var payid = "",
+				channel = {};
+			mui.init();
+			var phoneIsTrue = false,
+				_id = "";
+			var field = {},value;//姓名 性别 身份证 省市区 学校 年级 推荐机构 联系电话
+			field['姓名'] = 'name';
+			field['性别'] = 'sexStr';
+			field['身份证号'] = 'idcard';
+			field['省、市、区'] = 'province';
+			field['学校'] = 'schoolName';
+			field['年级'] = 'gradeStr';
+			field['推荐机构'] = 'institutionName';
+			field['联系电话'] = 'matchPhone';
+			myFunc(function() {
+				var view = plus.webview.getWebviewById("entryInfomation.html");
+				if(view){
+					view.hide();
+				}
+				/* 地区选择开始*/
+				var cityPicker3 = new mui.PopPicker({
+					layer: 3
+				});
+				cityPicker3.setData(cityData);
+				
+				osg.ajax('user/mine', null, function(data) {
+					if(!data)
+						return;
+					var u = data;
+					var token = osg.currentToken();
+					var userInfo = {
+						'user': data,
+						'token': token
+					}
+					osg.currentUserSet(userInfo);
+				},{
+					noload:true
+				})
+				
+				
+				function displayRegion() {
+					txt_city = '';
+					if(province)
+						txt_city += province;
+					if(city)
+						txt_city += '-' + city;
+					if(district)
+						txt_city += '-' + district;
+					$('.student_region').val(txt_city);
+					if(txt_city)
+						$('.student_region').text(txt_city).css("color","#121212");
+					else
+						$('.student_region').text('点击选择').css("color","#6d6d6d");
+				}
+				/* 地区选择结束*/
+				
+				/* 推荐机构开始*/
+				var InstitutionPicker3 = new mui.PopPicker({
+					layer: 3
+				});
+				osg.ajax('match/queryData', {
+						}, function(data) {
+							InstitutionPicker3.setData(data);
+						});
+				function displayInstitution() {
+					txt_inst = '';
+					if(onetution)
+						txt_inst += onetution;
+					if(twotution)
+						txt_inst += '-' + twotution;
+					if(threetution)
+						txt_inst += '-' + threetution;
+					$('.student_Institution').text(txt_inst);
+					if(txt_inst)
+						$('.student_Institution').text(txt_inst).css("color","#121212");
+					else
+						$('.student_Institution').text('点击选择').css("color","#6d6d6d");
+				}
+				/* 推荐机构结束*/
+				var activityId = osg.param('activityId');
+				payid = activityId;
+				/*支付相关*/
+				$(".pay_menu").tap(function() {
+					$(".pay_menu").fadeOut();
+				});
+
+				$(".ali_pay").tap(function() {
+					pay('alipay', payid);
+				});
+				$(".wx_pay").tap(function() {
+
+					pay('wxpay', payid);
+				});
+				// 获取支付通道
+				plus.payment.getChannels(function(channels) {
+					for (var i = 0; i < channels.length; i++) {
+						var c = channels[i];
+						if (c.serviceReady)
+							channel[c.id] = c;
+						//alert(c.id + ":" + c.description + ":" + c.serviceReady);
+					}
+				}, function(e) {
+					alert("获取支付通道失败：" + e.message);
+				});
+
+				function pay(id, typeId) {
+					$(".pay_menu").fadeOut();
+					var url;
+					if (id == 'alipay')
+						url = '/order/payali';
+					else if (id == 'wxpay')
+						url = '/order/payweixin';
+					else
+						return;
+
+					osg.ajax(url, {
+						"typeId": typeId,
+						"type": type,
+						"addressId": "",
+						"count": 0
+					}, function(d) {
+						plus.payment.request(channel[id], d, function(result) {
+							// 支付成功
+							osg.toast('支付成功！');
+							osg.evtFireEvent("enrollActivity");
+							mui.back();
+						}, function(error) {
+							// 支付失败
+							if (error.code == 62000) {
+								osg.toast('支付失败--您未安装此应用，请选择其他支付方式 。');
+							} else {
+								osg.toast('支付失败:' + error.code);
+							}
+						});
+					});
+				}
+				/*支付相关结束*/
+
+				var enrollFieldItem1 = $(".enroll_field_item1");
+				enrollFieldItem1.removeClass('debug').remove();
+				var enrollFieldItem2 = $(".enroll_field_item2");
+				enrollFieldItem2.removeClass('debug').remove();
+				var enrollFieldItem3 = $(".enroll_field_item3");
+				enrollFieldItem3.removeClass('debug').remove();
+				var enrollFieldItem4 = $(".enroll_field_item4");
+				enrollFieldItem4.removeClass('debug').remove();
+				osg.ajax("activity/findById", {
+					id: activityId
+				}, function(data) {
+					// 扩展报名字段输出显示
+					var user = osg.currentUser();
+					formFields = data.formFields;
+					var enrollForms;
+					if (data.enrollActivity) { //有报名信息的
+						_id = data.enrollActivity._id;
+						enrollForms = data.enrollActivity.enrollForms;
+						for (var i = 0; i < formFields.length; i++) {
+							var ef = formFields[i];
+							if (ef.type == 1) {
+								enrollFieldItemObj = enrollFieldItem1.clone();
+								enrollFieldItemObj.find('.enroll_field_name1').text(ef.name);
+								enrollFieldItemObj.find('.enroll_field_input1').attr("label", ef.name);
+								enrollFieldItemObj.find('.enroll_field_input1').val(enrollForms[ef.name]);
+							} else if (ef.type == 2) {//多行文本 暂时未使用
+						
+							} else if (ef.type == 3||ef.type ==4) {
+								if(ef.name == '省、市、区'){
+									enrollFieldItemObj = enrollFieldItem1.clone();
+									enrollFieldItemObj.find('.enroll_field_name1').text(ef.name);
+									enrollFieldItemObj.find('.enroll_field_input1').attr("label", ef.name);
+									enrollFieldItemObj.find('.enroll_field_input1').val(enrollForms['省、市、区']);
+								} else if(ef.name == '推荐机构'){
+									enrollFieldItemObj = enrollFieldItem1.clone();
+									enrollFieldItemObj.find('.enroll_field_name1').text(ef.name);
+									enrollFieldItemObj.find('.enroll_field_input1').attr("label", ef.name);
+									enrollFieldItemObj.find('.enroll_field_input1').val(enrollForms[ef.name]);
+								}else{
+									enrollFieldItemObj = enrollFieldItem2.clone();
+									enrollFieldItemObj.find('.enroll_field_name2').text(ef.name);
+									var selected = enrollForms[ef.name];
+									var valueOption = JSON.parse(ef.valueOption)
+									for (var sel in valueOption) {
+										enrollFieldItemObj.find('.enroll_field_select').attr("label", ef.name);
+										if(sel == enrollForms[ef.name]){
+											enrollFieldItemObj.find(".enroll_field_select").append("<option value='" + sel + "' selected>" + valueOption[sel] + "</option>");
+										}else{
+											enrollFieldItemObj.find(".enroll_field_select").append("<option value='" + sel + "'>" + valueOption[sel] + "</option>");
+										}
+									}
+								}
+							}
+							$('.information').append(enrollFieldItemObj);
+						}
+						if(data.enrollActivity.state==0||data.enrolled==1){
+							$('.linearGradientBtn').text("去支付");
+						}else{
+							$('.linearGradientBtn').text("已报名");
+						}
+					} else { //报名信息为空
+						for (var i = 0; i < formFields.length; i++) {
+							var ef = formFields[i];//姓名 性别 身份证 省市区 学校 年级 推荐机构 联系电话
+							var f = field[ef.name];
+							if(f && user.valid ==1){
+								if(f=='province'){
+									province = user.province;
+									city = user.city;
+									district = user.district;
+									value = user.province+""+user.city+""+user.district;
+								}else{
+									value = user[f];
+								}
+							}else{
+								value = "";
+							}
+							if (ef.type == 1) {
+								enrollFieldItemObj = enrollFieldItem1.clone();
+								enrollFieldItemObj.find('.enroll_field_name1').text(ef.name);
+								enrollFieldItemObj.find('.enroll_field_input1').attr("label", ef.name);
+								if(ef.required ==1){
+									enrollFieldItemObj.find('.enroll_field_input1').attr("requied",ef.required);
+								}else{
+									enrollFieldItemObj.find('.hongxing').hide();
+								}
+								if(value){
+									enrollFieldItemObj.find('.enroll_field_input1').val(value);
+								}
+							} else if (ef.type == 2) {//多行文本 暂时未使用
+
+							} else if (ef.type == 3||ef.type ==4) {
+								if(ef.name == '省、市、区'){
+										enrollFieldItemObj = enrollFieldItem3.clone();
+										enrollFieldItemObj.find('.student_region_').tap(function(){
+											cityPicker3.show(function(items) {
+												province = items[0].text;
+												city = '';
+												district = '';
+												if(items.length > 1 && items[1].value != '0') {
+													city = items[1].text;
+													if(items.length > 2 && items[2].value != '0') {
+														district = items[2].text;
+													}
+												}
+												displayRegion();
+											});
+										})
+										if(value){
+											enrollFieldItemObj.find('.student_region').text(value);
+										}
+								} else if(ef.name == '推荐机构'){
+										enrollFieldItemObj = enrollFieldItem4.clone();
+										enrollFieldItemObj.find('.student_Institution_').tap(function(){
+											InstitutionPicker3.show(function(items) {
+												onetution = items[0].text;
+												twotution = '';
+												threetution = '';
+												if(items.length > 1 && items[1].value != '0') {
+													twotution = items[1].text;
+													if(items.length > 2 && items[2].value != '0') {
+														threetution = items[2].text;
+													}
+												}
+												displayInstitution();
+											});
+										})
+										if(value){
+											txt_inst = value;
+											enrollFieldItemObj.find('.student_Institution').text(value);
+										}
+								}else{
+									if(!value){
+										enrollFieldItemObj = enrollFieldItem2.clone();
+										enrollFieldItemObj.find('.enroll_field_name2').text(ef.name);
+										var valueOption = JSON.parse(ef.valueOption)
+										for (var sel in valueOption) {
+											enrollFieldItemObj.find('.enroll_field_select').attr("label", ef.name);
+											enrollFieldItemObj.find(".enroll_field_select").append("<option value='" + sel + "'>" + valueOption[sel] + "</option>");
+											if(ef.required ==1){
+												enrollFieldItemObj.find('.enroll_field_select').attr("requied",ef.required);
+											}else{
+												enrollFieldItemObj.find('.hongxing').hide();
+											}
+										}
+									}else{
+										enrollFieldItemObj = enrollFieldItem1.clone();
+										enrollFieldItemObj.find('.enroll_field_name1').text(ef.name);
+										enrollFieldItemObj.find('.enroll_field_input1').attr("label", ef.name);
+										enrollFieldItemObj.find('.enroll_field_input1').val(value);
+									}
+								}
+							}
+							$('.information').append(enrollFieldItemObj);
+						}
+					}
+				})
+
+				$(".linearGradientBtn").tap(function() {
+					var str = $('.linearGradientBtn').text();
+					if ('已报名' == str) {
+						return;
+					} else if ('去支付' == str) {
+						doPay(activityId);
+					} else {
+							var enrollForms = {},v = true;
+							$(".enroll_field").each(function() {
+								var $t = $(this);
+								var value = $t.val();
+								var requied = $t.attr('requied');
+								if(1==requied){
+									if(value){
+										enrollForms[$t.attr('label')] = $t.val();
+									}else{
+										osg.toast('请完善相关信息');
+										v = false;
+										return false;
+									}
+								}else{
+									enrollForms[$t.attr('label')] = $t.val();
+								}
+							});
+							if(txt_inst&&province&&city&&district){
+								enrollForms['省'] = province;
+								enrollForms['市'] = city;
+								enrollForms['区'] = district;
+								enrollForms['推荐机构']=txt_inst;
+							}else{
+								v = false;
+							}
+							var param = {
+								_id:_id,
+								activityId: activityId,
+								enrollFormsStr: JSON.stringify(enrollForms)
+							};
+							if(v){
+								osg.ajax('activity/enrollActivity', param, function(d) {
+									if (d.success) {
+										osg.toast('保存成功！');
+										osg.evtFireEvent("enrollActivity");
+										$('.linearGradientBtn').text("去支付");
+									}
+								});
+							}else{
+								osg.toast('还有信息没有完善！');
+							}
+					}
+				})
+
+			})
+			/*验证电话号码*/
+			$(".phone").blur(function() {
+				var currPhone = $(this).val();
+				if (!(/^1\d{10}$/.test(currPhone))) {
+					osg.toast("手机号码有误,请重新输入");
+					$(this).focus();
+					phoneIsTrue = false;
+				} else {
+					/*说动收起键盘*/
+					document.activeElement.blur();
+					phoneIsTrue = true;
+				}
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+
+			function doShowPayMenu() {
+				if (mui.os.ios && (plus.runtime.version + '') == '1.5')
+					pay('alipay', payid);
+				else
+					$(".pay_menu").fadeIn();
+			}
+
+			function doPay(payid) {
+				if (osg.isLogined()) {
+					if (payid) {
+						type = 4;
+						doShowPayMenu();
+					}
+				} else {
+					osg.confirm("请登录！", function() {
+						osg.open('../mine/login.html', null, null, {
+							im: 1
+						});
+					});
+				}
+			}
+		</script>
+	</body>
+
+</html>

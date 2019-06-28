@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.leftShow>img {
+				width: 1.2rem;
+				height: 1.2rem;
+				margin-top: 1.7rem;
+				margin-right: .5rem;
+			}
+			
+			.leftShow>div {
+				display: inline-block;
+				padding-top: 1rem;
+			}
+			
+			.leftShow>div p {
+				margin-bottom: .3rem;
+				width:15rem;
+			}
+			
+			.lookMore {
+				height: 5rem;
+				width: 100%;
+				padding: 0 3%;
+				position: relative;
+				background: #fff;
+				border-bottom: 2px solid #f5f6f7
+			}
+			.lookMore .address{
+				font-size:.8rem;
+			}
+			.lookMore .userName{
+				margin-right:1.5rem;
+				display:inline-block;
+				width:4rem;
+				vertical-align: middle;
+			}
+			.allrowRight {
+				position: absolute;
+				top: 50%;
+				right: 1rem;
+				transform: translateY(-50%);
+				color: #CCCCCC;
+			}
+			
+			.addNewAddress {
+				height: 4rem;
+				padding-top: .7rem;
+				width: 100%;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				background: #fff;
+				z-index: 10000;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p>收货地址</p>
+			</div>
+		</header>
+		<div style="padding-top:.5rem;" class="my_scroll mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll ">
+				<div class="addressList" style="padding-bottom:4rem;">
+					<div class="lookMore">
+						<div class="leftShow">
+							<img class="imgOfInfo" src="../resources/images/noChecked.png" alt="" />
+							<div>
+								<p class="name"><span class="userName more"></span> <span class="number"></span></p>
+								<p style="color:#939393" class="address more"></p>
+							</div>
+						</div>
+						<span class="iconfont allrowRight">&#xe61c;</span>
+					</div>
+				</div>
+			</div>
+			<div class="addNewAddress">
+				<a class="linearGradientBtn" href="javascript:;"><span style="font-weight: bold;">＋</span> 新建收货地址</a>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var fromPage=localStorage.getItem("fromPage");
+			myFunc(function() {
+				/*关闭address页面*/
+				//plus.webview.hide("details.html");
+				//plus.webview.close("details.html");
+				var num = osg.param("num");
+				var addressId = osg.param("addressId");
+				var cardString=localStorage.getItem("cardString");
+				var totalPrice= localStorage.getItem("totalPrice");
+				/*来自商品详情的修改地址*/
+				var currBookId=osg.param("currBookId");
+				var oneAddress = $(".lookMore").clone();
+				$(".lookMore").hide();
+				var addressDetail = osg.param("addressDetail");
+				var district = osg.param("district");
+				osg.evtAddListener(function(d){
+					if(d && d=="addressChange"){
+						reloadAddress();
+					}
+				})
+				reloadAddress();
+				function reloadAddress(){
+					$(".addressList").empty();
+					osg.ajax("address/query", {}, function(data) {
+					for(var i = 0; i < data.data.length; i++) {
+						var currAddress = oneAddress.clone();
+						if(addressId == data.data[i]._id) {
+							$(this).addClass("currChecked").find(".imgOfInfo").attr("src", "../resources/images/checked.png");
+						}
+						currAddress.find(".name>span:first-child").html(data.data[i].name);
+						var numb = data.data[i].phone;
+						currAddress.find(".number").html(numb.slice(0, 3) + "****" + numb.slice(7));
+						currAddress.find(".address").html(data.data[i].province + data.data[i].city + data.data[i].district + data.data[i].address);
+						currAddress.find(".leftShow").attr("data-id", data.data[i]._id);
+						if(data.data[i].address == addressDetail && data.data[i].district == district)
+						currAddress.find(".imgOfInfo").attr("src", "../resources/images/checked.png")
+						currAddress.find(".leftShow").tap(function(){
+							var currAddressId = $(this).attr("data-id");
+							$(".currChecked").removeClass("currChecked");
+							$(".imgOfInfo").attr("src", "../resources/images/noChecked.png");
+							$(this).addClass("currChecked").find(".imgOfInfo").attr("src", "../resources/images/checked.png");
+							var confirmAddressOnce = $(this).find(".address").html();
+							//改变地址信息
+							localStorage.setItem("addressId",currAddressId)
+							osg.evtFireEvent('changeAddress');
+							goodsId=localStorage.getItem("currBookId");
+							//osg.closeMe();
+							openOrder(currAddressId,goodsId,num);
+						})
+						$(".addressList").append(currAddress);
+					}
+					
+					mui.back = function() {
+						if(fromPage){
+							var page = plus.webview.getWebviewById("details.html");
+							if(page){
+								plus.webview.show("details.html");
+							}else{
+								localStorage.setItem("fromPage","");
+								osg.open("details.html")
+							}
+						}else{
+							osg.closeMe();
+						}
+					}
+					function openOrder(currAddressId,goodsId,num){
+						console.log(fromPage+"+"+goodsId);
+						if(fromPage && fromPage=="details" && goodsId){
+							osg.open("details.html")
+							localStorage.setItem("fromPage","");
+						}
+						else if(cardString && totalPrice){
+							osg.open("order.html", {
+								"addressId": currAddressId,
+							}, null, {
+								im: 1
+							})
+							cardString="";totalPrice=0;
+						}else{
+							console.log("去订单页面----");
+							osg.open("order.html", {
+								"addressId": currAddressId,
+								"goodsId": goodsId,
+								"num": num
+							}, null, {
+								im: 1
+							})
+						}
+					}
+				})
+				}
+
+			})
+
+			$(".addNewAddress").tap(function() {
+				osg.open("address.html",{"currPage":"addressListPage"})
+			})
+
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

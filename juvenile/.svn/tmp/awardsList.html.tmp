@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			body{
+				background:#FF3908;
+			}
+			.contents img{
+				width:100%;
+				margin-bottom: 0;
+			}
+			.lists{
+				padding:1rem;
+			}
+			.lists .titleImg{
+				text-align: center;
+				position: relative;
+			}
+			.lists .titleImg img{
+				width:60%;
+			}
+			.titleImg .honorName{
+				position: absolute;
+				top:50%;
+				left:50%;
+				transform: translate(-50%,-50%);
+				font-size:1.3rem;
+				color:#fff;
+			}
+			.honorList{
+				background: #fff;
+				border-radius:8px;
+				font-size:.9rem;
+			}
+			.listTitle{
+				background:#FFF5D8;
+				border-radius:8px 8px 0 0;
+			}
+			.oneList .listTitle{
+				background:#fff;
+				border-radius:0;
+			}
+			.oneList>p:last-child{
+				border-radius:0 0 8px 8px;
+			}
+			.honorList p{
+				width:100%;
+				padding:.5rem 0 .4rem;
+				margin:0;
+				text-align: center;
+			}
+			.honorList p span{
+				display:inline-block;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.honorList p span:first-child,
+			.honorList p span:nth-child(2){
+				width:28%;
+			}
+			.honorList p span:last-child,
+			.honorList p span:nth-child(3){
+				width:20%;
+			}
+			.tips{
+				text-align: left;
+				padding:1rem;
+				font-size:.9rem;
+				background:#fff;
+				margin:1rem 1rem 3rem;
+				border-radius: 8px;
+			}
+			.bottomImg{
+				position: fixed;
+				bottom:0;
+				width:100%;
+				z-index:11;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="position:relative;padding:.5rem;padding-left:0;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">获奖名单</h1>
+			</div>
+		</header>
+		
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll">
+				<div class="contents">
+					<img src="../resources/images/banner.png" alt="" />
+					<div class="allList">
+						<div class="lists">
+							<p class="titleImg">
+								<img src="../resources/images/honorTitleImg.png" alt="" />
+								<span class="honorName"></span>
+							</p>
+							<div class="honorList">
+								<p class="listTitle">
+									<span class="name">昵称</span>
+									<span class="phone">联系方式</span>
+									<span class="score">分数</span>
+									<span class="needTime">用时</span>
+								</p>
+								<div class="oneList">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!--提示-->
+					<div class="tips">
+						<p>温馨提示：</p>
+						<span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<img class="bottomImg" src="../resources/images/bottomImg.png" alt="" />
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script type="text/javascript">
+			var formId=localStorage.getItem("formId");
+			var tip=localStorage.getItem("tip");
+			/*localStorage.removeItem("formId");
+			localStorage.removeItem("tip");*/
+			var oneList1=$(".listTitle").clone();
+			var lists=$(".lists").clone();
+			$(".lists").remove();
+			myFunc(function() {
+				if(formId){
+					$(".tips>span").html(tip);
+					osg.ajax("form/showWinners.do",{"formId":formId},function(data){
+						for(var i=0;i<data.length;i++){
+							var temps=lists.clone();
+							temps.find(".honorName").html(data[i][0].prizeName);
+							for(var j=0;j<data[i].length;j++){
+								var temp=oneList1.clone();
+								temp.find(".name").html(data[i][j].nickName);
+								temp.find(".phone").html(data[i][j].phone.replace(/(\d{3})(\d{4})(\d{4})/,"$1****$3"));
+								temp.find(".score").html(data[i][j].score);
+								temp.find(".needTime").html(data[i][j].seconds+"s");
+								temps.find(".oneList").append(temp);
+							}
+							$(".allList").append(temps)
+						}
+					})
+				}
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+			
+		</script>
+	</body>
+
+</html>

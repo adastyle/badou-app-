@@ -1,0 +1,550 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				padding:0;
+				margin:0;
+			}
+			.bgTopImg {
+				width:100%;
+				height:9rem;
+				overflow: hidden;
+				border-bottom:1px solid transparent !important;
+				margin-bottom:0;
+				position:relative;
+			}	
+			.bgTopImg img{
+				width:100%;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-size:1.2rem;
+				font-weight:bold;
+				position: relative;
+				margin-left:0
+			}
+			
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.headerTi>span:first-child{
+				left:4%;
+			}
+			.headerTi>span:last-child{
+				right:1rem;
+			}
+			.headerTi a{
+				color:#121212;
+			}
+			
+			.allPlay{
+				height:3rem;
+				margin-top:1.5rem;
+				line-height: 2.2rem;
+				position:relative;
+				border:1px solid #f5f6f7;
+				border-top:none;
+			}
+			.allPlay>a{
+				margin-left:1rem;
+				padding:.5rem 1rem;
+				background:#f5f6f7;
+				border-radius:25px;
+				color:#121212;
+			}
+			.allPlay .allDownload{
+				position:absolute;
+				right:1rem;
+				color:#747682;
+				font-size:1.2rem;
+				display:none;
+			}
+			
+			/*查看更多*/
+			.module{
+				background:#fff;
+				z-index: 1000;
+				margin-bottom:4rem;
+			}
+			.lookMore{
+				height:7rem;
+				width:100%;
+				padding:0 3%;
+				position:relative;
+				border-bottom:1px solid #F5F6F7;
+				background:#fff;
+				z-index:1000
+			}
+			.lookMore:last-child{
+				border-bottom:#00F7DE;
+			}
+			.lookMoreTi{
+				color:#121212;
+				font-weight: bold;
+				font-size:1.2rem;
+				margin-bottom:0;
+				padding-left:3%;
+				padding-top:.5rem;
+			}
+			.lookMore>div.leftShow>img{
+				width:4rem;
+				height:4rem;
+				margin-top:1.7rem;
+				vertical-align:middle;
+				border-radius:4px;
+			}
+			.lookMore>div.leftShow>div{
+				display:inline-block;
+				padding-top:1rem;
+			}
+			.lookMore>div.leftShow>div p{
+				margin:0.3rem;
+				font-size:1rem;
+				color:#121212;
+			}
+			.allrowRight{
+				position: absolute;
+				top:50%;
+				right:1rem;
+				transform:translateY(-50%);
+				color:#CCCCCC;
+				text-align: center;
+				font-size:.8rem;
+				padding:.5rem;
+			}
+			.allrowRight.noFree {
+				color:#D32424 !important;
+			}
+			.allrowRight.noFree p{
+				display:block !important;
+			}
+			.fonts>span{
+				margin-right:1rem;
+			}
+			.fonts i.iconfont{
+				margin-right:.1rem;
+				font-size:.9rem;
+			}
+			
+			.topNum{
+				color:#EE4E4E;
+				font-size:1.1rem;
+				position: absolute;
+				top:61%;
+				left:0;
+				transform: translateY(-50%);
+			}
+			
+			/*分享方式*/
+			.shadow{
+				position: fixed;
+				top:0;
+				height:100%;
+				width:100%;
+				background:#000;
+				opacity:0.5;
+				text-align: center;
+				z-index:1000;
+				list-style: none;
+			}
+			.shadow .shareWay{
+				position:absolute;
+				bottom:0;
+				height:9rem;
+				width:100%;
+				background:#fff;
+			}
+			.shareWay>li{
+				display:inline-block;
+				width:30%;
+				height:4rem;
+				text-align: center;
+				font-size:.8rem;
+				padding-top:1rem;
+			}
+			.shareWay>li img{
+				width:2.2rem;
+			}
+			.cancel{
+				position:absolute;
+				bottom:0;
+				height:3rem;
+				text-align: center;
+				font-size:1.2rem;
+				color:#121212;
+				width:100%;
+				border-top:2px solid #F5F6F7;
+				padding-top:1.2rem;
+			}
+			.openVip,memo{
+				width: 98%;
+			}
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+					<a href="javascript:;" class="pageTitle">热听榜</a>
+					<!--分享先隐藏-->
+					<!--<span class="iconfont">&#xe6a8;</span>-->
+				</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll voice_scroll ">
+				<div class="allPlay">
+					<a class="all_play"><span class="iconfont allPlay">&#xe618;</span>全部播放</a>
+					<!--<span class="allDownload iconfont">&#xe615;</span>先把下载图标隐藏-->
+					<span class="allDownload iconfont">&#xe6be;</span>
+				</div>
+				<div class="audioLists module isShow">
+					<div class="lookMore">
+						<div class="leftShow" style="position:relative;padding-left:1.8rem;">
+							<span class="iconfont topNum"><img src="../resources/images/todayRecommend.png" alt="" style="width: 1.3rem;height: 1.6rem;"/></span>
+							<img class="imgOfInfo" src="" alt="" />
+							<div class="audioListnameMore">
+								<p class="openVip"></p>
+								<p style="color:#939393" class="memo"></p>
+								<p style="color:#939393" class="fonts">
+									<span><i class="iconfont"></i><span class="playTimes"></span></span>
+									<span><i class="iconfont"></i><span class="duration"></span></span>
+								</p>
+							</div>
+						</div>
+						<div class="allrowRight">
+							<span class="iconfont down_icon">&#xe606;</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--分享先隐藏-->
+			<!--<div class="shadow">
+				<ul class="shareWay">
+					<li>
+						<img src="../resources/images/weixin.png" alt="" />
+						<p>微信</p>
+					</li>
+					<li>
+						<img src="../resources/images/pengyouquan.png" alt="" />
+						<p>朋友圈</p>
+					</li>
+				</ul>
+				<p class="cancel">取消</p>
+			</div>-->
+			
+		</div>
+		
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script src="../resources/js/download.js "></script>
+		<script type="text/javascript">
+			var voices,count=0;
+			var voiceFpi,ptr;
+			var voiceTemp= $(".lookMore").clone();
+			$(".lookMore").remove();
+			myFunc(function() {
+				var voiceInfo = osg.param("voiceInfo");
+				$(".pageTitle").text(voiceInfo);
+				
+				if("热听榜"==voiceInfo || "最近播放"==voiceInfo){
+					myscroll = $(".voice_scroll")[0];
+					mui(myscroll).pullToRefresh({
+						up: {
+							auto: true,
+							callback: function() {
+								ptr = this;
+								var nextPage;
+								if(voiceFpi)
+									nextPage = voiceFpi.page + 1;
+								else
+									nextPage = 1;
+	
+								findPage(nextPage, {
+									'self': this
+								});
+							}
+						},
+					});
+				}
+				
+				
+				
+				//分页函数
+				function findPage(page, param) {
+					if(!param) {
+						param = {};
+					}
+					param.self = ptr;
+					
+					if("热听榜"==voiceInfo){
+						hotAjax(page, param);
+					}
+					
+					if("最近播放"==voiceInfo){
+						voiceAjax(page, param);
+					}
+					
+				}
+				function getItem(oneData){
+					if("热听榜"==voiceInfo){
+						count++;
+						var voi = voiceTemp.clone();
+						if(count<4){
+							if(count==1){
+								voi.find(".topNum img").attr("src","../resources/images/hotListen1.png");
+							}else if(count==2){
+								voi.find(".topNum img").attr("src","../resources/images/hotListen2.png");
+							}else if(count==3){
+								voi.find(".topNum img").attr("src","../resources/images/hotListen3.png");
+							}else if(count==100){
+								voi.find(".topNum").css("marginLeft","-.4rem")
+							}
+						}else{
+							if(count<10){
+								voi.find(".topNum").css("marginLeft",".4rem");
+							}else if(count==100){
+								voi.find(".topNum").css("marginLeft","-.4rem")
+							}
+							voi.find(".topNum").html(count).css('color','gray');
+						}
+						voi.find(".allrowRight").data("data",oneData);
+						voi.find(".imgOfInfo").attr("src",qiniuRoot+oneData.logo+ '!app.voicesmall.img');
+						voi.find(".allrowRight").find(".down_icon").attr("data-down",oneData._id);
+						voi.find(".imgOfInfo").attr("src",qiniuRoot+oneData.logo);
+						voi.find(".openVip").html(oneData.title);
+						voi.find(".memo").html(oneData.memo);
+						voi.find(".fonts>span:first-child .iconfont").html("&#xe610;");
+						voi.find(".fonts>span:last-child .iconfont").html("&#xe62e;");
+						voi.find(".playTimes").html(oneData.times);
+						voi.find(".duration").html(oneData.commentTimes);
+						voi.attr('id', oneData._id);
+						voi.data('data', oneData);
+						voi.tap(function(){
+							var voice_data = $(this).data('data');
+							if(voice_data.buyType==1){
+								if(voiceFpi.data && voiceFpi.data.length>0){
+									var vlist = [];
+									for(var i=0;i<voiceFpi.data.length;i++){
+										if(voiceFpi.data[i].buyType==1){
+											vlist.push(voiceFpi.data[i]);
+										}
+									}
+									osg.set('voice_list',vlist);//把列表缓存到本地
+								}
+								osg.set("voice_now",voice_data);
+								osg.evtFireEvent('update');
+								osg.open('audioPlay.html', {
+								}, null, {
+									im: 1,
+									id:"details"
+								});
+							}else{
+								if(voice_data.resourcePackId){
+									osg.open('audioList.html', {
+										"categoryId": voice_data.resourcePackId,
+										"cateGoryInfo":"资源包"
+									}, null, {
+										im: 1
+									});
+								}
+							}
+						});
+						voi.find(".allrowRight").tap(function(){
+							event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+							$this = $(this);
+							fileDownload($this);
+							$(this).find(".down_icon").html("&#xe653;").css("fontSize","1.2rem");
+						});
+					}else if("最近播放"==voiceInfo){
+						var voi = voiceTemp.clone();
+						voi.find(".topNum img").remove();
+						voi.find(".leftShow").css("paddingLeft",".5rem");
+						voi.find(".topNum").css({
+							width:0,
+							overFlow:"hidden",
+							marginRight:".3rem"
+						});
+						voi.find(".allrowRight").data("data",oneData);
+						voi.find(".imgOfInfo").attr("src",qiniuRoot+oneData.logo+'!app.voicesmall.img');
+						voi.find(".allrowRight").find(".down_icon").attr("data-down",oneData._id);
+						voi.find(".imgOfInfo").attr("src",qiniuRoot+oneData.logo);
+						voi.find(".openVip").html(oneData.title);
+						voi.find(".memo").html(oneData.memo);
+						voi.find(".fonts>span:first-child .iconfont").html("&#xe610;");
+						voi.find(".fonts>span:last-child .iconfont").html("&#xe62e;");
+						voi.find(".playTimes").html(oneData.times);
+						voi.find(".duration").html(oneData.commentTimes);
+						voi.attr('id', oneData._id);
+						voi.data('data', oneData);
+						voi.tap(function(){
+							var voice_data = $(this).data('data');
+							if(voiceFpi.data && voiceFpi.data.length>0){
+								var vlist = [];
+								for(var i=0;i<voiceFpi.data.length;i++){
+									vlist.push(voiceFpi.data[i].info);
+								}
+								osg.set('voice_list',vlist);//把列表缓存到本地
+							}
+							osg.set("voice_now",voice_data);
+							osg.evtFireEvent('update');
+							osg.open('audioPlay.html', {
+							}, null, {
+								im: 1,
+								id:"details"
+							});
+						});
+						voi.find(".allrowRight").tap(function(){
+							event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+							$this = $(this);
+							fileDownload($this);
+							$(this).find(".down_icon").html("&#xe653;").css("fontSize","1.2rem");
+						});
+					}
+					
+					$(".audioLists").append(voi);
+				}
+				
+				function hotAjax(page,param){
+					osg.ajax('voice/hotQuery', {
+						'page': page
+					}, function(data) {
+						// 下拉的情况下，结束下拉刷新状态
+						if(param.pullDown)
+							param.self.endPullDownToRefresh();
+						if(!data) {
+							param.self.endPullUpToRefresh(true);
+							return;
+						}
+						if(page == 1) {
+							$("#audioLists").html('');
+						}
+						voiceFpi = data;
+						voices = data.data;
+						for(var i = 0; i < data.data.length; i++) {
+							var oneData = data.data[i];
+							getItem(oneData);
+						}
+						hasDown();
+						param.self.endPullUpToRefresh(data.page >= 10);
+					}, {
+						noload: true
+					});
+				}
+				
+				function voiceAjax(page,param){
+					osg.ajax('viewed/fpByUserId', {
+						'page': page,
+						'deviceid': plus.device.uuid,
+						'type': "voice"
+					}, function(data) {
+						// 下拉的情况下，结束下拉刷新状态
+						if(param.pullDown)
+							param.self.endPullDownToRefresh();
+						if(!data) {
+							param.self.endPullUpToRefresh(true);
+							return;
+						}
+						if(page == 1) {
+							$("#audioLists").html('');
+						}
+						voiceFpi = data;
+						voices = data.data;
+						for(var i = 0; i < data.data.length; i++) {
+							var oneData = data.data[i].info;
+							getItem(oneData);
+						}
+						hasDown();
+						param.self.endPullUpToRefresh(data.page >= data.pages);
+					}, {
+						noload: true
+					});
+				}
+				
+				function downAjax(page,param){
+					var cd = osg.get(cacheKeys.downloads);
+					if(cd){
+						cd = JSON.parse(cd);
+						voices = cd;
+						for(var i = 0; i < cd.length; i++) {
+							var oneData = cd[i];
+							getItem(oneData);
+						}
+					}
+					
+					
+				}
+				/*
+				function createDownload(url) {
+					var dtask = plus.downloader.createDownload(url, {
+						method: "GET ",
+						filename: "_doc/audio/"
+					}, function(d, status) {
+						if(status == 200) {
+							alert("Download success: " + d.filename);
+						} else {
+							alert("Download failed: " + status);
+						}
+					})
+					dtask.start();
+				}*/
+				//全部播放点击事件
+				$(".all_play").tap(function() {
+					if(voices && voices.length>0){
+						var vlist = [];
+						if("热听榜"==voiceInfo){
+							for(var i=0;i<voices.length;i++){
+								if(voices[i].buyType==1){
+									vlist.push(voices[i]);
+								}
+							}
+							osg.set("voice_now",voices[0]);
+						}
+						if("最近播放"==voiceInfo){
+							for(var i=0;i<voices.length;i++){
+								vlist.push(voices[i].info);
+							}
+							osg.set("voice_now",voices[0].info);
+						}
+						osg.set('voice_list',vlist);//把列表缓存到本地
+						osg.evtFireEvent('update');
+						osg.open('audioPlay.html', {
+						}, null, {
+							im: 1,
+							id:"details"
+						});
+					}else{
+						osg.toast('没有要播放的故事！');
+					}
+				});
+					
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

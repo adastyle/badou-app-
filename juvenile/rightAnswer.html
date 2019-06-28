@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin-bottom:0;
+			}
+			.jumpToInfo{
+				text-align: center;
+				padding:1.5rem 0;
+				font-size:1.1rem;
+				text-align: center;
+				font-weight:bold;
+			}
+			.contents{
+				width:93%;
+				margin:0 auto;
+			}
+			.module{
+				background:rgba(255,255,255,1);
+				padding:1rem;
+				margin:1rem 0;
+				color:#121212;
+				line-height:1.5rem;
+			}
+			.subject{
+				font-weight:bold;
+				margin-top:0;
+				padding:1rem;
+				margin:1rem 0;
+				color:#121212;
+				line-height:1.5rem;
+				border-bottom:1px solid #F5F6F7;
+			}
+			.kuohao{
+				margin-right:.3rem;
+			}
+			.currAnswerQuestion{
+				color:#D32424;
+			}
+			.module.rightAnswer{
+				background:#F4F8EE;
+				border-radius:10px;
+				color:#5CA614;
+			}
+			.answerDisc{
+				border-top:1px solid #F5F6F7;
+				padding:1rem;
+			}
+			.answerDisc>span:first-child{
+				margin-right:2rem;
+			}
+			.questionTemplate{
+				background:rgba(255,255,255,1);
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				border-radius:10px;
+				padding:0 .5rem;
+			}
+			/*调整标题开始*/
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.headerTi>span:first-child{
+				left:4%;
+			}
+			.headerTi a{
+				color:#121212;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-size:1.2rem;
+				font-weight:bold;
+				position: relative;
+				margin-left:0
+			}
+			.header p{
+				padding:0;
+				margin:0;
+			}
+			/*调整标题结束*/
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<!--<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p>正确题目</p>-->
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+					<a href="javascript:;" class="pageTitle">正确题目</a>
+				</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll">
+				<div class="contents">
+					<div class="questionTemplate">
+						<div class="subject">
+							<span class="kuohao">(<span class="currAnswerQuestion"></span>)</span>
+							<span class="question"></span>
+						</div>
+						<div class="module">
+							<span class="select"></span>
+							<span class="answer"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var options=$(".module").clone();
+			$(".module").hide();
+			var questions=$(".questionTemplate").clone();
+			$(".questionTemplate").hide();
+			var htmls=`<div class="answerDisc">
+					<span class="rightAnswer"></span>
+					<span class="yourAnswer"></span>
+				</div>`
+			myFunc(function() {
+				osg.ajax("form/answerResult",{menrollPhaseId:"111111",str:"正确"},function(data){
+					for(var i=0;i<data.trueObjectList.length;i++){
+						var currQuestion=questions.clone();
+						var answers=$(htmls).clone();
+						currQuestion.find(".subject .question").html(data.trueObjectList[i].nameDisp);
+						currQuestion.find(".currAnswerQuestion").html((parseInt(data.trueObjectList[i].current)+1) +"/"+data.trueObjectList[i].allcount)
+						var allOption=JSON.parse(data.trueObjectList[i].valueOption);
+						for(var sel in allOption){
+							var currOption=options.clone();
+							currOption.find(".select").html(sel.toUpperCase());
+							currOption.find(".answer").html(". "+allOption[sel]);
+							if(data.trueObjectList[i].userAnwer==sel.toUpperCase()){
+								currOption.addClass("rightAnswer");
+								currOption.append('<span class="iconfont" style="float:right;font-size:1.5rem;">&#xe6c0;</span>')
+							}
+							currQuestion.append(currOption);
+						}
+						answers.find(".rightAnswer").html("正确答案："+data.trueObjectList[i].answer);
+						if(data.trueObjectList[i].userAnwer)
+							answers.find(".yourAnswer").html("你的答案："+data.trueObjectList[i].userAnwer);
+						else
+							answers.find(".yourAnswer").html("你的答案：");
+						currQuestion.append(answers);
+						$(".contents").append(currQuestion);
+					}
+				})
+			})
+			
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+</html>

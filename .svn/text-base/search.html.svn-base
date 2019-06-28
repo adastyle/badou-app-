@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="./resources/css/mui.min.css" rel="stylesheet" />
+		<link href="./resources/css/style.css" rel="stylesheet" />
+		<link href="./resources/fonts/iconfont.css" rel="stylesheet" />
+		<style type="text/css">
+			.bar_input {
+				position: absolute;
+				left: 2.75rem;
+				bottom: 0.5rem;
+				right: 3.375rem;
+				height: 1.75rem;
+			}
+			
+			.bar_input>input {
+				border: #026A7B;
+				font-size: 0.875rem;
+				height: 1.75rem;
+				border-radius: 0.875rem;
+				background-color: #f5f5f6;
+			}
+			/*解决css缓存问题，后续版本可删除*/
+			
+			.search {
+				position: absolute;
+				background-color: transparent !important;
+				right: 0;
+				bottom: 0.45rem;
+				border: none;
+				color: #4A90E2;
+			}
+			
+			.mui-bar~.mui-content .mui-fullscreen.top0 {
+				top: 0 !important
+			}
+			
+			img {
+				height: 80px;
+			}
+			/*解决css缓存问题结束*/
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="mui-action-back inline">
+				<div class="icon iconfont icon-fanhui"></div>
+			</div>
+			<div class="bar_input"><input id="search_put" type="text" placeholder="请输入查询内容"></div>
+			<button class="search" type="button" id="search_btn">搜索</button>
+		</header>
+		<div class="mui-content">
+			<div class="mui-slider mui-fullscreen">
+				<!--去掉横向滑动支持<div class="school mui-slider">-->
+				<div class="my_bar mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item school-content1 mui-active" href="#content1">新闻</a>
+						<a class="mui-control-item school-content2" href="#content2">音频</a>
+						<a class="mui-control-item school-content3" href="#content3">商品</a>
+					</div>
+				</div>
+				<div class="mui-slider-group" style="padding-top:1rem;">
+					<div id="content1" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll news_scroll">
+							<ul id="news_list">
+								<!--单图条目 -->
+								<li class="news_item news_item_1 news_img1 debug">
+									<div>
+										<div class="left">
+											<div class="title more2">
+												2018年高考艺考开幕 济南六千考生同场竞技2018年高考艺考开幕 济南六千考生同场竞技
+											</div>
+											<div class="subtitle">
+												<span class="author">八斗国学</span>
+												<span class="time m-l-4">2018-08-22</span>
+											</div>
+										</div>
+										<img src="resources/images/listenMustic1.png" />
+									</div>
+								</li>
+								<!--无图条目-->
+								<li class="news_item news_item_0 news_noimg debug">
+									<div>
+										<div class="title more2">
+											2018年高考艺考开幕 济南六千考生同场竞技2018年高考艺考开幕 济南六千考生同场竞技
+										</div>
+										<div class="subtitle">
+											<span class="author">八斗国学</span>
+											<span class="time m-l-4">2018-08-22</span>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div id="content2" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll vioce_scroll">
+								<ul id="voice_list">
+									<li class="voice_item news_item news_img1 debug">
+										<div>
+											<div class="left">
+												<div class="title more2">
+													2018年高考艺考开幕 济南六千考生同场竞技2018年高考艺考开幕 济南六千考生同场竞技
+												</div>
+												<div class="subtitle">
+													<span class="author">八斗国学</span>
+													<span class="time m-l-4">2018-08-22</span>
+												</div>
+											</div>
+											<img src="resources/images/listenMustic1.png" />
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="content3" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll goods_scroll">
+								<ul id="goods_list">
+									<li class="goods_item news_item news_img1 debug">
+										<div>
+											<div class="left">
+												<div class="title more2">
+													2018年高考艺考开幕
+												</div>
+												<div class="subtitle">
+													<span class="author">八斗国学</span>
+													<span class="time m-l-4">2018-08-22</span>
+												</div>
+											</div>
+											<img src="resources/images/listenMustic1.png" />
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="./resources/js/mui.min.js"></script>
+		<script src="./resources/js/jquery.min.js"></script>
+		<script src="./resources/js/common.js"></script>
+		<script src="./resources/js/mui.pullToRefresh.js"></script>
+		<script src="./resources/js/mui.pullToRefresh.material.js"></script>
+		<script type="text/javascript">
+			var vioceFpi, goodsFpi, newsFpi, ptr, title;
+			myFunc(function() {
+				var mine = osg.param("mine");
+				if(mine != null) {
+					$('.bar_input').remove();
+					$('#search_btn').remove();
+				}
+				var myscroll = $(".vioce_scroll")[0];
+				mui(myscroll).pullToRefresh({
+					up: {
+						auto: true,
+						callback: function() {
+							ptr = this;
+							var nextPage;
+							if(vioceFpi)
+								nextPage = vioceFpi.page + 1;
+							else
+								nextPage = 1;
+
+							findPage('voice', nextPage, title, {
+								'self': this
+							});
+						}
+					},
+				});
+				myscroll = $(".goods_scroll")[0];
+				mui(myscroll).pullToRefresh({
+					up: {
+						auto: true,
+						callback: function() {
+							ptr = this;
+							var nextPage;
+							if(goodsFpi)
+								nextPage = goodsFpi.page + 1;
+							else
+								nextPage = 1;
+
+							findPage('goods', nextPage, title, {
+								'self': this
+							});
+						}
+					},
+				});
+				myscroll = $(".news_scroll")[0];
+				mui(myscroll).pullToRefresh({
+					up: {
+						auto: true,
+						callback: function() {
+							ptr = this;
+							var nextPage;
+							if(newsFpi)
+								nextPage = newsFpi.page + 1;
+							else
+								nextPage = 1;
+
+							findPage('news', nextPage, title, {
+								'self': this
+							});
+						}
+					},
+				});
+
+				//分页函数
+				function findPage(type, page, title, param) {
+
+					if(!param) {
+						param = {};
+					}
+					param.self = ptr;
+					if(!mine) {
+
+					} else if(mine == 'favor') {
+
+						osg.ajax('favor/fpByUserId', {
+							'page': page,
+							'type': type
+						}, function(data) {
+							// 下拉的情况下，结束下拉刷新状态
+							if(param.pullDown)
+								param.self.endPullDownToRefresh();
+							if(!data) {
+								param.self.endPullUpToRefresh(true);
+								return;
+							}
+							eval(type + "Fpi = data;");
+							for(var i = 0; i < data.data.length; i++) {
+								var oneData = data.data[i];
+
+								$("#" + type + "_list").append(getItem(type, oneData.object));
+							}
+							param.self.endPullUpToRefresh(data.page >= data.pages);
+							var title;
+						}, {
+							noload: true
+						});
+					} else if(mine == 'history') {
+						osg.ajax('viewed/fpByUserId', {
+							'page': page,
+							'deviceid': plus.device.uuid,
+							'type': type
+						}, function(data) {
+							// 下拉的情况下，结束下拉刷新状态
+							if(param.pullDown)
+								param.self.endPullDownToRefresh();
+							if(!data) {
+								param.self.endPullUpToRefresh(true);
+								return;
+							}
+							eval(type + "Fpi = data;");
+							for(var i = 0; i < data.data.length; i++) {
+								var oneData = data.data[i];
+								$("#" + type + "_list").append(getItem(type, oneData.object));
+							}
+							param.self.endPullUpToRefresh(data.page >= data.pages);
+							var title;
+						}, {
+							noload: true
+						});
+					}
+
+				}
+
+				// 条目模板
+				var vioceItemObj = $('.voice_item');
+				vioceItemObj.remove().removeClass("debug");
+				var goodItemObj = $('.goods_item');
+				goodItemObj.remove().removeClass("debug");
+				// 新闻单图条目模板
+				var newsImg1Obj = $('.news_item_1');
+				newsImg1Obj.remove().removeClass("debug");
+				// 新闻无图条目模板
+				var newsNoimgObj = $('.news_item_0');
+				newsNoimgObj.remove().removeClass("debug");
+
+				// 用于判断是否上一条为单图或无图新闻条目，如果是则加border-top分隔样式
+				var flag = false;
+				// 获取新闻显示条目
+				function getItem(type, oneData) {
+					var listItem;
+					if(type == 'voice') { // 音频条目显示
+						listItem = vioceItemObj.clone();
+						listItem.find('img').attr('src', qiniuRoot + oneData.logo);
+						if(flag)
+							listItem.children().addClass('line');
+						flag = true;
+						listItem.find('.time').text(oneData.strDuration);
+
+						listItem.data('id', oneData._id);
+						listItem.find('.title').text(oneData.title);
+
+						listItem.tap(function(e) {
+							osg.open('home/audioPlay.html', {
+								'id': $(this).data('id')
+							}, {
+								hide: function() {
+									// 设置应用非全屏显示！
+									plus.navigator.setFullscreen(false);
+								}
+							}, {
+								im: 1,
+								notChangeStatusBar: true
+							});
+						});
+					} else if(type == 'goods') {
+						listItem = goodItemObj.clone();
+						if(oneData.logo){
+							listItem.find('img').attr('src', qiniuRoot+oneData.logo);
+						}else{
+							listItem.find('img').attr('src', 'resources/images/listenMustic1.png');
+						}
+						if(flag)
+							listItem.children().addClass('line');
+						flag = true;
+						listItem.data('id', oneData._id);
+						listItem.find('.title').text(oneData.title);
+						listItem.find('.time').text(oneData.createTime);
+						listItem.tap(function(e) {
+							osg.open('mall/details.html', {
+								'bookId': $(this).data('id')
+							}, {
+								hide: function() {
+									// 设置应用非全屏显示！
+									plus.navigator.setFullscreen(false);
+								}
+							}, {
+								im: 1,
+								notChangeStatusBar: true
+							});
+						});
+
+					} else if(type == 'news') {
+						var imgCount = oneData.images.length;
+						if(imgCount > 0) { // 单图新闻
+							listItem = newsImg1Obj.clone();
+							listItem.find('img').attr('src', 'resources/images/listenMustic1.png');
+							if(flag)
+								listItem.children().addClass('line');
+							flag = true;
+						} else { // 无图新闻
+							listItem = newsNoimgObj.clone();
+							if(flag)
+								listItem.children().addClass('line');
+							flag = true;
+						}
+						listItem.find('.author').text(oneData.author);
+						listItem.find('.time').text(oneData.createTime);
+
+						listItem.data('id', oneData._id);
+						listItem.find('.title').text(oneData.title);
+						listItem.tap(function(e) {
+							osg.open('juvenile/detail.html', {
+								'newsId': $(this).data('id')
+							}, null, {
+								im: 1
+							});
+						});
+					}
+					return listItem;
+				}
+
+				function openDetail(type, id) {
+					var param = {};
+					param[type + 'Id'] = id;
+					osg.open(type + '/detail.html', param, {
+						hide: function() {
+							// 设置应用非全屏显示！
+							plus.navigator.setFullscreen(false);
+						}
+					});
+				}
+				
+			});
+		</script>
+	</body>
+
+</html>

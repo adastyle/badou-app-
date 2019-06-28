@@ -1,0 +1,375 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.contents{
+			   width:93%;
+			   margin:0 auto;
+			}
+			.bigTitle{
+				font-size:1.2rem;
+				margin:1rem 0;
+			}
+			.jpContent>ul{
+				list-style: none;
+				overflow: hidden;
+				margin-bottom:.7rem;
+			}
+			.jpContent>ul li{
+				float:left;
+				font-size:.9rem;
+				height:1.5rem;
+				margin-right: 1rem;
+				position:relative;
+			}
+			.jpContent>ul li.active:after{
+				display:block;
+				content:"";
+				width:30%;
+				height:2px;
+				background:#D32424;
+				position:absolute;
+				bottom:0;
+				left:50%;
+				transform:translateX(-50%);
+			}
+			.changeBox1{
+				text-align: center;
+			}
+			.changeBox1>div{
+				display:inline-block;
+				width:31%;
+				text-align: left;
+			}
+			.changeBox1>div:nth-child(2){
+				margin:0 3.4%;
+			}
+			.changeBox1>div .resources{
+				position: relative;
+				width:100%;
+			}
+			.changeBox1>div .resources img{
+				width:100%;
+				border-radius:10px;
+			}
+			.changeBox1>div .resources a{
+				position:absolute;
+				left:.5rem;
+				bottom:.5rem;
+				font-size:.8rem !important;
+				color:#fff;
+			}
+			.changeBox1>div>p{
+				width:90%;
+				font-size:.9rem;
+			}
+			/*蒙学经典*/
+			.newsTitle{
+				font-size:.9rem;
+			}
+			.moduleBanner{
+				position:relative;
+			}
+			.moduleBanner>img:first-child{
+				width:100%;
+			}
+			.moduleImgShow p.curTitle{
+				margin:0;
+				margin-top:.3rem;
+				text-align: left;
+			}
+			.moduleImgShow>div{
+				display:inline-block;
+				width:48%;
+				margin-bottom:1.5rem;
+				font-size:.9rem;
+			}
+			.oneBanner{
+				padding-bottom:.5rem;
+			}
+			.moduleImgShow>div img{
+				border-radius: 4px;		
+				width:100%;	
+			}
+			.moduleImgShow>div:nth-child(2n){
+				margin-left:3.5%;
+			}
+			
+			.hasResources .resources{
+				position: relative;
+				width:100%;
+			}
+			.hasResources .resources img{
+				width:100%;
+				border-radius:4px;
+			}
+			.hasResources .resources a{
+				position:absolute;
+				left:.5rem;
+				bottom:.5rem;
+				font-size:.8rem !important;
+				color:#fff;
+			}
+			.hasResources>p{
+				width:90%;
+				font-size:.9rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="padding:.5rem;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">精品内容</h1>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll">
+				<div class="contents">
+					<div class="jpContent">
+						<p class="bigTitle">精品故事</p>
+						<ul>
+							<li class="active" data-active="li1"></li><li data-active="li2"></li><li data-active="li3"></li>
+						</ul>
+						<div class="changeBox1"></div>
+					</div>
+					
+					<!--蒙学经典 --上banner下四图-->
+					<div class="mxClassic">
+						<p class="bigTitle">蒙学经典</p>
+						<div class="oneBanner hasResources">
+							<div class="resources">
+								<img class="bannerImg" style="border-radius:10px;" src="" alt="" />
+								<a>
+									<span class="iconfont">&#xe672;</span>
+									<span  class="nums"></span>
+								</a>
+							</div>
+							<p class="newsTitle more"></p>
+						</div>
+						<div class="moduleImgShow">
+						</div>
+					</div>
+					<!--单个banner-->
+					<div class="oneBannerStyle">
+						<p class="bigTitle">诗词系列</p>
+						<div class="oneBanner hasResources">
+							<div class="resources">
+								<img class="bannerImg" style="border-radius:10px;" src="" alt="" />
+								<a>
+									<span class="iconfont">&#xe672;</span>
+									<span  class="nums"></span>
+								</a>
+							</div>
+							<p class="newsTitle more"></p>
+						</div>
+					</div>
+					<!--四张图-->
+					<div class='fourthImg'>
+						<p class="bigTitle">国学小常识</p>
+						<div class="moduleImgShow"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script type="text/javascript">
+			var arr1=[],arr2=[],arr3=[];
+			myFunc(function() {
+				var aSquare=`<div class="hasResources">
+								<div class="resources">
+									<img src="" alt="" />
+									<a>
+										<span class="iconfont">&#xe672;</span>
+										<span  class="nums"></span>
+									</a>
+								</div>
+								<p class="more curTitle"></p>
+							</div>`
+				var mxClassic=$(".mxClassic").clone();
+				var oneBannerStyle=$(".oneBannerStyle").clone();
+				var fourthImg=$(".fourthImg").clone();
+				$(".oneBannerStyle").empty();
+				$(".mxClassic").empty();
+				$(".fourthImg").empty();
+				osg.ajax("home/findByMenuType.do",{typeMenu:1},function(data){
+					var datas=data.data.homestyleList;
+					for(var i=0;i<datas.length;i++){
+						if(datas[i].type==3){
+							var temp=mxClassic.clone();
+							temp.find(".bigTitle").html(datas[i].title);
+							temp.find(".bannerImg").attr("src",qiniuRoot+datas[i].homecontents[0].info.banner+'!app.special.banner');
+							temp.attr("data-id",datas[i].homecontents[0].info._id);
+							temp.data("data",datas[i].homecontents[0].info);
+							if(datas[i].homecontents[0].type==3){//资源包
+								temp.find(".oneBanner .nums").html(datas[i].homecontents[0].info.count+" / "+datas[i].homecontents[0].info.sum+"个");
+								temp.find(".newsTitle").html(datas[i].homecontents[0].info.name);
+								temp.tap(function(){
+									event.stopPropagation();
+									var id = $(this).attr('data-id');
+									osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+								})
+							}else{
+								temp.find(".newsTitle").html(datas[i].homecontents[0].info.title);
+								temp.find(".oneBanner .resources>a").hide();
+								temp.tap(function(){
+									event.stopPropagation();
+									var voice_data = $(this).data('data');
+									toDeatilePlay(voice_data);
+								})
+							}
+							temp.find(".newsTitle").html(datas[i].homecontents[0].info.name);
+							for(var j=1;j<5;j++){
+								var tempSquare=$(aSquare).clone();
+								tempSquare.find("img").attr("src",qiniuRoot+datas[i].homecontents[j].info.logo+'!app.voicezheng.img');
+								tempSquare.attr("data-id",datas[i].homecontents[j].info._id);
+								tempSquare.data("data",datas[i].homecontents[j].info);
+								if(datas[i].homecontents[j].type==3){//资源包
+									tempSquare.find(".nums").html(datas[i].homecontents[j].info.count+" / "+datas[i].homecontents[j].info.sum+"个");
+									tempSquare.find(".curTitle").html(datas[i].homecontents[j].info.name);
+									tempSquare.tap(function(){
+										event.stopPropagation();
+										var id = $(this).attr('data-id');
+										osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+									})
+								}else{
+									tempSquare.find(".curTitle").html(datas[i].homecontents[j].info.title)
+									tempSquare.find(".resources>a").hide();
+									tempSquare.tap(function(){
+										event.stopPropagation();
+										var voice_data = $(this).data('data');
+										toDeatilePlay(voice_data);
+									})
+								}
+								temp.find(".moduleImgShow").append(tempSquare);
+							}
+							$(".mxClassic").append(temp);
+						}else if(datas[i].type==2){//诗词系列
+							var temp=oneBannerStyle.clone();
+							temp.find(".bigTitle").html(datas[i].title);
+							temp.find(".bannerImg").attr("src",qiniuRoot+datas[i].homecontents[0].info.banner+'!app.special.banner');
+							temp.attr("data-id",datas[i].homecontents[0].info._id);
+							temp.data("data",datas[i].homecontents[0].info);
+							if(datas[i].homecontents[0].type==3){//资源包
+								temp.find(".oneBanner .nums").html(datas[i].homecontents[0].info.count+" / "+datas[i].homecontents[0].info.sum+"个");
+								temp.find(".newsTitle").html(datas[i].homecontents[0].info.name);
+								temp.tap(function(){
+									var id = $(this).attr('data-id');
+									osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+								})
+							}else{
+								temp.find(".newsTitle").html(datas[i].homecontents[0].info.title);
+								temp.find(".oneBanner .resources>a").hide();
+								temp.tap(function(){
+									var voice_data = $(this).data('data');
+									toDeatilePlay(voice_data);
+								})
+							}
+							$(".oneBannerStyle").append(temp);
+						}else if(datas[i].type==1){//国学小常识系列
+							var temp=fourthImg.clone();
+							temp.find(".bigTitle").html(datas[i].title);
+							for(var j=0;j<4;j++){
+								var tempSquare=$(aSquare).clone();
+								tempSquare.attr("data-id",datas[i].homecontents[j].info._id);
+								tempSquare.data("data",datas[i].homecontents[j].info);
+								tempSquare.find("img").attr("src",qiniuRoot+datas[i].homecontents[j].info.logo+'!app.voicezheng.img');
+								if(datas[i].homecontents[j].type==3){//资源包
+									tempSquare.find(".nums").html(datas[i].homecontents[j].info.count+" / "+datas[i].homecontents[j].info.sum+"个");
+									tempSquare.find(".curTitle").html(datas[i].homecontents[j].info.name)
+									tempSquare.tap(function(){
+										var id = $(this).attr('data-id');
+										osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+									})
+								}else{
+									tempSquare.find(".curTitle").html(datas[i].homecontents[j].info.title)
+									tempSquare.find(".resources>a").hide();
+									tempSquare.tap(function(){
+										var voice_data = $(this).data('data');
+										toDeatilePlay(voice_data);
+									})
+								}
+								temp.find(".moduleImgShow").append(tempSquare);
+							}
+							$(".fourthImg").append(temp);
+						}
+						else if(datas[i].type==6){//切换标签
+							$(".jpContent ul>li:first-child").html(datas[i].label1);
+							$(".jpContent ul>li:nth-child(2)").html(datas[i].label2);
+							$(".jpContent ul>li:last-child").html(datas[i].label3);
+							for(var k=0;k<datas[i].homecontents.length;k++){
+								if(datas[i].homecontents[k].label==1){
+									arr1.push(datas[i].homecontents[k]);
+								}else if(datas[i].homecontents[k].label==2){
+									arr2.push(datas[i].homecontents[k]);
+								}else
+									arr3.push(datas[i].homecontents[k]);
+							}
+							reloadBar(arr1);
+						}
+					}
+				})
+				/*切换标签重新加载数据*/
+				function reloadBar(arr){
+					$(".changeBox1").empty();
+					for(var h=0;h<arr.length;h++){
+						var tempSquare=$(aSquare).clone();
+						tempSquare.find("img").attr("src",qiniuRoot+arr[h].info.logo+'!app.voicezheng.img');
+						tempSquare.attr("data-id",arr[h].info._id);
+						tempSquare.data("data",arr[h].info);
+						if(arr[h].type==3){//资源包
+							tempSquare.find(".nums").html(arr[h].info.count+" / "+arr[h].info.sum+"个");
+							tempSquare.find(".curTitle").html(arr[h].info.name);
+							tempSquare.tap(function(){
+								var id = $(this).attr('data-id');
+								osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+							})
+						}else{
+							tempSquare.find(".curTitle").html(arr[h].info.title);
+							tempSquare.find(".resources>a").hide();
+							tempSquare.tap(function(){
+								var voice_data = $(this).data('data');
+								toDeatilePlay(voice_data);
+							})
+						}
+						$(".changeBox1").append(tempSquare);
+					}
+				}
+				/*点击切换标签*/
+				$(".jpContent ul").on("tap","li",function(){
+					var $tar=$(this);
+					$tar.addClass("active").siblings("li").removeClass("active");
+					$tar.data("active")=="li1" ? reloadBar(arr1) : $tar.data("active")=="li2" ? reloadBar(arr2) :reloadBar(arr3);
+				})
+			})	
+			
+			/*跳转到音频详情*/
+			function toDeatilePlay(voice_data){
+				console.log("-----------");
+				var list=[];
+				list.push(voice_data);
+				osg.set('voice_list',list);//把列表缓存到本地
+				osg.set("voice_now",voice_data);
+				var detailsView = plus.webview.getWebviewById("details");
+				if(detailsView){
+					osg.evtFireEvent('update');
+				}
+				osg.open('audioPlay.html', {}, null, {im: 1,id:"details"});
+			}
+				
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+</html>

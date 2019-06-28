@@ -1,0 +1,1064 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet" />
+		<style type="text/css">
+			p {
+				margin-bottom: 0;
+			}
+			
+			.mustKnow {
+				position: absolute;
+				right: 0;
+				color: #1887DD;
+				font-weight: normal;
+				font-size: .8rem;
+			}
+			
+			.mui-action-back+p {
+				width: 88%;
+			}
+			
+			.mui-bar-nav {
+				background-color: #fff;
+			}
+			
+			.mui-bar .mui-title {
+				position: relative;
+				color: #fff;
+			}
+			
+			.mui-fullscreen .mui-segmented-control~.mui-slider-group {
+				top: 3rem;
+			}
+			
+			.mui-segmented-control.mui-scroll-wrapper {
+				height: 3rem;
+				border-bottom: 1px solid #f5f6f7;
+			}
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll {
+				width: 100%;
+			}
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
+				width: 24%;
+				line-height: 2.85rem;
+			}
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item:nth-child(2) {
+				margin: 0 15%;
+			}
+			
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				border-bottom: 2px solid #D32424;
+				color: #D32424;
+			}
+			/*基本信息*/
+			
+			.basicinfo {
+				background: #fff !important;
+				position:relative;
+			}
+			.basicinfo .basicinfoShadow{
+				position: absolute;
+				top:0;
+				left:0;
+				width:100%;
+				height:100%;
+				background:rgba(0,0,0,0);
+				z-index:2;
+				display: none;
+			}
+			.basicinfo>p{
+				padding: .5rem 0 .5rem 1rem;
+				border-bottom: 2px solid #f5f6f7;
+				margin-bottom: 0;
+				color:#121212;
+			}
+			.basicinfo>p .gender{
+				color:#121212;
+			}
+			.basicinfo>p.canNotTap{
+				color:#6d6d6d !important;
+			}
+			
+			.basicinfo>p>span:first-child {
+				display: inline-block;
+				width: 24%;
+			}
+			
+			.basicinfo>p>span:first-child i {
+				color: #D32424;
+				margin-right: .3rem;
+			}
+			/*关于性别*/
+			
+			.basicinfo .gender {
+				display: inline-block;
+				width: 71%;
+				height: 40px;
+				line-height: 40px;
+			}
+			
+			.gender input[type=radio] {
+				margin-right: .5rem;
+				vertical-align: middle;
+				-webkit-appearance: none;
+				width: 1.2rem;
+				height: 1.2rem;
+				border: 1px solid #f7f7f7;
+				border-radius: 50%;
+				background: url(../resources/images/sexNoCheaked.png) no-repeat;
+				background-size: contain;
+			}
+			
+			.gender input[type=radio]:checked {
+				margin-right: .5rem;
+				vertical-align: middle;
+				-webkit-appearance: none;
+				width: 1.2rem;
+				height: 1.2rem;
+				border-radius: 50%;
+				border: 1px solid transparent;
+				background: url(../resources/images/sexChecked.png) no-repeat;
+				background-size: contain;
+			}
+			
+			.gender span {
+				vertical-align: middle;
+			}
+			/*关于性别完*/
+			
+			.basicinfo>p>input,
+			.basicinfo>p>select,
+			.basicinfo>p .student_region,
+			.basicinfo>p .student_Institution{
+				width: 71%;
+				margin: 0;
+				padding: 0;
+				border: none;
+				font-size:1rem;				
+			}
+			
+			.basicinfo>p>input::-webkit-input-placeholder {
+				color: #D2D2D2;
+			}
+			
+			.region>span:last-child {
+				display: inline-block;
+				vertical-align: middle;
+				height: 40px;
+				line-height: 40px;
+				width: 71%;
+				text-align: left;
+			}
+			
+			.currEnroll,
+			.submitButton {
+				height: 6rem;
+				padding-top: 2rem;
+				width: 100%;
+				text-align: center;
+			}
+			
+			.currEnroll {
+				padding-top: 1rem;
+			}
+			/*推荐竞赛*/
+			
+			.recommendMatch {
+				width: 92%;
+				margin-left: 4%;
+			}
+			
+			.recommendMatch .bigTitle {
+				font-size: 1.1rem;
+				font-weight: bold;
+				color: #121212;
+				padding: 1rem 0;
+				margin-bottom: 0;
+				display:none;
+			}
+			
+			.recommendMatch .mathClassify .oneClassify {
+				margin: 1rem .5rem;
+				padding-top: .8rem;
+				border: 1px solid #f5f6f7;
+				border-radius: 4px;
+				min-height: 5rem;
+			}
+			
+			.matchTitle {
+				height: 2rem;
+				width: 18rem;
+				color: #121212;
+				margin: 0 auto;
+				text-align: center;
+				line-height: 2.2rem;
+				background: url(../resources/images/matchTitleBgGrey.png) no-repeat center center;
+				background-size: contain;
+			}
+			
+			.matchTitle.checkClassify {
+				color: #D32424;
+			}
+			
+			.recommendMatch .mathClassify .oneClassify:nth-child(2n) .matchTitle {
+				background: url(../resources/images/matchTitleBgPink.png) no-repeat center center;
+				background-size: contain;
+			}
+			
+			.tips {
+				color: #D32424;
+				font-size: .8rem;
+			}
+			
+			.recommendMatch .mathClassify .oneClassify>div {
+				width: 18rem;
+				margin: 0 auto;
+				padding: .5rem 0;
+			}
+			
+			.allMatchName>div {
+				display: inline-block;
+				margin: .5rem 1.2rem .5rem 0;
+			}
+			
+			.allMatchName>div span {
+				vertical-align: middle;
+			}
+			
+			.allMatchName>div input[type=checkbox] {
+				-webkit-appearance: none;
+				width: 1.2rem;
+				height: 1.2rem;
+				border: none;
+				border-radius: 50%;
+				background: url(../resources/images/noChecked.png) no-repeat center center;
+				background-size: cover;
+				vertical-align: middle;
+				margin-right: .3rem;
+			}
+			
+			.allMatchName>div input[type=checkbox]:checked {
+				-webkit-appearance: none;
+				width: 1.2rem;
+				height: 1.2rem;
+				border: none;
+				border-radius: 50%;
+				background: url(../resources/images/checked.png) no-repeat center center;
+				background-size: contain;
+				vertical-align: middle;
+				margin-right: .3rem;
+			}
+			
+			.allMatchName>div  input[type=checkbox]:checked.checkedHui{
+				-webkit-appearance: none;
+				width: 1.2rem;
+				height: 1.2rem;
+				border: none;
+				border-radius: 50%;
+				background: url(../resources/images/checkedhui.png) no-repeat center center !important;
+				background-size:100% !important;
+				vertical-align: middle;
+				margin-right: .3rem;
+			}
+			
+			.allMatchName>div input[type=radio] {
+				-webkit-appearance: none;
+				width: 1.2rem;
+				height: 1.2rem;
+				border: none;
+				border-radius: 50%;
+				background: url(../resources/images/noChecked.png) no-repeat center center;
+				background-size: cover;
+				vertical-align: middle;
+				margin-right: .3rem;
+			}
+			
+			.allMatchName>div input[type=radio]:checked {
+				-webkit-appearance: none;
+				width: 1.2rem;
+				height: 1.2rem;
+				border: none;
+				border-radius: 50%;
+				background: url(../resources/images/checked.png) no-repeat center center;
+				background-size: contain;
+				vertical-align: middle;
+				margin-right: .3rem;
+			}
+			/*我的竞赛*/
+			
+			.myMatchTip {
+				width: 100%;
+				height: 2rem;
+				line-height: 2rem;
+				color: #D32424;
+				font-size: .7rem;
+				background: #FDF1F0;
+				text-align: center;
+			}
+			
+			.oneEnrollMatch {
+				padding: 1rem;
+				border-bottom: 8px solid #f5f6f7;
+			}
+			
+			.matchShow {
+				background: rgba(251, 251, 251, 1);
+				box-shadow: 0px 0px 11px 1px rgba(220, 220, 220, 0.3);
+				border-radius: 10px;
+				padding: 0 1rem;
+				margin: 1rem 0;
+			}
+			
+			.matchShow .simpleMatch {
+				border-bottom: 2px solid #F5F6F7;
+			}
+			
+			.matchShow .simpleMatch>span {
+				display: inline-block;
+				width: 60%;
+				text-align: center;
+				height: 3rem;
+				line-height: 3rem;
+			}
+			
+			.matchShow .simpleMatch>span:first-child {
+				color: #121212;
+				font-weight: bold;
+			}
+			
+			.matchShow .simpleMatch>span:last-child {
+				color: #D32424;
+				width:38%;
+			}
+			
+			/*.matchShow .simpleMatch>span.submiting {
+				color: #1887DD !important;
+			}*/
+			.submitButton .complete,
+			.submitButton>a.apply{
+				width:30%;
+				font-size:1rem;
+			}
+			.submitButton>a.complete{
+				background:rgba(206,206,206,1);
+				margin-right:5%;
+			}
+			/*调整标题开始*/
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.headerTi>span:first-child{
+				left:4%;
+			}
+			.headerTi>span:last-child{
+				right:1rem;
+			}
+			.headerTi .pageTitle{
+				color:#121212;
+			}
+			.headerTi .mustKnow{
+				color: #1887DD;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-size:1.1rem;
+				font-weight:bold;
+				position: relative;
+				margin-left:0
+			}
+			p{
+				padding:0;
+				margin:0;
+			}
+			/*调整标题结束*/
+			.textR{
+				color: red!important;
+			}
+			.textB{
+				color: #1887DD!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<!--<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p style="position: relative;">
+					<span>报名中心</span>
+					<span class="mustKnow">活动须知</span>
+				</p>-->
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+					<a  href="javascript:;" class="pageTitle">报名中心</a>
+					<a href="javascript:;" class="mustKnow">指导用书</a>
+				</p>
+			</div>
+		</header>
+		<div class="mui-content">
+			<div class="mui-slider mui-fullscreen">
+				<div class="my_bar mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll" style="padding: 0 2rem;">
+						<a class="mui-control-item mui-active" data-index="1" style="padding:0;" href="#content1">基本信息</a>
+						<a class="mui-control-item school-content2" data-index="2" style="padding:0;" href="#content2">推荐活动</a>
+						<a class="mui-control-item school-content2" data-index="3" style="padding:0;" href="#content3">我的活动</a>
+					</div>
+				</div>
+				<div class="mui-slider-group">
+					<div id="content1" class="mui-slider-item mui-control-content  mui-active">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div id="student_info" class="basicinfo">
+									<div class="basicinfoShadow"></div>
+									<p class="stuName">
+										<span><i class="hongxing">*</i>姓名</span>
+										<input class="name" type="text" label="姓名" placeholder="请填写姓名" required="required" />
+									</p>
+									<p class="stuIDcard">
+										<span><i class="hongxing">*</i>身份证号</span>
+										<input class="IDcard" type="text" label="身份证号" placeholder="请填写身份证号" required="required" />
+									</p>
+									<p class="sex">
+										<span><i style="visibility: hidden;">*</i>性别</span>
+										<a class="gender" href="javascript:;">
+											<label style="margin-right:1.3rem;"><input type="radio" name="gender" value="男" class="female"/><span>男</span></label>
+											<label><input type="radio" name="gender" value="女" class="male"/><span>女</span></label>
+										</a>
+									</p>
+									<p class="region">
+										<span><span><i class="hongxing">*</i>省、市、区</span></span>
+										<span class="student_region">
+											<span class="iconfont valid_readonly" style="float:right" label="地区" required="required">&#xe61c;</span>
+										</span>
+									</p>
+									<p class="stuSchool">
+										<span><i class="hongxing">*</i>学校</span>
+										<input class="school" type="text" label="学校" placeholder="请填写学校" required="required" />
+									</p>
+									<p class="stuGrade" style="padding:0 1rem;height:58px;line-height:58px;">
+										<span><i class="hongxing">*</i>年级</span>
+										<select class="grade selectpicker" data-live-search="true" name="grade" required="required">
+											<option value=" ">请选择</option>
+											<option value="100">学龄前儿童</option>
+											<option value="1">小学一年级</option>
+											<option value="2">小学二年级</option>
+											<option value="3">小学三年级</option>
+											<option value="4">小学四年级</option>
+											<option value="5">小学五年级</option>
+											<option value="6">小学六年级</option>
+											<option value="7">初中一年级</option>
+											<option value="8">初中二年级</option>
+											<option value="9">初中三年级</option>
+										</select>
+									</p>
+									<p class="stuNumber">
+										<span><i class="hongxing">*</i>联系电话</span>
+										<input class="phone" type="text" label="联系电话" placeholder="请填写联系电话" required="required" />
+									</p>
+									<!--<p class="teacher">
+										<span><i>*</i>辅导老师</span>
+										<input class="currTeacher" type="text" label="辅导老师" placeholder="请填写辅导老师" required="required" />
+									</p>-->
+									<p class="region">
+										<span><span><i class="hongxing">*</i>推荐机构</span></span>
+										<span class="student_Institution">
+											<span class="iconfont valid_readonly" style="float:right" label="推荐机构" required="required">&#xe61c;</span>
+										</span>
+									</p>
+								</div>
+								<div class="submitButton">
+									<a class="linearGradientBtn baobtn" href="javascript:;">提交</a>
+									<!--<a class="linearGradientBtn complete" href="javascript:;" style="display: none;">完成</a>-->
+									<a class="linearGradientBtn apply" href="javascript:;" style="display: none;">申请修改</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="content2" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="recommendMatch">
+									<p class="bigTitle">活动项目</p>
+									<div class="mathClassify">
+										<div class="oneClassify debug">
+											<p class="matchTitle">国艺类</p>
+											<div>
+												<span class="tips"></span>
+												<div class="allMatchName">
+													<div class="recommend_item debug">
+														<label><input class="match_btn" type="checkbox" name="matchName" />
+														<span class="match_name">戏剧</span></label>
+													</div>
+												</div>
+											</div>
+										</div>
+									
+									</div>
+									<div class="currEnroll">
+										<a class="linearGradientBtn libtn" href="javascript:;">立即报名</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="content3" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<!--<p class="myMatchTip">*请在截止日期：2019.3.16提交作品，结果公布时间：2019.6</p>-->
+								<marquee class="myMatchTip"></marquee>
+								<div class="enrollMatch">
+									<div class="oneEnrollMatch">
+										<p class="matchTitle"></p>
+									</div>
+									<div class="matchShow">
+										<div class="simpleMatch">
+											<span class="phaseName"></span>
+											<span class="submiting"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="pay_menu mui-scroll-wrapper">
+				<div class="pay_bar">
+					<div class="pay_btn ali_pay">
+						<i class="icon iconfont icon-alipay"></i>
+						<div>支付宝</div>
+					</div>
+					<div class="pay_btn wx_pay">
+						<i class="icon iconfont icon-wechat"></i>
+						<div>微信支付</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/mui.min.js"></script>
+		<script src="../resources/js/jquery.min.js"></script>
+		<script src="../resources/js/common.js"></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.picker.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/js/mui.pullToRefresh.js"></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript">
+			var data, province, city, district, sex,config,onetution,twotution,threetution,txt_inst,txt_city;
+			var oneEnrollMatch = $('.oneEnrollMatch').clone();
+					var matchShow = $('.matchShow').clone();
+					$('.oneEnrollMatch').hide();
+					$('.matchShow').hide();
+			myFunc(function() {
+				var tag = osg.param('ma');
+				if(tag&&tag==1){
+					mui('.mui-slider').slider().gotoItem(2,0);
+				}
+				osg.evtAddListener(function(d) {
+					if(d && (d == 'submitAnswer')) {
+						$('.enrollMatch').find('.oneEnrollMatch').remove();
+						loadMyMatch();
+					}
+				});
+				queryConfig();
+				/*基本信息完善开始*/
+				/* 地区选择开始*/
+				var cityPicker3 = new mui.PopPicker({
+					layer: 3
+				});
+				cityPicker3.setData(cityData);
+
+				$(".student_region").tap(function() {
+					cityPicker3.show(function(items) {
+						province = items[0].text;
+						city = '';
+						district = '';
+						if(items.length > 1 && items[1].value != '0') {
+							city = items[1].text;
+							if(items.length > 2 && items[2].value != '0') {
+								district = items[2].text;
+							}
+						}
+						displayRegion();
+					});
+				});
+
+				function displayRegion() {
+					txt_city = '';
+					if(province)
+						txt_city += province;
+					if(city)
+						txt_city += '-' + city;
+					if(district)
+						txt_city += '-' + district;
+					$('.student_region').val(txt_city);
+					if(txt_city)
+						$('.student_region').text(txt_city).css("color","#121212");
+					else
+						$('.student_region').text('点击选择').css("color","#6d6d6d");
+				}
+				/* 地区选择结束*/
+				
+				/* 推荐机构开始*/
+				var InstitutionPicker3 = new mui.PopPicker({
+					layer: 3
+				});
+				osg.ajax('match/queryData', {
+						}, function(data) {
+							InstitutionPicker3.setData(data);
+						});
+				$(".student_Institution").tap(function() {
+					InstitutionPicker3.show(function(items) {
+						onetution = items[0].text;
+						twotution = '';
+						threetution = '';
+						if(items.length > 1 && items[1].value != '0') {
+							twotution = items[1].text;
+							if(items.length > 2 && items[2].value != '0') {
+								threetution = items[2].text;
+							}
+						}
+						displayInstitution();
+					});
+				});
+				
+				function displayInstitution() {
+					txt_inst = '';
+					if(onetution)
+						txt_inst += onetution;
+					if(twotution)
+						txt_inst += '-' + twotution;
+					if(threetution)
+						txt_inst += '-' + threetution;
+					$('.student_Institution').text(txt_inst);
+					if(txt_inst)
+						$('.student_Institution').text(txt_inst).css("color","#121212");
+					else
+						$('.student_Institution').text('点击选择').css("color","#6d6d6d");
+				}
+				/* 推荐机构结束*/
+				
+				/*身份证校验开始*/
+				$('.IDcard').blur(function() {
+					$(".gender input[type=radio].female").prop('checked',"checked");
+					var idcard = $('.IDcard').val();
+					if(!idCardNoUtil.checkIdCardNo(idcard)) {
+						osg.toast('身份证号校验错误！');
+						$(this).focus();
+						return;
+					}
+					var param = {
+						idcard: idcard,
+					}
+					osg.ajax('user/validateIdcardExists', param, function(d) {
+						if(!d) {
+							osg.toast('身份证号已存在！');
+							$(this).focus();
+							return;
+						}else {
+							var inf = idCardNoUtil.getIdCardInfo(idcard);
+							var gender = inf.gender;
+							if(gender=="女"){
+								$(".gender input[type=radio].male").prop('checked',"checked");
+							}
+							$(".sex").disable();
+						}
+					},{
+						noload:true
+					})
+
+				})
+				/*身份证校验结束*/
+				/*手机号校验*/
+				$(".phone").blur(function() {
+					var currPhone = $(this).val();
+					if(!(/^1\d{10}$/.test(currPhone))) {
+						osg.toast("手机号码有误,请重新输入");
+						$(this).focus();
+					} else {
+					}
+				})
+				$(".baobtn").tap(function() {
+					var v = osg.validate('student_info');
+					var gender = $('input:radio:checked').val();
+					if('男' == gender) {
+							sex = 0;
+						} else {
+							sex = 1;
+						}
+					if(v&&txt_inst&&province&&city&&district) {
+						/*var currPhone = $('.phone').val();
+						if(!(/^1\d{10}$/.test(currPhone))) {
+							osg.toast("手机号码有误,请重新输入");
+							$(this).focus();
+							return;
+						}*/
+						var param = {
+							name: $('.name').val(),
+							idcard: $('.IDcard').val(),
+							sex: sex,
+							schoolName: $('.school').val(),
+							grade: $('.grade').val(),
+							matchPhone: $('.phone').val(),
+							/*teacherName: $('.currTeacher').val(),*/
+							province: province,
+							city: city,
+							district: district,
+							institutionName: txt_inst
+						};
+						osg.ajax('user/update', param, function(d) {
+							if(d.success){
+								osg.toast('保存成功！');
+								osg.ajax('user/mine', null, function(data) {
+									if(!data)
+										return;
+									var u = data;
+									var token = osg.currentToken();
+									var userInfo = {
+										'user': data,
+										'token': token
+									}
+									osg.currentUserSet(userInfo);
+								},{
+									noload:true
+								})
+							}
+							loadRecommendMatches();
+							if(d.data.valid==1){
+								/*修改提交个人信息后的不能点击并且字体颜色变化-star*/
+									$(".basicinfoShadow").show();
+									$(".basicinfo>p").addClass("canNotTap");
+									$(".basicinfo>p .gender").css("color","#6d6d6d");
+									$('.student_region').css("color","#6d6d6d");
+									$('.student_Institution').css("color","#6d6d6d");
+									/*修改提交个人信息后的不能点击并且字体颜色变化--end*/
+								$('.baobtn').hide();
+								$('.complete').show();
+								$('.apply').show();
+								$('.hongxing').attr("style","visibility: hidden;");//完善信息后隐藏必填标识
+								mui('.mui-slider').slider().gotoItem(1);
+							}
+						},{
+						noload: true
+					});
+					}else{
+						if(!$('.name').val()){
+							osg.toast('请填写姓名！');
+						}else if(!$('.IDcard').val()){
+							osg.toast('请填写身份证号！');
+						}else if(!province || !city || !district){
+							osg.toast('省、市、区信息不全！');
+						}else if(!$('.school').val()){
+							osg.toast('请填写学校！');
+						}else if(!$('.grade').val()){
+							osg.toast('请选择年级！');
+						}else if(!$('.phone').val()){
+							osg.toast('请填写联系电话！');
+						}else if(!txt_inst){
+							osg.toast('请选择推荐机构！');
+						}else{
+							osg.toast('请填写相关信息！');
+						}
+						
+					}
+				});
+				/*基本信息完善结束*/
+				/*基本信息回填开始*/
+				if(osg.isLogined()) {
+					osg.ajax('user/mine', null, function(d) {
+						data = d;
+						province = data.province;
+						city = data.city;
+						district = data.district;
+						$(".phone").val(data.matchPhone);
+						$(".name").val(data.name);
+						$(".IDcard").val(data.idcard);
+						$(".school").val(data.schoolName);
+						$('.student_Institution').text(data.institutionName);
+						txt_inst = data.institutionName;
+						$(".grade").val(data.grade);
+						/*$('.currTeacher').val(data.teacherName),*/
+						$("input:radio[name='gender'][value='" + data.sexStr + "']").attr('checked', 'true');
+						displayRegion();
+						if(!data.institutionName){
+							displayInstitution();
+						}
+						if(data.valid==1){
+							/*修改提交个人信息后的不能点击并且字体颜色变化-star*/
+							$(".basicinfoShadow").show();
+							$(".basicinfo>p").addClass("canNotTap");
+							$(".basicinfo>p .gender").css("color","#6d6d6d");
+							$('.student_region').css("color","#6d6d6d");
+							$('.student_Institution').css("color","#6d6d6d");
+							/*修改提交个人信息后的不能点击并且字体颜色变化--end*/
+							$('.baobtn').hide();
+							$('.complete').show();
+							$('.apply').show();
+							$('.hongxing').attr("style","visibility: hidden;");//完善信息后隐藏必填标识
+						}
+					},{
+						noload:true
+					});
+				}
+				/*基本信息回填结束*/
+				/*我的竞赛开始 */
+				loadMyMatch();
+				/*跳转至修改信息*/
+				$(".submitButton").on("tap",".apply",function(){
+					osg.open("infoChange.html");
+				})
+				
+				
+				
+				/*我的竞赛结束*/
+				mui('.mui-scroll-wrapper').scroll({
+					indicators: true
+				});
+				var matchItem = $(".recommend_item");
+				matchItem.removeClass('debug').remove();
+				var recommendItem = $('.oneClassify');
+				recommendItem.removeClass('debug').remove();
+				loadRecommendMatches();
+				
+
+				
+				// 加载推荐竞赛
+				function loadRecommendMatches() {
+					osg.ajax('match/recommend', null, function(data) {
+					if(data.length<=0){
+						$(".currEnroll").hide();
+						$(".bigTitle").show();
+						$(".bigTitle").text("请先完善个人信息");
+					}else{
+						$(".currEnroll").show();
+						$(".bigTitle").hide();
+					}
+					$('.mathClassify').html('');
+					var zongNumber = 0; //总比赛数
+					var zongBao = 0; //已报名总数
+					var oneSelect = 0; //单选比赛数
+					var howSelect = 0; //单选组别数
+					for(var i = 0; i < data.length; i++) {
+						var region = data[i];
+						var itemObj = recommendItem.clone();
+						itemObj.find(".matchTitle").text(region.name+"（"+region.levelCodeStr+"）");
+						itemObj.find(".tips").text(region.cont);
+						if(region.selectionMatch==1){
+							howSelect++;
+						}
+						if(region.mmatchs){
+							zongNumber = zongNumber+region.mmatchs.length;
+							for(var j = 0; j < region.mmatchs.length; j++) {
+								var match = region.mmatchs[j];
+								var matchItemObj = matchItem.clone();
+								matchItemObj.find(".match_btn").attr("value",match._id);
+								matchItemObj.find(".match_btn").data("data",region);
+								if(match.enter==1){
+									$(".libtn").text("继续报名");
+									matchItemObj.find(".match_btn").attr("checked",true);
+									matchItemObj.find(".match_btn").addClass("checkedHui");
+									matchItemObj.find(".match_btn").attr("disabled",true);
+									zongBao++;
+								}
+								if(region&&region.matchIds&&region.matchIds.length>0&&match.mustReport==1){
+									matchItemObj.find(".match_btn").addClass("mustMatch"+region._id);
+								}
+								if(region.selectionMatch==1){
+									oneSelect++;
+									matchItemObj.find(".match_btn").attr("name",region._id);
+									matchItemObj.find(".match_btn").addClass("mustMatch"+region._id);
+									if(region.enterMregion==1){
+										if(match.enter!=1){
+											matchItemObj.find(".match_btn").attr("disabled",true);
+										}
+									}
+									matchItemObj.find(".match_btn").change(function(){
+										var regionObject = $(this).data("data");
+										if($(this).prop("checked")&&regionObject&&!$(this).prop("disabled")){
+											$(".mustMatch"+regionObject._id).prop("checked",false);
+											$(this).prop("checked",true);
+										}
+									});
+								}else{
+									matchItemObj.find(".match_btn").change(function(){
+										var regionObject = $(this).data("data");
+										if($(this).prop("checked")&&regionObject&&regionObject.matchIds&&regionObject.matchIds.length>0){
+											$(".mustMatch"+regionObject._id).prop("checked","checked");
+										}else{
+											$(".mustMatch"+regionObject._id).prop("checked",false);
+										}
+									});
+								}
+								matchItemObj.find(".match_name").text(match.name);
+								itemObj.find(".allMatchName").append(matchItemObj);
+							}
+						}
+							$('.mathClassify').append(itemObj);
+					}
+					if(zongBao==(zongNumber-oneSelect+howSelect)&&zongBao>0){
+						$(".libtn").text("已报名");
+						$(".libtn").css("background","#CCCCCC");
+					}
+					}, {
+						noload: true
+					});
+				}
+				//加载我的竞赛
+				function loadMyMatch(){
+					osg.ajax('match/enrolled',{},function(data){
+						var regions = data;
+						for(var i=0;i<regions.length;i++){
+							var name = regions[i].name;
+							var enrollMatch = oneEnrollMatch.clone();
+							enrollMatch.find('.matchTitle').text(name+"（"+regions[i].levelCodeStr+"）");
+							var phases = regions[i].mphases;
+							var flag = false,mh = matchShow.clone();
+							for(var j=0;j<phases.length;j++){
+								var match = matchShow.clone();
+								var phase = phases[j];
+								var enrollPhase = phase.enrollPhase;
+								match.find('.phaseName').text("【"+phase.matchName+phase.name+"】");
+								if(enrollPhase && phase.resultStatus == '进行中' && phase.resultOpen == 1){
+									/*if(j == 0 && enrollPhase.lastScore){//只加载一次手动拼写平均分成绩
+										mh.find('.phaseName').text("【国文类初赛】");
+										mh.find('.submiting').text("结果查询");
+										var tempOneId=enrollPhase.regionId;
+										mh.find('.submiting').tap(function(){
+											osg.open("firstResult.html",{"regionId":tempOneId})
+										})
+										flag = true;
+									}*/
+									match.find('.submiting').text("结果查询");
+								}else if(enrollPhase){
+									match.find('.submiting').text(phase.enrollPhase.stateStr);
+								}else{
+									match.find('.submiting').text("未报名");
+								}
+								match.find('.submiting').attr("data-id",phase.zoneId);
+								match.tap(function(){
+									var zoneId = $(this).find('.submiting').attr('data-id');
+									osg.open('myMatchDetail.html',{zoneId:zoneId});
+								})
+								enrollMatch.append(match);
+								/*if(flag){
+									enrollMatch.append(mh);
+								}*/
+							}
+							$('.enrollMatch').append(enrollMatch);
+						}
+						$('.submiting').each(function(){
+							var text = $(this).text();
+							if(text=='作品已提交'){
+								$(this).addClass('textR');
+							}else{
+								$(this).addClass('textB');
+							}
+						})
+					})
+				}
+				
+				/*mui(".recommendMatch").on("tap",".oneClassify",function() {
+					
+				});*/
+				
+				$(".libtn").tap(function() {
+					var libonText = $(this).text();
+					if(libonText == "立即报名" || libonText == "继续报名"){
+						osg.ajax('user/mine', null, function(data) {
+							if(!data){
+								return;
+							}else{
+								if(data.valid==1){
+									var msum = 0;
+									var matchbtns = $(".match_btn");
+									for(var i=0; i<matchbtns.length; i++){
+				                        if(matchbtns[i].checked){ //如果checkbox被选中
+				                        	msum++;
+				                        }
+				                	}
+									if(msum>0){
+										osg.open("entryInfomation.html",{"fig":"立即报名","newsId":config.newsId});
+									}else{
+										osg.toast('请选择比赛！');
+									}
+									
+								}else{
+									osg.toast("请先完善基本信息")
+								}
+							}
+						},{
+							nolade:true
+						});
+					}
+				});
+				osg.evtAddListener(function(d) {
+					if(d && (d == 'readDetail')) {
+						baoMatch();
+					}
+				});
+				
+				function baoMatch() {
+					var matchids = [];
+					var matchbtns = $(".match_btn");
+					var payMone=0; //所需报名金额
+					for(var i=0; i<matchbtns.length; i++){
+                        if(matchbtns[i].checked){ //如果checkbox被选中
+                        	var maId = matchbtns[i].value;
+                            matchids.push(maId); //将被选中checkbox背后的值添加到数组中
+                        }
+                	}
+					if(matchids.length>0){
+						osg.ajax('match/enrollMatch', {"matchids":matchids}, function(data) {
+							if(data.status==1){
+								osg.toast('报名成功！');
+								//报名成功自动切换到我的竞赛
+								mui('.mui-slider').slider().gotoItem(2);
+								$('.enrollMatch').find('.oneEnrollMatch').remove();
+								loadMyMatch();
+								loadRecommendMatches()
+							}else{
+								osg.toast('报名失败！');
+							}
+							
+						}, {
+							disableBtns: [$(".libtn")]
+						});
+					}else{
+						osg.toast('请选择比赛！');
+					}
+				}
+				function queryConfig() {
+					osg.ajax('match/queryConfig', null, function(data) {
+						if(data.status==1){
+							config=data.data;
+							$(".myMatchTip").text(config.activityNotice);
+						}
+					}, {
+						noload: true
+					});
+				}
+			})
+			$(".mustKnow").tap(function(){
+				event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+				osg.evtFireEvent('toMall');
+			})
+		</script>
+	</body>
+
+</html>

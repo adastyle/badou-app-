@@ -1,0 +1,564 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin-bottom:0;
+			}
+			.one{
+				margin:1.5rem 0;
+				border-bottom:8px solid #f5f6f7;
+				padding-bottom:1rem;
+			}
+			.matchTitle{
+				font-size:1.1rem;
+				color:#121212;
+				text-align: center;
+				font-weight: bold;
+				height:3rem;
+				line-height:3rem;
+				border:1px solid #f5f6f7;
+			}
+			.phase{
+				font-size:1.1rem;
+				color:#121212;
+				font-weight: bold;
+				width:100%;
+				padding-left:.5rem;
+				border-left:4px solid #D02E2E;
+				margin:1rem .1rem;
+				height:1rem;
+				position:relative;
+			}
+			.phase .iconfont{
+				position: absolute;
+				display:inline-block;
+				padding:0 .5rem;
+				right:1rem;
+				color:#D32424;
+				font-size:1.2rem;
+			}
+			.matchs{
+				margin:4%;
+				width:91%;
+			}
+			.matchs>div{
+				margin-bottom:1.5rem;
+				min-height:5rem;
+				background:rgba(255,255,255,1);
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				border-radius:10px;
+				text-align: center;
+			}
+			.matchsTitle{
+				width:100%;
+				height:2.3rem;
+				line-height: 2.3rem;
+				text-align: center;
+				background:rgba(236,236,236,1);
+				border-radius:10px 10px 0px 0px;
+			}
+			.dates{
+				display:inline-block;
+				font-size:.9rem;
+				color:#121212;
+				margin:.5rem 0;
+			}
+			.redBtn {
+				height: 3rem;
+				width: 100%;
+				text-align: center;
+			}
+			.linearGradientBtnr{
+				width:50% !important;
+				font-size:.9rem;
+				height:2.2rem;
+				line-height:2.2rem;
+				display:inline-block;
+				background:linear-gradient(90deg,rgba(249,94,87,1),rgba(211,36,36,1));
+				border-radius:45px;
+				text-align: center;
+				color:#FFFFFF !important;
+			}
+			.linearGradientBtng{
+				width:50% !important;
+				font-size:.9rem;
+				height:2.2rem;
+				line-height:2.2rem;
+				display:inline-block;
+				background:#CCCCCC;
+				border-radius:45px;
+				text-align: center;
+				color:#FFFFFF !important;
+			}
+			/*添加辅导老师的弹框*/
+			.shadow{
+				background:rgba(0,0,0,0.3);
+			}
+			.shadow>div{
+				width:90%;
+				height:13.6rem;
+				position:absolute;
+				top:50%;
+				left:50%;
+				transform:translate(-50%,-50%);
+				background:#fff;
+				border-radius:10px;
+			}
+			.shadow>div .addTeacherShadowTitle{
+				height:3rem;
+				line-height:3rem;
+				text-align: center;
+				position: relative;
+				background:#F5F6F7;
+				border-radius:10px 10px 0px 0px;
+				font-weight: bold;
+			}
+			.shadow>div .addTeacherShadowTitle .iconfont{
+				display:inline-block;
+				position: absolute;
+				right:1rem;
+				top:50%;
+				transform: translateY(-50%);
+				padding:0 .5rem;
+				color:#CCCCCC;
+				font-size:1.2rem;
+			}
+			.shadow>div .moduleP{
+				margin:0 1rem;
+				border-bottom:2px solid #ECECEC;
+				padding-top:1rem;
+				background:#fff;
+			}
+			.shadow>div .moduleP input{
+				display:inline-block;
+				width:80%;
+				border:none;
+				background:#fff;
+				height:1.6rem;
+				color:#121212 !important;
+				padding-left:0;
+			}
+			.shadow>div .moduleP span{
+				vertical-align: middle;
+			}
+			.shadow>div>p:last-child{
+				text-align: right;
+				padding:1rem;
+				margin-bottom:0;
+			}
+			.shadow>div>p:last-child a{
+				padding:.3rem 1rem;
+				border-radius:25px;
+				border:1px solid #EE4E4E;
+				background:#EE4E4E;
+				color:#fff;
+				margin:.3rem;
+			}
+			.shadow>div>p:last-child a.cancel{
+				background: #fff;
+				color:#EE4E4E;
+			}
+			/*调整标题开始*/
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.headerTi>span:first-child{
+				left:4%;
+			}
+			.headerTi>span:last-child{
+				right:1rem;
+			}
+			.headerTi a{
+				color:#121212;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-size:1.1rem;
+				font-weight:bold;
+				position: relative;
+				margin-left:0
+			}
+			p{
+				padding:0;
+				margin:0;
+			}
+			/*调整标题结束*/
+			.toPlay{
+				background:rgba(255,255,255,1);
+				border:1px solid rgba(211, 36, 36, 1);
+				border-radius:24px;
+				font-size:.9rem;
+				color:rgba(211,36,36,1);
+				padding:.3rem .6rem 0.2rem .6rem;
+				margin-right: .2rem;
+			}
+			.blueborder{
+				padding-bottom: 1rem;
+				margin:.5rem 0;
+			}
+			.blueborder span{
+				border:1px solid #0066cc;
+				color:#0066cc;
+			}
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<!--<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p>提交作品</p>-->
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+					<a href="javascript:;" class="pageTitle">提交作品</a>
+				</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll">
+				<div class="contents">
+					<p class="matchTitle">少年荟书画组--（小中组）</p>
+					<!--初赛-->
+					<div class="match">
+						<div class="one match_phase_item">
+							<div class="phase">
+								<span class="phaseName"></span>
+								<span class="iconfont isShowMatch">&#xe69b;</span>
+							</div>
+							<div class="matchs">
+								<div>
+									<p class="matchsTitle">报名</p>
+									<span class="dates enroll_time">2019.3.21-2019.3.21</span>
+									<!--添加辅导老师电话-->
+									<p style="padding:0  0rem .5rem;font-size:.9rem;" class="addTeacherPart">
+										<span class="helpTeacher">辅导老师</span>
+										<span class="helpTeacherPhone" style="margin:0 1rem;">电话</span>
+										<a href="javascript:;" class="addTeacher" style="color:#1887DD">添加</a>
+									</p>
+									<div class="redBtn">
+										<a class="linearGradientBtnr enrollBtn" href="javascript:;">已报名</a>
+									</div>
+								</div>
+								<div>
+									<p class="matchsTitle">答题时间</p>
+									<span class="dates match_time">2019.3.21-2019.3.21</span>
+									<div class="redBtn">
+										<a class="linearGradientBtnr subMitWorks" href="javascript:;">试题查看&提交作品</a>
+									</div>
+								</div>
+								<div>
+									<p class="matchsTitle">公布结果</p>
+									<span class="dates result_time">2019.3.21-2019.3.21</span>
+									<div class="redBtn">
+										<a class="linearGradientBtnr onlineAnswer result_status" href="javascript:;">在线答题</a>
+									</div>
+									<div class="label2"><span class="result_str1"></span></div>
+									<div class="label2"><span class="result_str2"></span></div>
+									<div class="label2"><span class="result_str3"></span></div>
+									<div class="label2 blueborder" style="display: none;"><span class="download"></span><span class="toBao"></span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--添加辅导老师的弹框-->
+			<div class="shadow">
+				<div>
+					<p class="addTeacherShadowTitle">
+						<span>添加辅导老师</span>
+						<span class="iconfont closeAddTeacher">&#xe668;</span>
+					</p>
+					<p class="moduleP">
+						<span>姓名：</span>
+						<input id="teacherName" class="teacherName" type="text" style="-webkit-user-select: text !important;"/>
+					</p>
+					<p class="moduleP">
+						<span>电话：</span>
+						<input class="teacherPhone" type="text" />
+					</p>
+					<p>
+						<a class="cancel" href="javascript:;">取消</a>
+						<a class="confirm" href="javascript:;">确定</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var zoneId="";
+			var phaseItem = $('.match_phase_item');
+				phaseItem.remove();
+			myFunc(function() {
+				zoneId = osg.param("zoneId");
+				var matchIsShow=true,matchId="";
+				$(".contents").on("tap",".isShowMatch",function(){
+					if(matchIsShow){
+						$(this).html("&#xe65f;");
+						$(this).parent().parent().find(".matchs").slideUp();
+						matchIsShow=false;
+					}
+					else{
+						$(this).html("&#xe69b;");
+						$(this).parent().parent().find(".matchs").slideDown();
+						matchIsShow=true;
+					}
+					
+				})
+				osg.evtAddListener(function(d) {
+					if(d && (d == 'submitAnswer')) {
+						$('.match').empty();
+						loadPhases();
+					}
+				});
+				
+				/*数据加载*/
+				loadPhases();
+				
+			})
+			$(".subMitWorks").tap(function(){
+				osg.open("submitWorks.html");
+			})
+			$(".onlineAnswer").tap(function(){
+				osg.open("onlineAnswer.html");
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+			function loadPhases(){
+					
+					osg.ajax('match/toEnrollZone/' + zoneId, null, function(d) {
+							var zone = d,
+								region = zone.region,
+								match = zone.match;
+							var phases = zone.phases;
+							$('.matchTitle').text(match.name+region.name);
+							for(var k = 0; k < phases.length; k++) {
+								var phase = phases[k];
+								var phaseItemObj = phaseItem.clone();
+								phaseItemObj.find('.phaseName').text(phase.name);
+								phaseItemObj.find('.enroll_time').text(phase.enrollStartTimeStr + ' - ' + phase.enrollEndTimeStr);
+								//报名
+								if(phase.code!=1){
+									var enrollBtnsObj = phaseItemObj.find('.enroll_btns');
+									if(phase.enrollStatus == '进行中' && phase.canEnroll){
+										phaseItemObj.find('.enrollBtn').text('去报名');
+									}else if(phase.enrollStatus == '未开始'){
+										phaseItemObj.find('.enrollBtn').text('未开始');
+										phaseItemObj.find('.enrollBtn').removeClass('linearGradientBtnr').addClass('linearGradientBtng');
+									}else if(phase.enrollStatus == '已结束'){
+										phaseItemObj.find('.enrollBtn').text('已结束');
+										phaseItemObj.find('.enrollBtn').removeClass('linearGradientBtnr').addClass('linearGradientBtng');
+									}
+										
+								}else if(phase.code==1){
+									phaseItemObj.find('.enrollBtn').text('已报名');
+									phaseItemObj.find('.enrollBtn').removeClass('linearGradientBtnr').addClass('linearGradientBtng');
+									phaseItemObj.find(".addTeacherPart").show();
+									if(phase.enrollPhase.teacherName && phase.enrollPhase.phone){
+										phaseItemObj.find('.helpTeacher').html("辅导老师："+phase.enrollPhase.teacherName);
+										phaseItemObj.find('.helpTeacherPhone').html("电话："+phase.enrollPhase.phone);
+										phaseItemObj.find(".addTeacher").html("修改");
+									}
+									phaseItemObj.find('.addTeacher').attr("data-matchId",match._id);
+									phaseItemObj.find(".addTeacher").tap(function(){
+										if($(this).html=="修改"){
+											$(".teacherName").val(phase.enrollPhase.teacherName);
+											$(".teacherPhone").val(phase.enrollPhase.phone);
+										}
+										matchId=$(this).attr("data-matchId");
+										$(".shadow").show();
+									})
+								}
+								//比赛
+								phaseItemObj.find('.match_time').text(phase.matchStartTimeStr + ' - ' + phase.matchEndTimeStr);
+								if(phase.enrollPhase!=null){
+									phaseItemObj.find('.subMitWorks').attr("data-id",phase.enrollPhase._id);
+									if(phase.matchStatus == '进行中'){
+										if(phase.enrollPhase.state == 2){
+												if(phase.workForm!=10){
+													phaseItemObj.find('.subMitWorks').text("试题查看&提交作品");
+												}else{
+													phaseItemObj.find('.subMitWorks').text("在线答题");
+												}
+												phaseItemObj.find('.subMitWorks').attr("data-type",phase.workForm);
+										}else if(phase.enrollPhase.state == 3){
+											phaseItemObj.find('.subMitWorks').attr("data-type",phase.workForm);
+											if(phase.enrollPhase.answer&&phase.workForm!=10){
+												phaseItemObj.find('.subMitWorks').text("查看作品");
+											}else if(phase.workForm==10){
+												phaseItemObj.find('.subMitWorks').text("查看答题情况");
+											}
+										}else if(phase.enrollPhase.state==4){
+											phaseItemObj.find('.subMitWorks').attr("data-type",phase.workForm);
+											phaseItemObj.find('.subMitWorks').attr("data-state",phase.enrollPhase.state);
+											if(phase.enrollPhase.answer&&phase.workForm!=10){
+												phaseItemObj.find('.subMitWorks').text("查看作品");
+											}else if(phase.workForm==10){
+												phaseItemObj.find('.subMitWorks').text("查看答题情况");
+											}
+										}
+									} else if(phase.matchStatus == '未开始'){
+										phaseItemObj.find('.subMitWorks').text("未开始");
+										phaseItemObj.find('.enrollBtn').removeClass('linearGradientBtnr').addClass('linearGradientBtng');
+									} else if(phase.matchStatus == '已结束'){
+										if(phase.enrollPhase.answer&&phase.workForm!=10){
+											phaseItemObj.find('.subMitWorks').attr("data-type",phase.workForm);
+											phaseItemObj.find('.subMitWorks').text("查看作品");
+										}else if(phase.enrollPhase.answer&&phase.workForm==10){
+											phaseItemObj.find('.subMitWorks').attr("data-type",phase.workForm);
+											phaseItemObj.find('.subMitWorks').text("查看答题情况");
+										}else{
+											phaseItemObj.find('.subMitWorks').text("已结束");
+										}
+										
+										phaseItemObj.find('.enrollBtn').removeClass('linearGradientBtnr').addClass('linearGradientBtng');
+									}
+								}else {
+									if(phase.enrollStatus != '进行中'){
+										phaseItemObj.find('.subMitWorks').text("未报名");
+										phaseItemObj.find('.enrollBtn').removeClass('linearGradientBtnr').addClass('linearGradientBtng');
+									}
+								}
+								//结果
+								phaseItemObj.find('.result_time').text(phase.resultTimeStr);
+								if(!phase.enrollPhase || phase.resultStatus == '未开始' || phase.resultOpen == 0){
+									phaseItemObj.find('.result_status').text(phase.resultStatus);
+								}else if(phase.enrollPhase && phase.resultStatus == '进行中' && phase.resultOpen == 1){
+									if(phase.regionId&&(phase.regionId=="9138573358255656766"||phase.regionId=="7187675607460000551"||phase.regionId=="2897972080009692894")){
+										phaseItemObj.find('.result_status').text("查看最终结果");
+										phaseItemObj.find('.result_status').attr("regionId",phase.regionId);
+										phaseItemObj.find('.result_status').tap(function(){
+											var regionId = $(this).attr("regionId");
+											osg.open("firstResult.html",{"regionId":regionId})
+										});
+									}else{
+										phaseItemObj.find('.result_status').text(phase.resultStatus);
+										var resultStr = '';
+										if(phase.resultDispScore == 1)
+											if(phase.enrollPhase.score)
+												phaseItemObj.find('.result_str1').text('分数：' + phase.enrollPhase.score + '分');
+											else
+												phaseItemObj.find('.result_str1').text('分数：暂无分数' );
+										phaseItemObj.find('.result_str1').css('color', 'red');
+										if(phase.resultDispLevel == 1)
+											if(phase.enrollPhase.resultLevel)
+												phaseItemObj.find('.result_str2').text('结果等级：' + phase.enrollPhase.resultLevel);
+											else
+												phaseItemObj.find('.result_str2').text('结果等级：暂无结果');
+											
+										phaseItemObj.find('.result_str2').css('color', 'red');
+										if(phase.resultDispName== 1){
+											if(phase.enrollPhase.resultName)
+												phaseItemObj.find('.result_str3').text('结果状态：' + phase.enrollPhase.resultName);
+											else
+												phaseItemObj.find('.result_str3').text('结果状态：暂无结果');
+										}
+										phaseItemObj.find('.result_str3').css('color', 'red');
+										phaseItemObj.find('.download').text('证书下载');
+										phaseItemObj.find('.download').addClass("toPlay");
+										phaseItemObj.find('.toBao').text('报名比赛');
+										phaseItemObj.find('.toBao').addClass("toPlay");
+										phaseItemObj.find('.blueborder').show();
+										phaseItemObj.find('.download').attr("data-id",phase.enrollPhase._id);
+										phaseItemObj.find('.download').tap(function(){
+											var id = $(this).attr('data-id');
+											var urlCar = "";
+											osg.ajax('match/carDownload', {
+												'enrollPhaseId': id
+											}, function(data) {
+												urlCar = data;
+												if(urlCar){
+													osg.open('../common/docSub.html', {
+														_id: id+'1',
+														name: "证书",
+														url: urlCar
+													}, null, {
+														im: 1
+													});
+												}
+												
+											}, {
+												noload: true
+											});
+										})
+									}
+								}
+								var text = phaseItemObj.find('.result_status').html();
+								if('未开始'==text||'已结束'==text){
+									phaseItemObj.find('.result_status').removeClass('linearGradientBtnr').addClass('linearGradientBtng');
+								}
+								phaseItemObj.find('.subMitWorks').tap(function(){
+									var workForm = $(this).attr("data-type");
+									var id = $(this).attr("data-id");
+									var state = $(this).attr("data-state");
+									if(workForm&&id){
+										if(workForm!=10){
+											osg.open('submitWorks.html',{"enrollPhaseId":id})
+										}else if(workForm==10){
+											if(state!=4){
+												osg.open('onlineAnswer.html',{"enrollPhaseId":id})
+											}else if(state==4){
+												osg.open('testResult.html',{"enrollPhaseId":id,"times":1})
+											}
+										}
+									}
+								})
+								$('.match').append(phaseItemObj);
+							}
+						});
+				}
+			$(".closeAddTeacher").tap(function(){
+				$(".shadow").hide();
+			})
+			$(".cancel").tap(function(){
+				$(".shadow").hide();
+			});
+			$(".confirm").tap(function(){
+				var teacherName=$(".teacherName").val();
+				var teacherPhone=$(".teacherPhone").val();
+				
+				if((teacherName || teacherPhone) && matchId){
+					 osg.ajax('match/updateTeacher', {'matchId':matchId,'teacherName':teacherName,'teacherPhone':teacherPhone},function(data) {
+				            if(data.status==1){
+				              osg.toast('添加成功！');
+				              $('.match').empty();
+				              loadPhases();
+				              $(".shadow").hide();
+				              $(".shadow input").val("");
+				            }else{
+				              osg.toast('添加失败！');
+				            }
+			          });
+				}else{
+					osg.toast('请填写要修改的信息！');
+				}
+			})
+			
+		</script>
+	</body>
+
+</html>

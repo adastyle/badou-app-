@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="resources/css/mui.min.css" rel="stylesheet" />
+		<link href="resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="resources/css/style.css" rel="stylesheet" />
+		<link href="resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			/*头部搜索*/
+			.mui-bar-nav {
+				background: #fff;
+				margin: 0 1.5rem;
+				box-shadow: none;
+			}
+			.mui-bar-nav .search{
+				display:inline-block;
+				width:80%;
+				height:2.5rem;
+				background:rgba(245,245,245,1);
+				border:1px solid rgba(245, 245, 246, 0.55);
+				border-radius:30px;
+				padding-left:.6rem;
+				margin-right:5%;
+				margin-left:1%;
+			}
+			.mui-bar-nav .search>span{
+				color:#C8CCCC;
+				font-size:1.3rem;
+				width:8%;
+			}
+			.mui-bar-nav .search>input{
+				width:74%;
+				border:none;
+				outline :none;
+				background:rgba(245,245,245,1);
+				padding-left:0;
+			}
+			.mui-bar-nav .search input::-webkit-input-placeholder{
+				color:rgba(182,182,189,1);
+			}
+			.cancel{
+				color:#939393;
+				display:inline-block;
+				height:2.5rem;
+				line-height:2.5rem;
+			}
+			/*头部搜索完*/
+			/*搜索之前的页面状态*/
+			.titles{
+				color:#121212;
+				font-weight:bold;
+				padding:1rem 1rem .5rem 1rem;
+				margin-bottom:0;
+				color:#939393;
+			}
+			.tags a{
+				display:inline-block;
+				padding:.5rem 1.2rem;
+				background:#F5F5F5;
+				border-radius:35px;
+				font-size:.9rem;
+				color:#121212;
+				margin:.5rem;
+			}
+			.searchList{
+				margin:0 1rem;
+			}
+			.searchList>li{
+				height:4rem;
+				border-bottom:1px solid #f5f6f7;
+				line-height:4rem;
+			}
+			.searchList>li>span.iconfont{
+				color:#D32424;
+				font-size:1.2rem;
+			}
+			
+			/*搜索之后的页面状态*/
+				.lookMoreTi{
+				color:#121212;
+				font-weight: bold;
+				font-size:1.2rem;
+				margin-bottom:0;
+				padding-left:3%;
+				padding-top:1rem;
+			}
+			.lookMore{
+				height:7rem;
+				width:100%;
+				padding:0 3%;
+				position:relative;
+				border-bottom:1px solid #F5F6F7;
+				background:#fff;
+				z-index:1000
+			}
+			
+			.lookMore>div.leftShow>img{
+				width:4rem;
+				height:4rem;
+				margin-top:1.7rem;
+			}
+			.lookMore>div.leftShow>div{
+				display:inline-block;
+				padding-top:1rem;
+			}
+			.lookMore>div.leftShow>div p{
+				margin:0.3rem;
+				font-size:1rem;
+				color:#121212;
+			}
+			.allrowRight{
+				position: absolute;
+				top:50%;
+				right:1rem;
+				transform:translateY(-50%);
+				color:#CCCCCC;
+				text-align: center;
+			}
+			.module>div>div:last-child{
+				border-bottom:10px solid #f5f6f7;
+			}
+			.searchResult{
+				display:none;
+			}
+		</style>
+	</head>
+
+	<body class="xyBanner">
+		<header class="mui-bar mui-bar-nav">
+			<div class="search">
+				<span class="iconfont">&#xe651;</span>
+				<input type="text" class="toSearchAudio" placeholder="搜索你想听的国学"/>
+			</div>
+			<span class="cancel">取消</span>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll ">
+				<div class="noSearchShow">
+					<p class="titles">历史搜索</p>
+					<div class="tags">
+						<a href="javascript:;">声率启蒙</a>
+						<a href="javascript:;">成语</a>
+						<a href="javascript:;">十万个为什么</a>
+					</div>
+					<p class="titles" style="padding-top:3rem;">热门搜索</p>
+					<ul class="searchList">
+						<li>
+							<span class="iconfont">&#xe626;</span>
+							<span>声律启蒙</span>
+						</li>
+						<li>
+							<span class="iconfont">&#xe626;</span>
+							<span>声律启蒙</span>
+						</li>
+						<li>
+							<span class="iconfont">&#xe626;</span>
+							<span>声律启蒙</span>
+						</li>
+					</ul>
+				</div>
+				<!--搜索资源包-->
+				<div class="searchResult">
+					<p class="lookMoreTi">最新</p>
+					<div class="lookMore" style="border-bottom:10px solid #F5F6F7;">
+						<div class="leftShow">
+							<img class="imgOfInfo" style="border-radius:4px" src="resources/images/currAudioLogo.png" alt="" />
+							<div>
+								<p class="openVip">成语大全</p>
+								<p style="color:#939393" class="memo">共100个成语</p>
+								<p style="color:#939393" class="fonts">
+									<span class="playTimes"><i class="iconfont" style="margin-right:.3rem">&#xe684;</i><span>50</span></span>
+								</p>
+							</div>
+						</div>
+						<span class="iconfont allrowRight">&#xe61c;</span>
+					</div>
+					<div class="searchList">
+						<p class="lookMoreTi">十万个为什么</p>
+						<div class="lookMore">
+							<div class="leftShow">
+								<img class="imgOfInfo" style="border-radius:4px" src="resources/images/currAudioLogo.png" alt="" />
+								<div>
+									<p class="openVip">成语大全</p>
+									<p style="color:#939393" class="memo">共100个成语</p>
+									<p style="color:#939393" class="fonts">
+										<span class="playTimes"><i class="iconfont">&#xe610;</i><span>50</span></span>
+										<span class="commentTimes"><i class="iconfont">&#xe62e;</i><span>50</span></span>
+										<span class="duration"><i class="iconfont">&#xe6a9;</i><span>50</span></span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="lookMore">
+							<div class="leftShow">
+								<img class="imgOfInfo" style="border-radius:4px" src="resources/images/currAudioLogo.png" alt="" />
+								<div>
+									<p class="openVip">成语大全</p>
+									<p style="color:#939393" class="memo">共100个成语</p>
+									<p style="color:#939393" class="fonts">
+										<span class="playTimes"><i class="iconfont">&#xe610;</i><span>50</span></span>
+										<span class="commentTimes"><i class="iconfont">&#xe62e;</i><span>50</span></span>
+										<span class="duration"><i class="iconfont">&#xe6a9;</i><span>50</span></span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<script src="resources/js/jquery.min.js "></script>
+		<script src="resources/js/mui.min.js "></script>
+		<script src="resources/js/jquery.jplayer.min.js "></script>
+		<script src="resources/js/common.js "></script>
+		<script src="resources/js/mui.pullToRefresh.js "></script>
+		<script src="resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="resources/js/mui.picker.min.js"></script>
+		<script src="resources/js/mui.poppicker.js"></script>
+		<script src="resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			myFunc(function() {
+				$(".toSearchAudio").focus(function(){
+					$(".noSearchShow").hide();
+					$(".searchResult").show();
+				}).blur(function(){
+					$(".noSearchShow").show();
+					$(".searchResult").hide();
+				})
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

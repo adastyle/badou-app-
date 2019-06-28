@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin-bottom:0;
+			}
+			.contents{
+			   width:93%;
+			   margin:0 auto;
+			}
+			.aActive{
+				padding:1rem 0;
+				border-bottom:8px solid #f5f6f7;
+			}
+			.bodys{
+				margin-bottom:1rem;
+				padding-bottom:1rem;
+				border-bottom:1px solid #F5F6F7;
+			}
+			.bodys img{
+				width:40%;
+				border-radius:10px;
+				margin-right:3%;
+				vertical-align: middle;
+			}
+			.bodys>span{
+				display:inline-block;
+				width:53%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				vertical-align: middle;
+			}
+			.toLookProof{
+				margin:1.2 0rem;
+				text-align: right;
+			}
+			.toLookProof a{
+				display:inline-block;
+				padding:.3rem 1rem;
+				background:rgba(238,78,78,1);
+				border-radius:25px;
+				color:#fff;
+				font-size:.9rem;
+				margin:0 .2rem;
+			}
+			.toLookProof a.sendEmail{
+				background: #fff;
+				border:1px solid rgba(238,78,78,1);
+				color:rgba(238,78,78,1);
+			}
+			
+			/*发送邮箱的弹框*/
+			.addressContent {
+				width: 90%;
+				height: 12rem;
+				background: #fff;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				border-radius: 4px;
+			}
+			
+			.addressContent>p:first-child{
+				height: 4rem;
+				text-align: center;
+				line-height:4rem;
+				font-size:1.1rem;
+				font-weight: bold;
+			}
+			
+			.addressContent>ul {
+				list-style: none;
+				border-top: 1px solid #D8DADB;
+				text-align: right;
+			}
+			
+			.addressContent ul>li {
+				text-align: right;
+				display: inline-block;
+				width: 49%;
+				height: 2.95rem;
+				line-height:2.95rem;
+				text-align: center;
+			}
+			
+			.addressContent ul>li.send {
+				border:none;
+				color: #fff;
+				background: linear-gradient(90deg, rgba(249, 94, 87, 1), rgba(211, 36, 36, 1));
+				border-radius: 0 0 4px 0;
+			}
+			.addressInfof {
+				color: #2C2C2C;
+				border-top: 6px solid #F5F6F7;
+				padding: 0rem 0;
+				margin-bottom: 0;
+			}
+			.addressInfof>span:first-child {
+				color: #939393;
+			}
+			.emial{
+				height:5rem;
+				text-align: center;
+				padding-top:.5rem;
+			}
+			.emial>input{
+				margin:0 1rem;
+				border:none;
+				outline: none;
+				width:85%;
+				height:2.5rem;
+				background:rgba(245,246,247,1);
+				border:1px solid rgba(245, 245, 246, 0.55);
+				border-radius:10px;
+				padding-left:.5rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="padding:.5rem;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">活动下载</h1>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll">
+				<div class="contents">
+					<div class="aActive">
+						<div class="bodys">
+							<img src="" alt="" />
+							<span></span>
+						</div>
+						<p class="toLookProof">
+							<!--<a class="onlineLook" href="javascript:;">在线查看</a>-->
+							<a class="sendEmail"  href="javascript:;">发送邮箱</a>
+						</p>
+					</div>
+				</div>	
+			</div>
+			<!--首次添加地址的弹框-->
+			<div class="addressWindow">
+				<div class="addressContent">
+					<p>请确认邮箱地址</p>
+					<div class="emial">
+						<input type="email" class="inputEmail" placeholder="请输入你的邮箱"></input>
+					</div>
+					<ul>
+						<li class="cancel">取消</li>
+						<li class="send">发送</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script type="text/javascript">
+			myFunc(function() {
+				var currId= osg.param("currId");
+				osg.ajax("enrollactivity/query",{"_id":currId},function(data){
+					$(".bodys img").attr("src",qiniuRoot+data.data[0].activity.banner+"!app.shaodan.img");
+					$(".bodys span").html(data.data[0].activity.title+"入营凭证");
+				})
+				$(".send").tap(function(){
+					var inputEmail=$(".inputEmail").val();
+					if(!inputEmail){
+						osg.toast("请输入邮箱号");
+						$(".inputEmail").focus();
+					}else{
+						osg.ajax("enrollactivity/express2",{"enrollId":currId,"mailStr":inputEmail},function(data){
+							if(data.status==1){
+								osg.toast("发送成功");
+								$(".addressWindow").hide();
+							}else{
+								osg.toast("发送失败");
+							}
+						})
+					}
+				})
+				$(".sendEmail").tap(function(){
+					$(".addressWindow").show();
+				})
+				$(".cancel").tap(function(){
+					$(".addressWindow").hide();
+				})
+			})
+				
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+</html>

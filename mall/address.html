@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.addressContent>p {
+				padding: .5rem 1rem;
+				border-bottom: 2px solid #f5f6f7;
+				color: #121212;
+				margin-bottom: 0;
+			}
+			
+			.addressContent>p>span:first-child {
+				display: inline-block;
+				width: 20%;
+			}
+			
+			.addressContent>p>input {
+				width: 75%;
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			
+			.addressContent>p>input::-webkit-input-placeholder {
+				color: #D2D2D2;
+			}
+			
+			.addressContent>p>span:first-child {
+				margin-right: .5rem;
+			}
+			
+			.region>span:last-child {
+				display: inline-block;
+				vertical-align: middle;
+				height: 40px;
+				line-height: 40px;
+				width: 75%;
+				text-align: left;
+			}
+			
+			.addressDetail>span:last-child {
+				display: inline-block;
+				vertical-align: middle;
+				width: 75%;
+				text-align: left;
+				height: 40px;
+			}
+			
+			.addressDetail>span:last-child a {
+				display: inline-block;
+				padding: .2rem 1.2rem;
+				font-size: .8rem;
+				color: #121212;
+				background: #F5F5F5;
+				border-radius: 25px;
+				margin: .15rem;
+			}
+			
+			.defaultAddress {
+				position: relative;
+				text-align: left;
+				height: 8rem;
+				padding-left: 1rem;
+				padding-top: 1.2rem;
+				border-top: #F5F6F7 6px solid;
+				border-bottom: 2px solid #f5f6f7;
+			}
+			
+			.defaultAddress>div {
+				position: absolute;
+				right: 1rem;
+				top: 10%;
+			}
+			
+			.saveAndUse {
+				height: 4rem;
+				line-height: 4rem;
+				text-align: center;
+				margin-top: 1rem;
+			}
+			.addressDetail>span:last-child a.checkedActive{
+				background:#0095E6;
+				color:#fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="padding:.5rem;">&#xe60e;</span>
+				<p>编辑收货地址</p>
+			</div>
+		</header>
+		<div style="padding-top:1.5rem;" class="my_scroll mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll ">
+				<div id="addressContent" class="addressContent">
+					<p class="receiver">
+						<span>收货人</span>
+						<input class="name" type="text" label="收货人名称" placeholder="请填写收货人姓名" required="required" />
+					</p>
+					<p class="number">
+						<span>手机号</span>
+						<input class="phone" type="text" label="手机号" placeholder="请填写收货人手机号" required="required" />
+					</p>
+					<p class="region">
+						<span>所在地区</span>
+						<span class="student_region more">
+							<span class="iconfont valid_readonly" style="float:right" label="地区" required="required">&#xe61c;</span>
+						</span>
+					</p>
+					<p class="addressDetail">
+						<span>详细地址</span>
+						<input class="address" type="text" label="详细地址" placeholder="请填写收货人详细地址" required="required" />
+					</p>
+					<p class="addressDetail">
+						<span>标签</span>
+						<span class="tags">
+							<a href="javascript:;">家</a>
+							<a href="javascript:;">学校</a>
+							<a href="javascript:;">公司</a>
+						</span>
+					</p>
+					<div id="mySwitch" class="defaultAddress">
+						<p>
+							<span>设置默认地址</span>
+							<div class="mui-switch mui-switch-mini">
+								<div class="mui-switch-handle"></div>
+							</div>
+						</p>
+						<p style="width:60%;color:#939393">
+							每次下单时会使用该地址，地址如需要修改，请在下单时确认！
+						</p>
+					</div>
+				</div>
+				<div class="saveAndUse">
+					<a class="linearGradientBtn mui-action-back" href="javascript:;">保存</a>
+				</div>
+
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var data, province, city, district, tag, used, address;
+			var cardIdString=localStorage.getItem("cardString");
+			var sumTotalPrice= localStorage.getItem("totalPrice");
+			var goodsType=localStorage.getItem("goodsType");
+			var num =localStorage.getItem("num");
+			var goodsId = localStorage.getItem('goodsId');
+			var phoneIsTrue=false;
+			myFunc(function() {
+				var currPage=osg.param("currPage");
+				plus.webview.hide("details.html");
+				plus.webview.close("details.html");
+				/*来自我的-下边的我的地址页面*/
+				var currChangeAddressId=osg.param("currChangeAddressId");
+				var tempId=currChangeAddressId
+				changeInfo();
+				osg.evtAddListener(function(d){
+					if(d && d=="changeInfo"){
+						changeInfo();
+					}
+				})
+				/*切换地址标签*/
+				$(".tags>a").tap(function() {
+					tag = $(this).text();
+					$(this).addClass("checkedActive").siblings("a").removeClass("checkedActive")
+				})
+
+				$(".linearGradientBtn").tap(function() {
+					if(currChangeAddressId && currChangeAddressId.length>1){//表示现在要修改该地址id对应的地址信息
+						currChangeAddressId=currChangeAddressId;
+					}else{
+						currChangeAddressId="";
+					}
+					var v = osg.validate('addressContent');
+					if($(".mui-switch").hasClass("mui-active")) {
+						used = 1;
+					} else {
+						used = 0;
+					}
+					
+					if(v) {
+						var param = {
+							address: $('.address').val(),
+							phone: $('.phone').val(),
+							name: $('.name').val(),
+							province: province,
+							city: city,
+							district: district,
+							tag: tag,
+							used: used,
+							_id:currChangeAddressId
+						};
+						osg.ajax('address/upsert', param, function(d) {
+							if(d.success){
+								osg.toast('保存成功！');
+								$(".name").val("");
+								$(".phone").val("");
+								$(".student_region").text("");
+								$(".address").val("");
+								osg.evtFireEvent("changeSuccess");
+							}
+							if(currPage == "addressListPage"){
+								osg.evtFireEvent("addressChange");
+								osg.open("addressList.html");
+							}else if(tempId){
+								osg.open("../mine/myAddress.html");
+							}else if(cardIdString && sumTotalPrice && goodsType==""){//从购物车页面过来
+								localStorage.setItem("detailAddressId",d.data._id);
+								osg.open("order.html",null,{im:1});
+								plus.webview.show("order.html");
+							}else{
+								localStorage.setItem("detailAddressId",d.data._id);
+								osg.open("order.html", {
+									goodsId: goodsId,
+									num: num
+								});
+								plus.webview.show("order.html");
+							}
+						});
+					}
+				})
+
+				/* 地区选择开始*/
+				var cityPicker3 = new mui.PopPicker({
+					layer: 3
+				});
+				cityPicker3.setData(cityData);
+
+				$(".student_region").tap(function() {
+					if(phoneIsTrue){
+						cityPicker3.show(function(items) {
+							province = items[0].text;
+							city = '';
+							district = '';
+							if(items.length > 1 && items[1].value != '0') {
+								city = items[1].text;
+								if(items.length > 2 && items[2].value != '0') {
+									district = items[2].text;
+								}
+							}
+							displayRegion();
+						});
+					}
+				});
+
+				function displayRegion() {
+					var txt = '';
+					if(province)
+						txt += province;
+					if(city)
+						txt += '-' + city;
+					if(district)
+						txt += '-' + district;
+					$('.student_region').val(txt);
+					if(txt)
+						$('.student_region').text(txt);
+					else
+						$('.student_region').text('点击选择');
+				}
+				/* 地区选择结束*/
+			
+			function changeInfo(){
+				/*表示冲我的里边的地址列表过来--并且是修改id*/
+				if(currChangeAddressId && currChangeAddressId.length>1){
+					osg.ajax("address/findById", {"addressId": currChangeAddressId
+					}, function(data) {
+						address = data;
+						phoneIsTrue=true;
+						province=address.province;
+						city=address.city;
+						district=address.district;
+						/*var showPhone=address.phone;
+						showPhone=showPhone.slice(0,3)+"****"+showPhone.slice(7);*/
+						$(".name").val(address.name);
+						$(".phone").val(address.phone);
+						$(".student_region").text(address.province + "-" + address.city + "-" + address.district );
+						$(".address").val(address.address);
+					})
+				}
+			}
+			})
+			/*验证电话号码*/
+			$(".phone").blur(function(){
+				var currPhone=$(this).val();
+				 if(!(/^1\d{10}$/.test(currPhone))){ 
+			        osg.toast("手机号码有误,请重新输入");  
+			        $(this).focus();
+			        phoneIsTrue=false;
+			     }else{
+			     	/*说动收起键盘*/
+			     	document.activeElement.blur();
+			     	phoneIsTrue=true;
+			     }
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+			
+			
+		</script>
+	</body>
+
+</html>

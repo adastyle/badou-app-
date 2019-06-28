@@ -1,0 +1,462 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin-bottom:0;
+			}
+			.contents{
+				width:93%;
+				margin:0 auto;
+			}
+			.changeTipInfo{
+				color:#121212;
+				padding:1rem;
+				font-weight: bold;
+				border-bottom:1px solid #f5f6f7;
+				margin-bottom:1rem;
+			}
+			.infoOfChange{
+				background:rgba(255,255,255,1);
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				border-radius:10px;
+			}
+			.name{
+				width:50%;
+			}
+			.oneChange{
+				margin:0 1rem;
+				border-bottom:2px solid #f5f6f7;
+				height:4rem;
+				line-height: 4rem;
+			}
+			.oneChange>label{
+				display:inline-block;
+				width:36%;
+			}
+			.oneChange>label input[type=checkbox]{
+				margin-right:.2rem;
+				vertical-align: middle;
+				-webkit-appearance: none;
+				width:1.2rem;
+				height:1.2rem;
+				border:1px solid #f7f7f7;
+				border-radius:50%;
+				background:url(../resources/images/sexNoCheaked.png) no-repeat;
+				background-size: contain;
+			}
+			.oneChange>label  input[type=checkbox]:checked{
+				margin-right:.2rem;
+				vertical-align: middle;
+				-webkit-appearance:none;
+				width:1.2rem;
+				height:1.2rem;
+				border-radius: 50%;
+				border:1px solid transparent;
+				background:url(../resources/images/checked.png) no-repeat;
+				background-size: contain;
+			}
+			.oneChange .grade,
+			.oneChange .student_region,
+			.oneChange>input[type=text]{
+				display:inline-block;
+				width:62%;
+				border:none;
+				padding:0;
+				display:none;
+			}
+			
+			.whyChange{
+				outline: none;
+				border:none;
+				margin:0;
+				padding:0;
+				padding-left:1.5rem;
+			}
+			.IDnumber>div{
+				position:relative;
+				display:inline-block;
+				width:45%;
+				height:6rem;
+				padding-top:3%;
+				padding-left:5%;
+			}
+			.IDnumber>div img{
+				width:90%;
+				height:90%;
+			}
+			.IDnumber>div:first-child{
+				margin-right:4%;
+			}
+			.IDshadow{
+				
+			}
+			.tips{
+				color:#D32424;
+				font-size:.8rem;
+				text-align: center;
+			}
+			.reviewWorks{
+				height: 3rem;
+				width: 100%;
+				text-align: center;
+				margin:1.5rem 0 .5rem 0;
+			}
+			/*上传证件的正反面*/
+			.IDshadow{
+				position: absolute;
+				top:0;
+				left:0;
+				width:100%;
+				height:100%;
+				background:rgba(0,0,0,.3);
+			}
+			.IDshadow>div{
+				width:3.5rem;
+				height:3.5rem;
+				border-radius: 50%;
+				background: rgba(211,36,36,.2);
+				position:absolute;
+				top:50%;
+				left:50%;
+				transform:translate(-50%,-50%);
+				text-align: center;
+				line-height: 3.5rem;
+			}
+			.IDshadow>div .iconfont{
+				color:#fff;
+				font-size: 1.5rem;
+			}
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p>信息修改申请</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll">
+				<div class="contents">
+					<p class="changeTipInfo" style="margin-bottom: 0">请选择修改的信息：</p>
+					<div class="infoOfChange">
+						<p class="oneChange">
+							<label class="item"><input type="checkbox" class="checkedName"/><span>姓名</span></label>
+							<input type="text" class="name isShow" placeholder="请填入正确的信息"/>
+						</p>
+						<p class="oneChange">
+							<label  class="item"><input type="checkbox" class="checkedID"/><span>身份证信息</span></label>
+							<input type="text" class="IDcard isShow" placeholder="请填入正确的信息"/>
+						</p>
+						<p class="oneChange">
+							<label class="item"><input type="checkbox" class="checkedAddress"/><span>省、市、区</span></label>
+							<input type="text" class="student_region isShow" placeholder="请填入正确的信息"/>
+						</p>
+						<p class="oneChange">
+							<label class="item"><input type="checkbox" class="checkedSchool"/><span>学校</span></label>
+							<input type="text" class="school isShow" placeholder="请填入正确的信息"/>
+						</p>
+						<p class="oneChange">
+							<label class="item"><input type="checkbox" class="checkedID"/><span>年级</span></label>
+							<select class="grade selectpicker isShow" data-live-search="true" name="grade" required="required">
+								<option value="">请选择</option>
+								<option value="100">学龄前儿童</option>
+								<option value="1">小学一年级</option>
+								<option value="2">小学二年级</option>
+								<option value="3">小学三年级</option>
+								<option value="4">小学四年级</option>
+								<option value="5">小学五年级</option>
+								<option value="6">小学六年级</option>
+								<option value="7">初中一年级</option>
+								<option value="8">初中二年级</option>
+								<option value="9">初中三年级</option>
+							</select>
+						</p>
+						<p class="oneChange">
+							<label class="item"><input type="checkbox" class="checkedNumber"/><span>联系电话</span></label>
+							<input type="text" class="phone isShow" placeholder="请填入正确的信息"/>
+						</p>
+						<p class="oneChange region">
+							<label class="item"><input type="checkbox" class="checkedID"/><span>推荐机构</span></label>
+							<span class="student_Institution">
+								<span class="iconfont valid_readonly" style="float:right" label="推荐机构" required="required">&#xe61c;</span>
+							</span>
+						</p>
+						<!--<p class="oneChange" style="border-bottom:none">
+							<label class="item"><input type="checkbox" class="checkedTeacher"/><span>辅导老师</span></label>
+							<input type="text" class="teacher isShow" placeholder="请填入正确的信息"/>
+						</p>-->
+					</div>
+					<p class="changeTipInfo"><a href="#" style="color: #f00;">*</a>信息修改原因：</p>
+					<textarea name="whyChange" class='whyChange' id="whyChange" placeholder="请填写信息修改原因"></textarea>
+					<p class="changeTipInfo"><a href="#" style="color: #f00;">*</a>个人身份证件：</p>
+					<div class="IDnumber">
+						<div class="IDface avator" data-idUrl="">
+							<img class="haha" src="../resources/images/IDface.png" alt="" />
+							<div class="IDshadow">
+								<div><span class="iconfont">&#xe631;</span></div>
+							</div>
+						</div>
+						<div class="reverseface avator" data-idUrl="">
+							<img src="../resources/images/IDreverse.png" alt="" />
+							<div class="IDshadow">
+								<div><span class="iconfont">&#xe631;</span></div>
+							</div>
+						</div>
+					</div>
+					<p class="tips" style="padding-top:1rem;">*请上传清晰的个人证件原件照片</p>
+					<div class="reviewWorks">
+						<a class="linearGradientBtn submitReview" href="javascript:;">提交审核</a>
+					</div>
+					<p class="tips" style="margin-bottom: 3rem;">审核需要1-2个工作日，请随时关注进度</p>
+				</div>
+			</div>
+		</div>
+		
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var province="", city="", district="",onetution,twotution,threetution,txt_inst,txt_city,flag;
+			myFunc(function() {
+				osg.ajax('user/validateChangeExists',{},function(data){
+					flag = data;
+					if(!data){
+						$(".linearGradientBtn").text("正在审核中,请等待");
+						$(".infoOfChange").disable();
+					}else{
+						$(".linearGradientBtn").text("提交审核");
+					}
+				})
+				$(".infoOfChange").on("tap",".oneChange .item",function(){
+					if($(this).children("input").prop("checked")){
+						$(this).children("input").prop("checked","checked");
+						$(this).next().hide();
+					}else{
+						$(this).children("input").removeProp("checked");
+						$(this).next().show();
+					}
+				})
+				/* 推荐机构开始*/
+				var InstitutionPicker3 = new mui.PopPicker({
+					layer: 3
+				});
+				osg.ajax('match/queryData', {
+						}, function(data) {
+							InstitutionPicker3.setData(data);
+						});
+				$(".student_Institution").tap(function() {
+					InstitutionPicker3.show(function(items) {
+						onetution = items[0].text;
+						twotution = '';
+						threetution = '';
+						if(items.length > 1 && items[1].value != '0') {
+							twotution = items[1].text;
+							if(items.length > 2 && items[2].value != '0') {
+								threetution = items[2].text;
+							}
+						}
+						displayInstitution();
+					});
+				});
+				
+				function displayInstitution() {
+					txt_inst = '';
+					if(onetution)
+						txt_inst += onetution;
+					if(twotution)
+						txt_inst += '-' + twotution;
+					if(threetution)
+						txt_inst += '-' + threetution;
+					$('.student_Institution').text(txt_inst);
+					console.log("txt_inst=>"+txt_inst)
+					if(txt_inst)
+						$('.student_Institution').text(txt_inst).css("color","#121212");
+					else
+						$('.student_Institution').text('点击选择').css("color","#D2D2D2");
+				}
+				/* 推荐机构结束*/
+				/*手机号校验*/
+				$(".phone").blur(function() {
+					var currPhone = $(this).val();
+					if(!(/^1\d{10}$/.test(currPhone))) {
+						osg.toast("手机号码有误,请重新输入");
+						$(this).focus();
+					} else {
+					}
+				})
+				/*身份证校验开始*/
+				$('.IDcard').blur(function() {
+					$(".gender input[type=radio].female").prop('checked',"checked");
+					var idcard = $('.IDcard').val();
+					if(!idCardNoUtil.checkIdCardNo(idcard)) {
+						osg.toast('身份证号校验错误！');
+						$(this).focus();
+						return;
+					}
+					var param = {
+						idcard: idcard,
+					}
+					osg.ajax('user/validateIdcardExists', param, function(d) {
+						if(!d) {
+							osg.toast('身份证号已存在！');
+							$(this).focus();
+							return;
+						}else {
+							var inf = idCardNoUtil.getIdCardInfo(idcard);
+							var gender = inf.gender;
+							if(gender=="女"){
+								$(".gender input[type=radio].male").prop('checked',"checked");
+							}
+							$(".sex").disable();
+						}
+					})
+				})
+				/* 地区选择开始*/
+				var cityPicker3 = new mui.PopPicker({
+					layer: 3
+				});
+				cityPicker3.setData(cityData);
+				$(".student_region").tap(function() {
+					cityPicker3.show(function(items) {
+						province = items[0].text;
+						city = '';
+						district = '';
+						if(items.length > 1 && items[1].value != '0') {
+							city = items[1].text;
+							if(items.length > 2 && items[2].value != '0') {
+								district = items[2].text;
+							}
+						}
+						displayRegion();
+					});
+				});
+
+				function displayRegion() {
+					var txt = '';
+					if(province)
+						txt += province;
+					if(city)
+						txt += '-' + city;
+					if(district)
+						txt += '-' + district;
+					$('.student_region').val(txt);
+					if(txt)
+						$('.student_region').val(txt).css("color","#121212");
+					else
+						$('.student_region').val('点击选择').css("color","#D2D2D2");
+				}
+				/* 地区选择结束*/
+				
+				/*上传省份证开始*/
+				$(".avator").tap(function() {
+					var $tar=$(this);
+					plus.nativeUI.actionSheet({
+						cancel: "取消",
+						buttons: [{
+							title: "拍照"
+						}, {
+							title: "从相册选择"
+						}]
+					}, function(event) {
+						var index = event.index;
+						switch(index) {
+							case 1: // 拍照
+								 osg.pickImageFromCamera(function(f) {
+									osg.uploadFile(f, function(fid) {
+										 $tar.find("img").attr("src",qiniuRoot+fid);
+										 $tar.attr("data-idUrl",fid);
+										 $tar.find(".IDshadow").hide(); 
+									})
+								});
+								break;
+							case 2: // 从相册选择
+								osg.pickImageFromGallery(1, function(f) {
+									osg.uploadFile(f, function(fid) {
+										 $tar.find("img").attr("src",qiniuRoot+fid);
+										 $tar.attr("data-idUrl",fid);
+										  $tar.find(".IDshadow").hide(); 
+									})
+								})
+                   				break;
+						}
+					});
+				})
+				
+				
+				$(".submitReview").tap(function(){
+					if(!flag){
+						return;
+					}
+					var reason=$(".whyChange").val();
+					var IdFace= $(".IDface").attr("data-idUrl");
+					var reverseface= $(".reverseface").attr("data-idUrl");
+					if(!reason){
+						osg.toast('请填写修改原因！');
+						$(".whyChange").focus();
+						return;
+					}else{
+						if(!IdFace){
+							osg.toast('请上传身份证正面！');
+							return;
+						}else{
+							if(!reverseface){
+								osg.toast('请上传身份证正面！');
+								return;
+							}
+						}
+					}
+					
+					if(reason && IdFace && reverseface){
+						
+						var param = {
+							newName: $('.name').val(),
+							newIdcard: $('.IDcard').val(),
+							province: $(".student_region"),
+							newSchoolName: $('.school').val(),
+							newGrade: $('.grade').val(),
+							newMatchPhone: $(".phone").val(),
+							newstudent_Institution: txt_inst,
+							newDistrict:district,
+							newCity:city,
+							newProvince:province,
+							idcard0:IdFace,
+							idcard1:reverseface,
+							reason:$('.whyChange').val()
+						};
+						osg.ajax("user/change",param,function(data){
+							if(data.success){
+								osg.alert("提交审核中，请等待，审核需要1-2个工作日，请随时关注进度");
+								$(".submitReview").text("正在审核中,请等待");
+								$(".infoOfChange").disable();
+								flag = false;
+							}
+						})
+					}
+				})
+				
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

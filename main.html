@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <link rel="stylesheet" href="resources/css/mui.min.css">
+        <link rel="stylesheet" href="resources/fonts/iconfont.css">
+        <link rel="stylesheet" href="resources/css/style.css">
+        <style>
+            html,
+			body {
+				background-color: #f0f4f6;
+			}
+		</style>
+    </head>
+
+    <body>
+        <nav class="mui-bar mui-bar-tab">
+            <a class="mui-tab-item mui-active" data-id="0" href="home/tab-webview-subpage-home.html">
+                <span class="icon iconfont">&#xe619;</span>
+                <span id="tab_home" class="mui-tab-label">首页</span>
+            </a>
+            <a class="mui-tab-item" data-id="2" href="mall/tab-webview-subpage-mall.html">
+                <span class="iconfont">&#xe642;</span>
+                <span class="mui-tab-label">八斗商城</span>
+            </a>
+            <a class="mui-tab-item" data-id="3" href="juvenile/tab-webview-subpage-juvenile.html">
+                <span class="iconfont">&#xe639;</span>
+                <span class="mui-tab-label">少年荟</span>
+            </a>
+            <a class="mui-tab-item" data-id="4" href="mine/tab-webview-subpage-mine.html">
+                <span class="iconfont">&#xe61b;</span>
+                <span class="mui-tab-label">我的</span>
+            </a>
+        </nav>
+        <script src="resources/js/mui.min.js"></script>
+        <script src="resources/js/jquery.min.js"></script>
+        <script src="resources/js/common.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var isActive = true,
+                advertise = 0;
+            myFunc(function() {
+                /*if(projectMode.indexOf('labour_test') != -1)
+					$('#tab_home').text('首页');
+*/
+//                 // iOS音频播放代码例子
+//                 var OSGAudioPlayer = plus.ios.invoke('OSGAudioPlayer', "getInstance");
+// 
+//                 var delegate = plus.ios.implements("OSGAudioPlayerDelegate", {
+//                     "progress:": function(data) {
+//                         var current = OSGAudioPlayer.plusGetAttribute("current");
+//                         var total = OSGAudioPlayer.plusGetAttribute("total");
+//                         console.log("///////////////current:" + current + ";total:" + total);
+//                     },
+//                     "playbackFinished:": function(data) {
+//                         console.log("///////////////播放结束回调");
+//                         plus.ios.invoke(OSGAudioPlayer, "playNext");
+//                     }
+//                 });
+//                 var urls =
+//                     'http://qiniubadoupriv.caihongjiankang.com/2475618719877252913.mp3?e=1560462266&token=zV7loQsfSqqy9BB-ZBvwmQ5AKtVwkoMyO6Utkbp1:FVaVEDPIGipggE6NMBBhHBNLhVQ=;http://qiniubadoupriv.caihongjiankang.com/4051219038750064771.mp3?e=1560462266&token=zV7loQsfSqqy9BB-ZBvwmQ5AKtVwkoMyO6Utkbp1:vkrZ_2GHbblRyNYqwMKTO1yhT-A=';
+//                 plus.ios.invoke(OSGAudioPlayer, "initAudioList:callback:", urls, null);
+//                 $(".dostart").tap(function() {
+//                     plus.ios.invoke(OSGAudioPlayer, "play");
+//                 });
+//                 $(".dostop").tap(function() {
+//                     plus.ios.invoke(OSGAudioPlayer, "pause");
+//                 });
+//                 $(".donext").tap(function() {
+//                     //plus.ios.invoke(OSGAudioPlayer, "playNext");
+//                     //plus.ios.invoke(OSGAudioPlayer, "playAtTime:", 290);
+//                     //plus.ios.invoke(OSGAudioPlayer, "playAt:", 1);
+//                     // 设置ios锁屏播放封面
+//                     plus.ios.invoke(OSGAudioPlayer,
+//                         "playingInfoCenterWithTitle:artist:current:total:image:", "测试标题", "测试作者",
+//                         "30", "40",
+//                         "http://qiniuzhidapub.caihongjiankang.com/4471545273554061278.jpg");
+//                 });
+//                 setInterval(function() {
+//                     var action = OSGAudioPlayer.plusGetAttribute("action");
+//                     if (action)
+//                         console.log("--------------------:" + action);
+//                 }, 500);
+//                 return;
+
+//                 // android音频播放代码例子
+//                 $(".myhome2").tap(function(){
+//                     AudioPlayNotificationUtil.closeNotification();
+//                 });
+//                 var playing = true, favor = false;
+// 				$(".myhome").tap(function(){
+// 					/*var main = plus.android.runtimeMainActivity();
+//                     var Intent = plus.android.importClass("android.content.Intent");
+// 
+//                     var intent = new Intent();
+//                     intent.setClassName(main, "com.badou.BadouTestActivity");
+//                     main.startActivity(intent);*/
+//                     var main = plus.android.runtimeMainActivity();
+//                     var AudioPlayNotificationUtil = plus.android.importClass("com.osg.AudioPlayNotificationUtil");
+//                     AudioPlayNotificationUtil.updateNotificationInfo(main, "http://qiniubadoupub.caihongjiankang.com/1958331905104235656.jpg",
+//                         "测试标题","测试作者", playing, favor);
+// 
+// 				});
+// 				setIntsetIntervalerval(function() {
+// 				     var main = plus.android.runtimeMainActivity();
+// 				     var AudioPlayNotificationUtil = plus.android.importClass("com.osg.AudioPlayNotificationUtil");
+//                      var action = AudioPlayNotificationUtil.getAction();
+//                      if (action) {
+//                         if(action == 'play') {
+//                             playing = !playing;
+//                             AudioPlayNotificationUtil.updateNotificationInfo(main, null, "测试标题2","测试作者2", playing, favor);
+//                         }else if(action == 'favor') {
+//                             favor = !favor;
+//                             AudioPlayNotificationUtil.updateNotificationInfo(main, null, "测试标题2","测试作者2", playing, favor);
+//                         }
+//                      }
+//                  }, 500);
+// 				return;
+
+                var bottompx = '49px';
+                if (mui.os.ios && plus.display.resolutionHeight > 750) { //iphoneX 768、iphone8 plus 716
+                    $(".mui-bar-tab").css("padding-bottom", '16px');
+                    bottompx = '62px';
+                }
+                // 检查是否有新的安装包
+                checkWgt();
+                doOpenMessageWindow();
+                // 监听点击消息事件
+                plus.push.addEventListener("click", function(msg) {
+                    openPushMsg(msg);
+                }, false);
+                // 监听在线消息事件
+                plus.push.addEventListener("receive", function(msg) {
+                    if (mui.os.ios && isActive) {
+                        createLocalMessage(msg);
+                        return;
+                    }
+                    openPushMsg(msg);
+                }, false);
+                document.addEventListener("pause", onAppPause, false);
+
+                function onAppPause() {
+                    isActive = false;
+                }
+                // app每次激活时调用
+                document.addEventListener("resume", onAppReume, false);
+
+                function onAppReume() {
+                    isActive = true;
+                    plus.runtime.setBadgeNumber(0);
+                    checkWgt();
+                    // 上次请求失败的缓存请求，重新提交服务器
+                    var af = osg.get(cacheKeys.ajaxForce);
+                    if (af) {
+                        af = JSON.parse(af);
+                        for (var i = 0; i < af.length; i++) {
+                            var afd = af[i];
+                            //							osg.ajax(afd.url, afd.data, null, {
+                            //								forceid: afd.forceid,
+                            //								noload: true
+                            //							});
+                        }
+                    }
+                    saveClientId();
+                }
+
+                //mui初始化
+                mui.init({
+                    swipeBack: false //禁用右滑关闭功能
+                });
+                // 根据分辨率计算tabbar像素高度
+                //				var x = parseInt(46 / 320 * plus.screen.resolutionWidth);
+                //				if(x > 50) x = x - 1;
+                var subpage_style = {
+                    top: '0px',
+                    bottom: bottompx,
+                    popGesture: 'none' // 禁用侧滑返回
+                };
+
+                var subpages = ['home/tab-webview-subpage-home.html', 'mall/tab-webview-subpage-mall.html',
+                    'juvenile/tab-webview-subpage-juvenile.html', 'mine/tab-webview-subpage-mine.html'
+                ];
+                var user = osg.currentUser();
+                //创建子页面，首个选项卡页面显示，其它均隐藏；
+                var self = plus.webview.currentWebview();
+                for (var i = 0; i < subpages.length; i++) {
+                    var temp = {};
+                    var sub = osg.createWebview(subpages[i], subpages[i], subpage_style);
+                    if (i > 0) {
+                        sub.hide();
+                    } else {
+                        temp[subpages[i]] = "true";
+                        mui.extend(aniShow, temp);
+                    }
+                    self.append(sub);
+                }
+
+                var aniShow = {};
+
+                //当前激活选项
+                var activeTab = subpages[0];
+                //选项卡点击事件
+                mui('.mui-bar-tab').on('tap', 'a', function(e) {
+                    var targetTab = this.getAttribute('href');
+                    if (targetTab == activeTab) {
+                        return;
+                    }
+                    var idx = $(".mui-bar-tab a").index(this);
+                    //显示目标选项卡
+                    //若为iOS平台或非首次显示，则直接显示
+                    if (mui.os.ios || aniShow[targetTab]) {
+                        plus.webview.show(targetTab);
+                    } else {
+                        //否则，使用fade-in动画，且保存变量
+                        var temp = {};
+                        temp[targetTab] = "true";
+                        mui.extend(aniShow, temp);
+                        plus.webview.show(targetTab, "fade-in", 300);
+                    }
+                    //隐藏当前;
+                    plus.webview.hide(activeTab);
+                    //更改当前活跃的选项卡
+                    activeTab = targetTab;
+                });
+
+                osg.evtAddListener(function(d) {
+                    if (d && d == 'toMatch') { // 点击banner去少年绘页面
+                        var targetTab = 'juvenile/tab-webview-subpage-juvenile.html';
+                        plus.webview.show(targetTab);
+                        plus.webview.hide('home/tab-webview-subpage-home.html');
+                        activeTab = 'juvenile/tab-webview-subpage-juvenile.html';
+                        $(".mui-bar-tab a:first-child").removeClass("mui-active");
+                        $("[data-id=3]").addClass("mui-active");
+                    } else if (d && d == 'toMall') {
+                        var targetTab = 'mall/tab-webview-subpage-mall.html';
+                        plus.webview.show(targetTab);
+                        plus.webview.close('match.html');
+                        activeTab = 'mall/tab-webview-subpage-mall.html';
+                        $("[data-id=2]").addClass("mui-active");
+                        $("[data-id=3]").removeClass("mui-active");
+                        osg.evtFireEvent('toQuanbu');
+                    } else if (d && d == 'MytoMallAll') { //我的指导用书到商城全部
+                        var targetTab = 'mall/tab-webview-subpage-mall.html';
+                        plus.webview.show(targetTab);
+                        plus.webview.hide('mine/tab-webview-subpage-mine.html');
+                        activeTab = 'mall/tab-webview-subpage-mall.html';
+                        $("[data-id=2]").addClass("mui-active");
+                        $("[data-id=4]").removeClass("mui-active");
+                        osg.evtFireEvent('toQuanbu');
+                    } else if (d && d == 'shaoToMall') {
+                        var targetTab = 'mall/tab-webview-subpage-mall.html';
+                        plus.webview.show(targetTab);
+                        plus.webview.hide('juvenile/tab-webview-subpage-juvenile.html');
+                        activeTab = 'mall/tab-webview-subpage-mall.html';
+                        $("[data-id=2]").addClass("mui-active");
+                        $("[data-id=3]").removeClass("mui-active");
+                        osg.evtFireEvent('toQuanbu');
+                    } else if (d && d == 'favorToVoicehome') { //音频我的收藏去首页
+                        var targetTab = 'home/tab-webview-subpage-home.html';
+                        plus.webview.show(targetTab);
+                        plus.webview.close('audioCollect.html');
+                        activeTab = targetTab;
+                        $("[data-id=0]").addClass("mui-active");
+                        $("[data-id=4]").removeClass("mui-active");
+                    } else if (d && d == 'toMine') {
+                        var targetTab = 'mine/tab-webview-subpage-mine.html';
+                        plus.webview.show(targetTab);
+                        plus.webview.hide('home/tab-webview-subpage-home.html');
+                        activeTab = 'mine/tab-webview-subpage-mine.html';
+                        $("[data-id=4]").addClass("mui-active");
+                        $("[data-id=0]").removeClass("mui-active");
+                    } else if (d && d == 'toMine1') {
+                        var targetTab = 'mine/tab-webview-subpage-mine.html';
+                        plus.webview.show(targetTab);
+                        plus.webview.hide('home/tab-webview-subpage-juvenile.html');
+                        activeTab = 'mine/tab-webview-subpage-mine.html';
+                        $("[data-id=4]").addClass("mui-active");
+                        $("[data-id=3]").removeClass("mui-active");
+                    } else if (d && d == 'guanggaoToMall') {
+                    	var targetTab = 'mall/tab-webview-subpage-mall.html';
+                    	activeTab = targetTab;
+                    	plus.webview.show(targetTab);
+                    	plus.webview.hide('home/tab-webview-subpage-home.html');
+                    	$("[data-id=2]").addClass("mui-active");
+                        $("[data-id=0]").removeClass("mui-active");
+                    }
+                });
+
+                /*osg.evtAddListener(function(d) {
+                	if(d && d == 'logout') { // 退出事件
+                		//隐藏当前;
+                		plus.webview.hide(activeTab);
+                		plus.webview.show(subpages[0]);
+                		activeTab = subpages[0];
+                		$(".mui-bar-tab a").removeClass("mui-active");
+                		$(".mui-bar-tab a:first-child").addClass("mui-active");
+                	}
+                });*/
+
+                // android返回按钮事件，两次点击退出app
+                var backButtonPress = 0;
+                mui.back = function(event) {
+                    if (plus.webview.getTopWebview() != plus.webview.currentWebview()) {
+                        plus.webview.getTopWebview().close();
+                        return;
+                    }
+
+                    backButtonPress++;
+                    if (backButtonPress > 1) {
+                        plus.runtime.quit();
+                    } else {
+                        osg.toast('再按一次退出应用');
+                    }
+                    setTimeout(function() {
+                        backButtonPress = 0;
+                    }, 1000);
+                    return false;
+                };
+
+                // 初始化时更新未读消息数量
+                messageCounts();
+
+                osg.set('isPlay', false); //初始化时默认为暂停状态
+
+
+                //请求启动广告图参数配置
+                osg.ajax('match/queryConfig', {}, function(data) {
+                    if (data != undefined && data != "") {
+                        if (data.data.advertTimes > 0) {
+                            advertise = data.data.advertise;
+                            var date = new Date;
+                            var hours = date.getHours();
+                            var advertTimes = osg.get("advertTimes");
+                            if ((!advertTimes || advertTimes != hours) && advertise == 1) {
+                                osg.open('advertise.html');
+                            }
+                        }
+                    }
+                }, {
+                    noload: true
+                })
+				saveClientId();//获得设备号
+            });
+
+            function checkWgt() {
+                // 检查是否有新的wgt资源包
+                plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo) {
+                    osg.ajax('user/appResume', {
+                        cv: wgtinfo.version
+                    }, function(data) {
+                        if (data) {
+                            if ((mui.os.android && data.isPublishAndroid == 1) || (mui.os.ios && data.isPublishIos ==
+                                    1)) {
+                                osg.settingSet('isPublish', 1);
+                                //$("[data-id=2]").hide();
+                            } else {
+                                osg.settingSet('isPublish', 0);
+                                //$("[data-id=2]").show();
+                            }
+
+                            var user = osg.currentUser();
+                            var uu = osg.getObj(cacheKeys.user);
+                            var uv = false,
+                                uty = false;
+                            if (user) { // 用户审核状态更新
+                                if (user.valid != data.userValid) {
+                                    uu.user.valid = data.userValid;
+                                    uv = true;
+                                }
+                                if (!user.teamYuhong || (user.teamYuhong != data.teamYuhong)) {
+                                    uu.user.teamYuhong = data.teamYuhong;
+                                    uty = true;
+                                }
+                            }
+                            if (uv || uty) {
+                                osg.currentUserSet(uu);
+                                if (uv)
+                                    osg.evtFireEvent('change_worker'); // 刷新工人列表待审核状态
+                                if (uty)
+                                    osg.evtFireEvent('change_team_yuhong'); // 雨虹类型状态更新
+                            }
+
+                            if (data.fileidUrl) { // 有升级包
+                                var fileid = data.fileid,
+                                    url = data.fileidUrl,
+                                    st = osg.networkState();
+                                if (st == 'wifi') {
+                                    downloadWgt(fileid, url);
+                                } else if (st == '4g' || st == '3g' || st == '2g') {
+                                    osg.confirm("有新的升级包，目前网络是" + st + "，是否现在下载？", function() {
+                                        downloadWgt(fileid, url);
+                                    });
+                                }
+                            }
+
+                            // 邀请消息处理
+                            var invites = data.invites;
+                            if (invites && invites.length > 0) {
+                                var msgs = osg.getObj('_msgs');
+                                if (!msgs) {
+                                    msgs = [];
+                                }
+                                for (var i = 0; i < invites.length; i++) {
+                                    var inv = invites[i];
+                                    inv.type = 'invite';
+                                    msgs.push(inv);
+                                }
+                                osg.set('_msgs', msgs);
+                            }
+
+                            //项目删除消息通知
+                            var removeProjectNotices = data.removeProjectNotices;
+                            if (removeProjectNotices && removeProjectNotices.length > 0) {
+                                var msgs = osg.getObj('_msgs');
+                                if (!msgs) {
+                                    msgs = [];
+                                }
+                                for (var i = 0; i < removeProjectNotices.length; i++) {
+                                    var inv = removeProjectNotices[i];
+                                    inv.type = 'removeNotices';
+                                    msgs.push(inv);
+                                }
+                                osg.set('_msgs', msgs);
+                            }
+                            // 公告消息处理
+                            var notices = data.notices;
+                            if (notices && notices.length > 0) {
+                                var msgs = osg.getObj('_msgs');
+                                if (!msgs) {
+                                    msgs = [];
+                                }
+                                for (var i = 0; i < notices.length; i++) {
+                                    var inv = notices[i];
+                                    inv.type = 'notice';
+                                    msgs.push(inv);
+                                }
+                                osg.set('_msgs', msgs);
+                            }
+                            doOpenMessageWindow();
+                        }
+                    }, {
+                        noload: true
+                    });
+                });
+            }
+
+            function doOpenMessageWindow() {
+                var msgs = osg.getObj('_msgs');
+                if (msgs && msgs.length > 0) {
+                    var v = plus.webview.getDisplayWebview();
+                    if (v.id != 'remind.html') {
+                        var noticWebview = osg.createWebview('remind.html', 'remind.html', {
+                            background: 'transparent',
+                            cachemode: 'noCache'
+                        });
+                        noticWebview.show('fade-in', 500, function() {});
+                    }
+                }
+            }
+
+            function downloadWgt(fileid, url) {
+                osg.download(url, function(fn) {
+                    plus.io.resolveLocalFileSystemURL(fn, function(file) {
+                        plus.io.resolveLocalFileSystemURL('_downloads', function(dir) {
+                            file.moveTo(dir, fileid);
+                            var ul = '_downloads/' + fileid;
+                            //ul = plus.io.convertLocalFileSystemURL(ul);
+                            //alert(ul);
+                            plus.runtime.install(ul, {
+                                force: true
+                            }, function() {
+                                //更新完成，重启应用
+                                osg.confirm("升级包下载完成，是否立即重启？", function() {
+                                    setTimeout(function() {
+                                        plus.runtime.restart();
+                                    }, 1000);
+
+                                });
+                            }, function(e) {
+                                alert("更新失败(" + e.code + "): " + e.message);
+                            });
+                        });
+                    });
+
+                }, true);
+            }
+
+            function createLocalMessage(pushMsg) {
+                if (!pushMsg)
+                    return;
+                var msg;
+                if (mui.os.ios) {
+                    if (pushMsg.aps)
+                        msg = JSON.parse(pushMsg.payload.content);
+                    else if (typeof pushMsg.payload == 'string')
+                        msg = JSON.parse(pushMsg.payload);
+                    else
+                        msg = pushMsg.payload;
+                } else
+                    msg = JSON.parse(pushMsg.payload);
+                if (msg.localMsg)
+                    return;
+                var options = {
+                    cover: false,
+                    title: pushMsg.title
+                };
+                msg.localMsg = true;
+                if (mui.os.ios) // ios不支持title标题，则直接拼在内容中
+                    msg.text = pushMsg.title + ":" + msg.text;
+                plus.push.createMessage(msg.text, JSON.stringify(msg), options);
+            }
+
+            function openPushMsg(pushMsg) {
+                if (!pushMsg)
+                    return;
+                var msg;
+                if (mui.os.ios) {
+                    if (pushMsg.aps)
+                        msg = JSON.parse(pushMsg.payload.content);
+                    else if (typeof pushMsg.payload == 'string')
+                        msg = JSON.parse(pushMsg.payload);
+                    else
+                        msg = pushMsg.payload;
+                } else
+                    msg = JSON.parse(pushMsg.payload);
+                var type = msg.type,
+                    id = msg.typeId,
+                    msgId = msg.msgId;
+                if (type == 0) { // 新闻
+                    osg.open('juvenile/detail.html', {
+                        'newsId': id
+                    });
+                } else if(1 == type) { // 音频
+					osg.ajax('voice/findById',{'id':id},function(data){
+						if(!data){
+							osg.toast('暂无法打开推送内容');
+							return;
+						}
+						var list = [data];
+						if(data.infoList){
+							list = data.infoList
+						}
+						osg.set('voice_list',list);//把列表缓存到本地
+						osg.set("voice_now",data);
+						var detailsView = plus.webview.getWebviewById("details");
+						if(detailsView){
+							osg.evtFireEvent('update');
+						}
+						osg.open('home/audioPlay.html', {
+						}, null, {
+							im: 1,
+							id:"details"
+						});
+					})
+				} else if (2 == type) { // 商品
+                    localStorage.setItem("goodsType", "oneBook");
+                    localStorage.setItem("goodsId", id);
+                    osg.open('mall/details.html', {}, {
+                        im: 1,
+                        id: "details.html"
+                    });
+                } else if (3 == type) { // 资源包
+                    osg.open('home/audioList.html', {}, {
+                        "categoryId": id,
+                        "cateGoryInfo": "资源包"
+                    }, {
+                        im: 1,
+                        id: "audioList.html"
+                    });
+                } else if (4 == type) { // 商品套餐
+                    localStorage.setItem("goodsType", "suit");
+                    localStorage.setItem("goodsId", id);
+                    osg.open('mall/details.html', {}, {
+                        im: 1,
+                        id: "details.html"
+                    });
+                }
+                // 更新未读消息数量
+                messageCounts(msgId);
+            }
+
+            function messageCounts(msgId) {
+                //				osg.ajax('message/counts', {
+                //					msgId: msgId
+                //				}, function(data) {
+                //					osg.set('messageCounts', data + '');
+                //				}, {
+                //					noload: true
+                //				});
+            }
+
+            function saveClientId() {
+            	var tag="";
+            	var date = new Date;
+            	var day = date.getDay();
+                var dayTag = osg.get("dayTag");
+                // 获取推送clientid（个推）
+                var cinfo = plus.push.getClientInfo(),
+                    clientid = cinfo.clientid;
+                var device = mui.os.ios ? 'ios' : 'android';
+                if (!dayTag && clientid && device) {
+                    tag="add";
+                    osg.set("dayTag",day);
+                }
+                osg.ajax('user/saveClientId', {
+                    "clientid": clientid,
+                    "device": device,
+                    "tag":tag
+                }, function(data) {
+
+                }, {
+                    noload: true
+                });
+            }
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin-bottom:0;
+			}
+			.contents{
+				width:93%;
+				margin:0 auto;
+				text-align: justify;
+				padding-top:1rem;
+				background: #fff !important;
+			}
+			.entryInfo{
+				position:fixed;
+				width:100%;
+				height:100%;
+				background:transparent;
+				z-index:10;
+				display:none;
+			}
+			.entryInfo>a{
+				width:65%;
+				position: absolute;
+				bottom:8rem;
+				left:50%;
+				transform:translateX(-50%);
+				display:inline-block;
+				padding:0 1rem;
+				height:2rem;
+				background:linear-gradient(90deg,rgba(249,94,87,1),rgba(211,36,36,1));
+				border-radius:45px;
+				COLOR:#FFF;
+				text-align: center;
+				z-index:100;
+				opacity: .5;
+				line-height:2rem;
+			}
+			.contents img{
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p>活动须知</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll">
+				<div class="contents">
+					 
+				</div>
+			</div>
+			<div class="entryInfo">
+				<a href="javascript:;" class="realRead">请仔细阅读（10）s</a>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			myFunc(function() {
+				var fig=osg.param("fig");
+				var newsId=osg.param("newsId");
+				osg.ajax('news/findById', {"id":newsId}, function(data) {
+						if(data){
+							$(".contents").html(data.content);
+						}
+					}, {
+						noload: true
+					});
+				if(fig=="立即报名" || fig=="收费活动"){
+					$(".entryInfo").show();
+					$(".realRead").html("请仔细阅读（10）s");
+					$(".readed").removeClass("readed");
+					var second=10;
+					var timer=setInterval(function(){
+						if(second>1){
+							second--;
+							$(".realRead").html("请仔细阅读（"+second+"）s");
+							$(".readed").removeClass("readed");
+						}
+						else{
+							$(".realRead").html("我已经阅读并同意相关条款");
+							$(".realRead").addClass("readed");
+							$(".realRead").css("opacity",1);
+							clearInterval(timer);
+						}
+					},1000)
+				}
+				
+				$(".entryInfo").on("tap",".readed",function(){
+					if(fig=="立即报名"){
+						osg.evtFireEvent('readDetail');
+					}else if(fig=="收费活动"){
+						var activityId=osg.param("activityId");
+						osg.open('userInfo.html',{"activityId":activityId});
+						return;
+					}
+					osg.closeMe();
+				})
+				
+			})
+			
+			
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

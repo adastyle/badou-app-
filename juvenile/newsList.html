@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			
+			.newsList>div{
+				width:100%;
+				padding:0 4%;
+				border-bottom:1px solid #f5f6f7;
+			}
+			.mui-action-back+p{
+				width:85%;
+			}
+			.bigTitle{
+				color:#121212;
+				font-size:1rem;
+				padding:2rem 0 .2rem 0;
+				margin-bottom:0;
+			}
+			.info{
+				position:relative;
+				color:#939393;
+				padding:.5rem 0;
+				font-size:.8rem;
+				padding-bottom:1rem;
+			}
+			.commentAndLike{
+				position: absolute;
+				right:0;
+			}
+			.author{
+				color:#D32424;
+				margin-right:.5rem;
+			}
+			.contents{
+				color:#939393;
+			}
+			.twoImage .contents>img{
+				width:48%;
+			}
+			.twoImage .contents>img:first-child{
+				margin-right:2%;
+			}
+			.news_item {
+				padding: 1rem 1rem 0rem 0rem;
+				width: 100%;
+				background-color: #fff;
+			}
+			
+			.news_item>div {
+				padding: 0.8rem 0 0.8rem 0;
+			}
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.headerTi>span:first-child{
+				left:4%;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-size:1.2rem;
+				font-weight:bold;
+				position: relative;
+				margin-left:0
+			}
+			.header p{
+				padding:0;
+				margin:0;
+			}
+			
+		</style>
+	</head>
+	<body class="xyBanner">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<!--<span class="iconfont mui-action-back">&#xe60e;</span>-->
+				<!--<p>信息修改申请</p>-->
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+				</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll news_scroll">
+				<div class="newsList">
+					<div class="oneBanner">
+						<div class="news_item news_img1 debug">
+							<div class="left">
+								<div class="bigTitle more2" style="padding:0rem 0 .2rem 0;">
+									2018年高考艺考开幕 济南六千考生同场竞技2018年高考艺考开幕 济南六千考生同场竞技
+								</div>
+								<div class="info">
+									<span class="author">高考百科</span>
+									<span class="time m-l-4">2018-08-22</span>
+								</div>
+							</div>
+							<img src="../resources/images/guess2.png" />
+						</div>
+					</div>
+					<div class="noImage">
+						<p class="bigTitle more">第二届中华之星国学大赛幼小组获奖名单</p>
+						<!--<div class="more2 contents">
+                            2017年12月16日，相遇最美诗词，第三届中华之星国学大赛，启
+							动仪式在中华书局隆重举行。教育部高校学生......</div>-->
+						<div class="info">
+							<span class="author">八斗国学</span>
+							<span class="time">半小时前</span>
+							<!--<span class="commentAndLike">
+								<span class="iconfont">&#xe62e;</span>
+								<span class="comment" style="margin-right:1rem">40</span>
+								<span class="iconfont">&#xe628;</span>
+								<span class="favor">5</span>
+							</span>-->
+						</div>
+					</div>
+					<div class="twoImage">
+						<p class="bigTitle more">第二届中华之星国学大赛幼小组获奖名单</p>
+						<div class="more2 contents">
+                        	<img class="left" src="../resources/images/guess2.png" alt="" />
+                        	<img class="right" src="../resources/images/guess2.png" alt="" />
+						</div>
+						<div class="info">
+							<span class="author">八斗国学</span>
+							<span class="time">半小时前</span>
+							<!--<span class="commentAndLike">
+								<span class="iconfont">&#xe62e;</span>
+								<span class="comment" style="margin-right:1rem">40</span>
+								<span class="iconfont">&#xe628;</span>
+								<span class="favor">5</span>
+							</span>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var  newsFpi,activityId,ptr;
+			myFunc(function() {
+				
+				activityId = osg.param("activityId");
+				console.log("activityId=>"+activityId);
+				
+				myscroll = $(".news_scroll")[0];
+				mui(myscroll).pullToRefresh({
+					up: {
+						auto: true,
+						callback: function() {
+							ptr = this;
+							var nextPage;
+							if(newsFpi)
+								nextPage = newsFpi.page + 1;
+							else
+								nextPage = 1;
+
+							findPage(nextPage, {
+								'self': this
+							});
+						}
+					},
+				});
+				
+				//分页函数
+				function findPage(page, param) {
+					if(!param) {
+						param = {};
+					}
+					param.self = ptr;
+
+					osg.ajax('news/query', {
+						'page': page,
+						'activityId':activityId
+					}, function(data) {
+						// 下拉的情况下，结束下拉刷新状态
+						if(param.pullDown)
+							param.self.endPullDownToRefresh();
+						if(!data) {
+							param.self.endPullUpToRefresh(true);
+							return;
+						}
+						if(page == 1) {
+							$("#newsList").html('');
+						}
+						newsFpi = data;
+						for(var i = 0; i < data.data.length; i++) {
+							var oneData = data.data[i];
+							$("#newsList").append(getItem(oneData));
+						}
+						param.self.endPullUpToRefresh(data.page >= data.pages);
+					}, {
+						noload: true
+					});
+
+				}
+				var oneBanner= $(".oneBanner").clone();
+				var ongImg=$(".noImage").clone();
+				var twoImg=$(".twoImage").clone();
+				$(".oneBanner").hide();
+				$(".noImage").hide();
+				$(".twoImage").hide();
+				function getItem(oneData){
+					var news = oneData;
+					var imgCount = 0;
+					if(news.images){
+						imgCount = news.images.length;
+					}
+					/*一张banner*/
+					if(imgCount==1) { // 单图新闻
+						var currOneBanner=oneBanner.clone();
+						currOneBanner.find(".bigTitle").attr("data-id",news._id)
+						currOneBanner.find(".bigTitle").html(news.title);
+						currOneBanner.find("img").attr("src",qiniuRoot+news.images[0]);
+						currOneBanner.find(".info .comment").html(news.commentTimes);
+						currOneBanner.find(".info .favor").html(news.favor);
+						currOneBanner.find(".author").html(news.author);
+						currOneBanner.find(".info .time").html(news.createTimeFormat);
+						currOneBanner.tap(function(e) {
+							var newsId = $(this).find(".bigTitle").attr("data-id");
+							openDetailNews(newsId);
+						});
+					} else if(imgCount >1) { // 二图新闻
+						var currOneBanner=twoImg.clone();
+						currOneBanner.find(".bigTitle").attr("data-id",news._id)
+						currOneBanner.find(".bigTitle").html(news.title);
+						currOneBanner.find("img").attr("src",qiniuRoot+news.images[0]);
+						currOneBanner.find(".author").html(news.author);
+						currOneBanner.find(".info .time").html(news.createTimeFormat);
+						currOneBanner.find(".info .comment").html(news.commentTimes);
+						currOneBanner.find(".info .favor").html(news.favor);
+						currOneBanner.find(".left").attr("src",qiniuRoot+news.images[0]);
+						currOneBanner.find(".right").attr("src",qiniuRoot+news.images[1]);
+						currOneBanner.tap(function(e) {
+							var newsId = $(this).find(".bigTitle").attr("data-id");
+							openDetailNews(newsId);
+						});
+					} else if(imgCount==0) { // 无图新闻
+						var currOneBanner=ongImg.clone();
+						currOneBanner.find(".bigTitle").attr("data-id",news._id)
+						currOneBanner.find(".bigTitle").html(news.title);
+						currOneBanner.find(".contents").html(news.memo);
+						currOneBanner.find(".author").html(news.author);
+						currOneBanner.find(".info .time").html(news.createTimeFormat);
+						currOneBanner.find(".info .comment").html(news.commentTimes);
+						currOneBanner.find(".info .favor").html(news.favor);
+						currOneBanner.tap(function(e) {
+							var newsId = $(this).find(".bigTitle").attr("data-id");
+							openDetailNews(newsId);
+						});
+					}
+					$(".newsList").append(currOneBanner);
+				}
+				function openDetailNews(id) {
+					osg.open('detail.html', {
+						'newsId': id
+					}, null, {
+						im: 1
+					});
+				}
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,338 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			/*头部菜单*/
+			.orderMenu{
+				height:3rem;
+				border-bottom:1px solid #f5f6f7;
+				margin-bottom:1rem;
+				text-align: center;
+				margin:0 .95rem;
+			}
+			.orderMenu>li{
+				display:inline-block;
+				/*这是5个的宽度*/
+				/*width:19%;*/
+				width:32%;
+				text-align: center;
+				color:#121212;
+				position:relative;
+				height:3rem;
+				line-height: 3rem;
+			}
+			.orderMenu>li:first-child{
+				text-align: left;
+			}
+			.orderMenu>li:first-child.currActive:before{
+				left:2rem;
+			}
+			.orderMenu>li:last-child{
+				text-align: right;
+			}
+			.orderMenu>li.currActive:before{
+				content:"";
+				display:block;
+				width:60%;
+				height:2px;
+				background:red;
+				position: absolute;
+				bottom:0;
+				left:50%;
+				transform: translateX(-50%);
+			}
+			.orderMenu>li:last-child.currActive:before{
+				right:0;
+				transform: none;
+			}
+			/*单个订单详情样式*/
+			.info{
+				border-bottom:8px solid #f5f6f7;
+				padding:1rem 0;
+			}
+			.info .bookFace {
+				display:inline-block;
+				width: 30%;
+				margin-right:2%;
+				height: 8rem;
+				text-align: center;
+			}
+			.info .bookFace>img {
+				height: 80%;
+			}
+			.info .bookInfo{
+				display: inline-block;
+				height: 8rem;
+				width: 64%;
+				text-align: justify;
+			}
+			.selected {
+				color: #939393;
+			}
+			
+			.bookPrice {
+				color: #D32424;
+				position: relative;
+			}
+			
+			.bookPrice .price {
+				font-size: 1.1rem;
+			}
+			
+			.weight {
+				position: absolute;
+				color: #121212;
+				right: 0;
+			}
+			
+			.bookInfo>p {
+				margin-bottom: .3rem;
+				font-size: .9rem;
+			}
+			.tag {
+				background: rgba(211, 36, 36, 0.01);
+				border: 1px solid rgba(211, 36, 36, 1);
+				border-radius: 12px;
+				padding: .1rem .8rem;
+				padding-top: .3rem;
+				color: #D32424;
+				font-size: .8rem
+			}
+			/*订单状态*/
+			.states,.payDetail{
+				text-align: right;
+				padding:0 1rem;
+				color:#D32424;
+			}
+			.payDetail{
+				color:#121212;
+				border-top:1px solid #f5f6f7;
+				padding-top:1rem;
+			}
+			.smallTotal{
+				color:#D32424;
+			}
+			.Statetags{
+				text-align:right ;
+				margin: .5rem 1rem; 
+			}
+			.Statetags a{
+				display: inline-block;
+				padding: .3rem 1.2rem .1rem;
+				font-size: .8rem;
+				color: #D32424;
+				background: #fff;
+				border-radius: 25px;
+				border:1px solid #D32424;
+				margin: .15rem;
+			}
+			
+			.info1{
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				padding-top:1.5rem;
+				margin-bottom:1rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="padding:.5rem;padding-left:0;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">我的订单</h1>
+			</div>
+		</header>
+		<div style="padding-top:1.5rem;" class="my_scroll mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll" style="padding-bottom:4rem !important">
+				<div class="detailsPart">
+					<ul class="orderMenu">
+						<li class="currActive" data-currShow="1">全部订单</li>
+						<!--<li>待付款</li>-->
+						<li  data-currShow="2">待发货</li>
+						<li  data-currShow="3">待收货</li>
+						<!--<li>待评价</li>-->
+					</ul>
+					<div class="content">
+						<div class="info">
+							<span class="states typtText" style="display: none;">等待付款</span><p class="states">等待付款</p>
+							<div class="infoOfMoreGoods">
+							</div>
+							<p class="payDetail">共<span class="payCount">1</span>件商品&nbsp;&nbsp;小计：<span class="smallTotal">¥52.07</span></p>
+							<p class="Statetags">
+							</p>
+						</div>
+						<!--为你推荐-->
+					</div>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var allOrder=$(".info").clone();
+			$(".info").hide();
+			var oneBook='<div class="oneGoods">'
+			oneBook+='<div class="bookFace"><img src="../resources/images/book.png" alt="" /></div>'
+			oneBook+='<div class="bookInfo"  style="padding-top:1.2rem;">';
+			oneBook+='<p class="bookName more2"></p>'
+			oneBook+='<p class="selected" style="display:none"><span>系统：</span><span>老狼（经典版）</span></p>';
+			oneBook+='<p class="bookPrice"><span class="price">¥0</span><span class="weight"></span></p>'					
+			oneBook+='</div></div>';	
+			/*<a href="javascript:;" class="tag">支持7天无理由退货</a>*/
+			myFunc(function(){
+				//全部订单  
+				osg.ajax("order/query",{"goods":"goods"},function(data){
+					allData(data);
+				})
+				$(".orderMenu li").tap(function(){
+					var currShow=$(this).attr("data-currShow");
+					$(this).addClass("currActive").siblings("li").removeClass("currActive");
+					if(currShow=="1"){//全部订单
+						osg.ajax("order/query",{"goods":"goods"},function(data){
+							allData(data);
+						})
+					}
+					else if(currShow=="2"){//待发货
+						osg.ajax("order/query",{"goods":"goods","state":"state1"},function(data){
+							allData(data);
+						})
+					}else{//已收货
+						osg.ajax("order/query",{"goods":"goods","state":"state2"},function(data){
+							allData(data);
+						})
+					}
+				})
+			})
+			//订单处理情况
+			function allData(data){
+				var showTag="";
+				$(".content").empty();
+				for(var i=0;i<data.data.length;i++){
+					var currOrder=allOrder.clone();
+					if(data.data[i].state==1){
+						currOrder.find(".states").html("已付款");
+						showTag='<a href="javascript:;" class="supportStaff">提醒发货</a>';
+						
+					}else if(data.data[i].state==2){
+						currOrder.find(".states").html("已付款");
+						showTag='<a href="javascript:;" class="searchExpress">查看物流</a>';
+					}else{
+						continue;
+					}
+					/*判断是一个订单多个商品还是单商品*/
+					if(data.data[i].type==3){//多个商品
+						var moreBook=data.data[i].orderDetails;
+						var count = 0;
+						for(var j=0;j<moreBook.length;j++){
+							if(moreBook[j].type ==0){
+								count += moreBook[j].count;
+								var temp=$(oneBook).clone();
+								temp.find(".bookFace>img").attr("src",qiniuRoot+moreBook[j].imgage+'!app.voicemid.img');
+								temp.find(".bookName").html(moreBook[j].title);
+								if(moreBook[j].price){
+									temp.find(".price").html("¥"+ parseFloat(moreBook[j].price*moreBook[j].count).toFixed(2));
+								}else{
+									temp.find(".price").html("¥"+ parseFloat(moreBook[j].priceOrigin*moreBook[j].count).toFixed(2));
+								}
+								temp.find(".weight").html("x"+moreBook[j].count);
+								currOrder.find(".infoOfMoreGoods").append(temp);
+								currOrder.find(".smallTotal").html("¥"+ parseFloat(data.data[i].price).toFixed(2));
+							}else if(moreBook[j].type==1){
+								//currOrder.find(".typtText").css('display','inline'); 
+								//currOrder.find(".typtText").text("优惠套餐");
+								currOrder.find(".infoOfMoreGoods").append('<div class="suitShow info1"><p style="padding-left:1rem;padding-bottom:1rem;font-size: 1.1rem;">优惠套餐</p></div>')
+								var mBook = moreBook[j].goodSuit.goods;
+								var price = moreBook[j].goodSuit.price;
+								var discount = moreBook[j].goodSuit.discount;
+								count+=mBook.length;
+								for(var j=0;j<mBook.length;j++){
+									var temp=$(oneBook).clone();
+									temp.find(".bookFace>img").attr("src",qiniuRoot+mBook[j].logo+'!app.voicemid.img');
+									temp.find(".bookName").html(mBook[j].title);
+									if(discount){
+										temp.find(".price").html("¥"+ parseFloat(mBook[j].priceOrigin*discount/10).toFixed(2));
+									}else{
+										temp.find(".price").html("¥"+ parseFloat(mBook[j].priceOrigin*discount/10).toFixed(2));
+									}
+									currOrder.find(".payCount").html(count);
+									currOrder.find(".suitShow").append(temp);
+									currOrder.find(".smallTotal").html("¥"+ parseFloat(price).toFixed(2));
+								}
+							}
+						}
+					}else if(data.data[i].type==5){
+						currOrder.find(".typtText").css('display','inline'); 
+						currOrder.find(".typtText").text("优惠套餐");
+						var moreBook=data.data[i].goodsSuit.goods;
+						var price = data.data[i].goodsSuit.price;
+						var discount = data.data[i].goodsSuit.discount;
+						for(var j=0;j<moreBook.length;j++){
+							var temp=$(oneBook).clone();
+							temp.find(".bookFace>img").attr("src",qiniuRoot+moreBook[j].logo+'!app.voicemid.img');
+							temp.find(".bookName").html(moreBook[j].title);
+							if(discount){
+								temp.find(".price").html("¥"+ parseFloat(moreBook[j].priceOrigin*discount/10).toFixed(2));
+							}else{
+								temp.find(".price").html("¥"+ parseFloat(moreBook[j].priceOrigin*discount/10).toFixed(2));
+							}
+							currOrder.find(".payCount").html(moreBook.length);
+							currOrder.find(".infoOfMoreGoods").append(temp);
+							currOrder.find(".smallTotal").html("¥"+ parseFloat(price).toFixed(2));
+						}
+					}else {//一个商品
+						var temp1=$(oneBook).clone();
+						temp1.find(".bookFace>img").attr("src",qiniuRoot+data.data[i].info.logo)+'!app.voicemid.img';
+						temp1.find(".bookName").html(data.data[i].info.title);
+						if(data.data[i].info.price){
+								temp1.find(".price").html("¥"+ parseFloat(data.data[i].info.price).toFixed(2));
+							}else{
+								temp1.find(".price").html("¥"+ parseFloat(data.data[i].info.priceOrigin).toFixed(2));
+							}
+						temp1.find(".weight").html("x"+data.data[i].count);
+						currOrder.find(".infoOfMoreGoods").append(temp1);
+						currOrder.find(".payCount").html(data.data[i].count);
+						/*每个订单的总价*/
+						currOrder.find(".smallTotal").html("¥"+ parseFloat(data.data[i].price).toFixed(2));
+					}
+					currOrder.find(".Statetags").append(showTag);
+					currOrder.find(".Statetags .searchExpress").attr("trackingNum",data.data[i].trackingNum);
+					currOrder.find(".Statetags .searchExpress").attr("trackingName",data.data[i].trackingName);
+					currOrder.find(".Statetags .searchExpress").tap(function(e) {
+						var trackingNum = $(this).attr("trackingNum");
+						var trackingName = $(this).attr("trackingName");
+						if(trackingNum && trackingName){
+							osg.open("express.html",{"expNo":trackingNum,"expName":trackingName});
+						}
+					});
+					$(".content").append(currOrder);
+				}
+				/*提醒发货*/
+				var supportStaffs=$(".Statetags .supportStaff");
+				for(var k=0;k<supportStaffs.length;k++){
+					$(supportStaffs[k]).tap(function() { 
+						osg.toast("提醒卖家发货发送消息成功");
+					})
+				}
+			}
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

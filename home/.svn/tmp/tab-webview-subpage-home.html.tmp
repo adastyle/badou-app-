@@ -1,0 +1,1160 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			/*头部搜索*/
+			.mui-bar-nav {
+				background: #fff;
+				padding: 0 1.1rem;
+				box-shadow: none;
+				padding-top:1rem !important;
+				margin-top:1rem;
+			}
+			.mui-bar-nav>img{
+				width:2.2rem;
+				height: 2.2rem;
+				border-radius:50%;
+			}
+			.mui-bar-nav .search{
+				display:inline-block;
+				width:81%;
+				height:2.2rem;
+				line-height:1.9rem;
+				margin-left:5%;
+				background:rgba(245,245,245,1);
+				border:1px solid rgba(245, 245, 246, 0.55);
+				border-radius:30px;
+				padding-left:.6rem;
+			}
+			.mui-bar-nav .search>span:first-child{
+				color:#C8CCCC;
+				font-size:1.3rem;
+				width:8%;
+			}
+			.mui-bar-nav .search .toSearchAudio{
+				display:inline-block;
+				width:74%;
+				background:rgba(245,245,245,1);
+				padding-left:0;
+				color:rgba(182,182,189,1);
+				height:1rem;
+				font-size:.9rem;
+			}
+			/*.mui-bar-nav .search input::-webkit-input-placeholder{
+				color:rgba(182,182,189,1);
+			}*/
+			/*头部搜索完*/
+			
+			.indexContent{
+			   width:94%;
+			   margin:0 auto;
+			   text-align: center;
+			}
+			/*四大分类*/
+			.classify{
+				height:6rem;
+				padding-top:1rem;
+				/*padding-top:.7rem;*/
+				text-align: center;
+			}
+			.classify>div{
+				display:inline-block;
+				width:18.8%;
+				/*width:23.8%;*/
+				height:100%;
+				text-align: center;
+			}
+			.classify>div>img{
+				width:35%;
+			}
+			.classify>div>p{
+				font-weight:500;
+				color:rgba(34,34,34,1);
+				font-size:12px;
+				color:#6d6d6d;
+				padding-top:.5rem;
+			}
+			/*猜你喜欢*//*畅听乐想*/
+			.classTitle{
+				/*padding-top:1rem;*/
+				position:relative;
+				margin-bottom:2rem;
+			}
+			.classTitle .leftPart>.iconfont{
+				color:#FF9023;
+				font-size:1rem;
+			}
+			.classTitle>p{
+				text-align: left;
+				margin:1rem 0;
+			}
+			.classTitle .leftPart{
+				/*font-weight:700;*/
+				color:rgba(18,18,18,1);
+				font-size:1.2rem;
+			}
+			.classTitle .rightPart{
+				position:absolute;
+				right:0;
+				font-weight:500;
+				color:rgba(116,118,130,1);
+				font-size:.9rem;
+			}
+			.classTitle .rightPart .iconfont{
+				font-size:.8rem;
+			}
+			/*猜你喜欢--图片展示*/
+			.classTitle .moduleImgShow>div{
+				width:48%;
+				min-height:12.5rem;
+				display:inline-block;
+				margin-bottom:.9rem;
+				text-align:left;
+				/*box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);*/
+				border-radius:10px;
+				background:#fff;
+				font-size:.9rem;
+				position:relative;
+			}
+			.classTitle .moduleImgShow>div:nth-child(3),
+			.classTitle .moduleImgShow>div:last-child{
+				margin-bottom:0;
+			}
+			.classTitle .moduleImgShow>div:nth-child(2n){
+				margin-left:3.5%;
+			}
+			.classTitle .moduleImgShow>div>img.bigImg{
+				width:100%;
+				/*height:10rem;*/
+				border-radius:4px;
+			}
+			.lock{
+				width:2rem !important;
+				position:absolute;
+				top:0;
+				right:0;
+				display:none;
+			}
+			.listeningMustic .moduleImgShow>div{
+				height:10rem;
+				box-shadow: none;
+			}
+			/*精品专题*/
+			.moduleBanner{
+				height:9.3rem;
+				position:relative;
+			}
+			.moduleBanner>img:first-child{
+				width:100%;
+				height:100%;
+			}
+			
+			/*启蒙专区*/
+			.jpBannerIntr{
+				font-weight:500;
+				color:rgba(147,147,147,1);
+			}
+			
+			.musInitial{
+				font-weight:500;
+				color:rgba(18,18,18,1);
+				padding-top:.6rem;
+			}
+			.initialWordsKey>a{
+				display:inline-block;
+				padding:0.2rem .5rem 0 .5rem;
+				background:rgba(246,246,246,1);
+				border-radius:4px;
+				color:rgba(165,166,173,1);
+				font-size:.8rem;
+			}
+			
+			.initialModule>div{
+				box-shadow:none !important;
+			}
+			.initialModule p.name{
+				margin-bottom:0;
+			}
+			.initialModule p.intr{
+				color:rgba(165,166,173,1);
+				font-size:.8rem;
+			}
+			/*必读提升*/
+			.bookShow>div{
+				position:relative;
+				width:30%;
+				display:inline-block;
+				height:8rem;
+			}
+			.bookShow>div:not(:last-child){
+				margin-right:3%;
+			}
+			.bookShow>div>img:not(.lock){
+				width:100%;
+			}
+			.bookShow>div .shadowImg{
+				position:absolute;
+				top:0;
+				left:0;
+				z-index:10;
+			}
+			
+			/*故事大全*/
+			.story .moduleImgShow>div{
+				box-shadow:none !important;
+				height:8.5rem;
+				position:relative;
+			}
+			.story .moduleImgShow>div>.bigImg{
+				width:100%;
+				height:100%;
+			}
+			.story{
+				padding-top:2rem !important;
+			}
+			.disc{
+				text-align:center;
+				color:#121212;
+				font-size:.9rem;
+				padding-top:.3rem;
+			}
+			
+		</style>
+	</head>
+
+	<body class="xyBanner">
+		<header class="mui-bar mui-bar-nav">
+			<img class="toLogin" src="../resources/images/avator.png" alt="" />
+			<div class="search">
+				<span class="iconfont">&#xe651;</span>
+				<span class="toSearchAudio">搜索你想听的国学</span>
+				<!--语音搜索先隐藏-->
+				<!--<span class="iconfont toPlayMusic">&#xe67c;</span>-->
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll " style="padding-bottom:1rem;">
+				<!--轮播-->
+				<div class="mui-slider">
+					<div class="mui-slider-group my-slider-group mui-slider-loop">
+					</div>
+					<div class="mui-slider-indicator">
+					</div>
+				</div>
+				<div class="indexContent">
+					<!-- 四大分类  -->
+					<div class="classify">
+						<div class="hotMusic">
+							<img src="../resources/images/hotListening.png" alt="" />
+							<p>热听榜</p>
+						</div>
+						<div class="tdRecommend">
+							<img src="../resources/images/boutique.png" alt="" />
+							<p>精品内容</p>
+						</div>
+						<div class="gxGeneral">
+							<img src="../resources/images/gxNous.png" alt="" />
+							<p>国学常识</p>
+						</div>
+						<div class="answer">
+							<img src="../resources/images/answer.png" alt="" />
+							<p>答题闯关</p>
+						</div>
+						<div class="toClassify">
+							<img src="../resources/images/classify.png" alt="" />
+							<p>分类</p>
+						</div>
+					</div>
+					<div class="splitLine"></div>	
+					<div class="recommendAudio">
+						<p>
+							<span class="recommendAudio">十万个为什么</span>
+							<a href="javascript:;"><span class="iconfont">&#xe618;</span>全部播放</a>
+						</p>
+						<div class="seriesAudio">
+							<div>
+								<img src="../resources/images/whyBadou.png" alt="" />
+							</div>
+							<div>
+								<p>
+									<span>为什么打雷会下雨</span>
+									<span class="duration">01:47</span>
+								</p>
+								<p>
+									<span>闲谈为什么又叫聊天</span>
+									<span class="duration">01:47</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<!--分割线-->
+					<div class="splitLine"></div>
+				<div class="allModule">
+					<!--猜你喜欢-->
+					<div class="guessLike classTitle">
+						<!--上边的标题-->
+						<p><span class="lovly leftPart">
+								<!--<span class="iconfont">&#xe628;</span>-->
+								<span class="yourLike">猜你喜欢</span>
+							</span>
+							<span class="change rightPart">
+								<span class="changeButton">换一换</span>
+								<span class="iconfont">&#xe63e;</span>
+							</span>
+						</p>
+						<!--图片展示-->
+						<div class="yourLikeShow moduleImgShow">
+						</div>
+					</div>
+					
+					<!--精品专题-->
+					<div class="jpSpecial classTitle">
+						<p class="specialTitle">
+							<span class="jsTitle leftPart">
+								<!--<span class="iconfont" style="color:#BF76F7">&#xe61f;</span>-->
+								<span class="title">精品专题</span>
+							</span>
+							<span class="jpMore rightPart">
+								<span class="LookMore">更多</span>
+								<span class="iconfont">&#xe61c;</span>
+							</span>
+						</p>
+						<div class="jpBanner moduleBanner" style="padding-bottom:1rem;">
+							<img class="bannerImg" style="border-radius:10px;" src="../resources/images/banner2.png" alt="" />
+							<img class="lock" src="../resources/images/lock.png" alt="" />
+						</div>
+						<!--<p class="newYearCustom"><span class="newsTitle">春节习俗</span></p>
+						<p class="jpBannerIntr more">除旧布新，迎禧接福，传承文化精华</p>-->
+					</div>
+					
+					<!--畅听乐想-->
+					<div class="listeningMustic classTitle">
+						<p class="topCtTitle">
+							<span class="jsTitle leftPart">
+								<!--<span class="iconfont" style="color:#1887DD">&#xe611;</span>-->
+								<span class="jpTitle">畅听乐想</span>
+							</span>
+							<span class="jpMore rightPart">
+								<span class="moreButton">更多</span>
+								<span class="iconfont">&#xe61c;</span>
+							</span>
+						</p>
+						<!--图片展示-->
+						<div class="moduleImgShow">
+						</div>
+					</div>
+					<!--启蒙专区-->
+					<div class="initialArea classTitle">
+						<p>
+							<span class="jsTitle leftPart">
+								<!--<span class="iconfont" style="color:#4B9B88">&#xe67d;</span>-->
+								<span class="titlename">启蒙专区</span>
+							</span>
+							<span class="jpMore rightPart">
+								<span class="qiMengmore">更多</span>
+								<span class="iconfont">&#xe61c;</span>
+							</span>
+						</p>
+						<div class="initial moduleBanner" style="position: relative;">
+							<img class="bigBanner" src="../resources/images/banner3.png" alt="" />
+							<img  class="lock" src="../resources/images/lock.png" alt="" />
+						</div>
+						<p class="musInitial">声律启蒙</p>
+						<p class="initialWordsKey">
+						</p>
+						<!--图片展示-->
+						<div class="initialModule moduleImgShow">
+						</div>
+					</div>
+					<!--必读提升-->
+					<div class="classTitle readToUp">
+						<p><span class="jsTitle leftPart">
+								<!--<span class="iconfont" style="color:#FF9023">&#xe652;</span>-->
+								<span class="mustRead">必读提升</span>
+							</span>
+							<span class="jpMore rightPart">
+								<span class="toMore">更多</span>
+								<span class="iconfont">&#xe61c;</span>
+							</span>
+						</p>
+						<div class="bookShow"></div>
+					</div>
+					<!--故事说书-->
+					<div class="story classTitle">
+						<p>
+							<span class="jsTitle leftPart">
+								<!--<span class="iconfont" style="color:#D32424">&#xe61a;</span>-->
+								<span class="storyName">故事说书</span>
+							</span>
+							<span class="jpMore rightPart">
+								<span class="storMore">更多</span>
+								<span class="iconfont">&#xe61c;</span>
+							</span>
+						</p>
+						<div class="moduleImgShow"></div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	<ul class="lookMoreRadio bottomFixed">
+		<li class="toAudioPlay"><img class="now_logo" src="../resources/images/currAudioLogo.png" alt="" /></li>
+		<li class="toAudioPlay audionameMore" ><span class="now_title">成语大全</span></li>
+		<li class="videoList"><span class="iconfont">&#xe623;</span></li>
+		<li class="isPlay"><span class="iconfont  play_bon">&#xe61d;</span></li>
+	</ul>
+	<!--音频显示的列表-->
+	<div class="audioListShadow">
+		<div class="mui-scroll-wrapper">
+			<ul class="voice_list mui-scroll">
+				<li class="voice_item debug">
+					<img class="voiceOne_logo" src="../resources/images/currAudioLogo.png" alt="" />
+					<span class="voiceOne_title">哈哈哈哈哈哈哈</span>
+					<span class="iconfont delete">&#xe62d;</span>
+				</li>
+			</ul>
+		</div>
+		<p class="closeList">关闭</p>
+		<p class="currPlay">
+			<span class="recents">最近播放的故事</span>
+			<span class="iconfont playing">&#xe61d;</span>
+		</p>
+	</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			myFunc(function() {
+				
+				var voice = osg.getObj('voice_now');
+				if(voice){
+					var page = mui.preload({
+	                    url: 'audioPlay.html',
+	                    id: 'details',
+	                    extras: {
+	                        name: 'durant'
+	                    }
+                	});
+				}
+				
+				/*登录登出头像回填*/
+				function currentState() {
+					if(osg.isLogined()) {
+						var u = osg.currentUser();
+						if(u.avatar){
+							$(".toLogin").attr("src",qiniuRoot+u.avatar+'!app.avatar');
+						}else{
+							$(".toLogin").attr("src", u.headimgurl);
+						}
+					} else {
+						$(".toLogin").attr('src', '../resources/images/avator.png');
+					}
+				}
+				
+				currentState();
+				
+				osg.evtAddListener(function(d) {
+					if(d && (d == 'login' || d == 'logout'||d=='changeAvator')) { // 登录、退出事件
+						currentState();
+					}
+				});
+				/*未登录状态点击后跳转登录页*/
+				$(".toLogin").tap(function(){
+					if(osg.isLogined()){//登录状态去我的页面
+						osg.evtFireEvent('toMine');
+					}else {
+						osg.open("../mine/login.html")
+					}
+						
+				})
+				
+				$(".tdRecommend").tap(function(){
+					osg.open("todayRecommend.html");
+				})
+				$(".toClassify").tap(function(){
+					osg.open("classify.html");
+				})
+				$(".gxGeneral").tap(function(){
+					osg.open("gxGeneral.html");
+				})
+				
+				var yourLikeObjea = $(".yourLikeShow").clone()
+				
+				/*四张图有title的*/
+				var fourthImgAndTitle=$(".guessLike").clone();
+				$(".guessLike").hide();
+				var fourthImgShowAndTitle=`<div data-id="">
+					<img class="bigImg" src="../resources/images/guess1.png" alt="" />
+					<p class="more curTitle" style="margin-bottom:.3rem;padding:0 .2rem;">舞文狮和武狮怎么划分？</p>
+					<p class="more currMemo" style="color:#939393;padding:0 .2rem;">舞文狮和武狮怎么划分？</p>
+					<img class="lock" src="../resources/images/lock.png" alt="" />
+				</div>`;
+				
+				/*四张图并且图下边没有title*/
+				var fourthImgNoTitles=$(".listeningMustic").clone();
+				$(".listeningMustic").hide();
+				var fourthImgShowNoTitle=`<div data-id="">
+							<img class="bigImg" src="../resources/images/listenMustic1.png" alt="" />
+							<img class="lock" src="../resources/images/lock.png" alt="" />
+						</div>`;
+				
+				/*上banner下啊简介*/
+				var topBannerBottomIntr=$(".jpSpecial").clone();
+				$(".jpSpecial").hide();
+				
+				/*有图右banner的样式  上banner下图*/
+				var bannerAndFourthImg=$(".initialArea").clone();
+				$(".initialArea").hide();
+				var bannerOfFourthImg=`<div>
+							<img class="bigImg" src="../resources/images/initial1.png" alt="" />
+							<p class="name">韵律启蒙朗朗上口</p>
+							<p class="intr more">韵律启蒙朗朗上口</p>
+							<img class="lock" src="../resources/images/lock.png" alt="" />
+						</div>`;
+				var wordA='<a href="javascript:;">语音</a>';	
+				
+				/*必读提升样式末班  三个圆心图*/
+				var threeCircle=$(".readToUp").clone();
+				$(".readToUp").hide();
+				var threeImg=`<div style="position:relative">
+							<img class="bigCircleImg" src="../resources/images/mustRead1.png" alt="" />
+							<img class="shadowImg" src="../resources/images/mustReadShadow.png" alt="" />
+							<img class="lock" src="../resources/images/lock.png" alt="" />
+							<p class="disc"></p>
+						</div>`;
+				/*故事大全  两张正方形圆角图片*/
+				var twoImg=$(".story").clone();
+				$(".story").hide();
+				var twoImgShow=`<div>
+							<img class="bigImg" src="../resources/images/story1.png" alt="" />
+							<img class="lock" src="../resources/images/lock.png" alt="" />
+						</div>`
+						
+				/*整体内容的请求*/
+				osg.ajax("home/findAll",{},function(data){
+					var banners=data.data.Homebneans;
+					var videos=data.data.homestyleList;
+					/*轮播*/
+					if(banners.length==0){
+						$('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><a href="javascript:;"><img class="lunbo-img" src="../resources/images/banner1.png" /></a></div>');
+					}
+					else if(banners.length==1){
+						$('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><a class="lunbo-href" href="'+banners[0].url+'"><img class="lunbo-img" src="' +qiniuRoot+ banners[0].banner + '!app.banner'+'" /></a></div>');
+					}else{
+						$('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><a class="lunbo-href" href="'+banners[banners.length - 1].url+'"><img class="lunbo-img" src="' +qiniuRoot+ banners[banners.length - 1].banner + '!app.banner'+ '" /></a></div>');
+                        $('.mui-slider-indicator').append('<div class="mui-indicator mui-active"></div>');
+                        for(var i = 0; i <banners.length; i++) {
+                            $('.mui-slider-group').append('<div class="mui-slider-item"><a class="lunbo-href" href="'+banners[i].url+'"><img class="lunbo-img" src="' +qiniuRoot+ banners[i].banner+ '!app.banner' + '" /></a></div>');
+                        }
+                        $('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><a class="lunbo-href" href="' + banners[0].url+'"><img class="lunbo-img" src="' +qiniuRoot+banners[0].banner+ '!app.banner' + '" /></a></div>');
+                        for(var i = 0; i < banners.length - 1; i++) {
+                            $('.mui-slider-indicator').append('<div class="mui-indicator"></div>');
+                        }
+						/*轮播*/
+						var gallery = mui('.mui-slider');
+						gallery.slider({
+						  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
+						});	
+					}
+					/*轮播点击事件*/
+					mui('.mui-scroll-wrapper').on('tap', '.lunbo-href', function(e) {
+						var url = $(this).attr('href');
+						var id = url.substring(1);
+						var type = url.substring(0,1);
+						openDetail(id,type);
+					});
+					/*分类显示*/
+					for(var i=0;i<videos.length;i++){
+						var currStyleType=videos[i].type;
+						/*样式是四张图*/
+						if(currStyleType==1){
+							/*并且图下有title---猜你喜欢*/
+							if(videos[i].isTitle==1){
+								var fourthImgHasTitle=fourthImgAndTitle.clone();
+								fourthImgHasTitle.addClass(videos[i]._id);
+								fourthImgHasTitle.find(".lovly .yourLike").html(videos[i].title);
+								fourthImgHasTitle.find(".lovly .iconfont").html(videos[i].iconfont);
+								fourthImgHasTitle.find(".rightPart").attr("data-currStyleId",videos[i]._id);
+								fourthImgHasTitle.find(".rightPart").attr("title",videos[i].title);
+								if(videos[i].more==1){
+									fourthImgHasTitle.find(".change .changeButton").html("换一换");
+									fourthImgHasTitle.find(".change .iconfont").html("&#xe63e;");
+								}else{
+									fourthImgHasTitle.find(".change .changeButton").html("更多");
+									fourthImgHasTitle.find(".change .iconfont").html("&#xe61c;");
+								}
+								
+								/*更多  换一换的点击事件*/
+								fourthImgHasTitle.find(".rightPart").tap(function(){
+									var styleTypeId=$(this).attr("data-currStyleId");
+									var title=$(this).attr("title");
+									if($(this).find(".changeButton").html()=="更多"){
+										osg.open("propList.html",{"homestyleId":styleTypeId,"fig":"首页进入","title":title});
+									}else{
+										osg.ajax("/home/changeAndMore",{"id":styleTypeId,"tag":"change"},function(data){
+											if(data.homecontents&&data.homecontents.length>0){
+												var contents = data.homecontents;
+												var yourLikeShowItem = yourLikeObjea.clone();
+												for(var i=0;i<4;i++){
+													yourLikeShowItem.append(contensItem(contents[i]));
+												}
+												$("."+styleTypeId).find(".yourLikeShow").remove();
+												$("."+styleTypeId).append(yourLikeShowItem);
+											}
+										})
+									}
+								})
+								var likes=videos[i].homecontents;
+								reLoadDatas(likes);
+								function reLoadDatas(likes){
+									fourthImgHasTitle.find(".yourLikeShow").empty();
+									for(var j=0;j<4;j++){
+										var currImgShow=$(fourthImgShowAndTitle).clone();
+										currImgShow.find(".bigImg").attr("src",qiniuRoot+likes[j].info.logo+ '!app.voicezheng.img');
+										currImgShow.find(".currMemo").html(likes[j].info.memo);
+										if(mui.os.ios && osg.settingValue('isPublish') == 1){
+											currImgShow.find(".lock").hide();
+										}else{
+											if(likes[j].info.buyType==0)
+												currImgShow.find(".lock").attr("src","../resources/images/vipShow.png").show();
+											else if(likes[j].info.buyType==2)
+												currImgShow.find(".lock").attr("src","../resources/images/moneyShow.png").show();
+										}
+										currImgShow.attr("data-id",likes[j].typeId);
+										currImgShow.data('data', likes[j].info);
+										if(likes[j].type==1){
+											currImgShow.find(".curTitle").html(likes[j].info.title);
+											currImgShow.tap(function() {
+												var voice_data = $(this).data('data');
+												detailCklic(voice_data);
+											});
+										}else if(likes[j].type==2){
+											currImgShow.find(".curTitle").html(likes[j].info.name);
+											currImgShow.tap(function() {
+												var id = $(this).attr('data-id');
+												osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"分类"});
+											});
+										}else{
+											currImgShow.find(".curTitle").html(likes[j].info.name);
+											currImgShow.tap(function() {
+												var id = $(this).attr('data-id');
+												osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+											});
+										}
+										fourthImgHasTitle.find(".yourLikeShow").append(currImgShow);
+									}
+								}
+								$(".allModule").append(fourthImgHasTitle);
+							}/*图下没有title  --畅想乐听*/
+							else{
+								var fourthImgNoTitle=$(fourthImgNoTitles).clone();
+								fourthImgNoTitle.find(".topCtTitle .leftPart .jpTitle").html(videos[i].title);
+								fourthImgNoTitle.find(".topCtTitle .leftPart .iconfont").html(videos[i].iconfont);
+								fourthImgNoTitle.find(".rightPart").attr("data-currStyleId",videos[i]._id);
+								fourthImgNoTitle.find(".rightPart").attr("title",videos[i].title);
+								if(videos[i].more==1){
+									fourthImgNoTitle.find(".rightPart .moreButton").html("换一换");
+									fourthImgNoTitle.find(".rightPart .iconfont").html("&#xe63e;");
+								}else{
+									fourthImgNoTitle.find(".rightPart .moreButton").html("更多");
+									fourthImgNoTitle.find(".rightPart .iconfont").html("&#xe61c;");
+								}
+								/*更多  换一换的点击事件*/
+								fourthImgNoTitle.find(".rightPart").tap(function(){
+									var styleTypeId=$(this).attr("data-currStyleId");
+									var title=$(this).attr("title");
+									if($(this).find(".moreButton").html()=="更多"){
+										osg.open("propList.html",{"homestyleId":styleTypeId,"fig":"首页进入","title":title});
+									}else{
+										osg.ajax("/home/changeAndMore",{"id":styleTypeId,"tag":"change"},function(data){
+											reLoadOnce1(data.homecontents);
+										})
+									}
+								})
+								var likes=videos[i].homecontents;
+								reLoadOnce1(likes);
+								function reLoadOnce1(likes){
+									fourthImgNoTitle.find(".moduleImgShow").empty();
+									for(var j=0;j<4;j++){
+										var currImgShow=$(fourthImgShowNoTitle).clone();
+										currImgShow.find(".bigImg").attr("src",qiniuRoot+likes[j].info.logo+ '!app.voicezheng.img');
+										if(mui.os.ios && osg.settingValue('isPublish') == 1){
+											currImgShow.find(".lock").hide();
+										}else{
+											if(likes[j].info.buyType==0)
+												currImgShow.find(".lock").attr("src","../resources/images/vipShow.png").show();
+											else if(likes[j].info.buyType==2)
+												currImgShow.find(".lock").attr("src","../resources/images/moneyShow.png").show();
+										}
+										
+										currImgShow.attr("data-id",likes[j].typeId);
+										currImgShow.data('data', likes[j].info);
+										if(likes[j].type==1){
+											currImgShow.tap(function() {
+												var voice_data = $(this).data('data');
+												detailCklic(voice_data);
+											});
+										}else if(likes[j].type==2){
+											currImgShow.tap(function() {
+												var id = $(this).attr('data-id');
+												osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"分类"});
+											});
+										}else{
+											currImgShow.tap(function() {
+												var id = $(this).attr('data-id');
+												osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+												
+											});
+										}
+										fourthImgNoTitle.find(".moduleImgShow").append(currImgShow);
+									}
+								}
+								$(".allModule").append(fourthImgNoTitle);
+							}
+						}
+						/*上边是banner下边是简介--精选专题*/
+						else if(currStyleType==2){
+							var module2=topBannerBottomIntr.clone();
+							module2.find(".specialTitle .leftPart .title").html(videos[i].title);
+							module2.find(".specialTitle .leftPart .iconfont").html(videos[i].iconfont);
+							module2.find(".rightPart").attr("data-currStyleId",videos[i]._id);
+							module2.find(".rightPart").attr("title",videos[i].title);
+							if(videos[i].more==1){
+								module2.find(".specialTitle .rightPart .LookMore").html("换一换");
+								module2.find(".rightPart .iconfont").html("&#xe63e;");
+							}else{
+								module2.find(".specialTitle").find(".rightPart").find(".LookMore").html("更多");
+								module2.find(".rightPart .iconfont").html("&#xe61c;");
+							}
+							module2.find(".rightPart").tap(function(){
+								var styleTypeId=$(this).attr("data-currStyleId");
+								var title=$(this).attr("title");
+								if($(this).find(".LookMore").html()=="更多"){
+									osg.open("propList.html",{"homestyleId":styleTypeId,"fig":"首页进入","title":title});
+								}else{
+									osg.ajax("/home/changeAndMore",{"id":styleTypeId,"tag":"change"},function(data){
+										reLoadOnce1(data.homecontents);
+									})
+								}
+							});
+							module2.find(".bannerImg").attr("src",qiniuRoot+videos[i].homecontents[0].info.banner+ '!app.special.banner');
+							module2.find(".bannerImg").attr("data-id",videos[i].homecontents[0].typeId);
+							module2.find(".bannerImg").data('data', videos[i].homecontents[0].info);
+							/*module2.find(".newYearCustom").find(".newsTitle").html(videos[i].homecontents[0].title);
+							module2.find(".jpBannerIntr").html(videos[i].homecontents[0].memo);*/
+							var likes=videos[i].homecontents;
+							if(likes[0].type==1){
+								module2.find(".jpBanner .bannerImg").tap(function() {
+									var voice_data = $(this).find(".jpBanner .bannerImg").data('data');
+									detailCklic(voice_data);
+								});
+							}else if(likes[0].type==2){
+								module2.find(".jpBanner .bannerImg").tap(function() {
+									var id = $(this).attr('data-id');
+									osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"分类"});
+								});
+							}else{
+								module2.find(".jpBanner .bannerImg").tap(function() {
+									var id = $(this).attr('data-id');
+									osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+								});
+							}
+							$(".allModule").append(module2);
+						}
+						/*上banner下四张图--启蒙专区*/
+						else if(currStyleType==3){
+							var module3=bannerAndFourthImg.clone();
+							module3.find(".jsTitle .titlename").html(videos[i].title);
+							module3.find(".jsTitle .iconfont").html(videos[i].iconfont);
+							module3.find(".rightPart").attr("data-currStyleId",videos[i]._id);
+							module3.find(".rightPart").attr("title",videos[i].title);
+							module3.find(".initial .bigBanner").attr("src",qiniuRoot+videos[i].homecontents[0].info.banner+ '!app.banner');
+							module3.find(".initial .bigBanner").attr("data-id",videos[i].homecontents[0].info._id);
+							module3.find(".initial .bigBanner").attr("data",videos[i].homecontents[0].info);
+							if(videos[i].more==1){
+								module3.find(".rightPart").find(".qiMengmore").html("换一换");
+								module3.find(".rightPart .iconfont").html("&#xe63e;");
+							}else{
+								module3.find(".rightPart").find(".qiMengmore").html("更多");
+								module3.find(".rightPart .iconfont").html("&#xe61c;");
+							}
+							module3.find(".rightPart").tap(function(){
+								var styleTypeId=$(this).attr("data-currStyleId");
+								var title=$(this).attr("title");
+								if($(this).find(".qiMengmore").html()=="更多"){
+									osg.open("propList.html",{"homestyleId":styleTypeId,"fig":"首页进入","title":title});
+								}else{
+									osg.ajax("/home/changeAndMore",{"id":styleTypeId,"tag":"change"},function(data){
+										reLoadOnce1(data.homecontents);
+									})
+								}
+							});
+							if(videos[i].homecontents[0].type==1){
+								module3.find(".initial .bigBanner").tap(function() {
+									var voice_data = $(this).data('data');
+									detailCklic(voice_data);
+								});
+							}else if(videos[i].homecontents[0].type==2){
+								module3.find(".initial .bigBanner").tap(function() {
+									var id = $(this).attr('data-id');
+									osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"分类"});
+								});
+							}else{
+								module3.find(".initial .bigBanner").tap(function() {
+									var id = $(this).attr('data-id');
+									osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+								});
+							}
+							if(mui.os.ios && osg.settingValue('isPublish') == 1){
+								module3.find(".lock").hide();
+							}else{
+								if(videos[i].homecontents[0].info.buyType==0)
+									module3.find(".lock").attr("src","../resources/images/vipShow.png").show();
+								else if(videos[i].homecontents[0].info.buyType==2)
+									module3.find(".lock").attr("src","../resources/images/moneyShow.png").show();
+							}
+							var word=videos[i].homecontents[0].info.memo;
+							if(word.indexOf(" ")!=-1){
+								var words=word.split(" ");
+								for(var k=0;k<words.length;k++){
+									var wordsA=$(wordA).clone();
+									wordsA.html(words[i]);
+									module3.find("initialWordsKey").append(wordsA);
+								}
+							}
+							else{
+								module3.find("initialWordsKey").html(word);
+							}
+							var likes=videos[i].homecontents;
+							for(var j=1;j<5;j++){
+								var currImgShow=$(bannerOfFourthImg).clone();
+								currImgShow.find(".bigImg").attr("src",qiniuRoot+likes[j].info.logo+ '!app.voicezheng.img');
+								if(mui.os.ios && osg.settingValue('isPublish') == 1){
+									currImgShow.find(".lock").hide();
+								}else{
+									if(likes[j].info.buyType==0)
+										currImgShow.find(".lock").attr("src","../resources/images/vipShow.png").show();
+									else if(likes[j].info.buyType==2)
+										currImgShow.find(".lock").attr("src","../resources/images/moneyShow.png").show();
+								}
+								currImgShow.attr("data-id",likes[j].typeId);
+								currImgShow.data('data', likes[j].info);
+								currImgShow.find(".intr").html(likes[j].info.memo);
+								if(likes[j].type==1){
+									currImgShow.find(".name").html(likes[j].info.title)
+									currImgShow.tap(function() {
+										var voice_data = $(this).data('data');
+										detailCklic(voice_data);
+									});
+								}else if(likes[j].type==2){
+									currImgShow.find(".name").html(likes[j].info.name)
+									currImgShow.tap(function() {
+										var id = $(this).attr('data-id');
+										osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"分类"});
+									});
+								}else{
+									currImgShow.find(".name").html(likes[j].info.name)
+									currImgShow.tap(function() {
+										var id = $(this).attr('data-id');
+										osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+									});
+								}
+								module3.find(".initialModule").append(currImgShow);
+							}
+							$(".allModule").append(module3);
+						}
+						/*三个圆图--必读提升*/
+						else if(currStyleType == 4){
+							var module4=threeCircle.clone();
+								module4.find(".leftPart .mustRead").html(videos[i].title);
+								module4.find(".leftPart .iconfont").html(videos[i].iconfont);
+								module4.find(".rightPart").attr("data-currStyleId",videos[i]._id);
+								module4.find(".rightPart").attr("title",videos[i].title);
+								if(videos[i].more==1){
+									module4.find(".rightPart .toMore").html("换一换");
+									module4.find(".rightPart .iconfont").html("&#xe63e;");
+								}else{
+									module4.find(".rightPart .toMore").html("更多");
+									module4.find(".rightPart .iconfont").html("&#xe61c;");
+								}
+								/*更多  换一换的点击事件*/
+								module4.find(".rightPart").tap(function(){
+									var styleTypeId=$(this).attr("data-currStyleId");
+									var title=$(this).attr("title");
+									if($(this).find(".toMore").html()=="更多"){
+										osg.open("propList.html",{"homestyleId":styleTypeId,"fig":"首页进入","title":title});
+									}else{
+										osg.ajax("/home/changeAndMore",{"id":styleTypeId,"tag":"change"},function(data){
+											reloadMustRead(data.homecontents);
+										})
+									}
+								})
+								
+								var likes=videos[i].homecontents;
+								reloadMustRead(likes);
+								function reloadMustRead(likes){
+									module4.find(".bookShow").empty();
+									for(var j=0;j<3;j++){
+										var currImgShow=$(threeImg).clone();
+										currImgShow.find(".bigCircleImg").attr("src",qiniuRoot+likes[j].info.logo+ '!app.voicezheng.img');
+										if(mui.os.ios && osg.settingValue('isPublish') == 1){
+											currImgShow.find(".lock").hide();
+										}else{
+											if(likes[j].info.buyType==0)
+												currImgShow.find(".lock").attr("src","../resources/images/vipShow.png").show();
+											else if(likes[j].info.buyType==2)
+												currImgShow.find(".lock").attr("src","../resources/images/moneyShow.png").show();
+										}
+										currImgShow.attr("data-id",likes[j].typeId);
+										currImgShow.data('data', likes[j].info);
+										currImgShow.find(".disc").html(likes[j].info.title);
+										if(likes[j].type==1){
+											currImgShow.tap(function() {
+												var voice_data = $(this).data('data');
+												detailCklic(voice_data);
+											});
+										}else if(likes[j].type==2){
+											currImgShow.tap(function() {
+												var id = $(this).attr('data-id');
+												osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"分类"});
+											});
+										}else{
+											currImgShow.tap(function() {
+												var id = $(this).attr('data-id');
+												osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+											});
+										}
+										module4.find(".bookShow").append(currImgShow);
+									}
+								}
+								$(".allModule").append(module4);
+						}
+						/*currStyleType == 5  的时候  两张方形圆角的图*/
+						else{
+							var module5=twoImg.clone();
+							module5.find(".leftPart .storyName").html(videos[i].title);
+							module5.find(".leftPart .iconfont").html(videos[i].iconfont);
+							module5.find(".rightPart").attr("data-currStyleId",videos[i]._id);
+							module5.find(".rightPart").attr("title",videos[i].title);
+							if(videos[i].more==1){
+								module5.find(".rightPart").find(".storMore").html("换一换");
+								module5.find(".rightPart .iconfont").html("&#xe63e;");
+							}else{
+								module5.find(".rightPart").find(".storMore").html("更多");
+								module5.find(".rightPart .iconfont").html("&#xe61c;");
+							}
+							module5.find(".rightPart").tap(function(){
+								var styleTypeId=$(this).attr("data-currStyleId");
+								var title=$(this).attr("title");
+								if($(this).find(".storMore").html()=="更多"){
+									osg.open("propList.html",{"homestyleId":styleTypeId,"fig":"首页进入","title":title});
+								}else{
+									osg.ajax("/home/changeAndMore",{"id":styleTypeId,"tag":"change"},function(data){
+										reLoadOnce1(data.homecontents);
+									})
+								}
+							});
+							var likes=videos[i].homecontents;
+							for(var j=0;j<2;j++){
+								var currImgShow=$(twoImgShow).clone();
+								currImgShow.find(".bigImg").attr("src",qiniuRoot+likes[j].info.logo+ '!app.voicezheng.img');
+								if(mui.os.ios && osg.settingValue('isPublish') == 1){
+									currImgShow.find(".lock").hide();
+								}else{
+									if(likes[j].info.buyType==0)
+										currImgShow.find(".lock").attr("src","../resources/images/vipShow.png").show();
+									else if(likes[j].info.buyType==2)
+										currImgShow.find(".lock").attr("src","../resources/images/moneyShow.png").show();
+								}
+								currImgShow.attr("data-id",likes[j].typeId);
+								currImgShow.data('data', likes[j].info);
+								if(likes[j].type==1){
+										currImgShow.tap(function() {
+											var voice_data = $(this).data('data');
+											detailCklic(voice_data);
+										});
+									}else if(likes[j].type==2){
+										currImgShow.tap(function() {
+											var id = $(this).attr('data-id');
+											osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"分类"});
+										});
+									}else{
+										currImgShow.tap(function() {
+											var id = $(this).attr('data-id');
+											osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+										});
+									}
+								module5.find(".moduleImgShow").append(currImgShow);
+							}
+							$(".allModule").append(module5);
+						}
+					}
+				})
+				//换一换相关方法
+				function contensItem(oneData){
+					var currImgShow=$(fourthImgShowAndTitle).clone();
+					currImgShow.find(".bigImg").attr("src",qiniuRoot+oneData.info.logo+ '!app.voicezheng.img');
+					currImgShow.find(".currMemo").html(oneData.info.memo);
+					if(mui.os.ios && osg.settingValue('isPublish') == 1){
+						currImgShow.find(".lock").hide();
+					}else{
+						if(oneData.info.buyType==0)
+							currImgShow.find(".lock").attr("src","../resources/images/vipShow.png").show();
+						else if(oneData.info.buyType==2)
+							currImgShow.find(".lock").attr("src","../resources/images/moneyShow.png").show();
+					}
+					currImgShow.attr("data-id",oneData.typeId);
+					currImgShow.data('data', oneData.info);
+					if(oneData.type==1){
+						currImgShow.find(".curTitle").html(oneData.info.title);
+						currImgShow.tap(function() {
+							var voice_data = $(this).data('data');
+							detailCklic(voice_data);
+						});
+					}else if(oneData.type==2){
+						currImgShow.find(".curTitle").html(oneData.info.name);
+						currImgShow.tap(function() {
+							var id = $(this).attr('data-id');
+							osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"分类"});
+						});
+					}else{
+						currImgShow.find(".curTitle").html(oneData.info.name);
+						currImgShow.tap(function() {
+							var id = $(this).attr('data-id');
+							osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+						});
+					}
+					return currImgShow;
+				}
+				
+				function openDetail(id,type){
+					if('v'==type && id){
+						osg.ajax('voice/findById',{'id':id},function(data){
+								detailCklic(data);
+						})
+					}else if('z'==type){
+						var currCateGory='资源包';
+						if(id){
+							osg.open('audioList.html', {
+								"categoryId": id,
+								"cateGoryInfo":currCateGory
+							}, null, {
+								im: 1
+							});
+						}
+					}else if('s'==type){ //商品详情页
+						if(id){
+							osg.open('../mall/details.html', {
+								"bookId": id
+							}, null, {
+								im: 1
+							});
+						}
+					}else if('m'==type){ //少年绘
+						osg.evtFireEvent('toMatch');
+					}else if('d'==type){ //去登录页面
+						if(osg.isLogined()) {
+							osg.toast('你已经登录了！');
+						} else {
+							osg.open('../mine/login.html', {
+							}, null, {
+								im: 1
+							});
+						}
+					}
+				}
+			});
+			//去详情页
+			function detailCklic(voice_data){
+				if(voice_data.buyType==1){
+					var list = [voice_data];
+					osg.set('voice_list',list);//把列表缓存到本地
+					osg.set("voice_now",voice_data);
+					var detailsView = plus.webview.getWebviewById("details");
+					if(detailsView){
+						osg.evtFireEvent('update');
+					}
+					osg.open('audioPlay.html', {
+					}, null, {
+						im: 1,
+						id:"details"
+					});
+				}else{
+					if(voice_data.resourcePackId){
+						osg.open('audioList.html', {
+							"categoryId": voice_data.resourcePackId,
+							"cateGoryInfo":"资源包"
+						}, null, {
+							im: 1
+						});
+					}
+				}
+				
+			}
+			
+			/*热听榜*/
+			$(".hotMusic").tap(function(){
+				osg.open('hotListen.html', {
+					"voiceInfo":"热听榜"
+				}, null, {
+					im: 1
+				});
+			});
+			/*答题闯关*/
+			$(".answer").tap(function(){
+				if(osg.isLogined()) {
+					osg.ajax('form/formcheked', {}, function(data) {
+						if(data){
+							osg.open('../juvenile/testResult.html', {
+								"enrollPhaseId":"111111",
+								"times":0
+							}, null, {
+								im: 1
+							});
+						}else{
+							osg.open('../juvenile/onlineAnswer.html', {
+								"enrollPhaseId":"111111"
+							}, null, {
+								im: 1,
+								id:"onlineAnswer.html"
+							});
+						}
+						
+						
+					}, {
+						noload: true
+					});
+					
+				} else {
+					osg.open('../mine/login.html', null, null, {
+						im: 1
+					});
+					
+				}
+				
+			});
+			$(".search").tap(function(){
+				event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+				osg.open("../home/audioSearch.html");
+			});
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+		<script src="../resources/js/voice.now.js"></script>
+	</body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.contents{
+				width:93%;
+				margin:1rem 3%;
+			}
+			.contents .title{
+				font-size:1.1rem;
+				font-weight:bold;
+				padding:1rem .5rem;
+				line-height:1.5rem;
+				
+			}
+			.content{
+				text-align: justify !important;
+				padding:.5rem;
+			}
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.headerTi>span:first-child{
+				left:4%;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-size:1.2rem;
+				font-weight:bold;
+				position: relative;
+				margin-left:0
+			}
+			.header p{
+				padding:0;
+				margin:0;
+			}
+			.content img{
+				width:100%;
+				height:auto !important;
+			}
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<!--<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p></p>-->
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+					<a href="javascript:;" class="pageTitle"></a>
+				</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll">
+				<div class="contents">
+					<p class="title"></p>
+					<div class="content">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			myFunc(function() {
+				var playId=osg.param("playId");
+				osg.ajax('voice/findById', {
+					'deviceid': plus.device.uuid,
+					'id': playId
+				}, function(data){
+					$(".contents .title").html(data.title);
+					$(".contents .content").html(data.content);
+				})
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

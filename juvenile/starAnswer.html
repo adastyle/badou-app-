@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin-bottom:0;
+			}
+			.jumpToInfo{
+				text-align: center;
+				padding:1.5rem 0;
+				font-size:1.1rem;
+				text-align: center;
+				font-weight:bold;
+			}
+			.contents{
+				width:93%;
+				margin:0 auto;
+			}
+			.module{
+				background:rgba(255,255,255,1);
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				border-radius:10px;
+				padding:1rem;
+				margin:1rem 0;
+				color:#121212;
+				line-height:1.5rem;
+			}
+			.subject{
+				font-weight:bold;
+				margin-top:0;
+				background:rgba(255,255,255,1);
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				border-radius:10px;
+				padding:1rem;
+				margin:1rem 0;
+				color:#121212;
+				line-height:1.5rem;
+			}
+			.kuohao{
+				margin-right:.3rem;
+			}
+			.currAnswerQuestion{
+				color:#D32424;
+			}
+			.module.readAnswer{
+				background:rgba(251,233,233,1);
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				border-radius:10px;
+				color:#D32424;
+			}
+			/*下一题*/
+			.nextQues{
+				width:100%;
+				text-align: center;
+				margin:2rem 0;
+				display:none;
+			}
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p>在线答题</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll">
+				<p class="jumpToInfo"></p>
+				<div class="contents">
+					<div class="subject">
+						<span class="kuohao">(<span class="currAnswerQuestion"></span>)</span>
+						<span class="question"></span>
+					</div>
+					<div class="module">
+						<span class="select">A.</span>
+						<span class="answer"></span>
+					</div>
+				</div>
+				<div class="nextQues">
+					<a class="linearGradientBtn next" data-currAns="" href="javascript:;"><span class="nextSubTitle">下一题</span>( <span class="lastSecond">15</span>s)</a>
+				</div>
+			</div>
+		</div>
+		
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var currQuesNumber=1,totalQuesNumber=0,answerTime=0,timer;
+			var alltime=0;
+			var selAnser="";
+			var moduleQues=$(".module").clone();
+			var subjectQuestion=$(".subject").clone();
+			$(".module").hide();
+			$(".subject").hide();
+			myFunc(function() {
+				if(plus.webview.getWebviewById("testResult.html")){
+					plus.webview.close("testResult.html");
+				}
+				var enrollPhaseId = osg.param("enrollPhaseId");
+				/*请求当前题号，总题号和每个题的答题时间*/
+				if("111111"==enrollPhaseId){//答题闯关
+					osg.ajax("form/formCfg",{},function(data){
+						if(data){
+							totalQuesNumber=data.fieldCounts;
+							answerTime=data.timeLimitForField;
+							$(".jumpToInfo").html(data.str);
+							$(".lastSecond").html(data.timeLimitForField);
+							nextSubject(enrollPhaseId,8888,"");
+						}
+					});
+				}else{
+					osg.ajax("form/findFormCfg",{"menrollPhaseId":enrollPhaseId},function(data){
+						if(data){
+							totalQuesNumber=data.fieldCounts;
+							answerTime=data.timeLimitForField;
+							$(".jumpToInfo").html(data.str);
+							$(".lastSecond").html(data.timeLimitForField);
+							nextSubject(enrollPhaseId,8888,"");
+						}
+					});
+				}
+				
+				$(".next").tap(function(){
+					var selAnser=$(this).attr("data-currAns");
+					nextSubject(enrollPhaseId,currQuesNumber,selAnser);
+				})
+				function nextSubject(menrollPhaseId,index,anwser) {
+					clearInterval(timer);
+					$(".nextQues").hide();
+					$(".lastSecond").html(answerTime);
+					$(".contents").empty();
+					if(currQuesNumber<=totalQuesNumber){
+						osg.ajax('form/next', {"menrollPhaseId":menrollPhaseId,"index":index,"anwser":anwser}, function(data) {
+							if(data){
+								currQuesNumber=data.current;
+								if(data.current==totalQuesNumber){
+									$(".nextSubTitle").html("提交");
+									$(".next").addClass("submitData");
+								}else if(data.current>totalQuesNumber){
+									osg.open("testResult.html",{"enrollPhaseId":enrollPhaseId,"times":alltime,"fig":"关闭"});
+									return;
+								}
+								var currQuesJson=JSON.parse(data.valueOption);
+								subjectQuestion.find(".question").html(data.nameDisp);
+								subjectQuestion.find(".currAnswerQuestion").html(data.current+"/"+totalQuesNumber);
+								$(".contents").append(subjectQuestion);
+								for(var sel in currQuesJson){
+									var currQues=moduleQues.clone();
+									currQues.find(".select").html(sel.toUpperCase());
+									currQues.find(".answer").html(". "+currQuesJson[sel]);
+									$(".contents").append(currQues);
+								}
+								$(".nextQues").show();
+								$(".next").attr("data-currAns","");//每次都清空上一次的答案值
+								/*每个题的定时*/
+								timer=setInterval(function(){
+									var currSecond=parseInt($(".lastSecond").html());
+									if(currSecond>1){
+										currSecond--;
+										alltime++;
+										$(".lastSecond").html(currSecond);
+									}else{
+										//应该请求下一题并且清空当前定时器
+										$(".lastSecond").html(answerTime);
+										var selAnser=$(".next").attr("data-currAns");
+										nextSubject(enrollPhaseId,currQuesNumber,selAnser);
+									}
+								},1000)
+							}
+						},{
+							noload: true
+						});
+					}
+				}
+			})
+			
+			/*点击当前选中*/
+			$(".contents").on("tap",".module",function(){
+				$(this).addClass("readAnswer").siblings(".module").removeClass("readAnswer");
+				$(".next").attr("data-currAns",$(this).children(".select").html())
+			})
+			
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+</html>

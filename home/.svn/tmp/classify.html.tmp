@@ -1,0 +1,527 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.classifyList{
+				width:93%;
+				margin:1rem 3%;
+			}
+			
+			.tags a{
+				display:inline-block;
+				padding:.1rem 1.2rem;
+				background:#fff;
+				border-radius:30px;
+				font-size:.9rem;
+				color:#121212;
+				margin:.7rem .2rem 0;
+			}
+			/*.tags>.mui-control-item>a:last-child{
+				margin-bottom:.2rem !important;
+			}*/
+			p{
+				padding:0;
+				margin:0;
+			}
+			.mui-segmented-control.mui-scroll-wrapper{
+				background:#F5F6F7;
+			}
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item{
+				padding:0 !important;
+				background:#F5F6F7;
+			}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+				background:transparent;
+				border-bottom:0;
+			}
+			.mui-segmented-control.mui-scroll-wrapper{
+				height: 7.8rem !important;
+				position: relative;
+				z-index:12
+			}
+			/**/
+			.oneModule{
+				background:#F7F5EE;
+				height:10rem;
+				margin-bottom:1rem;
+				padding:1rem;
+				padding-left:0;
+				border-radius:4px;
+			}
+			.classifyList .oneModule:nth-child(2n){
+				background:#EEF6F6;
+			}
+			.resourcesTitle>span{
+				font-weight: bold;
+			}
+			.resourcesTitle{
+				padding-left:1.5rem;
+			}
+			.resourcesTitle.isIos{
+				padding-left:1rem !important;
+			}
+			.oneModule>div{
+				padding-left:0;
+			}
+			.oneModule>div.isIos{
+				padding-left:1rem !important;
+			}
+			.resourcesTitle a{
+				float:right;
+				color:#D32424 !important;
+				font-size:.8rem;
+			}
+			.tags a.activeShow{
+				background:linear-gradient(-90deg,rgba(245,39,37,1),rgba(246,102,100,1)) !important;
+				color:#fff !important;
+			}
+			.resourcesTitle a .iconfont{
+				font-size:.8rem;
+			}
+			.oneModule>div{
+				text-align: center !important;
+			}
+			.oneModule .leftImg,
+			.oneModule .rightAudio{
+				display:inline-block;
+				width:42%;
+				height:7rem;
+				margin-top:.2rem;
+				position: relative;
+			}
+			.oneModule .rightAudio>div{
+				position: absolute;
+				left:1rem;
+				top:50%;
+				transform: translateY(-50%);
+				width:100%;
+				text-align: left;
+			}
+			.oneModule .rightAudio>div p{
+				width:100%;
+				overflow: hidden;
+				margin:.4rem;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				font-size:.9rem;
+			}
+			.oneModule .leftImg img{
+				position:absolute;
+				top:50%;
+				left:0;
+				transform: translateY(-50%);
+				width:80%;
+			}
+			.oneModule .leftImg img{
+				border-radius: 4px;
+				box-shadow: ;
+			}
+			.oneModule .leftImg .secondtImg{
+				width:65%;
+				left:23%;
+			}
+			.oneModule .leftImg .thirdImg{
+				width:50%;
+				left:46%;
+			}
+			.oneModule .leftImg .fourthImg{
+				width:35%;
+				left:68%;
+			}
+			.agePart{
+				position: absolute;
+				right:1rem;
+				top:66%;
+				transform: translateY(-50%);
+				font-size:.9rem;
+			}
+			.agePart .iconfont{
+				font-size:.8rem;
+			}
+			.ageShadow{
+				position: fixed;
+				top:0;
+				left:0;
+				width:100%;
+				height:100%;
+				background:rgba(0,0,0,.3);
+				z-index:11;
+				display:none;
+			}
+			.ageShadow .showAge{
+				background:#fff;
+				width:100%;
+				padding-top:3rem;
+			}
+			.ageShadow .showAge p{
+				background: #F5F6F7;
+				border-radius:25px;
+				height:2.5rem;
+				line-height:2.5rem;
+				width:70%;
+				margin:0 auto;
+				margin-bottom:1rem;
+				position: relative;
+				text-align: center;
+			}
+			.ageShadow .showAge p .iconfont{
+				color:transparent;
+				position: absolute;
+				right:1rem;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.ageShadow .showAge p.actived{
+				color:#fff;
+				background:linear-gradient(-90deg,rgba(245,39,37,1),rgba(246,102,100,1)) !important;
+			}
+			.ageShadow .showAge p.actived .iconfont{
+				color:#fff;
+			}
+			.showAge ul{
+				text-align: right;
+				margin-top:2rem;
+			}
+			.showAge ul>li{
+				display:inline-block;
+				width:49%;
+				height:3rem;
+				text-align: center;
+				line-height:3rem;
+			}
+			.showAge ul>li.sure{
+				background:linear-gradient(-90deg,rgba(245,39,37,1),rgba(246,102,100,1)) !important;
+				color:#fff;
+			}
+			.typeNameList .iconfont{
+				color:#F52928;
+				margin-right:.1rem;
+			}
+			.typeNameList a.activeShow .iconfont{
+				color:#fff;
+			}
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="position:relative;padding:.5rem;padding-left:0;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">分类</h1>
+				<div class="agePart">
+					<span></span>
+					<span class="iconfont">&#xe7e1;</span>
+				</div>
+			</div>
+		</header>
+		
+		<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+			<div class="mui-scroll tags">
+				<div class="mui-control-item typeNameList mui-active">
+					<a class="prop name1" href="javascript:;"><span class="iconfont">&#xe680;</span><span class="typeName">张三张三</span></a>
+					<br>
+					<a class="prop name2" href="javascript:;"><span class="iconfont">&#xe680;</span><span class="typeName">张三张三</span></a>
+				</div>
+			</div>
+			<div style="height:1rem;background:#fff;width:100%;position: absolute;bottom:0;"></div>
+		</div>
+		<div class="mui-scroll-wrapper" style="margin-top:11.3rem;">
+			<div class="mui-scroll coment_scroll">
+				<div class="classifyList">
+					<div class="oneModule">
+						<p class="resourcesTitle"><span></span><a href="javascript:;"><span>更多</span><span class="iconfont">&#xe682;</span></a></p>
+						<div class="twoModule">
+							<div class="leftImg">
+								<img class="fourthImg" src="" alt="" />
+								<img class="thirdImg" src="" alt="" />
+								<img class="secondtImg" src="" alt="" />
+								<img class="firstImg" src="" alt="" />
+							</div>
+							<div class="rightAudio">
+								<div>
+									<p class="tiv"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--年龄的弹框-->
+		<div class="ageShadow">
+			<div class="showAge">
+				<div>
+					<p class="ageGroup">
+						<span>2~3岁</span>
+						<span class="iconfont">&#xe6c0;</span>
+					</p>
+				</div>
+				<ul>
+					<li class="cancel">取消</li><li class="sure">确定</li>
+				</ul>
+			</div>
+			
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var  voiceFpi,ptr,courAge={};
+			let typeNameList=$(".typeNameList").clone();
+			let ageGroup=$(".ageGroup").clone();
+			var oneModule=$(".oneModule").clone();
+			var title_voice=$(".tiv").clone();
+			$(".oneModule").remove();
+			$(".ageGroup").remove();
+			$(".typeNameList").remove();
+			$(".tiv").remove();
+			var propId="",aPropId="7103460143523776739",currAgeId="4954640269412221633";
+			myFunc(function() {
+				var ageObject = osg.getObj('courAge');
+				if(ageObject){//缓存过年龄则取缓存的
+					currAgeId = ageObject._id;
+				}
+				osg.ajax("propType/queryAllProp2",{},function(data){
+					for(var j=0;j<data.ageList.length;j++){
+						var temp1=ageGroup.clone();
+						var ageObject = osg.getObj('courAge');
+						if(j==0){
+							var age_name="";
+							var age_id="";
+							if(ageObject){
+								age_id = ageObject._id;
+								age_name = ageObject.name;
+							}else{
+								if(data.ageList.length>1){
+									age_id = data.ageList[1]._id
+									age_name = data.ageList[1].name
+								}else{
+									age_id = data.ageList[j]._id
+									age_name = data.ageList[j].name
+									temp1.addClass("actived");
+								}
+							}
+							$(".agePart>span:first-child").html(age_name);
+							
+							$(".agePart").attr("data-currAgeId",age_id);
+						}
+						if(ageObject && ageObject._id==data.ageList[j]._id){
+							temp1.addClass("actived");
+						}
+						if(!ageObject && data.ageList.length>1 && j==1){
+							temp1.addClass("actived");
+						}
+						temp1.find("span:first-child").html(data.ageList[j].name);
+						temp1.find("span:first-child").data("data",data.ageList[j]);
+						temp1.attr("data-ageId",data.ageList[j]._id);
+						$(".showAge>div").append(temp1);
+					}
+					for(var i=0;i<data.otherList.length;i+=2){
+						var temp=typeNameList.clone();
+						if(i==0){
+							temp.find(".name1").addClass("activeShow");
+							aPropId=data.otherList[i]._id;
+							currAgeId=$(".agePart").attr("data-currAgeId");
+						}
+						temp.find(".name1 .iconfont").html(data.otherList[i].icon);
+						temp.find(".name1").attr("data-id",data.otherList[i]._id);
+						temp.find(".name1 .typeName").html(data.otherList[i].name);
+						if((i+1)>(data.otherList.length-1)) break;
+						temp.find(".name2 .iconfont").html(data.otherList[i+1].icon);
+						temp.find(".name2").attr("data-id",data.otherList[i+1]._id);
+						temp.find(".name2 .typeName").html(data.otherList[i+1].name);
+						$(".tags").append(temp);
+					}
+				})
+				
+				myscroll = $(".coment_scroll")[0];
+						mui(myscroll).pullToRefresh({
+							up: {
+								auto: true,
+								callback: function() {
+									ptr = this;
+									var nextPage;
+									if(voiceFpi)
+										nextPage = voiceFpi.page + 1;
+									else
+										nextPage = 1;
+			
+									findPage(nextPage, {
+										'self': this
+									},"DESC");
+								}
+							},
+						});
+						
+						//分页函数
+						function findPage(page, param) {
+							if(!param) {
+								param = {};
+							}
+							param.self = ptr;
+							osg.ajax('voiceResourcePack/queryByPrpoId', {
+							'page': page,
+							"propId":aPropId,
+							"age":currAgeId
+							}, function(data) {
+								// 下拉的情况下，结束下拉刷新状态
+								if(param.pullDown)
+									param.self.endPullDownToRefresh();
+								if(!data) {
+									param.self.endPullUpToRefresh(true);
+									return;
+								}
+								if(page == 1) {
+									$(".classifyList").html('');
+								}
+								voiceFpi = data;
+								var datas=data.data;
+								reloadData(datas);
+								param.self.endPullUpToRefresh(data.page >= data.pages);
+							});
+						}
+						
+						$(".tags").on("tap","a.prop",function(){
+							$(this).addClass("activeShow").siblings("a").removeClass("activeShow");
+							$(this).parent().siblings().children("a").removeClass("activeShow");
+							aPropId=$(this).attr("data-id");
+							currAgeId=$(".agePart").attr("data-currAgeId");
+							if(aPropId){
+								$(".classifyList").empty();
+								findPage(1,null);
+								if(ptr) {
+					                ptr.refresh(true);
+					            }
+							};
+				
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+			$(".ageShadow").tap(function(){
+				$(this).fadeOut();
+			})
+			$(".showAge").tap(function(e){
+				e.stopPropagation();
+			})
+			$(".showAge").on("tap","p",function(e){
+				e.stopPropagation();
+				$(this).addClass("actived").siblings("p").removeClass("actived");
+				courAge = $(this).find("span:first-child").data('data');
+				$(".agePart").attr("data-currAgeId",$(this).attr("data-ageId"))
+			})
+			$(".showAge .sure").tap(function(e){
+				var currAgeIds=$(".agePart").attr("data-currAgeId");
+				var currPropId=$(".activeShow").attr("data-id");
+				if(currPropId && currAgeIds){
+					aPropId = currPropId;
+					currAgeId = currAgeIds;
+					findPage(1,null);
+					$(".agePart>span:first-child").html(courAge.name);
+					osg.set("courAge",courAge);//缓存当前选中的年龄
+					$(".ageShadow").fadeOut();
+				}
+			})
+			$(".agePart").tap(function(){
+				$(".ageShadow").fadeIn();
+			})
+			$(".showAge .cancel").tap(function(e){
+				$(".ageShadow").fadeOut();
+			})
+					
+			})
+			/*function loadResources(propId,currAgeId){
+				$(".classifyList").empty();
+				osg.ajax("voiceResourcePack/queryByPrpoId",{"propId":propId,"age":currAgeId},function(data){
+					let datas=data.data;
+					reloadData(datas)
+				})
+			}*/
+				
+				/*点击播放当前资源包的音频*/
+			function playAll(whys,voice){
+				if(!whys.length) return;
+				osg.set('voice_list',whys);//把列表缓存到本地
+				osg.set("voice_now",voice);
+				var detailsView = plus.webview.getWebviewById("details");
+				if(detailsView){
+					osg.evtFireEvent('update');
+				}
+				osg.open('audioPlay.html', {
+				}, null, {
+					im: 1,
+					id:"details"
+				});
+			}
+			function reloadData(datas){
+				for(var k=0;k<datas.length;k++){
+					var temp2=oneModule.clone();
+					temp2.find(".resourcesTitle>span:first-child").html(datas[k].name);
+					temp2.attr("data-categoryId",datas[k]._id);
+					temp2.tap(function(){
+						var id=$(this).attr("data-categoryId");
+						osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+					})
+					if(mui.os.android){
+						temp2.find(".twoModule").addClass("isIos");
+						temp2.find(".resourcesTitle").addClass("isIos");
+					}
+					if(datas[k].voiceList.length){
+						if(datas[k].voiceList.length==1){
+							temp2.find(".fourthImg").attr("src",qiniuRoot+datas[k].voiceList[0].logo);
+							temp2.find(".thirdImg").attr("src",qiniuRoot+datas[k].voiceList[0].logo);
+							temp2.find(".secondtImg").attr("src",qiniuRoot+datas[k].voiceList[0].logo);
+							temp2.find(".firstImg").attr("src",qiniuRoot+datas[k].voiceList[0].logo);
+						}else if(datas[k].voiceList.length==2){
+							temp2.find(".fourthImg").attr("src",qiniuRoot+datas[k].voiceList[1].logo);
+							temp2.find(".thirdImg").attr("src",qiniuRoot+datas[k].voiceList[0].logo);
+							temp2.find(".secondtImg").attr("src",qiniuRoot+datas[k].voiceList[1].logo);
+							temp2.find(".firstImg").attr("src",qiniuRoot+datas[k].voiceList[0].logo);
+						}else if(datas[k].voiceList.length==3){
+							temp2.find(".fourthImg").attr("src",qiniuRoot+datas[k].voiceList[2].logo);
+							temp2.find(".thirdImg").attr("src",qiniuRoot+datas[k].voiceList[1].logo);
+							temp2.find(".secondtImg").attr("src",qiniuRoot+datas[k].voiceList[0].logo);
+							temp2.find(".firstImg").attr("src",qiniuRoot+datas[k].voiceList[2].logo);
+						}else{
+							temp2.find(".fourthImg").attr("src",qiniuRoot+datas[k].voiceList[3].logo);
+							temp2.find(".thirdImg").attr("src",qiniuRoot+datas[k].voiceList[2].logo);
+							temp2.find(".secondtImg").attr("src",qiniuRoot+datas[k].voiceList[1].logo);
+							temp2.find(".firstImg").attr("src",qiniuRoot+datas[k].voiceList[0].logo);
+						}
+						for(var m=0;m<datas[k].voiceList.length;m++){
+							var title_voice2 = title_voice.clone()
+							title_voice2.data("data",datas[k].voiceList[m]);
+							title_voice2.text(datas[k].voiceList[m].title);
+							title_voice2.tap(function(e){
+								e.stopPropagation();
+								var voice_data = $(this).data('data');
+								osg.ajax("voice/cat", {categoryId:"",resourcePackId:voice_data.resourcePackId},function(data){
+									if(data.data.length)
+										playAll(data.data,voice_data);
+								});
+							});
+							temp2.find(".rightAudio>div").append(title_voice2);
+						}
+					}
+					$(".classifyList").append(temp2);
+				}
+			}
+		</script>
+	</body>
+
+</html>

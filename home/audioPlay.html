@@ -1,0 +1,1289 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="widt
+			h=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<link rel="stylesheet" href="../resources/css/jplayer.blue.monday.css">
+		<style>
+			.headerPart{
+				position:relative;
+				text-align: center;
+				font-size:1.1rem;
+				color:#121212;
+				margin-bottom:0;
+				height:2.8rem;
+				padding-top:.8rem;
+			}
+			.headerPart>span:first-child{
+				position: absolute;
+				left:.7rem;
+				font-size: 1.3rem;
+    			top: .1rem;
+			}
+			.headerPart .share{
+				width:1.5rem;
+				position: absolute;
+				right:1rem;
+			}
+			/*.mui-bar~.mui-scroll-wrapper{
+				margin-top:4.8rem;
+			}*/
+			.headerTitle{
+				font-weight:bold;
+			}
+			 .scrollContent{
+			 	position: absolute;
+			 	transform: translateX(-50%);
+			 	width:100%;
+			 	color:#121212;
+			 	overflow: hidden;
+			 	text-overflow: ellipsis;
+			 	white-space: nowrap;
+			 } 
+			.xyBanner .mui-scroll-wrapper .mui-slider{
+				margin-top:0;
+			}
+			.xyBanner .mui-scroll-wrapper .mui-slider{
+				border-radius:0;
+			}
+			/*头部完成*/
+			.playContent{
+				width:86%;
+				margin:0 7%;
+				margin-top:6%;
+			}
+			.playContent .currPlayImg{
+				width:100%;
+				height:17rem;
+				border-radius:10px;
+			}
+			.toPayVIP{
+				background:#FCF3EA;
+				text-align:center;
+				height:1.8rem;
+				line-height:2rem;
+				font-size:.8rem;
+				color:#ECBF8B;
+				font-weight: bold;
+				margin:1rem 0;
+			}
+			/*查看更多*/
+			.lookMore{
+				height:6rem;
+				width:100%;
+				padding:0 3%;
+				position:relative;
+				border-top:6px solid #F5F6F7;
+				border-bottom:6px solid #F5F6F7;
+			}
+			
+			.lookMore>div.leftShow>img{
+				width:3rem;
+				padding-top:1.3rem;
+			}
+			.lookMore>div.leftShow>div{
+				display:inline-block;
+				padding-top:1rem;
+			}
+			.lookMore>div.leftShow>div p{
+				margin:0.3rem;
+				font-size:1rem;
+				color:#121212;
+				overflow: hidden;
+				text-overflow:ellipsis;
+				white-space: nowrap;
+			}
+			.allrowRight{
+				position: absolute;
+				top:50%;
+				right:1rem;
+				transform:translateY(-50%);
+				color:#CCCCCC;
+			}
+			/*相关评论部分*/
+			.comment{
+				width:94%;
+				margin:0 3%;
+				padding-top:1rem;
+			}
+			.comment>p:first-child{
+				color:#121212;
+				font-weight:bold;
+				font-size:1rem;
+			}
+			.userComment{
+				position:relative;
+				padding-left:2.5rem;
+			}
+			.uInfo{
+				position:relative;
+			}
+			.userComment .userAvatar{
+				width:2rem;
+				position:absolute;
+				top:.3rem;
+				left:0;
+			}
+			.uInfo{
+				color:#939393;
+			}
+			.uInfo .uName,.uName{
+				margin:0 .3rem;
+			}
+			.commentAndLike{
+				position: absolute;
+				top:50%;
+				right:0;
+				transform:translateY(-50%);
+			}
+			.commentAndLike a{
+				color:#939393;
+				font-size:1.1rem;
+				margin:0 .3rem;
+			}
+			.commentAndLike a:nth-child(2){
+				margin:0px;
+			}
+			.firstCom{
+				color:#121212;
+			}
+			.reply{
+				background:#F5F5F5;
+				padding:.5rem .5rem;
+				color:#121212;
+			}
+			.reply p{
+				margin-top:10px;
+			}
+			.reply .replyUName{
+				color:#939393;
+			}
+			/*音频相关*/
+			.jp-audio .jp-interface{
+				height:11rem;
+			}
+			.jp-audio .jp-type-playlist .jp-progress {
+			    width: 90% !important;
+			    left:5%;
+			    height:.2rem;
+			}
+			.jp-audio .jp-controls{
+				padding:0;
+			}
+			.jp-audio .jp-type-playlist .jp-time-holder{
+				width:100%;
+				left:0rem;
+				font-size:1.5rem;
+				top:2.4rem;
+				padding:0;
+			}
+			.jp-audio .jp-controls{
+				height:10rem;
+				width:100%;
+				padding-top:4rem;
+				text-align: center;
+			}
+			.jp-play-bar{
+				background:#D32424;
+				position:relative;
+				overflow: auto;
+			}
+			.jp-controls button{
+				display:inline-block;
+				float:none
+			}
+			.jp-play-bar .dot{
+				width:10px;
+				height:10px;
+				background:#D32424;
+				border-radius:50%;
+				position:absolute;
+				top:50%;
+				right:0;
+				transform: translateY(-50%);
+				z-index:10000;
+			}
+			.jp-play,.jp-stop, .jp-previous, .jp-next{
+				width:3rem;
+				height:3rem;
+				background:#fff;
+				color:#fff;
+			}
+			.jp-play,.jp-stop{
+				margin:0 2rem;
+				margin-top:.4rem;
+			}
+			.jp-previous{
+				background:#fff url(../resources/images/prep.png) center center no-repeat !important;
+				background-size:40% !important;	
+			}
+			.no-previous{
+				background:#fff url(../resources/images/003.png) center center no-repeat !important;
+				background-size:40% !important;	
+			}
+			.jp-play{
+				background:#fff url(../resources/images/play.png) center center no-repeat;
+				background-size:98% !important;	
+			}
+			.jp-play:focus{
+				background:#fff url(../resources/images/play.png) center center no-repeat;
+				background-size:98% !important;	
+			}
+			.jp-state-playing .jp-play{
+				background:#fff url(../resources/images/stop.png) center center no-repeat;
+				background-size:98% !important;	
+			}
+			.jp-state-playing .jp-play:focus{
+				background:#fff url(../resources/images/stop.png) center center no-repeat;
+				background-size:98% !important;	
+			}
+			.jp-next{
+				background:#fff url(../resources/images/next.png) center center no-repeat !important; 
+				background-size:40% !important;	
+			}
+			.no-next{
+				background:#fff url(../resources/images/004.png) center center no-repeat !important; 
+				background-size:40% !important;	
+			}
+			.jp-audio .jp-type-playlist .jp-toggles{
+				width:8rem;
+				position:absolute;
+				bottom:.2rem;
+				left:50%;
+				top:auto;
+				transform:translateX(-50%);
+			}
+			.jp-interface{
+				background-color: #fff;
+			}
+			.jp-audio, .jp-audio-stream, .jp-video{
+				border:none;
+			}
+			.audioList{
+				color:#C8CCCC;
+				font-size:1.8rem;
+				display: inline-block;
+    			margin-top: .5rem;
+    			float:right;
+			}
+			.jp-toggles button{
+				width:3.5rem !important;
+				height:3.5rem ;
+				padding:0;
+			}
+			.jp-playlist{
+				padding:0 1rem;
+			}
+			.jp-audio .jp-type-playlist .jp-toggles{
+				width:76%;
+			}
+			.jp-audio .jp-type-playlist .jp-toggles .manuscript,
+			.jp-audio .jp-type-playlist .jp-toggles  .likeThis,
+			.jp-audio .jp-type-playlist .jp-toggles  .cycle,
+			.jp-audio .jp-type-playlist .jp-toggles .download{
+			    display: inline-block;
+			    font-size: 1.4rem;
+			    padding-top: .5rem;
+			    padding-left: 1.2rem;
+			    color:#C8CCCC;
+			    vertical-align: middle
+			}
+			.jp-audio .jp-type-playlist .jp-toggles  .likeThis{
+				margin-left:.9rem;
+			}
+			.toComment{
+				text-align: center;
+			}
+			.lookBook{
+				color:#EE4E4E;
+				padding:.2rem 1rem;
+				padding-top:.3rem;
+				border:1px solid #EE4E4E;
+				border-radius:20px;
+			}
+			/*播放器的时间*/
+			.jp-current-time, .jp-duration{
+				font-style:normal;
+				font-size:.5em;
+			}
+			.jp-progress .jp-seek-bar .jp-play-bar{
+				overflow: visible !important;
+			}
+		</style>
+	</head>
+	<body class="xyBanner">
+		<header class="mui-bar mui-bar-nav">
+			<!--<marquee scrollamount="0"  class="headerTitle">'+voiceData.title+'</marquee>-->
+			<a class="mui-action-back iconfont" style="padding:.5rem;">&#xe814;</a>
+			<h1 class="mui-title"  id="marquee" class="headerTitle">
+				<span class="scrollContent"></span>
+			</h1>
+			<!--分享先隐藏-->
+			<span class="iconfont share" style="float:right;display:inline-block;padding-top:.5rem;font-size:1.1rem;padding-right:.3rem;">&#xe6a8;</span>
+		</header>
+		<div class="mui-scroll-wrapper content" style="margin-bottom:4rem;">
+			<div class="mui-scroll coment_scroll Pd">
+				<div class="playContent">
+					<img class="currPlayImg" src="../resources/images/playImg.png" alt="" />
+					<!--<div id="haha_lala" class="toPayVIP">试听1分钟，开通VIP免费听</div>-->
+				</div>
+				<!--音频播放-->
+				<div class="video_content">
+					<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+					<div id="jp_container_1" style="width:86%;;margin:0 auto;" class="jp-audio lalala" role="application" aria-label="media player">
+						<div class="jp-type-playlist">
+							<div class="jp-gui jp-interface">
+								<div class="jp-controls">
+									<button class="jp-previous voice-previous" role="button" tabindex="0">previous</button>
+									<button class="jp-play" id="" role="button" tabindex="0">play</button>
+									<button class="jp-next voice-next" role="button" tabindex="0">next</button>
+									<span class="iconfont audioList">&#xe623;</span>
+								</div>
+								<div class="jp-progress" style="width:100% !important;left:auto;overflow: visible !important;">
+									<div class="jp-seek-bar" style="overflow: visible !important;">
+										<div class="jp-play-bar" style="overflow: visible !important;position: relative;">
+											<div class="dot"></div>
+										</div>
+									</div>
+								</div>
+								<!--<div class="jp-volume-controls">
+									<button class="jp-mute" role="button" tabindex="0">mute</button>
+									<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+									<div class="jp-volume-bar">
+										<div class="jp-volume-bar-value"></div>
+									</div>
+								</div>-->
+								<div class="jp-time-holder">
+									<div style="margin-left:0" class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+									<div style="margin-right:0" class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+								</div>
+								<div class="jp-toggles">
+									<!--<button class="jp-repeat" role="button" tabindex="0">repeat</button>-->
+									<!--<button class="checkedRandom" role="button" tabindex="0">shuffle</button>-->
+									<span class="iconfont cycle" data-type="1">&#xe66f;</span>
+									<span class="iconfont likeThis">&#xe628;</span>
+									<span class="iconfont download" style="font-size:1.3rem;padding:.2rem .5rem 0 1.8rem;">&#xe606;</span>
+									<!--<span class="iconfont wengao">&#xe606;</span>-->
+									<span class="iconfont manuscript">&#xe650;</span>
+								</div>
+							</div>
+							<div class="jp-playlist" style="display:none">
+								<ul>
+									<li>&nbsp;</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--成语大全-->
+				<div class="lookMore audioResources">
+					<div class="leftShow">
+						<img class="resourcePack_logo" src="" alt="" />
+						<div style="width:70%">
+							<p class="resourcePack_name">成语大全</p>
+							<p class="resourcePack_sum" style="color:#939393">共100个成语</p>
+						</div>
+					</div>
+					<span  class="iconfont allrowRight">&#xe61c;</span>
+				</div>
+				<!--商品-->
+				<div class="lookMore bookShow" style="border-top:0;display: none;">
+					<div class="leftShow">
+						<img class="bookImg" src="../resources/images/currAudioLogo.png" alt="" />
+						<div  style="width:60%">
+							<p class="bookName">成语大全</p>
+							<p style="color:#939393"><span class="bookPrice" style="margin-right:1rem;color:#D32424">¥58.00</span><s class="bookOriginPrice">¥80.00</s></p>
+						</div>
+					</div>
+					<span  class="allrowRight lookBook">查看</span>
+				</div>
+				<div class="comment" style="padding-bottom:1rem;">
+					<p>留言（<span class="commentNum"></span>）</p>
+					<ul id="comment_list" style="margin-top: 1.6rem;">
+						<li class="comment_item debug">
+							<div>
+								<div class="userComment">
+									<img src="../resources/images/yidou.png" class="userAvatar" style="width:2.5rem;height:2.5rem;border-radius:50%" alt="" />
+									<p class="uInfo">
+										<span class="uName">一斗</span>
+										<span class="uDate">2019.01.01</span>
+										<span class="commentAndLike">
+											<a href="javascript:;" class="iconfont comm">&#xe62e;</a>
+											<a href="javascript:;" class="iconfont like">&#xe6ab;</a>
+											<span class="likeCount" style="margin-left:0">10</span>
+										</span>
+									</p>
+									<p class="firstCom">诗人可真有去，到一个地方就在墙上留下自己的事。</p>
+									<div class="zong_reply">
+										<div class="reply">
+											<p>
+												<span class="replyUName">三斗</span>：
+												<span class="replyContent">八斗，棒棒的！</span>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="toComment">
+			<span class="iconfont" style="font-size:1.2rem;margin-right:.3rem">&#xe68e;</span>
+			<input id="comment_content" type="text" placeholder="留言"/>
+			<span class="comment_submit">发送</span>
+		</div>
+		<!--音频显示的列表-->
+		<div class="audioListShadow">
+			<div class="mui-scroll-wrapper">
+				<ul class="voice_list mui-scroll">
+					<li class="voice_item debug">
+						<img class="voiceOne_logo" src="../resources/images/currAudioLogo.png" alt="" />
+						<span class="voiceOne_title"></span>
+						<span class="iconfont delete">&#xe62d;</span>
+					</li>
+				</ul>
+			</div>
+			<p class="closeList">关闭</p>
+			<p class="currPlay">
+				<span class="recents">最近播放的故事</span>
+				<span class="iconfont playing">&#xe61d;</span>
+			</p>
+		</div>
+		<!--分享-->
+		<div class="shareChoose" style="z-index: 10000;">
+			<div>
+				<ul>
+					<li class="wechat">
+						<img src="../resources/images/weixin.png" alt="" />
+						<p>微信</p>
+					</li>
+					<li class="pengyouquan">
+						<img src="../resources/images/pengyouquan.png" alt="" />
+						<p>朋友圈</p>
+					</li>
+				</ul>
+				<p class="shareCancel">取消</p>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js"></script>
+		<script src="../resources/js/mui.min.js"></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js"></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/jplayer.playlist.min.js"></script>
+		<script src="../resources/js/download.js "></script>
+		<script type="text/javascript">
+			var pid = '',rootpid='',commentFpi,ptr,redata,shareMsg={},playing_number,cycletype=1,
+			comentObj,voiceList=[],voice1Obj,voice_url,voiceId,comment1Obj,replyObj,loadCount=false;
+			var downloadId="",OSGAudioPlayer={},currentTime,duration;
+			myFunc(function() {
+				
+				/*if(mui.os.ios){
+					OSGAudioPlayer = plus.ios.invoke('OSGAudioPlayer', "getInstance");
+				}*/
+				
+				
+				$('.lookMore').tap(function(){
+					var bookId = $(this).find(".lookBook").attr("data-id");
+					if(bookId){
+						osg.open('../mall/details.html', {
+							"bookId": bookId
+						}, null, {
+							im: 1
+						});
+					}
+				})
+				
+				$("#jquery_jplayer_1").jPlayer({
+				ready: function (event) {
+					var voice = osg.getObj('voice_now');
+					getDetail(voice._id,false);
+				},
+				swfPath: "../../dist/jplayer",
+				supplied: "mp3",
+				wmode: "window",
+				useStateClassSkin: true,
+				preload:"auto",
+				autoBlur: false,
+				smoothPlayBar: true,
+				keyEnabled: true,
+				play: function(event) {
+					var id = event.jPlayer.status.media.title;
+					play(id);
+				},
+				timeupdate  : function(event) {
+					/*currentTime = parseInt(event.jPlayer.status.currentTime)+"";
+					duration = parseInt(event.jPlayer.status.duration)+"";
+					if(mui.os.ios){
+						iosVoice();
+					}*/
+				},
+				pause: stop,
+				setmedia: function(event) {
+					
+			   		var id = event.jPlayer.status.media.title;
+			   		setmedia(id);
+			   		if(loadCount){
+						findPage(1,null);
+					}
+					loadCount = true;
+				},
+				ended : function(event) {
+					var id = event.jPlayer.status.media.title;
+				   	voiceList = osg.getObj('voice_list');//从缓存里面取播放列表
+				   	voiceListlength = voiceList.length-1
+				   	if(cycletype==1){
+				   		next(id);
+				   	}
+				   	if(cycletype==2 ){
+				   		if((voiceList.length-1)==playing_number){
+				   			var pid = $(".voice_list").children(":first").attr("voice_number");
+					   		if(pid){
+					   			getDetail(pid,true);
+					   		}
+				   		}else{
+				   			next(id);
+				   		}
+				   	}
+				   	if(cycletype==3){
+				   		$("#jquery_jplayer_1").jPlayer( "play",1);
+				   	}
+				}
+			});
+
+				
+				
+				
+				var voice = osg.getObj('voice_now');
+				
+				voiceId = voice._id;
+				voice1Obj = $('.voice_item');
+				voice1Obj.remove().removeClass("debug");
+				playNow(voice);
+				
+				
+				
+				/*点击播放列表*/
+				$(".audioList").tap(function(e){
+					$(".audioListShadow").fadeIn();
+					$(".audioListShadow ul").css("overflow","auto")
+				});
+				$(".closeList").tap(function(){
+					$(".audioListShadow").fadeOut();
+				})
+				//评论相关开始
+				/*发布评论*/
+				$(".comment_submit").tap(function() {
+					if(!osg.isLogined()) {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html');
+						});
+					} else {
+						submitComment();
+						pid = '';
+						rootpid = '';
+					}
+				});
+				// 提交评论
+				function submitComment() {
+					$('#comment_content').blur();
+					var c = $("#comment_content").val();
+					if(c != '' && c.length > 0) {
+						osg.ajax('comment/add', {
+							'type': 1,
+							'typeId': voiceId,
+							'parentId': pid,
+							'rootParentId':rootpid,
+							'realContent': c
+						}, function(data) {
+							$("#comment_content").val('');
+							if(ptr) {
+								ptr.refresh(true);
+							}
+							findPage(1);
+							osg.toast("发布成功！");
+						});
+					}
+				}
+				//容器初始化
+				var myscroll = $(".coment_scroll")[0];
+				mui(myscroll).pullToRefresh({
+					up: {
+						auto: true,
+						callback: function() {
+							ptr = this;
+							var nextPage;
+							if(commentFpi) {
+								nextPage = commentFpi.page + 1;
+							} else {
+								nextPage = 1;
+							}
+							findPage(nextPage, {
+								'self': this
+							});
+						}
+					}
+				});
+				// 评论条目模板
+				var user = osg.currentUser();
+				replyObj = $('.reply');//评论回复模板
+				$('.reply').remove();
+				var comment1Obj = $('.comment_item');//评论模板
+				comment1Obj.remove().removeClass("debug");
+				
+				mui('.coment_scroll').on('tap', '.reply', function(e) {
+					event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+					var pardata = $(this).data('data');
+					var rootid = $(this).attr('root_id');
+					if(osg.isLogined()) {
+						pid = pardata._id;
+						rootpid = rootid;
+						$('#comment_content').blur();
+						$('#comment_content').focus();
+						
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html');
+						});
+					}
+				});
+				
+				//回复ajax函数
+				mui('.coment_scroll').on('tap', '.userComment', function(e) {
+					var data = $(this).data('data');
+					if(osg.isLogined()) {
+						pid = data._id;
+						rootpid = data._id;
+						$('#comment_content').focus();
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html');
+						});
+					}
+				});
+				
+				//点赞ajax函数
+				function zanAjax(commentId, rootUserId) {
+					osg.ajax('zan/addZan', {
+						'typeId': commentId,
+						'rootUserId': rootUserId,
+						'type': '100'
+					}, function(data) {
+						$(".like[comment_id='" + commentId + "']").attr('style', 'color:red');
+						$(".like[comment_id='" + commentId + "']").html('&#xe64e;');
+						$(".likeCount[comment_id='" + commentId + "']").text(data);
+					}, {
+						noload: true
+					});
+				}
+				
+				mui('.coment_scroll').on('tap', '.audioResources', function(e) {
+					var voice = osg.getObj('voice_now');
+					var page = plus.webview.getWebviewById("audioList.html");
+					if(page){
+						var ws = plus.webview.currentWebview();
+						ws.hide("auto", 300);
+					}else{
+						osg.open('audioList.html', {
+							"categoryId": voice.resourcePackId,
+							"cateGoryInfo":"资源包"
+						}, null, {
+							im: 1
+						});
+					}
+				});
+				
+				//注册监听事件
+			osg.evtAddListener(function(d) {
+				/*监听首页的删除事件*/
+				if(d && d=='deleteIndexToPlay'){
+					var fromPlayDelIndex=parseInt(localStorage.getItem("currDelIndexToPlay"));
+					var id = osg.get("delete_id");
+					if(id&&id==voiceId){
+						next(id);
+					}
+					var playList=$(".voice_list>.voice_item");
+					for(var j=0;j<playList.length;j++){
+						if(j==fromPlayDelIndex){
+							playList[j].remove();
+						}
+					}
+				}
+				else if(d && (d == 'play1')) { // 播放事件
+					$("#jquery_jplayer_1").jPlayer( "play");
+				} else if(d && (d == 'stop1')){
+					$("#jquery_jplayer_1").jPlayer( "pause");
+				}else if(d && (d == 'update')){
+					var voice = osg.getObj('voice_now');
+					if(voice._id != voiceId){
+						voiceId = voice._id;
+						getDetail(voiceId,true);
+						playNow(voice);
+					}else{
+						var isPaly = osg.get('isPlay');
+						if(!isPaly){
+							$("#jquery_jplayer_1").jPlayer( "play");
+						}
+					}
+					
+				}else if(d && (d == 'palylist')){
+					var palylist_number = osg.get('palylist_number');//取出列表播放歌曲的角标
+					if(!palylist_number){
+						var pid = $(".voice_list").children(":first").attr("voice_number");
+				   		if(pid){
+				   			getDetail(pid,true);
+				   		}
+					}else{
+						getDetail(palylist_number,true);
+					}
+				}else if(d && (d == 'screenplays')){ //播放列表最近播放按钮监听
+					voiceAjax();
+				}
+				
+			});
+			
+			//评论分页函数
+			function findPage(page, param) {
+				if(!param) {
+					param = {};
+				}
+				param.self = ptr;
+				var $commentList = $("#comment_list");
+				osg.ajax('comment/query', {
+					'page': page,
+					'type|integer': 1,
+					'typeId': voiceId
+				}, function(data) {
+					// 下拉的情况下，结束下拉刷新状态
+					if(param.pullDown)
+						param.self.endPullDownToRefresh();
+					if(!data) {
+						param.self.endPullUpToRefresh(true);
+						return;
+					}
+					if(page == 1) {
+						$commentList.html('');
+					}
+					commentFpi = data;
+					for(var i = 0; i < data.data.length; i++) {
+						var oneData = data.data[i];
+						$('#comment_list').append(getItemComment(oneData));
+						if(oneData.zaned) {
+							$(".like[comment_id='" + oneData._id + "']").attr('style', 'color:red');
+							$(".like[comment_id='" + oneData._id + "']").html('&#xe64e;');
+						}
+					}
+					param.self.endPullUpToRefresh(data.page >= data.pages);
+				}, {
+					noload: true
+				});
+			}
+			
+			function getItemComment(oneData) {
+				comentObj = comment1Obj.clone();
+				if(oneData.userAvatar)
+					comentObj.find('.userAvatar').attr('src', qiniuRoot + oneData.userAvatar+'!app.voicesmall.img');
+				else
+					comentObj.find('.userAvatar').attr('src', "../resources/images/yidou.png");
+				comentObj.find('.uName').text(oneData.userName);
+				comentObj.find('.uDate').text(oneData.createTime);
+				comentObj.find('.firstCom').html(oneData.realContent);
+				comentObj.find('.like').attr('comment_id', oneData._id);
+				comentObj.find('.userComment').data('data', oneData);
+				comentObj.find('.likeCount').text(oneData.zanTimes);
+				comentObj.find('.likeCount').attr('comment_id', oneData._id);
+				comentObj.find('.like').tap(function() {
+					if(osg.isLogined()) {
+						zanAjax(oneData._id, oneData.userId);
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html');
+						});
+					}
+				});
+				if(oneData.childrens){
+					for(var i = 0; i < oneData.childrens.length; i++) {
+						var comentReply = oneData.childrens[i];
+						var replyItemObj = replyObj.clone();
+						replyItemObj.attr('root_id', oneData._id);
+						replyItemObj.data('data', comentReply);
+						if(comentReply.parentId!=comentReply.rootParentId&&comentReply.rootUserId!=comentReply.userId){
+							replyItemObj.find('.replyUName').html(comentReply.userName+'&nbsp;回复&nbsp;'+comentReply.rootUserName);
+						}else{
+							replyItemObj.find('.replyUName').text(comentReply.userName);
+						}
+						replyItemObj.find('.replyContent').text(comentReply.realContent);
+						comentObj.find('.zong_reply').append(replyItemObj);
+					}
+				}
+				return comentObj;
+			}
+			//循环播放点击事件
+			$(".cycle").tap(function(){
+				var cycle = $(this).attr("data-type");
+				if(cycle==1){
+					$(this).attr("data-type","2");
+					$(this).html("&#xe64f;");
+					cycletype = 2;
+				}else if(cycle==2){
+					$(this).attr("data-type","3");
+					$(this).html("&#xe611;");
+					cycletype = 3;
+				}else if(cycle==3){
+					$(this).attr("data-type","1");
+					$(this).html("&#xe66f;");
+					cycletype = 1;
+				}
+				nonext(voiceId);
+			});
+			
+			/*文稿*/
+			$(".manuscript").tap(function(){
+				if(voiceId&&redata.content)
+					osg.open("manuscript.html",{"playId":voiceId})
+				else{
+					osg.toast("文稿走丢啦！");
+				}
+			});
+			
+			//收藏点击事件
+			$(".likeThis").tap(function() {
+				if(osg.isLogined()) {
+					if(redata && redata.favored) {
+						osg.ajax('favor/deleFavor', {
+							'type': 1,
+							'typeId': voiceId
+						}, function(data) {
+							redata.favored = false;
+							osg.toast("已取消喜欢！");
+							$(".likeThis").html("&#xe628;").css("color","#C8CCCC");
+						}, {
+							noload: true
+						});
+					} else {
+						osg.ajax('favor/addFavor', {
+							'type': 1,
+							'typeId': voiceId
+						}, function(data) {
+							redata.favored = true;
+							osg.toast("已添加到我喜欢的！");
+							$(".likeThis").html("&#xe66d;").css("color", "rgba(211,36,36,1)");
+						}, {
+							noload: true
+						});
+					}
+				} else {
+					osg.open("../mine/login.html");
+				}
+			});
+			
+			/*下载*/
+			$(".download").tap(function(){
+				if(downloadId && downloadId==redata._id){
+					osg.toast("已下载成功过!");
+					return;
+				}else{
+					downloadId=redata._id;
+				}
+				osg.set("dodownload",redata);
+				osg.evtFireEvent('dodownload');
+				$(this).html("&#xe653;");
+			});
+			
+			/*最近播放点击事件*/
+			$(".recents").tap(function(){
+				osg.open('../home/hotListen.html', {
+					"voiceInfo":"最近播放"
+				}, null, {
+					im: 1
+				});
+			});
+			
+			/*最近播放点击事件*/
+			$(".playing").tap(function(){
+				voiceAjax();
+			});
+			/*if(mui.os.ios){
+				setInterval(function() {
+                     var action = OSGAudioPlayer.plusGetAttribute("action");
+                     if (action && action=="next"){
+                     	next(voiceId);
+                     }else if(action && action=="previous"){
+                     	previous(voiceId);
+                     }
+                         
+             	}, 500);
+			}*/
+				
+		});
+			
+			function getDetail(detailId,hasplay) {
+				var aa;
+				var ff = null,isdown=false;
+				var cd = osg.get(cacheKeys.downloads);
+				if(cd) {
+					cd = JSON.parse(cd);
+					for(var j = 0; j < cd.length; j++) {
+						if(detailId == cd[j]._id) {
+							aa = cd[j];
+							ff = cd[j].url;
+							ff = plus.io.convertLocalFileSystemURL(ff);
+							break;
+						}
+					}
+				}
+				if(ff) {
+					var rff = ff;
+					if(mui.os.ios) {
+						if(!rff.indexOf('file://') == 0)
+							rff = 'file://' + rff;
+					}
+					plus.io.resolveLocalFileSystemURL(rff, function(entry) {
+						if(ff.indexOf('file://') != 0)
+							ff = 'file://' + ff;
+						addMusic(ff,aa._id);
+						if(hasplay){
+							$("#jquery_jplayer_1").jPlayer( "play",1);
+						}
+						var fflogo = plus.io.convertLocalFileSystemURL(aa.logo);
+						if(fflogo.indexOf('file://') != 0)
+							fflogo = 'file://' + fflogo;
+						var bb ={
+							"_id":aa._id,
+							"title":aa.title,
+							"logo":fflogo,
+							"fileidUrl":ff
+						}
+						osg.set("voice_now",bb);
+						voiceId = aa._id;
+						isdown = true;
+						return;
+						}, function(e) {
+							// 文件不存在或其他原因
+							isdown = false;
+					});
+				}else{
+					isdown = false;
+				}
+				osg.ajax('viewed/findById', {
+					'deviceid': plus.device.uuid,
+					'id': detailId
+				}, function(data) {
+					redata = data;
+					if(!isdown){
+						addMusic(data.fileidUrl,data._id);
+						osg.set("voice_now",data);
+						voiceId = data._id;
+						if(hasplay){
+							$("#jquery_jplayer_1").jPlayer( "play",1);
+						}
+					}
+					getItemVoice(data);
+					shareMsg={
+						href: rootUri.substring(0,rootUri.length-2)+"i/shareDetail.do?voiceId="+redata._id,
+			            title: redata.title,
+			            content: redata.memo,
+			            thumbs: [qiniuRoot + redata.logo+"!app.share"],
+			            pictures: [qiniuRoot + redata.logo+"!app.share"],
+					}
+					if(data){
+						$('.commentNum').text(data.commentTimes);
+					}
+					if(data && data.favored){
+						$(".likeThis").html("&#xe66d;").css("color", "rgba(211,36,36,1)");
+					}else{
+						$(".likeThis").html("&#xe628;").css("color","#C8CCCC");
+					}
+				}, {
+					noload: true
+				});
+			}
+			/*播放列表查询最近播放方法*/
+			function voiceAjax(){
+				osg.ajax('viewed/fpByUserId', {
+					'deviceid': plus.device.uuid,
+					'type': "voice",
+					'size': "50"
+				}, function(data) {
+					if(data.data.length>0){
+						var zuijinList = [];
+						for(var i = 0; i < data.data.length; i++) {
+							var oneData = data.data[i].info;
+							zuijinList.push(oneData);
+						}
+						osg.set("voice_now",zuijinList[0]);
+						osg.set('voice_list',zuijinList);//把列表缓存到本地
+						getDetail(zuijinList[0]._id,true);
+						playNow(zuijinList[0]);
+						osg.evtFireEvent('swapPlaylists');
+					}else{
+						osg.toast('没有最近播放的故事！');
+					}
+					
+				}, {
+					noload: true
+				});
+			}
+			function addMusic(mp3,id){
+			    var media=new Object();
+			    media={
+			    	"mp3":mp3,
+			    	"title":id
+			    	};
+			    $("#jquery_jplayer_1").jPlayer( "setMedia",media)
+			}
+			
+			function play(id){
+				osg.set('isPlay',true);//更新为播放状态
+				osg.evtFireEvent('play');
+				nonext(id); //处理播放按钮置灰
+			}
+			
+			function nonext(id){
+				if(cycletype==1){
+					var firstId= $(".voice_list").children(":first").attr("voice_number");
+					var lastId = $(".voice_list").children(":last").attr("voice_number");
+					if(id==lastId){
+						$(".jp-next").addClass("no-next");
+					}else{
+						$(".jp-next").removeClass("no-next");
+					}
+					if(id==firstId){
+						$(".jp-previous").addClass("no-previous");
+					}else{
+						$(".jp-previous").removeClass("no-previous");
+					}
+					
+				}else{
+					$(".jp-previous").removeClass("no-previous");
+					$(".jp-next").removeClass("no-next");
+				}
+			}
+			
+			function setmedia(id){
+				var dd;
+				for(var i = 0; i < voiceList.length; i++) {
+					var voiceData = voiceList[i];
+					if(voiceData._id==id){
+						$(".currPlayActive").removeClass("currPlayActive");
+						$("[voice_number='" + voiceData._id + "']").addClass("currPlayActive");
+						playing_number=i;
+						dd = voiceData;
+						redata = voiceData;
+						break;
+					}
+				}
+				if(dd){
+					getResourcePackDetail(dd);
+				}
+			}
+			
+			function stop(){
+				osg.set('isPlay',false);
+				osg.evtFireEvent('stop');
+			}
+			
+			function playNow(voiceObject){
+				$(".voice_list").children().remove();
+				voiceList = osg.getObj('voice_list');//从缓存里面取播放列表
+				if(voiceList==null||voiceList==undefined||voiceList==""||voiceList.length<=0){
+					voiceList=[];
+					voiceList.push(voiceObject);
+				}
+				var isHas = false;
+				for(var i = 0; i < voiceList.length; i++) {
+					var voiceItemObj = voice1Obj.clone();
+					if(voiceList[i]._id==voiceObject._id){
+						isHas=true;
+						voiceItemObj.addClass("currPlayActive");
+						playing_number=i;
+					}
+					if(voiceList[i].logo){
+						var str = voiceList[i].logo.substring(0,3);
+						if(isNaN(str)){
+							voiceItemObj.find(".voiceOne_logo").attr('src', voiceList[i].logo);
+						}else{
+							voiceItemObj.find(".voiceOne_logo").attr('src', qiniuRoot + voiceList[i].logo+"!app.voicesmall.img");
+						}
+					}
+					voiceItemObj.find(".voiceOne_title").text(voiceList[i].title);
+					voiceItemObj.attr("voice_number",voiceList[i]._id);
+					voiceItemObj.find(".voiceOne_title").attr("voice_id",voiceList[i]._id);
+					voiceItemObj.find(".voiceOne_title").tap(function() {
+						var id = $(this).attr("voice_id");
+						getDetail(id,true);
+						
+					});
+					voiceItemObj.find(".delete").tap(function() {
+						var currIndex= $(this).parent().index();
+						var id= $(this).parent().attr("voice_number");
+						if(id==voiceId){
+							next(voiceId);
+						}
+					 	$(this).parent().remove();
+					 	osg.evtFireEvent('deleteIndexToHome');
+					 	localStorage.setItem("currDelIndex",currIndex);
+					 	/*如果当前音频被删除完了，则首页的播放音频条就*/
+					 	if(!$(".voice_list>li").length){
+					 		$(".audioListShadow").fadeOut();
+					 	}
+					});
+					$(".voice_list").append(voiceItemObj);
+				}
+				if(!isHas){
+					var lean = voiceList.push(voiceObject);
+					osg.set('voice_list',voiceList);//把列表缓存到本地
+					voiceData = voiceList[lean-1];
+					var voiceItemObj = voice1Obj.clone();
+					voiceItemObj.addClass("currPlayActive");
+					if(voiceData.logo){
+						var str = voiceData.logo.substring(0,3);
+						if(isNaN(str)){
+							voiceItemObj.find(".voiceOne_logo").attr('src', voiceData.logo);
+						}else{
+							voiceItemObj.find(".voiceOne_logo").attr('src', qiniuRoot + voiceData.logo+'!app.voicesmall.img');
+						}
+					}
+					voiceItemObj.find(".voiceOne_title").text(voiceData.title);
+					voiceItemObj.attr("voice_number",voiceData._id);
+					voiceItemObj.attr("voice_url",voiceData.fileidUrl);
+					voiceItemObj.find(".voiceOne_title").attr("voice_id",voiceData._id);
+					voiceItemObj.find(".voiceOne_title").tap(function() {
+						var id = $(this).attr("voice_id");
+						getDetail(id,true);
+					});
+					voiceItemObj.find(".delete").tap(function() {
+						var currIndex= $(this).parent().index();
+						var id= $(this).parent().attr("voice_number");
+						if(id==voiceId){
+							next(voiceId);
+						}
+					 	$(this).parent().remove();
+					 	osg.evtFireEvent('deleteIndexToHome');
+					 	localStorage.setItem("currDelIndex",currIndex);
+					});
+					$(".voice_list").append(voiceItemObj);
+				}
+			}
+			
+			function getItemVoice(voiceData){
+				$(".scrollContent").text(voiceData.title);
+				var cd = osg.get(cacheKeys.downloads);
+				if(cd) {
+					cd = JSON.parse(cd);
+					var isdown = false;
+					for(var j = 0; j < cd.length; j++) {
+						if(voiceData._id == cd[j]._id) {
+							isdown = true;
+							break;
+						}
+					}
+					if(isdown){//下载的音频换下载的图标
+						$(".download").html("&#xe653;");
+					}else{
+						$(".download").html("&#xe606;");
+					}
+				}else{
+					$(".download").html("&#xe606;");
+				}
+				if(voiceData.logo){
+					var str = voiceData.logo.substring(0,3);
+					if(isNaN(str)){
+						$('.playContent').find('.currPlayImg').attr('src', voiceData.logo);
+					}else{
+						$('.playContent').find('.currPlayImg').attr('src', qiniuRoot + voiceData.logo+'!app.voicebig.img');
+					}
+				}
+			}
+			function getResourcePackDetail(p) {
+				$(".audioResources").show();
+				if(p.resourcePackId!=undefined&&p.resourcePackId!=null&&p.resourcePackId!=""){
+					osg.ajax('voice/queryresourcePackById', {
+					'categoryId': p.resourcePackId
+					}, function(data) {
+						$('.resourcePack_name').text(data.name);
+						$('.resourcePack_sum').text("共"+data.count+"个"+data.mold);
+						$('.resourcePack_logo').attr('src', qiniuRoot + data.logo+'!app.voicesmall.img');
+						if(data.goods!=null){
+							$('.bookShow').show();
+							$('.bookName').text(data.goods.title);
+							$('.lookBook').attr("data-id",data.goods._id);
+							$('.bookImg').attr('src', qiniuRoot + data.goods.logo+'!app.voicesmall.img');
+							if(data.goods.price&&data.goods.price!=0){
+								$('.bookPrice').html("¥"+parseFloat(data.goods.price).toFixed(2));
+								$('.bookOriginPrice').html("¥"+parseFloat(data.goods.priceOrigin).toFixed(2));
+							}else{
+								$('.bookPrice').html("¥"+parseFloat(data.goods.priceOrigin).toFixed(2));
+								$('.bookOriginPrice').hide();
+							}
+							
+						}else{
+							$('.bookShow').hide();
+						}
+						
+					},{
+						noload: true
+					});
+				}else{
+					$(".audioResources").hide();
+				}
+			}
+			function previous(id){
+				var pid = $("[voice_number='" + id + "']").prev().attr("voice_number");
+		   		if(pid){
+		   			getDetail(pid,true);
+		   		}else{
+		   			if(cycletype==2 || cycletype==3){
+				   		var pid = $(".voice_list").children(":last").attr("voice_number");
+				   		if(pid){
+				   			getDetail(pid,true);
+				   		}
+				   	}
+		   		}
+			}
+			function next(id){
+				var pid = $("[voice_number='" + id + "']").next().attr("voice_number");
+		   		if(pid){
+		   			getDetail(pid,true);
+		   		}else{
+		   			if(cycletype==2 || cycletype==3){
+				   		var pid = $(".voice_list").children(":first").attr("voice_number");
+				   		if(pid){
+				   			getDetail(pid,true);
+				   		}
+				   	}
+		   		}
+			}
+			/*点击下一个*/
+			$(".voice-next").tap(function(e){
+				next(voiceId);
+			});
+			/*点击上一个*/
+			$(".voice-previous").tap(function(e){
+				previous(voiceId);
+			});
+			/*ios设置锁频音频控制
+			function iosVoice(){
+				plus.ios.invoke(OSGAudioPlayer,
+                         "playingInfoCenterWithTitle:artist:current:total:image:", redata.title, "八斗国学",
+                         currentTime, duration,
+                         qiniuRoot+redata.logo);
+			}*/
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+		<script src="../resources/js/share.js"></script>
+	</body>
+
+</html>

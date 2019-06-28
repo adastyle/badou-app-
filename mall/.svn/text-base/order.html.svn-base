@@ -1,0 +1,618 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.addressPart {
+				padding: .5rem 1rem;
+			}
+			
+			.addressPart>p:first-child {
+				font-weight: bold;
+				color: rgba(18, 18, 18, 1);
+			}
+			
+			.detailsPart>p:first-child {
+				color: #121212;
+				padding: 1rem;
+				font-weight: bold;
+			}
+			
+			.detailsPart>p:first-child img {
+				width: 1.2rem;
+				vertical-align: middle;
+				margin-right: .3rem;
+			}
+			
+			.detailsPart>p:first-child span {
+				vertical-align: middle;
+			}
+			.info>div {
+				display: inline-block;
+				height: 8rem;
+				width: 60%;
+			}
+			
+			.info>div.bookFace {
+				width: 30%;
+				text-align: center;
+			}
+			
+			.info>div.bookFace>img {
+				height: 80%;
+			}
+			
+			.selected {
+				color: #939393;
+			}
+			
+			.bookPrice {
+				color: #D32424;
+				position: relative;
+			}
+			
+			.bookPrice .price {
+				font-size: 1.1rem;
+			}
+			
+			.weight {
+				position: absolute;
+				color: #121212;
+				right: 0;
+			}
+			
+			.bookInfo>p {
+				margin-bottom: .3rem;
+				font-size: .9rem;
+			}
+			
+			.tag {
+				background: rgba(211, 36, 36, 0.01);
+				border: 1px solid rgba(211, 36, 36, 1);
+				border-radius: 12px;
+				padding: .1rem .8rem;
+				padding-top: .3rem;
+				color: #D32424;
+				font-size: .8rem
+			}
+			
+			.payNum {
+				height: 3rem;
+				padding: 1rem;
+			}
+			
+			.payNum>span:first-child {
+				font-weight: bold;
+				color: #121212;
+			}
+			
+			.payNum>div {
+				float: right;
+			}
+			
+			.payNum>div>span {
+				padding: .6rem 1rem;
+				background: #F5F5F5;
+				font-weight: bold;
+				margin: .1rem;
+			}
+			
+			.payNum>div>span.num {
+				padding: .6rem 1.5rem;
+			}
+			
+			.leftRight {
+				margin: 1rem;
+			}
+			
+			.leftRight .left {
+				display: inline-block;
+				width: 20%;
+				color: #121212;
+			}
+			
+			.leftRight .right {
+				display: inline-block;
+				text-align: right;
+				width: 78%;
+			}
+			
+			.moneyPart {
+				border-top: 10px solid #f5f6f7;
+			}
+			
+			.lastAddress {
+				background: #FDF1F0;
+				color: #D32424;
+				padding: .5rem 1rem;
+				width: 100%;
+			}
+			
+			.bottomPay {
+				height: 4rem;
+				padding-top: .9rem;
+				width: 100%;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				background: #fff;
+				z-index: 10000;
+				text-align: right;
+			}
+			.payNum{
+				display:none;	
+			}
+			.submitOrder{
+				width:6.5rem;
+				margin:0 .5rem;
+				font-size:.9rem;
+				height:2.2rem;
+				line-height:2.2rem;
+			}
+			/*套餐显示*/
+			.info1{
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				padding-top:1.5rem;
+				margin-bottom:1rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="padding:.5rem;padding-left:0;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">填写订单</h1>
+			</div>
+		</header>
+		<div style="padding-top:1.5rem;" class="my_scroll mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll" style="padding-bottom:4rem !important">
+				<div class="addressPart">
+					<p><span style="margin-right:2rem" class="addressPart1"></span><span class="addressPart2"></span></p>
+					<p class="address" style="color:#939393;padding:.5rem 0">
+						<span class="iconfont" style="font-size:1.5rem;vertical-align: middle;">&#xe621;</span>
+						<span class="confirmAddress"></span>
+						<span class="iconfont" style="float:right;">&#xe61c;</span>
+					</p>
+					<img style="width:100%" src="../resources/images/dizhitiao.png" alt="" />
+				</div>
+				<div class="detailsPart">
+					<p>
+						<img src="../resources/images/loginLogo.png" alt="" />
+						<span>八斗商城</span>
+					</p>
+					<!--针对商品购物车-->
+					<div class="infos">
+					</div>
+					<div class="payNum">
+						<span>购买数量</span>
+						<div>
+							<span class="subtract">-</span>
+							<span class="num">1</span>
+							<span class="add">+</span>
+						</div>
+					</div>
+					<p class="leftRight">
+						<span class="left">配送方式</span>
+						<span class="right">
+							<!--<span style="color:#939393;float:left">普通配送</span>-->
+						<span class="transfree">快递  普通</span>
+						<!--如果有运费  普通配送隐藏   然后将免费变运费价格-->
+						<span class="iconfont">&#xe61c;</span>
+						</span>
+					</p>
+					<!--<p class="leftRight">
+						<span class="left">买家留言</span>
+						<span class="right" style="vertical-align: middle;">
+							<span style="color:#939393;float:left">选填：填写内容和卖家协商确认</span>
+						</span>
+					</p>-->
+				</div>
+				<div class="moneyPart">
+					<p class="leftRight  goodsPrice">
+						<span class="left">商品金额</span>
+						<span class="right">
+							<span class="goodsPri">¥0.00</span>
+							<span class="iconfont">&#xe61c;</span>
+						</span>
+					</p>
+					<p class="leftRight">
+						<span class="left">运费</span>
+						<span class="right" style="color:#D42525">
+							<span class="freeTrans" style="float:left"></span>
+							<span class="freight">+ ¥00.00</span>
+							<span class="iconfont">&#xe61c;</span>
+						</span>
+					</p>
+				</div>
+				<p class="lastAddress">收货地址：北京市海淀区北邮科技大厦305 八斗</p>
+			</div>
+
+			<div class="bottomPay">
+				<span class="total">合计：</span>
+				<span style="color:#D02424;font-weight:bold" class="totalPri">¥0.0</span>
+				<a  class="linearGradientBtn submitOrder" href="javascript:;">提交订单</a>
+			</div>
+		</div>
+		<div class="pay_menu mui-scroll-wrapper" style="z-index: 10000;">
+			<div class="pay_bar">
+				<div class="pay_btn ali_pay">
+					<i class="icon iconfont">&#xe634;</i>
+					<div>支付宝</div>
+				</div>
+				<div class="pay_btn wx_pay">
+					<i class="icon iconfont">&#xe603;</i>
+					<div>微信支付</div>
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var payid = "",channel = {};
+			var carriage,needCarriage;
+			var price=0;
+			var goodSuitInfo;
+			mui.init();
+			var goods, address,addressId,params;
+			var cardString=localStorage.getItem("cardString");
+			var totalPrice= localStorage.getItem("totalPrice");
+			var currChangeAddressId=localStorage.getItem("detailAddressId");
+			var goodsType=localStorage.getItem("goodsType");
+			var goodsId = localStorage.getItem('goodsId');
+			var num = localStorage.getItem("num");
+			var suitShow=`<div class="suitShow">
+								<p style="margin:0 1rem 1rem 1rem">
+									<span style="font-size:1.1rem">优惠套餐</span>
+									<span style="float:right;font-size:.9rem">
+										<span class="suitNum"></span>
+									</span>
+									
+								</p>
+								<div class="moreSuit">
+								</div>
+								<p style="text-align:right;margin:0 1rem;padding-bottom:1.5rem;">
+									<s class="suitPriceOrigin" style="vertical-align:middle;color:#D02424;"></s>
+									<span class="suitPrice" style="color:#D02424;color: #E4B57F;font-size:1.1rem;font-weight:bold;margin-left:.5rem;vertical-align:middle"></span>
+									<span style="padding:.2rem .3rem .1rem;font-size:.6rem;color:#fff;border-radius:4px;background: rgba(236, 191, 139, 1);vertical-align: middle;">折扣价</span>
+								</p>
+							</div>`;
+			var oneGoods=`<div class="info">
+							<div class="bookFace">
+								<img src="" alt="" />
+							</div>
+							<div class="bookInfo" style="padding-top:1rem;">
+								<p class="bookName more2"></p>
+								<p class="selected" style="display: none;"><span>系统：</span><span>老狼（经典版）</span></p>
+								<p class="bookPrice">
+									<span class="price"></span>
+									<span class="weight" style="display:none;"></span><!--购买 数量-->
+								</p>
+								<!--<a href="javascript:;" class="tag">支持7天无理由退货</a>-->
+							</div>
+						</div>`
+			
+			myFunc(function() {
+				osg.ajax("address/findById", {"addressId": currChangeAddressId}, function(data) {
+					if(data){
+						addressId=data._id;
+						$('.addressText').html(data.province + "-" + data.city + "-" + data.district + "-" + data.address);
+						$(".lastAddress").html("收货地址：" + data.province + "-" + data.city + "-" + data.district + "-" + data.address);
+						addressPart(addressId);
+					}
+				})
+				addressPart(addressId);
+				
+				osg.evtAddListener(function(d) {
+					if(d && (d == 'changeAddress')) { // 监听地址改变事件
+						addressId = osg.get("addressId");
+						addressPart(addressId);
+					}
+				});
+				
+				/*请求运费*/
+				osg.ajax('match/queryConfig', null, function(data) {
+					var goodsPri = $(".goodsPri").val();
+					var currNum = parseInt($(".num").html());
+						if(data.status==1){
+							config=data.data;
+							carriage = parseFloat(config.carriage);
+							needCarriage = parseFloat(config.needCarriage);
+							$(".freeTrans").html("满"+needCarriage+"免运费");
+							/*判断是否是从购物车过来*/
+							if(totalPrice){
+								var infoTemplate=$(oneGoods).clone();
+								osg.ajax('shopping/queryShopping', {"typeId":cardString}, function(data) {
+									for(var j=0;j<data.data.length;j++){
+										if(data.data[j].type==0){//单个商品
+											var currInfo=infoTemplate.clone();
+											currInfo.addClass("info1");
+											currInfo.find(".bookFace img").attr("src",qiniuRoot+data.data[j].imgage+'!app.voicemid.img');
+											currInfo.find(".bookName").html(data.data[j].title);
+											if(data.data[j].price){
+												currInfo.find(".price").html("¥" + parseFloat(data.data[j].price).toFixed(2));
+											}else{
+												currInfo.find(".price").html("¥" + parseFloat(data.data[j].priceOrigin).toFixed(2));
+											}
+											currInfo.find(".weight").show().html("x"+data.data[j].count);
+											$(".infos").append(currInfo);
+										}else{//套餐
+											var tempSuit=$(suitShow).clone();
+											tempSuit.addClass("info1");
+											goodSuitInfo = data.data[j].goodSuit;
+											var currData=data.data[j].goodSuit.goods;
+											for(let k=0;k<currData.length;k++){
+												var tempBook=$(oneGoods).clone();
+												tempBook.attr("data-goodsId",currData[k]._id);
+												tempBook.find(".bookFace img").attr("src",qiniuRoot+currData[k].logo+'!app.voicemid.img');
+												tempBook.find(".bookName").html(currData[k].title);
+												tempBook.find(".bookPrice .price").html("¥"+parseFloat(currData[k].priceOrigin).toFixed(2));
+												tempSuit.find(".moreSuit").append(tempBook);
+											}
+											tempSuit.find(".suitPrice").html("¥"+parseFloat(data.data[j].goodSuit.price).toFixed(2));
+											tempSuit.find(".suitPriceOrigin").html("¥"+parseFloat(data.data[j].goodSuit.priceOrigin).toFixed(2))
+											tempSuit.find(".suitNum").html("x"+data.data[j].count)
+											$(".infos").append(tempSuit);
+										}
+									}
+									var totalMoney=parseFloat(totalPrice);
+									$(".goodsPri").html("¥"+totalMoney.toFixed(2));
+									if(needCarriage && totalMoney>needCarriage){
+										$(".totalPri").html("¥" + parseFloat(totalMoney).toFixed(2));
+										$(".freight").html("运费"+0.00+"元")
+									}else{
+										totalMoney+=carriage;
+										$(".totalPri").html("¥" + parseFloat(totalMoney).toFixed(2));
+										$(".freight").html("运费"+carriage.toFixed(2)+"元")
+									}
+								})
+							}else{
+								/*直接购买生成订单*/
+								goods(goodsId);
+							}
+						}
+					}, {
+						noload: true
+					});
+				
+				/*回填数据*/
+				let tempUrl="";
+				if(goodsType=="oneBook"){
+					tempUrl="goods/findById"
+				}else{
+					tempUrl="goods/findBySuitId";
+				}
+				function goods(goodsId){
+					osg.ajax(tempUrl, {
+					"id": goodsId
+					}, function(data) {
+						$(".payNum").show();
+						goods = data;
+						if(goods.price){
+							price = parseFloat(goods.price).toFixed(2);
+						}else{
+							price = parseFloat(goods.priceOrigin).toFixed(2);
+						}
+						$(".num").html(num);
+						if(goodsType=="oneBook"){//单本书
+							var temp=$(oneGoods).clone();
+							goodSuitInfo = data;
+							/*回填数据*/
+							temp.find(".bookFace img").attr("src",qiniuRoot+goods.logo+'!app.voicemid.img');
+							temp.find(".bookName").html(goods.title);
+							temp.find(".price").html("¥" + price);
+							$(".infos").append(temp);
+						}else{//一个套餐
+							var tempSuit=$(suitShow).clone();
+							goodSuitInfo = data;
+							for(let k=0;k<data.goods.length;k++){
+								var tempBook=$(oneGoods).clone();
+								tempBook.attr("data-goodsId",data.goods[k]._id);
+								tempBook.find(".bookFace img").attr("src",qiniuRoot+data.goods[k].logo+'!app.voicemid.img');
+								tempBook.find(".bookName").html(data.goods[k].title);
+								tempBook.find(".bookPrice .price").html("¥"+parseFloat(data.goods[k].priceOrigin).toFixed(2));
+								tempSuit.find(".moreSuit").append(tempBook);
+							}
+							tempSuit.find(".suitPriceOrigin").html("¥"+parseFloat(data.priceOrigin).toFixed(2))
+							tempSuit.find(".suitPrice").html("¥"+parseFloat(price).toFixed(2));
+							$(".infos").append(tempSuit);
+						}
+						var totalMoney=parseFloat(price * parseInt(num));
+						$(".goodsPri").html("¥"+totalMoney.toFixed(2));
+						if(needCarriage && totalMoney>needCarriage){
+							$(".totalPri").html("¥" + parseFloat(totalMoney).toFixed(2));
+							$(".freight").html("运费"+0.00+"元")
+						}else{
+							totalMoney+=carriage;
+							$(".totalPri").html("¥" + parseFloat(totalMoney).toFixed(2));
+							$(".freight").html("运费"+carriage.toFixed(2)+"元")
+						}
+					})
+				}
+				function addressPart(addressId){
+					osg.ajax("address/findById", {
+					"addressId": addressId
+					}, function(data) {
+						address = data;
+						addressId=data._id;
+						$(".addressPart1").html(address.name);
+						$(".addressPart2").html(address.phone);
+						$(".confirmAddress").html(address.province + "-" + address.city + "-" + address.district + "-" + address.address);
+						$(".lastAddress").html("收货地址：" + address.province + "-" + address.city + "-" + address.district + "-" + address.address);
+					})
+				}
+				//手动关闭购物车页面
+				plus.webview.hide("card.html");
+				plus.webview.close("card.html");
+				/*关闭address页面*/
+				plus.webview.hide("address.html");
+				plus.webview.close("address.html");
+				$(".address").tap(function() {
+					localStorage.setItem("fromPage","");
+					if(totalPrice && cardString){
+						osg.open("addressList.html", {
+							addressDetail: address.address,
+							district: address.district
+						});
+					}else{
+						s = parseInt($(".num").html());
+						osg.open("addressList.html", {
+							addressDetail: address.address,
+							district: address.district,
+							goodsId: goodsId,
+							num: s
+						});
+					}
+				}) 
+				/*加减数量对价格的控制*/
+				$(".add").tap(function() {
+					var currNum = parseInt($(".num").html());
+					currNum++;
+					$(".num").html(currNum);
+					var totalPrice = (parseFloat(price) * currNum);
+					if(needCarriage && totalPrice>needCarriage){
+						$(".totalPri").html("¥" + parseFloat(totalPrice).toFixed(2));
+						$(".goodsPri").html("¥"+parseFloat(totalPrice).toFixed(2));
+						$(".freight").html("运费"+0.00+"元");
+					}else{
+						$(".totalPri").html("¥" + parseFloat(totalPrice+carriage).toFixed(2));
+						$(".goodsPri").html("¥"+parseFloat(totalPrice).toFixed(2));
+						$(".freight").html("运费"+carriage.toFixed(2)+"元");
+					}
+				})
+				$(".subtract").tap(function() {
+					var currNum = parseInt($(".num").html());
+					if(currNum > 1)
+						currNum--;
+					$(".num").html(currNum);
+					var totalPrice = (parseFloat(price) * currNum);
+					if(needCarriage && totalPrice>needCarriage){
+						$(".totalPri").html("¥" + parseFloat(totalPrice).toFixed(2));
+						$(".goodsPri").html("¥"+parseFloat(totalPrice).toFixed(2));
+						$(".freight").html("运费"+0.00+"元");
+					}else{
+						$(".totalPri").html("¥" + parseFloat(totalPrice+carriage).toFixed(2));
+						$(".goodsPri").html("¥"+parseFloat(totalPrice).toFixed(2));
+						$(".freight").html("运费"+carriage.toFixed(2)+"元");
+					}
+				})
+				/*支付相关*/
+				/*if(goodsId){//表示从detail页面过来的
+					payid = goodsId;
+				}else{//表示从card页面过来的
+					payid = cardString;//着了的cardString代表后台西药的typeId
+				}*/
+				$(".submitOrder").tap(function() {
+					/*if(payid)*/
+					if(goodSuitInfo){
+						if(goodSuitInfo.stock >0 && goodSuitInfo.stock < parseInt($(".num").html())){
+							osg.alert("目前可购买"+goodSuitInfo.stock+"套");
+							return;
+						}else if(goodSuitInfo.stock == 0 || goodSuitInfo.stock < 0){
+							osg.alert("库存不足，正在补充")
+							return;
+						}
+					}
+					doShowPayMenu();
+				});
+
+				$(".pay_menu").tap(function() {
+					$(".pay_menu").fadeOut();
+				});
+
+				function doShowPayMenu() {
+					if(mui.os.ios && (plus.runtime.version + '') == '1.5') {
+						pay('alipay');
+					} else {
+						$(".pay_menu").fadeIn();
+					}
+				}
+				$(".ali_pay").tap(function() {
+					//注释这两行是上边的param的时候已经给过值了，这再赋值会将从购物车过来的count给覆盖掉
+					pay('alipay');
+				});
+				$(".wx_pay").tap(function() {
+					pay('wxpay');
+				});
+				// 获取支付通道
+				plus.payment.getChannels(function(channels) {
+					for(var i = 0; i < channels.length; i++) {
+						var c = channels[i];
+						if(c.serviceReady)
+							channel[c.id] = c;
+						//alert(c.id + ":" + c.description + ":" + c.serviceReady);
+					}
+				}, function(e) {
+					alert("获取支付通道失败：" + e.message);
+				});
+				function pay(id) {
+					$(".pay_menu").fadeOut();
+					var url;
+					if(id == 'alipay')
+						url = '/order/payali';
+					else if(id == 'wxpay')
+						url = '/order/payweixin';
+					else
+						return;
+						var typeId,count,currType
+					if(goodsType=="suit"){
+						typeId=goodsId;
+						count=parseInt($(".num").html())
+						currType=5;
+					}
+					else if(goodsType=="oneBook"){
+						typeId=goodsId;
+						count=parseInt($(".num").html())
+						currType=1;
+					}else{//表示从card页面过来的
+						typeId = cardString;
+						count=0;
+						currType=3;
+					}
+					if(addressId){
+						osg.ajax(url, {
+							"typeId":typeId,
+							"type": currType,
+							"addressId":addressId,
+							"count":count
+							}, function(d) {
+							plus.payment.request(channel[id], d, function(result) {
+								// 支付成功
+								osg.toast('支付成功！');
+								osg.open('myOrder.html');
+							}, function(error) {
+								// 支付失败
+								if(error.code == 62000) {
+									osg.toast('支付失败--您未安装此应用，请选择其他支付方式 。');
+								} else {
+									osg.toast('支付失败');
+								}
+							});
+						});
+					}
+				}
+
+			})
+
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

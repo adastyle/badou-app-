@@ -1,0 +1,356 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet" />
+		<style type="text/css">
+			.loginLogo{
+				height:15rem;
+				text-align: center;
+				padding-top:2rem;
+			}
+			.loginLogo>img{
+				height:70%;
+			}
+			.form{
+			   width:94%;
+			   margin-left:3%;
+			}
+			.phone,.email{
+				border-bottom:1px solid #D32424;
+				height:3rem;
+				margin-bottom:.5rem;
+				padding-left:.3rem
+			}
+			.phone>input{
+				width:80%;
+				height:2.9rem;
+				vertical-align: middle;
+				border:none;
+				outline:none;
+			}
+			.email input::-webkit-input-placeholder,
+			.phone input::-webkit-input-placeholder{
+				color:#D2D2D2;
+			}
+			.email>input{
+				width:60%;
+				height:2.9rem;
+				vertical-align: middle;
+				border:none;
+				outline:none;
+			}
+			.email .iconfont{
+				font-size:1rem;
+			}
+			.email .yzm{
+				display:inline-block;
+				border:none;
+				background:#FFF;
+				height:2rem;
+				width:28%;
+				color:#D32424;
+				font-size:.8rem;
+				text-align: center;
+				vertical-align: middle;
+			}
+			.submit{
+				width:100%;
+				height:2.5rem;
+				font-size: 1.1rem;
+				color:#fff;
+				background:linear-gradient(90deg,rgba(249,120,114,1),rgba(211,36,36,1));
+				box-shadow:0px 3px 0px 0px rgba(189,36,35,1);
+				border-radius:30px;
+				border:none;
+				margin:1.5rem 0;
+			}
+			.read{
+				text-align:center;
+				font-size:.8rem;
+				padding-left:.2rem;
+				color:#939393 !important;
+			}
+			/*其他登录方式*/
+			.ortherLogin{
+				width:93%;
+				height:6rem;
+				text-align: center;
+				margin:0 auto;
+				padding-top:1rem;
+				margin-top:3rem;
+			}
+			.ortherTips{
+				position:relative;
+				width:70%;
+				height:1px;
+				background:#FBA09C;
+				margin:0 auto;
+				margin-bottom:1.5rem;
+			}
+			.ortherTips>span{
+				display:inline-block;
+				position:absolute;
+				top:50%;
+				left:50%;
+				transform:translate(-50%,-50%);
+				padding:.1rem .5rem;
+				background:#fff;
+				color:#F97771;
+			}
+			.ortherTips img{
+				margin:0 auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="mui-action-back inline">
+				<div style="color:#121212;font-size:1.1rem;" class="iconfont">&#xe60e;</div>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll">
+				<div class="loginLogo">
+					<img src="../resources/images/loginLogo.png" alt="" />
+				</div>
+				<div class="form">
+					<div class="phone">
+						<span class="iconfont" style="color:#D32424;font-size:1.5rem;">&#xe6cb;</span>
+						<input class="inputPhone" type="text" placeholder="请输入手机号"/>
+					</div>
+					<div class="email">
+						<span class="iconfont" style="color:#D32424;font-size:1.5rem;">&#xe88e;</span>
+						<input class="inputYzm" type="text" placeholder="请输入验证码"/>
+						<a href="javascript:;" class="yzm">获取验证码</a>
+					</div>
+					<button class="submit">立即登录</button>
+					<p class="read">我已阅读<span class="userArgument">《用户网络服务使用协议》</span>和<span class="userSecret">《用户隐私政策》</span></p>
+				</div>
+				<!--其他登录方式-->
+				<div class="ortherLogin">
+					<p class="ortherTips">
+						<span>其它方式登录</span>
+					</p>
+					<div id="weixin_login">
+						<img style="width:2.5rem;" src="../resources/images/wechatLogin.png" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js"></script>
+		<script src="../resources/js/mui.min.js"></script>
+		<script src="../resources/js/common.js"></script>
+		<script src="../resources/js/mui.pullToRefresh.js"></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js"></script>
+		<script type="text/javascript">
+			var flag = false, auths;
+			myFunc(function() {
+				plus.oauth.getServices(function(services) {
+                    auths = services;
+	            }, function(e) {
+	                alert("获取登录服务列表失败：" + e.message + " - " + e.code);
+	            });
+				
+				if(mui.os.ios){
+					plus.webview.currentWebview().setStyle({
+						softinputMode:'adjustResize'//唤起弹框时自动改变webview的高度
+					})
+				}
+				/*获取验证码的点击事件*/
+				 var phoneCodeVerification = /^[1][0-9]{10}$/;
+				$(".yzm").tap(function(e){
+					var tar=e.target
+					var inputPhone=$(".inputPhone").val();
+					if(inputPhone.length==0){
+						osg.toast("手机号不能为空");
+						return;
+					}else if(!phoneCodeVerification.test(inputPhone)){
+						osg.toast("手机号格式不正确");
+						return;
+					}else{
+						if(!flag){
+							osg.ajax('user/fverifycode/' + inputPhone, null, function(data) {
+								if(data.success) {
+									/*验证码发送成功进入倒计时*/
+									invokeSettime(tar);
+								} else {
+									osg.toast("验证码发送失败");
+								}
+							});
+							flag=true;
+						}
+					}
+				})
+
+				/* 短信验证码倒计时 */
+				function invokeSettime(obj) {
+					var countdown = 60;
+					settime(obj);
+					function settime(obj) {
+						if(countdown == 0) {
+							flag = false;
+							$(obj).attr("disabled", false);
+							$(obj).text("获取验证码");
+							countdown = 60;
+							return;
+						} else {
+							$(obj).attr("disabled", true);
+							$(obj).text(
+								countdown + "s 重新发送");
+							countdown--;
+						}
+						setTimeout(function() {
+							settime(obj)
+						}, 1000)
+					}
+				}
+			
+				$(".submit").tap(function() {
+					var phone = $(".inputPhone").val();
+					var device = mui.os.ios ? 'ios' : 'android';
+					var yzm=$(".inputYzm").val();
+					var reg = /^[1][0-9]{10}$/;
+					if(phone.length == 0) {
+						osg.toast("手机号不能为空");
+						return;
+					} else if(!reg.test(phone)) {
+						osg.toast("手机号格式不正确");
+						return;
+					}else if(yzm.length == 0) {
+						osg.toast("验证码不能为空");
+						return;
+					}else{
+						osg.ajax('user/login', {
+							phone: phone,
+							password: yzm,
+							device: device
+						}, function(data) {
+							osg.toast("登录成功");
+							/***持久化缓存用户信息**/
+							osg.currentUserSet(data);
+							osg.evtFireEvent('login');
+							var user = data.user;
+							if(!user.birthday || user.birthday==0 || !user.nickname){
+								osg.open("userInfo.html");//登录成功之后跳转到基本信息页面
+							}else{
+								osg.closeMe();
+							}
+							
+						});
+					}
+				});
+				$(".userArgument").tap(function(){
+					osg.open("userAgreement.html");
+				});
+				$(".userSecret").tap(function(){
+					osg.open("userSeretAgreement.html");
+				});
+				/*微信登录开始*/
+				$("#weixin_login").tap(function(){
+					authLogin('weixin');
+				});
+				
+	            // 登录操作
+		        function authLogin(type) {
+                    if(!auths) {
+                        plus.oauth.getServices(function(services) {
+                            auths = services;
+                            authLogin(type);
+                        }, function(e) {
+                            alert("获取登录服务列表失败：" + e.message + " - " + e.code);
+                        });
+                        return;
+                    }
+		            var s;
+		            for (var i = 0; i < auths.length; i++) {
+		                if (auths[i].id == type) {
+		                    s = auths[i];
+		                    break;
+		                }
+		            }
+		            if (!s.authResult) {
+		                s.login(function(e) {
+		                	osg.loading("微信登录中");
+		                    authUserInfo(type);
+		                }, function(e) {
+		                    mui.toast("登录认证失败！");
+		                });
+		            } else {
+		                mui.toast("已经登录认证！");
+		            }
+		        }
+		        //注销
+		        function authLogout() {
+		            for (var i in auths) {
+		                var s = auths[i];
+		                if (s.authResult) {
+		                    s.logout(function(e) {
+		                        console.log("注销登录认证成功！");
+		                    }, function(e) {
+		                        console.log("注销登录认证失败！");
+		                    });
+		                }
+		            }
+		        }
+		        // 微信登录认证信息
+		        function authUserInfo(type) {
+		            var s;
+		            for (var i = 0; i < auths.length; i++) {
+		                if (auths[i].id == type) {
+		                    s = auths[i];
+		                    break;
+		                }
+		            }
+		            if (!s.authResult) {
+		                mui.toast("未授权登录！");
+		            } else {
+		                s.getUserInfo(function(e) {
+		                    var josnStr = JSON.stringify(s.userInfo);
+		                    var jsonObj = s.userInfo;
+		                    appwxLogin(jsonObj);
+		                    authLogout();
+		                }, function(e) {
+		                    alert("获取用户信息失败：" + e.message + " - " + e.code);
+		                });
+		            }
+		        }
+		        function appwxLogin(info) {
+		        	osg.ajax('user/appwxLogin', {
+						"nickname": info.nickname,
+						"openid": info.openid,
+						"headimgurl": info.headimgurl,
+						"unionid": info.unionid
+					}, function(data) {
+						if(data.status==1){
+							osg.unload();
+							osg.toast("登录成功");
+							/***持久化缓存用户信息**/
+							osg.currentUserSet(data.data);
+							osg.evtFireEvent('login');
+							var user = data.data.user;
+							if(!user.birthday || user.birthday==0 || !user.nickname){
+								osg.open("userInfo.html");//登录成功之后跳转到基本信息页面
+							}else{
+								osg.closeMe();
+							}
+						}else{
+							osg.toast("登录失败");
+						}
+						
+					}, {
+						noload: true
+					});
+		        }
+		        /*微信登录结束*/
+	            
+			});
+		</script>
+	</body>
+
+</html>

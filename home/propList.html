@@ -1,0 +1,373 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			/*查看更多*/
+			.module {
+				background: #fff;
+				z-index: 1000;
+				margin-bottom: 0.8rem;
+			}
+			
+			.lookMore {
+				height: 7rem;
+				width: 100%;
+				padding: 0 3%;
+				position: relative;
+				border-bottom: 1px solid #F5F6F7;
+				background: #fff;
+				z-index: 1000
+			}
+			
+			.lookMore:last-child {
+				border-bottom: #00F7DE;
+			}
+			
+			.lookMoreTi {
+				color: #121212;
+				font-weight: bold;
+				font-size: 1.2rem;
+				margin-bottom: 0;
+				padding-left: 3%;
+				padding-top: .5rem;
+			}
+			
+			.lookMore>div.leftShow>img {
+				width: 4rem;
+				height: 4rem;
+				margin-top: 1.7rem;
+				vertical-align: middle;
+				border-radius: 4px;
+			}
+			
+			.lookMore>div.leftShow>div {
+				display: inline-block;
+				padding-top: 1rem;
+			}
+			
+			.lookMore>div.leftShow>div p {
+				margin: 0.3rem;
+				font-size: 1rem;
+				color: #121212;
+			}
+			
+			.allrowRight {
+				position: absolute;
+				top: 50%;
+				right: 1rem;
+				transform: translateY(-50%);
+				color: #CCCCCC;
+				text-align: center;
+				font-size: .8rem;
+				padding:.5rem;
+			}
+			
+			.allrowRight.noFree {
+				color: #D32424 !important;
+			}
+			
+			.allrowRight.noFree p {
+				display: block !important;
+			}
+			
+			.fonts>span {
+				margin-right: 1rem;
+			}
+			
+			.fonts i.iconfont {
+				margin-right: .1rem;
+				font-size: .9rem;
+			}
+			.openVip{
+				width: 14rem;
+			}
+			.memo{
+				width: 14rem;
+			}
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.headerTi>span:first-child{
+				left:4%;
+			}
+			.headerTi>span:last-child{
+				right:1rem;
+			}
+			.headerTi a{
+				color:#121212;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-size:1.2rem;
+				font-weight:bold;
+				position: relative;
+				margin-left:0
+			}
+			p{
+				padding:0;
+				margin:0;
+			}
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+					<a href="javascript:;" class="pageTitle"></a>
+					<!--分享先隐藏-->
+					<!--<span class="iconfont">&#xe6a8;</span>-->
+				</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll voice_scroll ">
+				<div class="audioLists module isShow">
+					<div class="lookMore">
+						<div class="leftShow">
+							<img class="imgOfInfo" src="../resources/images/currAudioLogo.png" alt="" />
+							<div>
+								<p class="openVip more">成语大全</p>
+								<p style="color:#939393" class="memo huitian_memo more">共100个成语</p>
+								<p style="color:#939393" class="fonts">
+									<span><i class="iconfont readIcon">&#xe610;</i><span class="playTimes">50</span></span>
+									<span><i class="iconfont comment">&#xe62e;</i><span class="duration">50</span></span>
+								</p>
+							</div>
+						</div>
+						<div class="allrowRight">
+							<span class="iconfont">&#xe606;</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/js/download.js "></script>
+		<script type="text/javascript">
+			var  voiceFpi,propId,ptr,fig;
+			myFunc(function() {
+				propId = osg.param("propId");
+				fig = osg.param("fig");
+				var title = osg.param("title");
+				$(".pageTitle").text(title);
+				/*加载资源包内容*/
+				if(fig=="分类进入"){
+					osg.ajax("voiceResourcePack/queryByPrpoId",{
+					"propId": propId
+					}, function(data) {
+						var voiceResourcePacks = data.data;
+						if(voiceResourcePacks.length>0){
+							for(var i = 0; i < voiceResourcePacks.length; i++) {
+							var voiceResourcePack = voiceResourcePacks[i];
+							$(".audioLists").append(getItem(voiceResourcePack,"pack"));
+							}
+						}
+					});
+				}
+				if(fig=="首页进入"){
+					var homestyleId = osg.param("homestyleId");
+					osg.ajax("home/queryResourcePack",{
+					"type|integer": 3,
+					"homestyleId":homestyleId
+					}, function(data) {
+						var voiceResourcePacks = data.data;
+						if(voiceResourcePacks.length>0){
+							for(var i = 0; i < voiceResourcePacks.length; i++) {
+							var voiceResourcePack = voiceResourcePacks[i].info;
+							$(".audioLists").append(getItem(voiceResourcePack,"pack"));
+							}
+						}
+					});
+				}
+				
+				myscroll = $(".voice_scroll")[0];
+				mui(myscroll).pullToRefresh({
+					up: {
+						auto: true,
+						callback: function() {
+							ptr = this;
+							var nextPage;
+							if(voiceFpi)
+								nextPage = voiceFpi.page + 1;
+							else
+								nextPage = 1;
+
+							findPage(nextPage, {
+								'self': this
+							});
+						}
+					},
+				});
+				
+				//分页函数
+				function findPage(page, param) {
+					if(!param) {
+						param = {};
+					}
+					param.self = ptr;
+					if(fig=="分类进入"){
+						osg.ajax('voice/queryByPrpoId', {
+						'page': page,
+						'propId': propId
+						}, function(data) {
+							// 下拉的情况下，结束下拉刷新状态
+							if(param.pullDown)
+								param.self.endPullDownToRefresh();
+							if(!data) {
+								param.self.endPullUpToRefresh(true);
+								return;
+							}
+							if(page == 1) {
+								$("#audioLists").html('');
+							}
+							voiceFpi = data;
+							for(var i = 0; i < data.data.length; i++) {
+								var oneData = data.data[i];
+								$(".audioLists").append(getItem(oneData,"voice"));
+							}
+							hasDown();
+							param.self.endPullUpToRefresh(data.page >= data.pages);
+						}, {
+							noload: true
+						});
+					}
+					
+					if(fig=="首页进入"){
+						var homestyleId = osg.param("homestyleId");
+						osg.ajax('home/queryResourcePack', {
+						'page': page,
+						"type|integer": 1,
+						"homestyleId":homestyleId
+						}, function(data) {
+							// 下拉的情况下，结束下拉刷新状态
+							if(param.pullDown)
+								param.self.endPullDownToRefresh();
+							if(!data) {
+								param.self.endPullUpToRefresh(true);
+								return;
+							}
+							if(page == 1) {
+								$("#audioLists").html('');
+							}
+							voiceFpi = data;
+							for(var i = 0; i < data.data.length; i++) {
+								var oneData = data.data[i].info;
+								$(".audioLists").append(getItem(oneData,"voice"));
+							}
+							hasDown();
+							param.self.endPullUpToRefresh(data.page >= data.pages);
+						}, {
+							noload: true
+						});
+					}
+
+				}
+				
+				var voiceTemp = $(".lookMore").clone();
+				$(".lookMore").remove();
+				function getItem(oneData,type){
+					var voice = oneData;
+					var voi = voiceTemp.clone();
+						voi.attr('id', voice._id);
+						voi.data('data', voice);
+						voi.find(".allrowRight").attr("data-url", voice.fileidUrl);
+						voi.find(".imgOfInfo").attr("src", qiniuRoot + voice.logo+'!app.voicesmall.img');
+						voi.find(".huitian_memo").html(voice.memo);
+						voi.find(".playTimes").html(voice.times);
+						voi.find(".duration").html(voice.commentTimes);
+						if(type=='pack'){
+							voi.find(".allrowRight").find(".iconfont").html("&#xe61c;");
+							voi.find(".readIcon").html("&#xe684;");
+							voi.find(".playTimes").html("");
+							voi.find(".comment").html("");
+							voi.find(".duration").html("");
+							voi.find(".openVip").html(voice.name);
+							if(voice.count==voice.sum){
+								voi.find(".duration").html(voice.sum+"集");
+							}else{
+								voi.find(".duration").html(voice.count+"/"+voice.sum+"集");
+							}
+							voi.tap(function() {
+								var id = $(this).attr('id');
+								osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+							})
+							
+						}
+						if(type!='pack'){
+							voi.find(".allrowRight").find(".iconfont").attr("data-down",oneData._id);
+							voi.find(".openVip").html(voice.title);
+							voi.find(".allrowRight").data("data",voice);
+							voi.tap(function() {
+								var voice_data = $(this).data('data');
+								if(voice_data.buyType==1){
+									if(voiceFpi.data&&voiceFpi.data.length>0){
+										var vlist = [];
+										for(var i=0;i<voiceFpi.data.length;i++){
+											if(fig=="分类进入" && voiceFpi.data[i].buyType==1){
+												vlist.push(voiceFpi.data[i]);
+											}
+											if(fig=="首页进入" && voiceFpi.data[i].info.buyType==1){
+												vlist.push(voiceFpi.data[i].info);
+											}
+										}
+										osg.set('voice_list',vlist);//把列表缓存到本地
+									}
+								    osg.set("voice_now",voice_data);
+								    osg.evtFireEvent('update');
+									osg.open('audioPlay.html', {
+									}, null, {
+										im: 1,
+										id:"details"
+									});
+								}else{
+									if(voice_data.resourcePackId){
+										osg.open('audioList.html', {
+											"categoryId": voice_data.resourcePackId,
+											"cateGoryInfo":"资源包"
+										}, null, {
+											im: 1
+										});
+									}
+								}
+								
+							});
+							voi.find(".allrowRight").tap(function() {
+								event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+								$this = $(this);
+								fileDownload($this);
+								$(this).find(".iconfont").html("&#xe653;").css("fontSize","1.2rem");
+							});	
+						}
+						return voi;
+				}
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

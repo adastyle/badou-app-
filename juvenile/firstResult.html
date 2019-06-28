@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.result{
+				width:93%;
+				margin:0 auto;
+				padding-top:1rem;
+			}
+			table{
+				width:100%;
+				text-align: center;
+				border:none;
+				border-collapse: separate;
+				color:#121212;
+			}
+			table td{
+				border:1px solid rgba(200, 204, 204, 1);
+				padding:.5rem;
+			}
+			table tr td{
+				border-bottom:none;
+				border-right:none;
+			}
+			table tr td:last-child{
+				border-right:1px solid  rgba(200, 204, 204, 1);
+			}
+			table tr:last-child td{
+				border-bottom:1px solid  rgba(200, 204, 204, 1);
+			}
+			table tr:first-child td:first-child{
+				border-top-left-radius: 10px;
+				border-top-right-radius: 10px;
+				border:1px solid red;
+				background:linear-gradient(180deg,rgba(245,39,37,1),rgba(246,102,100,1));
+				color:#fff;
+			}
+			table tr:last-child td:first-child{
+				border-bottom-left-radius: 10px;
+			}
+			table tr:last-child td:last-child{
+				border-bottom-right-radius: 10px;
+			}
+			/*table tr:not(first-child) td:first-child,
+			table tr:nth-child(2) td{
+				font-weight: bold;
+			}*/
+			span.toPlay{
+				background:rgba(255,255,255,1);
+				border:1px solid #0066cc;
+				border-radius:24px;
+				font-size:.9rem;
+				color:#0066cc;
+				padding:.3rem .6rem 0.2rem .6rem;
+				margin-right: .2rem;
+			}
+			span.toDownload{
+				background:rgba(255,255,255,1);
+				border:1px solid #0066cc;
+				border-radius:24px;
+				font-size:.9rem;
+				color:#0066cc;
+				padding:.3rem .6rem 0.2rem .6rem;
+			}
+			.gwFirst{
+				width:5rem;
+				position: fixed;
+				bottom:1rem;
+				right:3%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="position:relative;padding:.5rem;padding-left:0;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">国文初赛结果</h1>
+			</div>
+		</header>
+		
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll">
+				<div class="result">
+					<table>
+						<tbody>
+							<tr><td colspan="3" class="title">国文初赛成绩</td></tr>
+							<tr>
+								<td>项目</td>
+								<td class="matchTitle"></td>
+								<td class="otherMatchName"></td>
+							</tr>
+							<tr>
+								<td>单项成绩</td>
+								<td class="matchScore"></td>
+								<td  class="matchOtherScore"></td>
+							</tr>
+							<tr>
+								<td>单项权重</td>
+								<td class="matchScore1"></td>
+								<td  class="matchOtherScore1"></td>
+							</tr>
+							<tr>
+								<td>总成绩</td>
+								<td colspan="2" class="avgScore"></td>
+							</tr>
+							<tr>
+								<td rowspan="2">初赛成绩</td>
+								<td rowspan="2" colspan="2">
+									<p class="isAward"></p>
+									<span class="toPlay">报名比赛</span>
+									<span class="toDownload">证书下载</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<img class="gwFirst" src="../resources/images/gwFirst.png" alt="" />
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script type="text/javascript">
+			myFunc(function() {
+				var regionId=osg.param("regionId");
+				if(!regionId) return;
+				osg.ajax("/match/queryAvgScore.do",{"regionId":regionId},function(data){
+					$(".matchTitle").html(data[0].matchName);
+					$(".otherMatchName").html(data[1].matchName);
+					$(".matchScore").html(data[0].score);
+					$(".matchOtherScore").html(data[1].score);
+					$(".matchScore1").html(data[0].phase.discount*100+"%");
+					$(".matchOtherScore1").html(data[1].phase.discount*100+"%");
+					var avg=parseFloat(data[0].score+data[1].score).toFixed(2)
+					$(".avgScore").html(avg);
+					$(".toDownload").attr("data-id",data[0]._id);
+					if(data[0].resultName=="晋级"){
+						$(".isAward").html(data[0].resultName+"/"+data[0].resultLevel);
+					}else{
+						$(".isAward").html(data[0].resultName);
+					}
+				})
+				
+				$('.toDownload').tap(function(){
+					var id = $(this).attr('data-id');
+					var urlCar = "";
+					osg.ajax('match/carDownload', {
+						'enrollPhaseId': id
+					}, function(data) {
+						urlCar = data;
+						if(urlCar){
+							osg.open('../common/docSub.html', {
+								_id: id+'1',
+								name: "证书",
+								url: urlCar
+							}, null, {
+								im: 1
+							});
+						}
+						
+					}, {
+						noload: true
+					});
+				})
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+			
+		</script>
+	</body>
+
+</html>

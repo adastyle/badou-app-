@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin:0;
+			}
+			.oneModule{
+				display:inline-block;
+				position:relative;
+			}
+			.downLoad{
+				display:inline-block;
+				padding:.5rem;
+				position:absolute;
+				top:50%;
+				right:0;
+				transform:translateY(-50%);
+				color:#939393;
+				font-size:1.2rem;
+			}
+			.oneModule>div{
+				display:inline-block;
+				vertical-align: middle;
+				font-size:.9rem;
+			}
+			.oneModule>div>p:not(:first-child){
+				font-size:.9rem;
+				color:#939393;
+			}
+			.oneModule>div>p:last-child .iconfont{
+				font-size:.9rem;
+				margin-right:.2rem;
+			}
+			/**/
+			.allPlay{
+				height:3rem;
+				margin-top:1.5rem;
+				line-height: 2.2rem;
+				position:relative;
+				border:1px solid #f5f6f7;
+				border-top:none;
+			}
+			.allPlay>a{
+				margin-left:.8rem;
+				padding:.5rem 1rem;
+				background:#f5f6f7;
+				border-radius:25px;
+				color:#121212;
+			}
+			.allPlay .allDownload{
+				position:absolute;
+				display:inline-block;
+				padding:.5rem;
+				color:#747682;
+				right:1rem;
+				font-size:1.2rem;
+			}
+			.mui-table-view-cell{
+				border:0!important;
+				padding-top:1.3rem !important;
+				padding-bottom:1.3rem !important;
+			}
+			.imgOfInfo{
+				width:3.5rem;
+				height:3.5rem;
+				border-radius:10px;
+			}
+			/*调整标题开始*/
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.headerTi>span:first-child{
+				left:4%;
+			}
+			.headerTi a{
+				color:#121212;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-size:1.2rem;
+				font-weight:bold;
+				position: relative;
+				margin-left:0
+			}
+			.header p{
+				padding:0;
+				margin:0;
+			}
+			/*调整标题结束*/
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<!--<span class="iconfont mui-action-back">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">我的下载</h1>-->
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+					<a href="javascript:;" class="pageTitle">我的下载</a>
+				</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll voice_scroll ">
+				<div class="allPlay">
+					<a class="all_play"><span class="iconfont allPlay">&#xe618;</span>全部播放</a>
+					<span class="allDownload iconfont">&#xe6be;</span>
+				</div>
+				<ul id="OA_task_1" class="mui-table-view">  
+					<li class="mui-table-view-cell">  
+						<div class="mui-slider-right mui-disabled">  
+							<a class="mui-btn mui-btn-red">删除</a>  
+						</div>  
+						<div class="mui-slider-handle">  
+							<div class="oneModule">
+								<img class="imgOfInfo" style="width:4rem;height:4rem;vertical-align: middle;" src="../resources/images/currAudioLogo.png" alt="" />
+								<div style="max-width:13rem;">
+									<p style="margin:0;font-size:1rem" class="more title">当前播放title当前播放当前播放</p>
+									<p class="fonts">
+										<span style="margin-right:1rem;"><i class="iconfont"></i><span class="playTimes"></span></span>
+										<span><i class="iconfont"></i><span class="duration"></span></span>
+									</p>
+								</div>
+							</div>  
+							<span class="iconfont downLoad">&#xe653;</span>
+						</div>  
+					</li> 
+				</ul>
+			</div>
+		</div>
+		
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script src="../resources/js/download.js "></script>
+		<script type="text/javascript">
+			var voices,count=0;
+			var voiceFpi,ptr;
+			var voiceTemp= $(".mui-table-view-cell").clone();
+			$(".mui-table-view-cell").remove();
+			myFunc(function() {
+				/*点击删除当前元素*/
+				 $('#OA_task_1').on('tap', '.mui-btn', function(event) {  
+                    var elem = $(this); 
+                    var deleteCurr=elem.parent().parent().find(".oneModule").data("data");
+                    var allDownload=osg.get(cacheKeys.downloads);
+                    if(!allDownload) return;
+                    allDownload=JSON.parse(allDownload);
+                    for(var k=0;k<allDownload.length;k++){
+                    	if(allDownload[k]._id==deleteCurr._id){
+							plus.io.resolveLocalFileSystemURL(deleteCurr.logo,function(file){
+								file.remove(function(entry){
+									//执行删除logo成功 接下来删除url
+								},function(e){
+									//删除失败
+								})
+							})
+							plus.io.resolveLocalFileSystemURL(deleteCurr.url,function(file){
+								file.remove(function(entry){
+									elem.parent().parent().fadeOut();
+								},function(){
+									//删除失败
+								})
+							})
+							allDownload.splice(k,1);
+							osg.set(cacheKeys.downloads,allDownload);
+							osg.toast("删除成功");
+                    	}
+                    }
+                }); 
+                
+                downAjax();
+                /*全部删除*/
+                  $(".allDownload").tap(function() {
+	                	var cd = osg.get(cacheKeys.downloads);
+	                	if(cd){
+	                		osg.confirm("确认全部删除？", function() {
+	                			cd = JSON.parse(cd);
+								for(var i = 0; i < cd.length; i++) {
+									var oneData = cd[i];
+									plus.io.resolveLocalFileSystemURL(oneData.logo, function(file) {
+										file.remove( function ( entry ) {
+											//删除成功执行
+										}, function ( e ) {
+											//删除失败执行
+										} );
+									});
+									plus.io.resolveLocalFileSystemURL(oneData.url, function(file) {
+										file.remove( function ( entry ) {
+											//删除成功执行
+											$("#OA_task_1").empty();
+										}, function ( e ) {
+											//删除失败执行
+										} );
+									});
+								}
+								osg.set(cacheKeys.downloads, "");
+								$(".lookMore").remove();
+								osg.toast("删除成功！");
+	                		});
+						}else{
+							osg.toast("没有要删除的故事！");
+						}
+	                });
+                //全部播放点击事件
+				$(".all_play").tap(function() {
+					if(voices && voices.length>0){
+						var vlist = [];
+						for(var i=0;i<voices.length;i++){
+							var fflogo = plus.io.convertLocalFileSystemURL(voices[i].logo);
+							var ffurl = plus.io.convertLocalFileSystemURL(voices[i].url);
+							if(!ffurl.indexOf('file://') == 0)
+								ffurl = 'file://' + ffurl;
+							voices[i].logo = fflogo;
+							voices[i].fileidUrl = ffurl;
+							vlist.push(voices[i]);
+						}
+						osg.set("voice_now",voices[0]);
+						osg.set('voice_list',vlist);//把列表缓存到本地
+						osg.evtFireEvent('update');
+						osg.open('audioPlay.html', {
+						}, null, {
+							im: 1,
+							id:"details"
+						});
+					}else{
+						osg.toast('没有要播放的故事！');
+					}
+				});
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+			/*添加已下载的数据*/
+			function downAjax(){
+					var cd = osg.get(cacheKeys.downloads);
+					if(cd){
+						cd=JSON.parse(cd)
+						voices = cd;
+						for(var i = 0; i < cd.length; i++) {	
+							var oneData = cd[i];
+							var voi = voiceTemp.clone();
+							if(oneData.logo){
+								var ff = plus.io.convertLocalFileSystemURL(oneData.logo);
+								voi.find(".imgOfInfo").attr("src",ff);
+							}else{
+								voi.find(".imgOfInfo").attr("src","../resources/images/currAudioLogo.png");
+							}
+							voi.find(".oneModule").attr('id', oneData._id);
+							voi.find(".oneModule").data('data', oneData);
+							voi.find(".title").html(oneData.title);
+							voi.find(".downLoad").html("&#xe653;");
+							voi.find(".fonts>span:first-child .iconfont").html("&#xe610;");
+							voi.find(".fonts>span:last-child .iconfont").html("&#xe6a9;");
+							voi.find(".playTimes").html(oneData.times);
+							voi.find(".duration").html(oneData.strDuration);
+							voi.find(".mui-slider-handle").tap(function(){
+								var voice_data = $(this).find(".oneModule").data('data');
+								if(voices && voices.length>0){
+									var vlist = [];
+									for(var i=0;i<voices.length;i++){
+										var fflogo = plus.io.convertLocalFileSystemURL(voices[i].logo);
+										var ffurl = plus.io.convertLocalFileSystemURL(voices[i].url);
+										if(fflogo.indexOf('file://') != 0)
+											fflogo = 'file://' + fflogo;
+										if(ffurl.indexOf('file://') != 0)
+											ffurl = 'file://' + ffurl;
+										voices[i].logo = fflogo;
+										voices[i].fileidUrl = ffurl;
+										vlist.push(voices[i]);
+									}
+									osg.set('voice_list',vlist);//把列表缓存到本地
+								}
+								osg.set("voice_now",voice_data);
+								osg.evtFireEvent('update');
+								osg.open('audioPlay.html', {}, null, {im: 1,id:"details"});
+							});
+							$("#OA_task_1").append(voi);
+						}
+					}
+				};
+		</script>
+	</body>
+
+</html>

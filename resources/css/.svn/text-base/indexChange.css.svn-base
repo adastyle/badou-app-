@@ -1,0 +1,164 @@
+/*推荐音频部分*/
+.hideMore {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.recommendAudioPart {
+  padding-top: 0.3rem;
+}
+.recommendAudioPart .recommendAudio {
+  height: 3rem;
+  line-height: 3rem;
+  text-align: left;
+  padding-top: 0.3rem;
+  margin-bottom: 1rem;
+}
+.recommendAudioPart .recommendAudio img {
+  width: 60%;
+  margin-left: 1rem;
+}
+.recommendAudioPart .recommendAudio .allAudioPlay {
+  display: inline-block;
+  color: #fff;
+  font-size: 0.8rem;
+  background: linear-gradient(-90deg, #f52725, #f66664);
+  box-shadow: 0px 2px 6px 0px rgba(245, 39, 37, 0.6);
+  border-radius: 25px;
+  line-height: normal;
+  padding: 0.38rem 0.65rem;
+  float: right;
+  text-align: center;
+  margin-top: 0.3rem;
+  vertical-align: middle;
+}
+.recommendAudioPart .recommendAudio .allAudioPlay .iconfont {
+  margin-right: 0.1rem;
+  font-size: 0.7rem;
+}
+.recommendAudioPart .recommendAudio .allAudioPlay span {
+  vertical-align: middle;
+}
+.recommendAudioPart .leftResourcesImg {
+  display: inline-block;
+  vertical-align: middle;
+  width: 28%;
+  height: 5rem;
+}
+.recommendAudioPart .leftResourcesImg img {
+  height: 100%;
+}
+.recommendAudioPart .rightList {
+  font-size: 0.9rem;
+  display: inline-block;
+  vertical-align: middle;
+  height: 5rem;
+  padding-top: 0.7rem;
+  width: 70%;
+}
+.recommendAudioPart .rightList p {
+  text-align: left;
+}
+.recommendAudioPart .rightList p .duration {
+  float: right;
+  color: #747682;
+}
+.recommendAudioPart .rightList p .recommendTi {
+  display: inline-block;
+  width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.recommendAudioPart .rightList .upDownScroll {
+  height: 1.6rem;
+}
+.recommendAudioPart .rightList .upDownScroll .swiper-container {
+  height: 100%;
+}
+.recommendAudioPart .moreRecommendAudio {
+  height: 1.5rem;
+  text-align: center;
+  color: #747682;
+  font-size: 0.9rem;
+}
+.currhide {
+  display: none;
+}
+.listening {
+  text-align: left;
+  padding: 1rem 0;
+}
+.listening p:first-child {
+  color: #121212;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.listening p:first-child .currLinterMore {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: #939393;
+}
+.listening p:first-child .currLinterMore .iconfont {
+  font-size: 0.9rem;
+}
+.listening .listenList {
+  width: 100%;
+}
+.listening .listenList .pdRigit {
+  padding-right: 3rem;
+}
+.listening .listenList .sliderOne {
+  transform: translate3d(0px, 0px, 0px);
+}
+.listening .listenList .swiper-slide img {
+  width: 100%;
+  border-radius: 10px;
+}
+.listening .listenList .swiper-slide p {
+  margin-bottom: 0;
+  margin: 2px 0;
+  width: 90%;
+}
+.listening .listenList .swiper-slide .currLisName {
+  font-size: 0.9rem;
+}
+.listening .listenList .swiper-slide .currListMemo {
+  color: #939393;
+  font-size: 0.9rem;
+  width: 93%;
+}
+.listening .listenList .goOnLook {
+  display: inline-block;
+  width: 4rem;
+  height: 6.3rem;
+  padding-right: 1rem !important;
+  padding-left: 0.6rem;
+  margin-right: 2rem;
+  line-height: 6.3rem;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 11px 1px rgba(220, 220, 220, 0.3);
+  border-radius: 10px 0px 0px 10px;
+  color: #FFFFFF;
+  text-align: left;
+}
+.listening .listenList .goOnLook .moreing {
+  display: inline-block;
+  line-height: 1rem;
+  width: 1.4rem;
+  vertical-align: middle;
+  font-size: 0.9rem;
+  text-align: left;
+  position: relative;
+}
+.listening .listenList .goOnLook .moreing .iconfont {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+}

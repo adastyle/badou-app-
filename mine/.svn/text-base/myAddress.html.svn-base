@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.leftShow>div {
+				display: inline-block;
+				padding-top: 1rem;
+			}
+			
+			.leftShow>div p {
+				margin-bottom: .3rem;
+				width:15rem;
+				padding-left:.5rem;
+			}
+			
+			.lookMore {
+				height: 5rem;
+				width: 100%;
+				padding: 0 2%;
+				position: relative;
+				background: #fff;
+				border-bottom: 2px solid #f5f6f7
+			}
+			.lookMore .address{
+				font-size:.8rem;
+			}
+			.lookMore .userName{
+				margin-right:1.5rem;
+				display:inline-block;
+				width:4rem;
+				vertical-align: middle;
+			}
+			.allrowRight {
+				position: absolute;
+				top: 50%;
+				right: 1rem;
+				transform: translateY(-50%);
+				color: #CCCCCC;
+				display:inline-block;
+				padding:.5rem;
+			}
+			
+			.addNewAddress {
+				height: 4rem;
+				padding-top: .7rem;
+				width: 100%;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				background: #fff;
+				z-index: 10000;
+				text-align: center;
+			}
+			/*调整标题开始*/
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.headerTi>span:first-child{
+				left:4%;
+			}
+			.headerTi a{
+				color:#121212;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-size:1.2rem;
+				font-weight:bold;
+				position: relative;
+				margin-left:0
+			}
+			.header p{
+				padding:0;
+				margin:0;
+			}
+			/*调整标题结束*/
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<!--<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p>收货地址</p>-->
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+					<a href="javascript:;" class="pageTitle">收货地址</a>
+				</p>
+			</div>
+		</header>
+		<div style="padding-top:.5rem;" class="my_scroll mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll ">
+				<div class="addressList" style="padding-bottom:4rem;">
+					<div class="lookMore">
+						<div class="leftShow">
+							<div>
+								<p class="name more"><span class="userName more"></span> <span class="number"></span></p>
+								<p style="color:#939393" class="address more">北京市北京海淀区北邮科技大厦海淀区北邮科技大厦海淀区北邮科技大厦</p>
+							</div>
+						</div>
+						<span class="iconfont allrowRight">&#xe68e;</span>
+					</div>
+				</div>
+			</div>
+			<div class="addNewAddress">
+				<a class="linearGradientBtn" href="javascript:;"><span style="font-weight: bold;">＋</span> 新建收货地址</a>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var oneAddress = $(".lookMore").clone();
+				$(".lookMore").hide();
+				mui.init({
+					gestureConfig:{
+						longtap: true, //默认为false
+					}
+				});
+				osg.evtAddListener(function(d){
+					if(d && d=="changeSuccess"){
+						reloadAllAddress();
+					}
+				})
+			myFunc(function() {
+				reloadAllAddress();
+			})
+			function reloadAllAddress(){
+					$(".addressList").empty();
+					osg.ajax("address/query", {}, function(data) {
+						if(data.data.length){
+							for(var i=0;i<data.data.length;i++){
+								var currAddress = oneAddress.clone();
+								currAddress.find(".name .userName").html(data.data[i].name);
+								var numb = data.data[i].phone;
+								currAddress.find(".number").html(numb.slice(0, 3) + "****" + numb.slice(7));
+								currAddress.find(".address").html(data.data[i].province + data.data[i].city + data.data[i].district + data.data[i].address);
+								currAddress.find(".leftShow").attr("data-id", data.data[i]._id);
+								/*长按删除当前地址*/
+								currAddress.find(".leftShow").on('longtap', function() {
+									var $tar=$(this);
+									mui.confirm("你确定要删除该地址吗？","确定",["确定","取消"],function(e){
+										if(e.index==0){
+											var deleteCurrId=$tar.attr("data-id");
+											osg.ajax("address/remove",{"addressId":deleteCurrId},function(data){
+												if(data.success){
+													$tar.parent().remove();
+												}
+													
+											})
+										}
+									})
+								})
+								/*修改地址*/
+								currAddress.find(".allrowRight").tap(function() {
+									var currChangeAddressId=$(this).parent().find(".leftShow").attr("data-id");
+									osg.evtFireEvent("changeInfo");
+									osg.open("../mall/address.html",{currChangeAddressId:currChangeAddressId});
+								})
+								$(".addressList").append(currAddress);
+							}
+						}
+					})
+				}
+			$(".addNewAddress").tap(function() {
+				osg.open("../mall/address.html",{currChangeAddressId:"1"})
+			})
+			
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

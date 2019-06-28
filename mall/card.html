@@ -1,0 +1,664 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin-bottom:0;
+			}
+			.contents{
+				width:94%;
+				margin:0 auto;
+				padding-top:1rem;
+			}
+			/*空购物车的时候*/
+			.emptyCard{
+				text-align: center;
+				padding-top:2rem;
+				display:none;
+			}
+			.emptyCard>img{
+				height:9rem;
+			}
+			.emptyCard>div>a{
+				display:inline-block;
+				width:6rem;
+				height:2rem;
+				line-height:2rem;
+				border-radius:25px;
+				border:1px solid #EE4E4E;
+				background:#EE4E4E;
+				color:#fff;
+				margin:.3rem;
+			}
+			.emptyCard>div>a.toCollect{
+				background: #fff;
+				color:#EE4E4E;
+			}
+			
+			/*商品列表*/
+			.goods{
+				display:none;
+			}
+			.info{
+				position:relative;
+				padding-left:1.2rem;
+				padding-top:1.5rem;
+				margin-bottom:1rem;
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+			}
+			.info>div {
+				display: inline-block;
+				height: 8rem;
+				width: 65%;
+			}
+			.info>div.bookFace {
+				width: 28%;
+				text-align: center;
+			}
+			.info>div.bookFace>img {
+				height: 75%;
+			}
+			.bookInfo{
+				padding-top:1rem;
+				position:relative;
+			}
+			.bookPrice {
+				color: #D32424;
+				position: relative;
+				margin:2rem 0 1rem;
+			}
+			.delate{
+				position:absolute;
+				right:0;
+				top:1rem;
+				color:#939393;
+				font-size:.8rem;
+			}
+			.bookPrice .price {
+				font-size: 1.1rem;
+			}
+			.bookName{
+				width:75%;
+			}
+			.payNum {
+				position: absolute;
+				color: #121212;
+				right: 0;
+				top:0;
+				text-align: right;
+			}
+			.payNum>span {
+				padding: .4rem .8rem;
+				background: #F5F5F5;
+				font-weight: bold;
+				margin: .05rem;
+			}
+			.payNum>span.num {
+				padding: .4rem 1rem;
+			}
+			.payNum>span.add{
+				margin-right:0;
+			}
+			/*当前这本书是否选中*/
+			.goods{
+				padding-bottom:4rem;
+			}
+			.info{
+				padding-left:1.8rem;
+			}
+			.allChecked .checkAllInput,
+			.suitStyle .bookIsCheck,
+			.info .bookIsCheck{
+				position:absolute;
+				left:.5rem;
+				top:50%;
+				transform:translateY(-50%);
+				width: 1.2rem;
+				height: 1.2rem;
+				border: none;
+				border-radius: 50%;
+				background: url(../resources/images/noChecked.png) no-repeat center center;
+				background-size: cover;
+				vertical-align: middle;
+				margin-right: .3rem;
+			}
+			.allChecked div.checkAllInput.currDivChecked,
+			.suitStyle div.bookIsCheck.currDivChecked,
+			.info div.bookIsCheck.currDivChecked {
+				width: 1.2rem;
+				height: 1.2rem;
+				border: none;
+				border-radius: 50%;
+				background: url(../resources/images/checked.png) no-repeat center center;
+				background-size: contain;
+				vertical-align: middle;
+				margin-right: .3rem;
+			}
+			/*底部去结算*/
+			.bottomPay {
+				height: 4rem;
+				padding-top: .8rem;
+				width: 100%;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				background: #fff;
+				z-index: 10000;
+				text-align: right;
+				box-shadow:0px 3px 22px 2px rgba(239,239,239,0.97);
+				padding-right:1rem;
+			}
+			.allChecked{
+				position:absolute;
+				width:auto;
+				left:1rem;
+				top:50%;
+				transform:translateY(-50%);
+				padding-left:1.3rem;
+			}
+			/*没有收货地址的弹框*/
+			.addressContent {
+				width: 90%;
+				height: 10rem;
+				background: #fff;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				border-radius: 4px;
+			}
+			
+			.addressContent p {
+				height: 7rem;
+				text-align: center;
+				line-height: 7rem;
+			}
+			
+			.addressContent>ul {
+				list-style: none;
+				border-top: 1px solid #D8DADB;
+			}
+			
+			.addressContent ul>li {
+				display: inline-block;
+				width: 49%;
+				height: 2.9rem;
+				line-height: 2.9rem;
+				text-align: center;
+			}
+			
+			.addressContent ul>li.setting {
+				color: #fff;
+				background: linear-gradient(90deg, rgba(249, 94, 87, 1), rgba(211, 36, 36, 1));
+				border-radius: 0 4px 4px 0;
+			}
+			
+			/*套餐显示样式*/
+			.suitStyle{
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				padding-top:.6rem;
+				position:relative;
+			}
+			.suitTitleOrNum{
+				position: relative;
+				height:3rem;
+			}
+			.suitStyle .bookIsCheck{
+				top:2.1rem;
+				z-index:11;
+			}
+			.suitTitleOrNum .delate{
+				position:absolute;
+				right:1rem;
+				top:50%;
+				transform: translateY(-50%);
+			}
+			.suitName{
+				font-size: 1.1rem;
+				position:absolute;
+				left:1.5rem;
+				top:53%;
+				transform: translateY(-50%);
+			}
+			.showSuit .info1{
+				position:relative;
+				padding-top:1.5rem;
+			}
+			.showSuit .info1>div {
+				display: inline-block;
+				height: 8rem;
+				width: 65%;
+			}
+			.showSuit .info1>div.bookFace1 {
+				width: 30%;
+				text-align: center;
+			}
+			.showSuit .info1>div.bookFace1>img {
+				height: 75%;
+			}
+			.showSuit .bookInfo1{
+				padding-top:1rem;
+				position:relative;
+			}
+			.showSuit .bookPrice1 {
+				color: #D32424;
+				position: relative;
+				margin:2rem 0 1rem;
+			}
+			.showSuit .delate1{
+				position:absolute;
+				right:0;
+				top:1rem;
+				color:#939393;
+				font-size:.8rem;
+			}
+			.showSuit .bookPrice1 .price1 {
+				font-size: 1.1rem;
+			}
+			.showSuit .bookName1{
+				width:75%;
+			}
+			.suitPrice{
+				padding-bottom:2rem;
+				padding-left:.5rem;
+				position:relative;
+				margin-top:1rem;
+			}
+			.suitPrice .suitDisCount{
+				color: #E4B57F;
+				font-size:1.1rem;
+				margin-left:.5rem;
+			}
+			.suitPrice s{
+				color:#D32424;
+			}
+			.suitPrice .payNum{
+				position: absolute;
+				right:1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="padding:.5rem;padding-left:0;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">购物车</h1>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll">
+				<div class="contents">
+					<!--空购物车的时候-->
+					<div class="emptyCard">
+						<img src="../resources/images/badouCard.png" alt="" />
+						<p style="color:#A6A6A6;margin:1rem 0;">购物车竟然是空的</p>
+						<div>
+							<a href="javascript:;" class="toMall">去逛逛</a>
+							<a href="javascript:;" class="toCollect">查看收藏</a>
+						</div>
+					</div>
+					<!--购物车-->
+					<div class="goods">
+						<!--套餐显示-->
+						<div class="suitStyle templateShow">
+							<div class="bookIsCheck"></div>
+							<div class="suitTitleOrNum">
+								<span class="suitName">【优惠套餐】</span>
+								<span class="delate">删除</span>
+							</div>
+							<div class="showSuit"></div>
+							<!--原价---折扣价-->
+							<div class="suitPrice">
+								<s></s>
+								<span class="suitDisCount"></span>
+								<span style="padding:.2rem .3rem .1rem;font-size:.6rem;color:#fff;border-radius:4px;background: rgba(236, 191, 139, 1);vertical-align: middle;">折扣价</span>
+								<div class="payNum">
+									<span class="subtract">-</span>
+									<span class="num">1</span>
+									<span class="add">+</span>
+								</div>
+							</div>
+						</div>
+						<!--套餐显示完-->
+						<div class="info templateShow">
+							<div class="bookIsCheck"></div>
+							<div class="bookFace">
+								<img src="" alt="" />
+							</div>
+							<div class="bookInfo">
+								<p class="bookName more"></p>
+								<span class="delate">删除</span>
+								<div class="bookPrice">
+									<span class="price">¥</span>
+									<div class="payNum">
+										<span class="subtract">-</span>
+										<span class="num">1</span>
+										<span class="add">+</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--底部去结算-->
+		<div class="bottomPay">
+			<div  class="allChecked"><div class="checkAllInput"></div><span style="vertical-align: middle;margin-left:1rem">全选</span></div>
+			<span class="total">合计：</span>
+			<span style="color:#D02424;font-weight:bold" class="totalPri">¥0</span>
+			<a style="width:6rem;margin-left:.5rem;height:2.3rem;line-height:2.3rem;" class="linearGradientBtn toOrderPayMoney" href="javascript:;">去结算</a>
+		</div>
+		<!--首次添加地址的弹框-->
+			<div class="addressWindow">
+				<div class="addressContent">
+					<p>
+						您还没有收货地址，赶快设置一个吧！
+					</p>
+					<ul>
+						<li class="addressCancel">取消</li>
+						<li class="setting">去设置</li>
+					</ul>
+				</div>
+			</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var cardIdString="",sumTotalPrice=0;
+			goodsTemplate=$(".info").clone();
+			var suitTemplate=$(".suitStyle").clone();
+			$(".suitStyle").hide();
+			$(".info").hide();
+			var goodsOfSuit=`<div class="suitgoods">
+									<div class="info1">
+										<div class="bookFace1">
+											<img src="../resources/images/book.png" alt="" />
+										</div>
+										<div class="bookInfo1">
+											<p class="bookName1 more"></p>
+											<span class="delate1">*1</span>
+											<div class="bookPrice1">
+												<span class="price1"></span>
+											</div>
+										</div>
+									</div>
+								</div>`;
+			myFunc(function() {
+				plus.webview.hide("details.html");
+				loadCard();
+				/*重新加载购物车*/
+				function loadCard(){
+					osg.ajax("shopping/query",{},function(data){
+						if(data.data.length>0){
+							$(".emptyCard").hide();
+							$(".goods").show();
+							$(".goods").empty();
+							for(var i=0;i<data.data.length;i++){
+								if(data.data[i].type == 1){//套餐
+									var onePrice=0;
+									let datas=data.data[i].goodSuit;
+									var currGoods=suitTemplate.clone();
+									for(let j=0;j<datas.goods.length;j++){
+										var temp=$(goodsOfSuit).clone();
+										temp.find(".bookName1").html(datas.goods[j].subTitle);
+										temp.find(".bookFace1 img").attr("src",qiniuRoot+datas.goods[j].logo+'!app.voicemid.img');
+										temp.find(".price1").html("¥"+parseFloat(datas.goods[j].price).toFixed(2));
+										currGoods.find(".showSuit").append(temp)
+									}
+									onePrice=parseFloat(data.data[i].price);
+									currGoods.find(".suitPrice s").html("¥"+parseFloat(data.data[i].priceOrigin).toFixed(2));
+									currGoods.find(".suitPrice .suitDisCount").html("¥"+parseFloat(data.data[i].price).toFixed(2));
+									currGoods.find(".suitPrice .suitDisCount").attr("data-price",data.data[i].price);
+									
+								}else{//单个商品
+									var currGoods=goodsTemplate.clone();
+									currGoods.find(".bookFace img").attr("src",qiniuRoot+data.data[i].imgage+'!app.voicemid.img');
+									currGoods.find(".bookName").html(data.data[i].title);
+									if(data.data[i].price){
+										currGoods.find(".price").html("¥"+parseFloat(data.data[i].price).toFixed(2));
+										currGoods.find(".price").attr("data-price",parseFloat(data.data[i].price));
+										onePrice=parseFloat(data.data[i].price);
+									}else{
+										currGoods.find(".price").html("¥"+parseFloat(data.data[i].priceOrigin).toFixed(2));
+										currGoods.find(".price").attr("data-price",parseFloat(data.data[i].priceOrigin));
+										onePrice=parseFloat(data.data[i].priceOrigin);
+									}
+								}
+								currGoods.find(".num").html(data.data[i].count);
+								currGoods.find(".num").attr("data-currId",data.data[i]._id);
+								currGoods.find(".num").attr("data-type",data.data[i].type);
+								currGoods.find(".delate").attr("data-currId",data.data[i]._id);
+								var oneNum=parseInt(data.data[i].count);
+								currGoods.attr("data-oneGoodAllPrice",parseFloat(onePrice*oneNum));
+								currGoods.attr("data-goodsTypeId",data.data[i]._id);
+								$(".goods").append(currGoods);
+							}
+						}
+						else{
+							$(".emptyCard").show();
+							$(".goods").hide();
+						}
+					})
+				}
+				/*减少购物车的数量*/
+				$(".goods").on("tap",".subtract",function(){
+					var $tar=$(this);
+					let currType=$tar.parent().find(".num").attr("data-type");
+					var numDelChange=parseInt($(this).parent().find(".num").html());
+					var goodId=$(this).parent().find(".num").attr("data-currId");
+					if(numDelChange>1 && goodId){
+						osg.ajax("shopping/delNum",{"shoppingCartId":goodId},function(data){
+							if(data.success){
+								numDelChange--;
+								var $goodTop,templePrice;
+								$tar.parent().find(".num").html(numDelChange);
+								/*数量变化后的价格更新*/
+								//拿到最开始加载时候的该商品的总价
+								if(currType==1){//套餐
+									$goodTop=$tar.parent().parent().parent();
+									templePrice=$tar.parent().parent().find(".suitDisCount").attr("data-price")
+								}else{//单个商品
+									$goodTop=$tar.parent().parent().parent().parent();
+									templePrice=$tar.parent().parent().find(".price").attr("data-price")
+								}
+								var thisTotalPrice=$goodTop.attr("data-oneGoodAllPrice");
+								thisTotalPrice=numDelChange*parseFloat(templePrice);
+								/*重新计算当前数量的该商品总价----重新赋值给改商品模块*/
+								$goodTop.attr("data-oneGoodAllPrice",thisTotalPrice);
+								if($goodTop.find(".bookIsCheck").hasClass("currDivChecked")){
+									/*如何改商品被选中了这里的价格直接影响到总价*/
+									var currtotalPri=parseFloat($(".totalPri").html().slice(1));
+									var temp=currtotalPri-templePrice;
+									$(".totalPri").html("¥"+temp.toFixed(2));
+								}
+							}
+						})
+					}
+				})
+				/*add购物车的数量*/
+				$(".goods").on("tap",".add",function(){
+					var $tar=$(this);  
+					let currType=$tar.parent().find(".num").attr("data-type");
+					var numAddChange=parseInt($(this).parent().find(".num").html());
+					var goodId=$(this).parent().find(".num").attr("data-currId");
+					if(goodId){
+						osg.ajax("shopping/addNum",{"shoppingCartId":goodId},function(data){
+							if(data.success){
+								numAddChange++;
+								var $goodTop,templePrice;
+								parseInt($tar.parent().find(".num").html(numAddChange));
+								/*通过类型派单是套餐还是单个商品  因为不同模板的位置不一样*/
+								if(currType==1){//套餐
+									$goodTop=$tar.parent().parent().parent();
+									templePrice=$tar.parent().parent().find(".suitDisCount").attr("data-price")
+								}else{//单个商品
+									$goodTop=$tar.parent().parent().parent().parent();
+									templePrice=$tar.parent().parent().find(".price").attr("data-price")
+								}
+								var thisTotalPrice=$goodTop.attr("data-oneGoodAllPrice");
+								thisTotalPrice=numAddChange*parseFloat(templePrice);//加数量后重新计算总价
+								$goodTop.attr("data-oneGoodAllPrice",thisTotalPrice);
+								if($goodTop.find(".bookIsCheck").hasClass("currDivChecked")){
+									var currtotalPri=parseFloat($(".totalPri").html().slice(1));
+									var temp=currtotalPri+parseFloat(templePrice);
+									$(".totalPri").html("¥"+temp.toFixed(2));
+								}
+							}
+						})
+					}
+				})
+				/*删除该条数据在购物车中*/
+				$(".goods").on("tap",".delate",function(){
+					var $tar=$(this);
+					var thisBookId=$tar.attr("data-currId");
+					var delePrice=parseFloat($tar.parent().parent().attr("data-oneGoodAllPrice"));
+					/*mui.confirm("确定要删除该商品吗？",["确定"],function(e){*/
+					osg.confirm("确定要删除该商品吗？",function(e){
+						/*if(e.index==0){*/
+							osg.ajax("shopping/delCart",{"shoppingCartId":thisBookId},function(data){
+								if(data.success){
+									$tar.parent().parent().remove();
+									if($tar.parent().parent().find(".bookIsCheck").hasClass("currDivChecked")){
+										var currtotalPri=parseFloat($(".totalPri").html().slice(1));
+										var temp=currtotalPri-delePrice;   
+										$(".totalPri").html("¥"+temp.toFixed(2));
+									}
+									/*处理把数据全部删完的情况*/
+									var pageInfos=$(".goods .templateShow");
+									if(pageInfos.length==0){
+										$(".allChecked").find(".checkAllInput").removeClass("currDivChecked");
+										$(".emptyCard").show();
+										$(".goods").hide();
+									}
+								}
+							})
+						/*}*/
+					})
+					
+				})
+			})
+			/*屏幕滑动*/
+			
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+			$(".toMall").tap(function(){
+				osg.open("tab-webview-subpage-mall.html");
+			})
+			$(".toCollect").tap(function(){
+				osg.open("../search.html");
+			})
+			/*单条商品被选中*/
+			$(".goods").on("tap",".bookIsCheck",function(e){
+				var currUniqPrice=parseFloat($(this).parent().attr("data-oneGoodAllPrice"));
+				var totalPrice=parseFloat($(".totalPri").html().slice(1));
+				if(!$(this).hasClass("currDivChecked")){//选中
+					$(this).addClass("currDivChecked");
+					totalPrice+=currUniqPrice;
+					var pageInfos=$(".goods .templateShow");
+					var tempCheckNum=0;
+					for(var k=0;k<pageInfos.length;k++){
+						if(!$(pageInfos[k]).find(".bookIsCheck").hasClass("currDivChecked")){
+							tempCheckNum++;
+							$(".allChecked").find(".checkAllInput").removeClass("currDivChecked");
+						}
+					}
+					if(tempCheckNum==0){//如果tempCheckNum为0表示全部选中
+						$(".allChecked").find(".checkAllInput").addClass("currDivChecked")
+					}
+					
+				}else{
+					$(this).removeClass("currDivChecked");
+					$(".allChecked").find(".checkAllInput").removeClass("currDivChecked");
+					totalPrice-=currUniqPrice;
+				}
+				$(".totalPri").html("¥"+totalPrice.toFixed(2));
+			})
+			
+			/*点击全选*/
+			$(".allChecked").tap(function(){
+				var allInfo=$(".goods .templateShow");
+				if(!$(this).children(".checkAllInput").hasClass("currDivChecked")){
+					$(this).children(".checkAllInput").addClass("currDivChecked");
+					var total=0;
+					for(var j=0;j<allInfo.length;j++){
+						$(allInfo[j]).find(".bookIsCheck").addClass(" currDivChecked");
+						var currOnePrice=parseFloat($(allInfo[j]).attr("data-oneGoodAllPrice"));
+						total+=currOnePrice;
+					}
+					$(".totalPri").html("¥"+total.toFixed(2));
+				}else{//取消全选
+					$(this).children(".checkAllInput").removeClass("currDivChecked");
+					for(var j=0;j<allInfo.length;j++){
+						$(allInfo[j]).find(".bookIsCheck").removeClass(" currDivChecked");
+						$(".totalPri").html("¥0");
+					}
+				}
+			})
+			
+			/*去结算*/
+			$(".toOrderPayMoney").tap(function(){
+				var allInfo=$(".goods .templateShow");
+				for(var n=0;n<allInfo.length;n++){
+					if($(allInfo[n]).find(".bookIsCheck").hasClass("currDivChecked")){
+						var tempCardId=$(allInfo[n]).find(".num").attr("data-currId");
+						if(!cardIdString){
+							cardIdString=cardIdString+tempCardId;
+						}else{
+							cardIdString=cardIdString+","+tempCardId;
+						}
+					}
+				}
+				sumTotalPrice=parseFloat($(".totalPri").html().slice(1));
+				if(sumTotalPrice && cardIdString){
+					osg.ajax('address/query', {
+						'used|integer': 1
+						}, function(data) {
+							if(data.data.length>0){
+								localStorage.setItem("detailAddressId",data.data[0]._id);
+								/*保存当前商品的id和购物车选中商品的总价*/
+								localStorage.setItem("cardString",cardIdString);
+								localStorage.setItem("totalPrice",sumTotalPrice);
+								localStorage.setItem("goodsType","");
+								osg.open("order.html");
+							}else{
+								/*osg.toast("请先添加地址！");*/
+								$(".addressWindow").show();
+							}
+						})
+					
+				}else{
+					osg.toast("请选择你要购买的商品");
+				}
+			})
+			/*去设置*/
+			$(".setting").tap(function() {
+				if(sumTotalPrice && cardIdString){
+					localStorage.setItem("cardString",cardIdString);
+					localStorage.setItem("totalPrice",sumTotalPrice);
+					localStorage.setItem("goodsType","");
+					osg.open("address.html")
+					$(".addressWindow").hide();
+				}
+			})
+			$(".addressCancel").tap(function() {
+				$(".addressWindow").hide();
+			})
+		</script>
+	</body>
+
+</html>

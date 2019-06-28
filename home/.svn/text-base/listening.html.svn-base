@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.contents{
+			   width:93%;
+			   margin:0 auto;
+			}
+			.classifyTags{
+				padding:.5rem 3%;
+				background:#f6f6f6;
+			}
+			.classifyTags>li{
+				display:inline-block;
+				width:24%;
+				padding:1rem 0;
+				text-align: center;
+				color:#2C2C2C;
+				font-size:.9rem;
+				position:relative;
+			}
+			.classifyTags>li .iconfont{
+				color:#D32424;
+				font-size:1.5rem;
+			}
+			.listeningTitle{
+				font-size:1.1rem;
+				color:#121212;
+				padding:1rem 0;
+			}
+			.onlyWantListen{
+				float:right;
+				font-size:.9rem;
+			}
+			.onlyWantListen input{
+				-webkit-appearance: none;
+				width:13px;
+				height:13px;
+				border-radius:50%;
+				border:1px solid #121212;
+				margin-right:.3rem;
+				vertical-align: middle;
+			}
+			.onlyWantListen>span{
+				vertical-align: middle;
+			}
+			.oneTemp{
+				margin-bottom:2rem;
+			}
+			.lookMore{
+				width:100%;
+				position:relative;
+				background:#fff;
+			}
+			.lookMore>div.leftShow>img{
+				width:4rem;
+				height:4rem;
+				border-radius:4px;
+				vertical-align: middle;
+			}
+			.lookMore>div.leftShow>div{
+				display:inline-block;
+				vertical-align: middle;
+			}
+			.lookMore>div.leftShow>div p{
+				margin:0.2rem;
+				font-size:.9rem;
+				color:#121212;
+			}
+			.allrowRight{
+				position: absolute;
+				top:50%;
+				right:0;
+				transform:translateY(-50%);
+				color:#CCCCCC;
+				text-align: center;
+				padding:.5rem;
+			}
+			.thisResourceListen{
+				font-size:.9rem;
+				margin:.5rem 0 1.2rem 0;
+				background:#F6F6F6;
+				padding:.5rem 0 .5rem .5rem;
+				border-radius:12px;
+			}
+			.thisResourceListen .iconfont{
+				color:#D32424;
+				margin-right:.2rem;
+			}
+			.thisResourceListen .listenName{
+				font-size:.8rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="padding:.5rem;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">我听</h1>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll">
+				<ul class="classifyTags">
+						<!--<li>
+							<p class="iconfont">&#xe614;</p>
+							<span>已购买的</span>
+						</li>-->
+						<li class="btn_history">
+							<p class="iconfont">&#xe752;</p>
+							<span>最近播放</span>
+						</li>
+						<li class="btn_favor_voice">
+							<p class="iconfont">&#xe613;</p>
+							<span>我的收藏</span>
+						</li>
+						<li class="btn_download">
+							<p class="iconfont">&#xe615;</p>
+							<span>我的下载</span>
+						</li>
+					</ul>
+				<div class="contents">
+					<p class="listeningTitle">我想听的.正在听<span class="iconfont">&#xe674;</span>
+						<!--<span class="onlyWantListen">
+							<input type="checkbox"/><span>只显示我想听的</span>
+						</span>-->
+					</p>
+					<div class="module">
+						<div class="oneTemp">
+							<div class="lookMore">
+								<div class="leftShow">
+									<img class="imgOfInfo" style="border-radius:4px" src="../resources/images/currAudioLogo.png" alt="" />
+									<div>
+										<p class="openVip more"></p>
+										<p style="color:#939393" class="memo more"></p>
+									</div>
+								</div>
+								<span class="iconfont allrowRight">&#xe61c;</span>
+							</div>
+							<p class="thisResourceListen">
+								<span class="iconfont">&#xe618;</span>继续听：
+								<span class="listenName"></span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/download.js "></script>
+		<script type="text/javascript">
+			var  voiceFpi,ptr;
+			var tempOne=$(".oneTemp").clone();
+			$(".oneTemp").remove();
+			myFunc(function() {
+				osg.ajax("favor/fpByUserId",{type:"voiceResourcePack"},function(data){
+					if(!data.data.length) return;
+					var datas=data.data;
+					loadData(datas);
+				})
+				
+				myscroll = $(".coment_scroll")[0];
+				mui(myscroll).pullToRefresh({
+					up: {
+						auto: true,
+						callback: function() {
+							ptr = this;
+							var nextPage;
+							if(voiceFpi)
+								nextPage = voiceFpi.page + 1;
+							else
+								nextPage = 1;
+	
+							findPage(nextPage, {
+								'self': this
+							},"DESC");
+						}
+					},
+				});
+				
+				//分页函数
+				function findPage(page, param,order) {
+					if(!param) {
+						param = {};
+					}
+					param.self = ptr;
+					osg.ajax('favor/fpByUserId', {
+					'page': page,
+					type:"voiceResourcePack"
+					}, function(data) {
+						// 下拉的情况下，结束下拉刷新状态
+						if(param.pullDown)
+							param.self.endPullDownToRefresh();
+						if(!data) {
+							param.self.endPullUpToRefresh(true);
+							return;
+						}
+						if(page == 1) {
+							$("#module").html('');
+						}
+						voiceFpi = data;
+						var datas=data.data;
+						loadData(datas);
+						param.self.endPullUpToRefresh(data.page >= data.pages);
+					});
+				}
+				
+			})
+			
+			function loadData(datas){
+				$(".module").empty();
+				for(var i=0 ; i<datas.length; i++){
+					var temp=tempOne.clone();
+					temp.find(".imgOfInfo").attr("src",qiniuRoot+datas[i].info.logo+'!app.voicezheng.img');
+					temp.find(".openVip").html(datas[i].info.name);
+					temp.find(".memo").html(datas[i].info.memo);
+					temp.find(".listenName").html(datas[i].info.memo);
+					temp.find(".lookMore").attr("data-id", datas[i].info._id);
+					temp.find(".lookMore").tap(function(){
+						event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+						var id = $(this).attr('data-id');
+						osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+					});
+					if(datas[i].info.voiceList !=undefined){
+						temp.find(".thisResourceListen").attr("data-id",datas[i].info._id);
+						temp.find(".listenName").html(datas[i].info.voiceList[0].title)
+						temp.find(".thisResourceListen").tap(function(){
+							var tempIndex=$(this).attr("data-id");
+							osg.ajax("voice/cat", {categoryId:"",resourcePackId:tempIndex},function(data){
+								if(data.data.length)
+									playAll(data.data);
+							})
+						})
+					}else
+						temp.find(".thisResourceListen").hide();
+						$(".module").append(temp);
+				}
+			}
+					
+			
+			/*最近播放*/
+			$(".btn_history").tap(function() {
+				osg.open('hotListen.html', {
+					"voiceInfo":"最近播放"
+				}, null, {
+					im: 1
+				});
+			});
+			/*我的下载*/
+			$(".btn_download").tap(function() {
+				osg.open('audioDownload.html', {}, null, {im: 1});
+			});
+			/*我的收藏*/
+			$(".btn_favor_voice").tap(function() {
+				if(osg.isLogined()) {
+					osg.open('../mine/audioCollect.html');
+				} else {
+					osg.confirm("请登录！", function() {
+						osg.open('../mine/login.html', null, null, {
+							im: 1
+						});
+					});
+				}
+			});
+			/*点击播放当前资源包的音频*/
+			function playAll(whys){
+				if(!whys.length) return;
+				osg.set('voice_list',whys);//把列表缓存到本地
+				osg.set("voice_now",whys[0]);
+				var detailsView = plus.webview.getWebviewById("details");
+				if(detailsView){
+					osg.evtFireEvent('update');
+				}
+				osg.open('audioPlay.html', {
+				}, null, {
+					im: 1,
+					id:"details"
+				});
+			}
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,626 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <link href="../resources/css/mui.min.css" rel="stylesheet" />
+        <link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+        <link href="../resources/css/style.css" rel="stylesheet" />
+        <link href="../resources/fonts/iconfont.css" rel="stylesheet">
+        <style>
+            p{
+				margin-bottom:0;
+			}
+			.logoAndmatchName{
+				text-align: center;
+				padding:1rem 0;
+			}
+			.logoAndmatchName>img{
+				width:4rem;
+				height:4rem;
+			}
+			.logoAndmatchName>p{
+				color:#121212;
+				font-size;1.1rem;
+				text-align: center;
+				padding:.5rem 0;
+				font-weight:bold;
+			}
+			.contents{
+				width:93%;
+				margin:0 3%;
+			}
+			.module{
+				background:rgba(255,255,255,1);
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				border-radius:10px;
+				padding:1rem;
+				margin:1rem 0;
+			}
+			.module .iconfont{
+				color:#D32424;
+				font-size:1.1rem;
+				margin-right:.3rem;
+			}
+			.examQuestion>p{
+				font-weight: bold;
+				margin-bottom:.6rem;
+			}
+			.matchWorks>input,
+			.recordedWorks>input,
+			.titleName>input,
+			.examQuestion>textarea{
+				height:4rem;
+				border:none;
+				outline: none;
+				padding:0;
+				margin:0;
+			}
+			.matchWorks>input::-webkit-input-placeholder,
+			.recordedWorks>input::-webkit-input-placeholder,
+			.titleName>input::-webkit-input-placeholder,
+			.examQuestion>textarea::-webkit-textarea-placeholder{
+				font-size:.9rem;
+				color:#939393;
+			}
+			.matchWorks,
+			.recordedWorks{
+				position:relative;
+			}
+			.module .toRecord{
+				position:absolute;
+				bottom:2.2rem;
+				right:0;
+				font-size:1.5rem;
+			}
+			.module .upLoadWorks{
+				font-size:.9rem;
+				position:absolute;
+				top:.3rem;
+				right:.1rem;
+				color:#D32424;
+			}
+			.submitWorks{
+				height: 3rem;
+				width: 100%;
+				text-align: center;
+				margin:1rem 0;
+			}
+			.IDnumber>div{
+				position:relative;
+				display:inline-block;
+				width:100%;
+				padding-top:3%;
+				padding-left:5%;
+			}
+			.IDnumber>div img{
+				width:90%;
+				height:90%;
+			}
+			.IDnumber>div:first-child{
+				margin-right:4%;
+			}
+			.IDshadow{
+				position: absolute;
+				top:0;
+				left:0;
+				width:100%;
+				height:100%;
+				background:rgba(0,0,0,.3);
+			}
+			.IDshadow>div{
+				width:3.5rem;
+				height:3.5rem;
+				border-radius: 50%;
+				background: rgba(211,36,36,.2);
+				position:absolute;
+				top:50%;
+				left:50%;
+				transform:translate(-50%,-50%);
+			}
+			.IDshadow>div .iconfont{
+				color:#fff;
+				font-size: 1.5rem;
+				position:absolute;
+				top:50%;
+				left:50%;
+				transform:translate(-50%,-50%);
+			}
+			.video_detail {
+				width: 100%;
+				background-color: #fff;
+				display:none;
+			}
+			.video_detail .div_img {
+				background-color: #000;
+				position: relative;
+			}
+			.question{
+				text-align: justify;
+			}
+			.question img{
+				width:100%;
+			}
+			/*调整标题开始*/
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.headerTi>span:first-child{
+				left:4%;
+			}
+			.headerTi>span:last-child{
+				right:1rem;
+			}
+			.headerTi a{
+				color:#121212;
+			}
+			.answer_close{
+				width:100%;
+				text-align: center !important;
+				font-size:1.1rem;
+				font-weight:bold;
+				position: relative;
+				margin-left:0
+			}
+			/*调整标题结束*/
+			.tishi{
+				display:none;
+			}
+		</style>
+    </head>
+
+    <body class="la">
+        <header class="mui-bar mui-bar-nav">
+            <div class="header" style="height:2.8rem;line-height:2.8rem;">
+                <!--<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p>查看试题&提交作品</p>-->
+                <p class="headerTi answer_close">
+                    <span class="iconfont">&#xe60e;</span>
+                    <a href="javascript:;" class="pageTitle">查看试题&提交作品</a>
+                </p>
+            </div>
+        </header>
+        <div class="mui-scroll-wrapper content">
+            <div class="mui-scroll coment_scroll">
+                <div class="logoAndmatchName">
+                    <img src="../resources/images/zhzxLogo.png" alt="" />
+                    <p class="jumpToInfo"></p>
+                </div>
+                <div class="contents">
+                    <div class="examQuestion module">
+                        <p><span class="iconfont">&#xe660;</span>考试题目：</p>
+                        <div class="question" name="question" id="question" placeholder=""></div>
+                    </div>
+                    <!--<div class="titleName module">
+						<p><span class="iconfont">&#xefaf;</span>作品名称：</p>
+						<input class="answerTitle" type="text"  placeholder="请填写作品名称"/>
+					</div>-->
+                    <!--<div class="recordedWorks module">
+						<p><span class="iconfont">&#xe789;</span>录制作品：</p>
+						<input type="text"  placeholder="点击麦克风录制音频作品"/>
+						<span class="iconfont toRecord">&#xe67c;</span>
+					</div>-->
+                    <div class="matchWorks module">
+                        <p class="reload_anwer" style="position:relative;"><span class="iconfont">&#xe62a;</span>活动作品：
+                            <!--<span class="upLoadWorks">上传作品</span>-->
+                        </p>
+                        <p class="tishi" style="color:#D32424;font-size:.7rem;padding-bottom:1rem;">* 长按图片可删除</p>
+                        <div class="IDnumber">
+                            <div class="IDface avator" data-idUrl="">
+                                <img class="img_answer" src="../resources/images/tupian.png" alt="" />
+                                <div class="IDshadow">
+                                    <div><span class="iconfont">&#xe631;</span></div>
+                                </div>
+                            </div>
+                            <div class="video_detail">
+                                <div class="div_img">
+                                    <div id="player_1" class="btnPlay"></div>
+                                    <div class="srtDiv"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="submitWorks">
+                    <a class="linearGradientBtn" href="javascript:;">提交作品</a>
+                </div>
+            </div>
+        </div>
+
+        <script src="../resources/js/jquery.min.js "></script>
+        <script src="../resources/js/mui.min.js "></script>
+        <script src="../resources/js/jquery.jplayer.min.js "></script>
+        <script src="../resources/js/common.js "></script>
+        <script src="../resources/js/mui.pullToRefresh.js "></script>
+        <script src="../resources/js/mui.pullToRefresh.material.js "></script>
+        <script src="../resources/js/mui.picker.min.js"></script>
+        <script src="../resources/js/mui.poppicker.js"></script>
+        <script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+        <script type="text/javascript">
+            var answer, param, workForm, answerName, imageCount, enrollPhase, imageLimit = 0,sum=0;
+            var images;
+            var imgItem = $('.avator').clone();
+            $('.avator').remove();
+            var reaItem = `<span class="upLoadWorks avator">重新上传作品</span>`;
+            var imageItem = `<span class="upLoadWorks avator">继续上传作品</span>`;
+            myFunc(function() {
+            	mui.init({
+					gestureConfig:{
+						longtap: true, //默认为false
+					}
+				});
+                if (mui.os.ios) { // ios系统静音，视频播放时依然出声音
+                    var AVAudioSession = plus.ios.importClass("AVAudioSession");
+                    var avSession = AVAudioSession.sharedInstance();
+                    plus.ios.invoke(avSession, "setCategory:error:", "AVAudioSessionCategoryPlayback", "nil");
+                }
+                /*题目数据加载*/
+                var enrollPhaseId = osg.param("enrollPhaseId");
+                osg.ajax('match/toAnswer/' + enrollPhaseId, null, function(d) {
+                    enrollPhase = d;
+                    answer = enrollPhase.answer;
+                    var phase = enrollPhase.phase;
+                    imageCount = phase.imgCount;
+                    imageLimit = phase.imgCountLimit;
+                    $(".jumpToInfo").text(enrollPhase.regionName + "-" + enrollPhase.matchName + "-" +
+                        enrollPhase.phaseName);
+                    $(".question").html(phase.question);
+                    workForm = phase.workForm;
+                    if (workForm == 1 || workForm == 2) { //前期图片视频上传
+                        if (workForm == 1) { //图片类型
+                        	$(".video_detail").remove();
+                            if (imageCount > 1) {
+                                if (enrollPhase.answer) { //已经上传作品
+                                    $('.linearGradientBtn').hide();
+                                    var ims = enrollPhase.answer.split(",");
+                                    for (var i = 0; i < ims.length; i++) {
+                                        var im = imgItem.clone();
+                                        im.find(".img_answer").attr('src', qiniuRoot + ims[i]);
+                                        im.find(".IDshadow").hide();
+                                        $('.IDnumber').append(im);
+                                    }
+                                } else {
+                                	$(".tishi").show();
+                                    var im = imgItem.clone();
+                                    $('.IDnumber').append(im);
+                                }
+                            } else {
+                                var im = imgItem.clone();
+                                if (enrollPhase.answer) {
+                                    $('.linearGradientBtn').hide();
+                                    im.find(".IDshadow").hide();
+                                    im.find(".img_answer").attr('src', qiniuRoot + enrollPhase.answer);
+                                }else{
+                                	$(".tishi").show();
+                                }
+                                $('.IDnumber').append(im);
+                            }
+                        } else if (workForm == 2) { //视频
+                            if (enrollPhase.answer) {
+                                $('.linearGradientBtn').hide();
+                                $(".video_detail").show();
+                                // 默认图片占位区高度
+                                $(".div_img").css('height', 210 / 376 * plus.screen.resolutionWidth +
+                                    'px');
+                                $('.btnPlay').attr('video', enrollPhase.fileidUrl);
+                                $('.btnPlay').attr('videoCover', '../resources/images/video.png');
+                                setBtnPlay($('.btnPlay')[0]);
+                                // ios隐藏全屏按钮
+                                if (mui.os.ios) {
+                                    $(".btnFullscreen").hide();
+                                }
+                            } else {
+                                var im = imgItem.clone();
+                                im.find(".img_answer").attr('src',
+                                    "../resources/images/videoSubmit.png");
+                                $('.IDnumber').append(im);
+                            }
+
+
+                        }
+                    }
+                })
+                /*上传图片或视频*/
+                mui('.contents').on('tap', '.avator', function(e) {
+                    if (osg.isLogined() && !enrollPhase.answer) {
+                        if (workForm == 1) {
+                            uploadImage();
+                        } else if (workForm == 2) {
+                            uploadVideo();
+                        }
+
+                    }
+                })
+                //提交作品点击事件
+                $('.linearGradientBtn').tap(function() {
+                	if (workForm == 1 && sum>0) {//当是图片并且用户已经上传过作品
+                		answer = "";
+                        var childNum = $('.changan');
+                        childNum.each(function(key,value){
+							var answerFileid = $(this).attr("answerFileid");
+                    		if(answerFileid){
+                    			if (answer) {
+		                            answer += "," + answerFileid;
+		                        } else {
+		                            answer = answerFileid;
+		                        }
+                    		}
+				            
+				        });
+                    }
+                    if (answer) {
+                        if (workForm == 1) {
+                            if (imageLimit > 0 && childNum.length < imageLimit) {
+                                osg.toast("最少上传" + imageLimit + "张,请继续上传");
+                                return;
+                            }
+                            if(childNum.length > imageCount && sum>0){
+                            	var shu = childNum.length-imageCount;
+			            		osg.alert("最多允许上传"+imageCount+"张,请删除"+shu+"张再提交！");
+			            		return;
+			            	}
+                        }
+                        osg.confirm("提交作品后不可更改，确定要提交作品？", function() {
+                            param = {
+                                answer: answer,
+                                enrollPhaseId: enrollPhaseId
+                            };
+                            osg.ajax('/match/answer/', param, function(data) {
+                                if (data.success) {
+                                    osg.alert("提交成功");
+                                    osg.evtFireEvent('submitAnswer');
+                                    $(".tishi").hide();
+                                    $('.linearGradientBtn').hide();
+                                    $('.upLoadWorks').hide();
+                                    enrollPhase.answer = answer;
+                                    $(".examQuestion").prop("answer_shang",
+                                        "tijiao");
+                                }
+                            }, {
+                                noload: true
+                            });
+                            
+                        });
+
+                    } else {
+                        osg.toast("请上传作品后再提交!");
+                        return;
+                    }
+
+                });
+				/*返回事件*/
+                $('.answer_close').tap(function() {
+                    var answer_fig = $(".examQuestion").prop("answer_shang");
+                    if (answer_fig && "shangchuan" == answer_fig) {
+                        osg.confirm("您的作品未提交，确认退出？", function() {
+                            osg.closeMe();
+                        });
+                    } else {
+                        osg.closeMe();
+                    }
+                });
+                //重写返回逻辑
+				mui.back = function() {
+					var answer_fig = $(".examQuestion").prop("answer_shang");
+                    if (answer_fig && "shangchuan" == answer_fig) {
+                        osg.confirm("您的作品未提交，确认退出？", function() {
+                            osg.closeMe();
+                        });
+                    } else {
+                        osg.closeMe();
+                    }
+				}
+                /*长按图片删除事件*/
+                mui('.contents').on('longtap', '.changan', function(e) {
+                	$this = $(this);
+                    osg.confirm("确认删除？", function() {
+                        $this.remove();
+                    });
+                })
+
+            })
+            /*屏幕滑动*/
+            mui('.mui-scroll-wrapper').scroll({
+                indicators: true
+            });
+
+            function writeObj(obj) {
+                var description = "";
+                for (var i in obj) {
+                    var property = obj[i];
+                    description += i + " = " + property + "\n";
+                }
+            }
+            /*图片上传开始*/
+            var uploadImage = function() {
+            	var childNum = $('.changan').length;
+            	if(childNum >= imageCount && sum>0){
+            		osg.alert("最多允许上传"+imageCount+"张,可长按图片删除后再上传！");
+            		return;
+            	}
+                plus.nativeUI.actionSheet({
+                    cancel: "取消",
+                    buttons: [{
+                        title: "拍照"
+                    }, {
+                        title: "从相册选择"
+                    }]
+                }, function(event) {
+                    var index = event.index;
+                    switch (index) {
+                        case 1: // 拍照
+                            osg.pickImageFromCamera(function(f) {
+                                if (sum == 0) {
+                                    $('.IDnumber').html("");
+                                    $(".reload_anwer").append(imageItem);
+                                }
+                                sum++;
+                                osg.uploadFile(f, function(fid) {
+                                    doAnswerUploaded(fid);
+                                    $(".examQuestion").prop("answer_shang", "shangchuan");
+                                })
+                            });
+                            break;
+                        case 2: // 从相册选择
+                            osg.pickImageFromGallery(imageCount, function(f) {
+                               if (sum == 0) {
+                                    $('.IDnumber').html("");
+                                    $(".reload_anwer").append(imageItem);
+                                }
+                              	sum++;
+                                osg.uploadFile(f, function(fid) {
+                                    doAnswerUploaded(fid);
+                                    $(".examQuestion").prop("answer_shang", "shangchuan");
+                                })
+
+                            })
+                            break;
+                    }
+                });
+            }
+            /*上传图片回调*/
+            function doAnswerUploaded(fileid) {
+                if (workForm == 1) {
+                    var im = imgItem.clone();
+                    im.removeClass("avator");
+                    im.attr("answerFileid",fileid[0]);
+                    im.addClass("changan");
+                    im.find(".img_answer").attr('src', qiniuRoot + fileid[0]);
+                    im.find(".IDshadow").hide();
+                    $('.IDnumber').append(im);
+                } else if (workForm == 2) {
+                    answer = fileid[0];
+                }
+            }
+
+            /*图片上传结束*/
+            /*视频上传开始*/
+            var uploadVideo = function() {
+                osg.pickVideoFromGallery(function(f) {
+                    if (mui.os.ios) { // ios系统视频压缩
+                        var OSGVideoCompress = plus.ios.newObject("OSGVideoCompress");
+                        var delegate = plus.ios.implements("OSGVideoCompressedDelegate", {
+                            "compressSuccess:": function(path) {
+                                var cpath = OSGVideoCompress.plusGetAttribute("compressedPath");
+                                osg.unload();
+                                uploadToQiniu(cpath);
+                            },
+                            compressFail: function() {
+                                osg.unload();
+                                uploadToQiniu(f);
+                            }
+                        });
+                        var s = plus.ios.invoke(OSGVideoCompress, "compressVideo:quality:callback:", f,
+                            "low", delegate);
+                        if (s != "OK") {
+                            // 非原生环境，不做视频压缩
+                            uploadToQiniu(f);
+                        } else {
+                            osg.loading('视频压缩...');
+                        }
+                    } else { // android系统视频压缩待实现
+                        var idx = f.lastIndexOf('/');
+                        var main = plus.android.runtimeMainActivity();
+                        var context = main.getApplicationContext();
+                        var VideoCompressor = plus.android.importClass("com.badou.VideoCompressor");
+                        var callback = plus.android.implements("com.badou.VideoCompressorCallback", {
+                            "success": function(path) {
+                                osg.unload();
+                                uploadToQiniu(path);
+                            },
+                            "fail": function(t) {
+                                osg.unload();
+                                uploadToQiniu(f);
+                            }
+                        });
+                        var p = VideoCompressor.compress(context, f, callback);
+                        if (!p || p != 'OK') // 非原生环境，不做视频压缩
+                            uploadToQiniu(f);
+                        else
+                            osg.loading('视频压缩...');
+                    }
+                })
+            }
+            var sum_video = 0; //多次上传视频时，只在第一次时初始化jplayer插件
+            function uploadToQiniu(imgPath) {
+                // 七牛云空间域名，修改为自己的
+                var domain = "http://qiniubadoupriv.caihongjiankang.com/";
+                // 生成一个随机名字作为上传到七牛云后的文件名
+                var randName = Math.random().toString(36).substr(2) + imgPath.match(/\.?[^.\/]+$/);
+                osg.ajax('file/upToken', {
+                    isPrivate: true,
+                    fileName: randName
+                }, function(data) {
+                    var task = plus.uploader.createUpload(
+                        // 不同的存储空间上传地址可能不一样，运行后根据返回信息做更改
+                        "http://upload-z1.qiniup.com/", {
+                            method: "POST",
+                            blocksize: 1150976,
+                            priority: 7200
+                        },
+                        function(t, status) {
+                            // 上传完成
+                            if (status == 200) {
+                                $(".video_detail").show();
+                                answer = data.key;
+                                // 默认图片占位区高度
+                                if (sum_video == 0) {
+                                    $(".div_img").css('height', 210 / 376 * plus.screen.resolutionWidth +
+                                        'px');
+                                    $('.btnPlay').attr('video', data.url);
+                                    $('.btnPlay').attr('videoCover', '../resources/images/video.png');
+                                    setBtnPlay($('.btnPlay')[0]);
+                                } else {
+                                    $("#jp_player_1").jPlayer("setMedia", { // 设置媒体
+                                        m4v: data.url
+                                    }).jPlayer("play"); // 自动播放媒体
+
+                                }
+                                sum_video++;
+                                // ios隐藏全屏按钮
+                                if (mui.os.ios) {
+                                    $(".btnFullscreen").hide();
+                                }
+                                $('.avator').hide();
+                                $(".reload_anwer").append(reaItem)
+                                osg.unload();
+                                osg.toast("上传成功，请提交作品！");
+                                $(".examQuestion").prop("answer_shang", "shangchuan");
+                            } else {
+                                osg.alert("上传失败，请重新打开页面上传！");
+                            }
+                        }
+                    );
+                    // 添加上传文件，key 值必须是七牛云所需文件对应的 key 值 "file"
+                    task.addFile(imgPath, {
+                        key: "file",
+                        mime: "mp4/*"
+                    });
+                    // 上传到七牛云后文件的名字
+                    task.addData("key", data.key);
+                    // 七牛云所需 token
+                    task.addData("token", data.token);
+                    osg.loading("上传中，请等待！");
+                    task.start();
+                });
+
+            }
+
+            function setBtnPlay(btnPlay) {
+                var url = btnPlay.getAttribute("video");
+                osg.video(btnPlay, url, {
+                    progressCallback: function() {
+
+                    }
+                });
+            }
+
+            /*视频上传结束*/
+        </script>
+    </body>
+
+</html>

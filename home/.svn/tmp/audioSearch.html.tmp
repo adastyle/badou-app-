@@ -1,0 +1,595 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			/*头部搜索*/
+			.mui-bar-nav {
+				background: #fff;
+				margin: 0 1.5rem;
+				box-shadow: none;
+				padding-right:0;
+			}
+			.mui-bar-nav .search{
+				display:inline-block;
+				width:80%;
+				height:2.2rem;
+				background:rgba(245,245,245,1);
+				border:1px solid rgba(245, 245, 246, 0.55);
+				border-radius:30px;
+				padding-left:.6rem;
+				margin-right:5%;
+				margin-left:1%;
+				padding-top:.15rem;
+			}
+			.mui-bar-nav .search>span{
+				color:#C8CCCC;
+				font-size:1.3rem;
+				width:8%;
+			}
+			.mui-bar-nav .search>input{
+				width:74%;
+				border:none;
+				outline :none;
+				background:rgba(245,245,245,1);
+				padding-left:0;
+				height:100%;
+				font-size: .9rem;
+			}
+			.mui-bar-nav .search input::-webkit-input-placeholder{
+				color:rgba(182,182,189,1);
+				font-size: .9rem;
+			}
+			.cancel{
+				color:#939393;
+				display:inline-block;
+				height:2.5rem;
+				line-height:2.5rem;
+				font-size:.9rem;
+				float:right
+			}
+			/*头部搜索完*/
+			/*搜索之前的页面状态*/
+			.titles{
+				color:#121212;
+				font-weight:bold;
+				padding:1rem 1rem .5rem 1rem;
+				margin-bottom:0;
+				color:#939393;
+			}
+			/*.historySearch{
+				display:none;
+			}*/
+			/*.hotSearch{
+				padding-top:.5rem !important;
+			}*/
+			.tags a{
+				display:inline-block;
+				padding:.3rem 1.2rem .1rem 1.2rem;
+				background:#F5F5F5;
+				border-radius:35px;
+				font-size:.9rem;
+				color:#121212;
+				margin:.5rem;
+			}
+			.searchList{
+				margin:0 1rem;
+			}
+			.searchList>li{
+				height:4rem;
+				border-bottom:1px solid #f5f6f7;
+				line-height:4rem;
+			}
+			.searchList>li>span.iconfont{
+				color:#BABABA;
+				font-size:1.2rem;
+			}
+			.searchList>li:first-child>span.iconfont,
+			.searchList>li:nth-child(2)>span.iconfont,
+			.searchList>li:nth-child(3)>span.iconfont{
+				color:#D32424;
+			}
+			.noSearchShow{
+				display:none;
+				padding-top:1rem;
+			}
+			.allPrice{
+				color:#D32424;
+			}
+			.allPrice>a{
+				display:inline-block;
+				width:2rem;
+				background:rgba(236,191,139,1);
+				border-radius:4px;
+				text-align: center;
+				font-size:.6rem;
+				color:#fff;
+				margin-left:.2rem;
+			}
+			.allPrice>a.vipPriceHide{
+				display:none;
+			}
+			/*搜索之前的状态完*/
+			.bgTopImg {
+				width: 100%;
+				height: 9rem;
+				overflow: hidden;
+				border-bottom: 1px solid transparent !important;
+				margin-bottom: 0;
+				position: relative;
+			}
+			
+			.bgTopImg img {
+				width: 100%;
+			}
+			
+			.mui-action-back {
+				width: 100%;
+				font-size: 1.2rem;
+				font-weight: bold;
+				position: relative;
+			}
+			
+			.headerTi>span {
+				position: absolute !important;
+				font-size: 1rem !important;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+			
+			.headerTi>span:first-child {
+				left: 1rem;
+			}
+			
+			.headerTi>span:last-child {
+				right: 1rem;
+			}
+			
+			.headerTi a {
+				color: #121212;
+			}
+			
+			.allPlay {
+				height: 3rem;
+				line-height: 2.2rem;
+				position: relative;
+				border: 1px solid #f5f6f7;
+				border-top: none;
+			}
+			
+			.allPlay>a {
+				margin-left: 1rem;
+				padding: .5rem 1rem;
+				background: #f5f6f7;
+				border-radius: 25px;
+				color: #121212;
+			}
+			
+			.allPlay .allDownload {
+				position: absolute;
+				right: 1rem;
+				color: #747682;
+			}
+			/*查看更多*/
+			
+			.module {
+				background: #fff;
+				z-index: 1000;
+				margin-bottom: 0.8rem;
+			}
+			
+			.lookMore {
+				height: 7.3rem;
+				width: 100%;
+				padding: 0 3%;
+				position: relative;
+				border-bottom: 1px solid #F5F6F7;
+				background: #fff;
+				z-index: 1000
+			}
+			
+			.lookMore:last-child {
+				border-bottom: #00F7DE;
+			}
+			
+			.lookMoreTi {
+				color: #121212;
+				font-weight: bold;
+				font-size: 1.2rem;
+				margin-bottom: 0;
+				padding-left: 3%;
+				padding-top: .5rem;
+			}
+			.lookMore:first-child{
+				height:6.5rem;
+			}
+			/*.lookMore:first-child>div.leftShow>div p,*/
+			.lookMore:first-child>div.leftShow>div{
+				margin-top:.2rem;
+				padding-top:.2rem;
+				vertical-align: middle;
+			}
+			.lookMore:first-child>div.leftShow img{
+				margin-top:.2rem;
+				vertical-align: middle;
+			}
+			.lookMore>div.leftShow>img {
+				width: 4rem;
+				height: 4rem;
+				margin-top: 1.7rem;
+				vertical-align: middle;
+				border-radius: 4px;
+			}
+			
+			.lookMore>div.leftShow>div {
+				display: inline-block;
+				padding-top: 1rem;
+			}
+			
+			.lookMore>div.leftShow>div p {
+				margin: 0.3rem;
+				font-size: 1rem;
+				color: #121212;
+			}
+			
+			.allrowRight {
+				position: absolute;
+				top: 50%;
+				right: 1rem;
+				transform: translateY(-50%);
+				color: #CCCCCC;
+				text-align: center;
+				font-size: .8rem;
+			}
+			
+			.allrowRight.noFree {
+				color: #D32424 !important;
+			}
+			
+			.allrowRight.noFree p {
+				display: block !important;
+			}
+			
+			.fonts>span {
+				margin-right: 1rem;
+			}
+			
+			.fonts i.iconfont {
+				margin-right: .1rem;
+				font-size: .9rem;
+			}
+			
+			.topNum {
+				color: #EE4E4E;
+				font-size: 1.3rem;
+				margin-right: .5rem;
+			}
+			/*分享方式*/
+			
+			.shadow {
+				position: fixed;
+				top: 0;
+				height: 100%;
+				width: 100%;
+				background: #000;
+				opacity: 0.5;
+				text-align: center;
+				z-index: 1000;
+				list-style: none;
+			}
+			
+			.shadow .shareWay {
+				position: absolute;
+				bottom: 0;
+				height: 9rem;
+				width: 100%;
+				background: #fff;
+			}
+			
+			.shareWay>li {
+				display: inline-block;
+				width: 30%;
+				height: 4rem;
+				text-align: center;
+				font-size: .8rem;
+				padding-top: 1rem;
+			}
+			
+			.shareWay>li img {
+				width: 2.2rem;
+			}
+			
+			.openVip {
+				width: 16rem;
+			}
+			
+			.memo {
+				width: 15rem;
+			}
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="search">
+				<span class="iconfont">&#xe651;</span>
+				<input type="text" class="toSearchAudio" placeholder="搜索你想听的国学"/>
+			</div>
+			<span class="cancel">取消</span>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll voice_scroll">
+				<!--搜索之前的显示 star-->
+				<div class="noSearchShow">
+					<p class="titles historySearch">历史搜索</p>
+					<div class="tags historySearch">
+						<a class="tagName" href="javascript:;"></a>
+					</div>
+					<p class="titles hotSearch" style="padding-top:3rem;">热门搜索</p>
+					<ul class="searchList">
+						<li class="hotSearchList">
+							<span class="iconfont">&#xe626;</span>
+							<span class="searchName"></span>
+						</li>
+					</ul>
+				</div>
+				<!--搜索之前的显示end-->
+				<div class="searchContent">
+					<div class="resourceslist module">
+					</div>
+					<div class="audioLists module isShow">
+						<div class="lookMore">
+							<div class="leftShow">
+								<img class="imgOfInfo" src="../resources/images/currAudioLogo.png" alt="" />
+								<div class="audioListnameMore">
+									<p class="openVip">成语大全</p>
+									<p style="color:#939393" class="memo">共100个成语</p>
+									<p style="color:#939393" class="fonts">
+										<span><i class="iconfont readIcon">&#xe610;</i><span class="playTimes">50</span></span>
+										<span><i class="iconfont comment">&#xe62e;</i><span class="duration">50</span></span>
+									</p>
+								</div>
+							</div>
+							<div class="allrowRight">
+								<span class="iconfont">&#xe606;</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<!--分享先隐藏-->
+			<!--<div class="shadow">
+				<ul class="shareWay">
+					<li>
+						<img src="../resources/images/weixin.png" alt="" />
+						<p>微信</p>
+					</li>
+					<li>
+						<img src="../resources/images/pengyouquan.png" alt="" />
+						<p>朋友圈</p>
+					</li>
+				</ul>
+				<p class="cancel">取消</p>
+			</div>-->
+
+		</div>
+
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var  voiceFpi,title,ptr;
+			var hotSearchList=$(".hotSearchList").clone();
+			$(".hotSearchList").remove();
+			myFunc(function() {
+				function noSearch(){
+					$(".tags").empty();
+					$(".searchList").empty();
+					/*请求热门搜索*/
+					osg.ajax("search/findAll",{type:"voice"},function(data){
+						if(!data.length)
+							return;
+						var currSearchList=10;
+						if(data.length<10)
+							currSearchList=data.length;
+						for(var i=0;i<currSearchList;i++){
+							var temp=hotSearchList.clone();
+							temp.find(".searchName").html(data[i]._id);
+							$(".searchList").append(temp);
+						}
+					})
+					/*历史搜索*/
+					osg.ajax("search/fpByUserId",{'deviceid': plus.device.uuid,"type":"voice"},function(data){
+						if(!data.length){
+							$(".titles").removeClass("hotSearch");
+							return;
+						}
+						$(".historySearch").show();
+						var tagsLength=5;
+						if(data.length<5)
+							tagsLength=data.length;
+						for(var j=0;j<tagsLength;j++){
+							$(".tags").append('<a class="tagName" href="javascript:;">'+data[j]._id+'</a>');
+						}
+					})
+				}
+				noSearch();
+				$(".searchContent").hide();
+				$("input").on("input", function () {
+		          	title = $(this).val();
+					if(title.trim()){
+						$(".audioLists").html("");
+						$(".noSearchShow").hide();
+						$(".searchContent").show();
+						findResourcePacks(title);
+						findPage(1);
+					}else{
+						$(".searchContent").hide();
+						$(".noSearchShow").show();
+						noSearch();
+					}
+				});
+				$(".noSearchShow").show();
+				myscroll = $(".voice_scroll")[0];
+				mui(myscroll).pullToRefresh({
+					up: {
+						auto: true,
+						callback: function() {
+							ptr = this;
+							var nextPage;
+							if(voiceFpi)
+								nextPage = voiceFpi.page + 1;
+							else
+								nextPage = 1;
+
+							findPage(nextPage, {
+								'self': this
+							});
+						}
+					},
+				});
+				
+				//分页函数
+				function findPage(page, param) {
+					if(!param) {
+						param = {};
+					}
+					param.self = ptr;
+					osg.ajax('search/queryVoiceByTitle', {
+						'page': page,
+						'title': title,
+						'deviceid': plus.device.uuid
+					}, function(data) {
+						// 下拉的情况下，结束下拉刷新状态
+						if(param.pullDown)
+							param.self.endPullDownToRefresh();
+						if(!data) {
+							param.self.endPullUpToRefresh(true);
+							return;
+						}
+						if(page == 1) {
+							$("#audioLists").html('');
+						}
+						voiceFpi = data;
+						for(var i = 0; i < data.data.length; i++) {
+							var oneData = data.data[i];
+							$(".audioLists").append(getItem(oneData,"voice"));
+						}
+						param.self.endPullUpToRefresh(data.page >= data.pages);
+					}, {
+						noload: true
+					});
+
+				}
+				
+				function findResourcePacks(title) {
+					$(".resourceslist").empty();
+					/*加载资源包内容*/
+					osg.ajax("search/queryResouByTitle",{
+						'title': title
+					}, function(data) {
+						var voiceResourcePacks = data.data;
+						for(var i = 0; i < voiceResourcePacks.length; i++) {
+							var voiceResourcePack = voiceResourcePacks[i];
+							$(".resourceslist").append(getItem(voiceResourcePack,"pack"));
+						}
+					});
+				}
+				
+				var voiceTemp = $(".lookMore").clone();
+				$(".lookMore").remove();
+				function getItem(oneData,type){
+					var voice = oneData;
+					var voi = voiceTemp.clone();
+						voi.attr('id', voice._id);
+						voi.data('data', voice);
+						voi.find(".allrowRight").attr("data-url", voice.fileidUrl);
+						voi.find(".imgOfInfo").attr("src", qiniuRoot + voice.logo+"!app.voicesmall.img");
+						voi.find(".memo").html(voice.memo);
+						voi.find(".playTimes").html(voice.times);
+						voi.find(".duration").html(voice.commentTimes);
+						if(type=='pack'){
+							voi.find(".openVip").html(voice.name);
+							voi.find(".readIcon").html("&#xe684;");
+							voi.find(".playTimes").html("");
+							voi.find(".comment").html("");
+							voi.find(".duration").html("");
+							voi.find(".allrowRight .iconfont").html("&#xe61c;");
+							if(voice.count==voice.sum){
+								voi.find(".duration").html(voice.sum+"集");
+							}else{
+								voi.find(".duration").html(voice.count+"/"+voice.sum+"集");
+							}
+							voi.tap(function() {
+								var id = $(this).attr('id');
+								osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+							})
+						}else{
+							voi.find(".openVip").html(voice.title);
+							voi.tap(function() {
+								var voice_data = $(this).data('data');
+								osg.set('voice_list',voiceFpi.data);//把列表缓存到本地
+							    osg.set("voice_now",voice_data);
+							    osg.evtFireEvent('update');
+								osg.open('audioPlay.html', {
+								}, null, {
+									im: 1,
+									id:"details"
+								});
+							})
+						}
+						
+						return voi;
+				}
+				/*去搜索的方法*/
+				function toSearchContent(title){
+					if(title.trim()){
+						$(".audioLists").html("");
+						$(".noSearchShow").hide();
+						$(".searchContent").show();
+						findResourcePacks(title);
+						findPage(1);
+					}else{
+						$(".searchContent").hide();
+						$(".noSearchShow").show();
+						noSearch();
+					}
+				}
+				$(".tags").on("tap","a",function(){
+					title=$(this).html();
+					$(".toSearchAudio").val(title);
+					toSearchContent(title);
+				})
+				/*热门搜索点击*/
+				$(".searchList").on("tap",'.hotSearchList',function(){
+					title=$(this).children(".searchName").html();
+					$(".toSearchAudio").val(title);
+					toSearchContent(title);
+				})
+				
+				$(".cancel").tap(function(){
+					var curr = plus.webview.currentWebview();
+					plus.webview.close(curr);//关闭当前页面
+				});
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

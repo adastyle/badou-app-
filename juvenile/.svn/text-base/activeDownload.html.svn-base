@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin-bottom:0;
+			}
+			.contents{
+			   width:93%;
+			   margin:0 auto;
+			}
+			.aActive{
+				padding-bottom:1rem;
+				border-bottom:8px solid #f5f6f7;
+			}
+			.activeName{
+				font-size:1.1rem;
+				padding:1.5rem 0;
+				color:#121212;
+				font-weight: bold;
+				position:relative;
+			}
+			.activeName>span.delete{
+				display:inline-block;
+				font-weight: normal;
+				position:absolute;
+				right:0;
+				top:50%;
+				transform:translateY(-25%);
+				float:right;
+				font-size:1.3rem;
+				color:#747682;
+			}
+			.bodys{
+				margin-bottom:1rem;
+				padding-bottom:1rem;
+				border-bottom:1px solid #F5F6F7;
+			}
+			.bodys img{
+				width:40%;
+				border-radius:10px;
+				margin-right:3%;
+				vertical-align: middle;
+			}
+			.bodys>span{
+				display:inline-block;
+				width:53%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				vertical-align: middle;
+			}
+			.toLookProof{
+				margin:1.2 0rem;
+				text-align: right;
+			}
+			.toLookProof a{
+				display:inline-block;
+				padding:.4rem 1rem;
+				background:rgba(238,78,78,1);
+				border-radius:25px;
+				color:#fff;
+				font-size:.9rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back"  style="padding:.5rem;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">活动下载</h1>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll">
+				<div class="contents">
+					<div class="aActive">
+						<p class="activeName">
+							<span></span>
+							<span class="delete iconfont">&#xe6be;</span>
+						</p>
+						<div class="bodys">
+							<img src="" alt="" />
+							<span>中华之星国学第四届夏令营中华之星国学第四届夏令营</span>
+						</div>
+						<p class="toLookProof">
+							<a  href="javascript:;">查看入营凭证</a>
+						</p>
+					</div>
+					
+				</div>	
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script type="text/javascript">
+			var aActive=$(".aActive").clone();
+			$(".aActive").remove();
+			var  voiceFpi,ptr;
+			myFunc(function() {
+				osg.ajax("enrollactivity/query",{},function(data){
+					var datas=data.data;
+					loadData(datas);
+				})
+				
+				myscroll = $(".coment_scroll")[0];
+				mui(myscroll).pullToRefresh({
+					up: {
+						auto: true,
+						callback: function() {
+							ptr = this;
+							var nextPage;
+							if(voiceFpi)
+								nextPage = voiceFpi.page + 1;
+							else
+								nextPage = 1;
+	
+							findPage(nextPage, {
+								'self': this
+							},"DESC");
+						}
+					},
+				});
+				
+				//分页函数
+				function findPage(page, param,order) {
+					if(!param) {
+						param = {};
+					}
+					param.self = ptr;
+					osg.ajax('enrollactivity/query', {
+					'page': page
+					}, function(data) {
+						// 下拉的情况下，结束下拉刷新状态
+						if(param.pullDown)
+							param.self.endPullDownToRefresh();
+						if(!data) {
+							param.self.endPullUpToRefresh(true);
+							return;
+						}
+						if(page == 1) {
+							$("#module").html('');
+						}
+						voiceFpi = data;
+						var datas=data.data;
+						loadData(datas);
+						param.self.endPullUpToRefresh(data.page >= data.pages);
+					});
+				}
+				
+				function loadData(datas){
+					$(".contents").empty();
+					for(var i=0;i<datas.length;i++){
+						var temp=aActive.clone();
+						temp.find(".toLookProof a").attr("data-id",datas[i]._id);
+						temp.find(".activeName>span:first-child").html(datas[i].activity.title);
+						temp.find(".bodys img").attr("src",qiniuRoot+datas[i].activity.banner+"!app.shaodan.img");
+						temp.find(".bodys span").html(datas[i].activity.title+"入营凭证");
+						if(datas[i].activity.carOpen==1){
+							temp.find(".toLookProof").show();
+						}else{
+							temp.find(".toLookProof").hide();
+						}
+						$(".contents").append(temp);
+						temp.on("tap",".toLookProof a",function(){
+							var currId=$(this).attr("data-id");
+							osg.open("proofOfCamp.html",{"currId":currId});
+						})
+					}
+				}
+				
+			})
+				
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+</html>

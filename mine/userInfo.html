@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet" />
+		<style type="text/css">
+			.loginLogo{
+				height:15rem;
+				text-align: center;
+				padding-top:2rem;
+			}
+			.loginLogo>img{
+				height:70%;
+			}
+			.form{
+			   width:94%;
+			   margin:0 auto;
+			}
+			.form p{
+				background:rgba(245,246,247,1);
+				border:1px solid rgba(245, 245, 246, 0.55);
+				border-radius:10px;
+				width:90%;
+				margin:2rem auto;
+				text-align: center;
+				height:3.5rem;
+				line-height:3.5rem;
+			}
+			.form p>input{
+				width:70%;
+				border:none;
+				background:rgba(245,246,247,1);
+			}
+			.selectCla {
+				display: inline-block;
+				vertical-align: middle;
+				height: 40px;
+				line-height: 40px;
+				width: 71%;
+				text-align: left;
+			}
+			.nextStep {
+				height: 4rem;
+				width: 100%;
+				background: #fff;
+				text-align: center;
+				margin:3rem 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="mui-action-back inline">
+				<div style="color:#121212;font-size:1.1rem;" class="iconfont">&#xe60e;</div>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll">
+				<div class="loginLogo">
+					<img src="../resources/images/whyBadou.png" alt="" />
+					<p style="text-align: center;padding:.5rem 0;font-size:.9rem">八斗量身定制国学</p>
+				</div>
+				<div class="form">
+					<p>
+						<span>宝贝生日</span>
+						<span class="birthday selectCla"></span>
+					</p>
+					<p>
+						<span>宝贝性别</span>
+						<span class="sex selectCla"></span>
+					</p>
+					<p>
+						<span>宝贝昵称</span>
+						<input class="nickname" type="text" />
+					</p>
+					<div class="nextStep">
+						<a class="linearGradientBtn" href="javascript:;">下一步</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js"></script>
+		<script src="../resources/js/mui.min.js"></script>
+		<script src="../resources/js/common.js"></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/js/mui.pullToRefresh.js"></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js"></script>
+		<script type="text/javascript">
+			var flag = false,birthday,sex,nickname;
+			myFunc(function() {
+				var detailsView = plus.webview.getWebviewById("../mine/login.html");
+				if(detailsView){
+					plus.webview.hide(detailsView);
+					plus.webview.close(detailsView);
+				}
+				var dtPicker = new mui.DtPicker({
+					"type": "date",
+					"beginYear": 1980,
+					"endYear": 2020
+					});
+				var sexPicker = new mui.PopPicker({
+					layer: 1
+				});
+				sexPicker.setData([{
+				    value: 0,
+				    text: '男'
+				}, {
+				    value: 1,
+				    text: '女'
+				}]);
+				$(".birthday").tap(function() {
+					dtPicker.show(function (selectItems) {
+						birthday ="";
+						birthday += selectItems.y.value;
+						birthday += '-' + selectItems.m.value;
+						birthday += '-' + selectItems.d.value;
+						$('.birthday').text(birthday);
+					});
+				});
+				$(".sex").tap(function() {
+					sexPicker.show(function(items) {
+						$(".sex").text(items[0].text);
+						sex = items[0].text;
+					});
+				});
+				
+				$(".linearGradientBtn").tap(function() {
+					nickname = $(".nickname").val();
+					if(birthday && sex && nickname){
+						osg.ajax('user/updateloginUser', {
+							'birthday': birthday,
+							'sex': sex,
+							'nickname': nickname
+						}, function(data) {
+							if(data.status==1){
+								osg.evtFireEvent('favorToVoicehome');
+								osg.evtFireEvent('change_student');
+								osg.closeMe();
+							}
+							
+							
+						}, {
+							noload: true
+						});
+					}else{
+						if(!birthday){
+							osg.toast("请选择宝贝生日");
+						}else if(!sex){
+							osg.toast("请选择宝贝性别");
+						}else if(!nickname){
+							osg.toast("请填写宝贝昵称");
+						}
+					}
+					
+				});
+				
+				osg.ajax('user/mine', null, function(d) {
+					if(d){
+						$(".nickname").val(d.nickname);
+						nickname=d.nickname;
+					}
+				});
+				
+			});
+		</script>
+	</body>
+
+</html>

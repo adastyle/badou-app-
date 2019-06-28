@@ -1,0 +1,168 @@
+/*推荐音频部分*/
+@display:inline-block;
+@height:5rem;
+@font-size:.9rem;
+.hideMore{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+ .recommendAudioPart{
+     padding-top:.3rem;
+    .recommendAudio{
+        height:3rem;
+        line-height:3rem;
+        text-align: left;
+        padding-top:.3rem;
+        margin-bottom:1rem;
+        img{
+           width:60%;
+           margin-left:1rem;
+        }
+       .allAudioPlay{
+           display:inline-block;
+            color:#fff;
+            font-size: .8rem;
+            background:linear-gradient(-90deg,rgba(245,39,37,1),rgba(246,102,100,1));
+            box-shadow:0px 2px 6px 0px rgba(245,39,37,0.6);
+            border-radius:25px;
+            line-height: normal;
+            padding:.38rem .65rem;
+            float:right;
+            text-align: center;
+            margin-top:.3rem;
+            vertical-align: middle;
+            .iconfont{
+                margin-right:.1rem;
+                font-size:.7rem;
+            }
+            span{
+                vertical-align: middle;
+            }
+       }
+    }
+    .leftResourcesImg{
+        display:@display;
+        vertical-align: middle;
+        width:28%;
+        height:@height;
+        img{
+            height:100%;
+        }
+    }.rightList{
+        font-size:@font-size;
+        display:@display;
+        vertical-align: middle;
+        height:@height;
+        padding-top:.7rem;
+        width:70%;
+        p{
+            text-align: left;
+            .duration{
+                float:right;
+                color:#747682;
+            }  
+            .recommendTi{
+                display:inline-block;
+                width:70%;
+                .hideMore();
+            }
+        }
+        .upDownScroll{
+            height:1.6rem;
+            .swiper-container{
+                height:100%;
+            }
+        }
+    }
+    .moreRecommendAudio{
+        height:1.5rem;
+        text-align: center;
+        color:#747682;
+        font-size:@font-size;
+    }
+} 
+.currhide{
+        display:none;
+    }
+.listening{
+    text-align: left;
+    padding:1rem 0;
+    p:first-child{
+        color:#121212;
+        font-size:1.4rem;
+        font-weight: bold;
+        margin-bottom:1.5rem;
+        position:relative;
+        .currLinterMore{
+            position:absolute;
+            right:0;
+            top:50%;
+            transform:translateY(-50%);
+            font-size: .9rem;
+            color:#939393;
+            .iconfont{
+                font-size:.9rem;
+            }
+        }
+    }
+    
+    .listenList{
+        width:100%;
+        .pdRigit{
+            padding-right:3rem;
+        }
+        .sliderOne{
+            transform: translate3d(0px,0px,0px);
+        }
+        .swiper-slide{
+            img{
+                width:100%;
+                border-radius:10px;
+            }
+            p{
+                margin-bottom:0;
+                margin:2px 0;
+                width:90%;
+            }
+            .currLisName{
+                font-size:@font-size;
+            }
+            .currListMemo{
+                color:#939393;
+                font-size:@font-size;
+                width:93%;
+            }
+        }
+        .goOnLook{
+            display:@display;
+            width:4rem;
+            height:6.3rem;
+            padding-right:1rem !important;
+            padding-left:.6rem;
+            margin-right: 2rem;
+            line-height:6.3rem;
+            background:rgba(0,0,0,0.2);
+            box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+            border-radius:10px 0px 0px 10px;
+            color:#FFFFFF;
+            text-align: left;
+            .moreing{
+                display:@display;
+                line-height:1rem;
+                width:1.4rem;
+                vertical-align: middle;
+                font-size: @font-size;
+                text-align: left;
+                position:relative;
+                .iconfont{
+                    position:absolute;
+                    left:.8rem;
+                    top:50%;
+                    transform:translateY(-50%);
+                }
+            }
+        }
+    }
+}     
+            

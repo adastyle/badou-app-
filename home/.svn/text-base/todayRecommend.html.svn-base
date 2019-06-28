@@ -1,0 +1,382 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin-bottom:0;
+				padding:0;
+			}
+			.bgTopImg {
+				width:100%;
+				height:13rem;
+				overflow: hidden;
+				border-bottom:1px solid transparent !important;
+				margin-bottom:0;
+				position:relative;
+			}	
+			.bgTopImg img{
+				width:100%;
+			}
+			.dataShow{
+				position:absolute;
+				bottom:4rem;
+				left:2.8rem;
+				width:3.3rem;
+				height:4rem;
+				background:transparent;
+				color:#fff;
+				text-align: center;
+			}
+			.dataShow p.month{
+				margin-bottom:.2rem;
+				padding-top:.2rem;
+				border-bottom:1px solid #fff;
+				width:98%;
+				font-size:.8rem;
+			}
+			.dataShow span.day{
+				font-size:1.1rem;
+			}
+			.mui-bar~.mui-scroll-wrapper{
+				margin-top:0 !important;			
+			}
+			.mui-bar-nav{
+				background:transparent !important;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-size:1.2rem;
+				font-weight:bold;
+				position: relative;
+			}
+			.headerTi{
+				color:#fff;
+			}
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				left:.5rem;
+				top:50%;
+				transform:translateY(-50%);
+				color:#fff;
+			}
+			/*查看更多*/
+			.module{
+				background:#fff;
+				z-index: 1000;
+				padding-top:1rem;
+				margin-bottom:4rem;
+			}
+			.lookMore{
+				height:7rem;
+				width:100%;
+				padding:0 3%;
+				position:relative;
+				border-bottom:10px solid #F5F6F7;
+				background:#fff;
+				z-index:1000
+			}
+			.lookMore:last-child{
+				border-bottom:#00F7DE;
+			}
+			.lookMoreTi{
+				color:#121212;
+				font-weight: bold;
+				font-size:1.2rem;
+				margin-bottom:0;
+				padding-left:3%;
+				padding-top:.5rem;
+			}
+			.lookMore>div.leftShow>img{
+				width:4rem;
+				padding-top:1.7rem;
+			}
+			.lookMore>div.leftShow>div{
+				display:inline-block;
+				padding-top:1rem;
+			}
+			.lookMore>div.leftShow>div p{
+				margin:0.3rem;
+				font-size:1rem;
+				color:#121212;
+			}
+			.allrowRight{
+				position: absolute;
+				top:50%;
+				right:1rem;
+				transform:translateY(-50%);
+				color:#CCCCCC;
+				padding:.5rem;
+			}
+			.lookMoreRadio{
+				position: fixed;
+				bottom:0;
+				height:4rem;
+				width:100%;
+				background:#F5F6F7;
+				text-align: center;
+				line-height:4rem;
+				z-index:1000;
+			}
+			.lookMoreRadio>a{
+				display:inline-block;
+				width:5rem;
+				height:2rem;
+				background:#fff;
+				color:#747682;
+				text-align: center;
+				line-height: 2.2rem;
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				border-radius:25px;
+			}
+			.showPartIcon{
+				color:#939393;
+			}
+			.showPartIcon .iconfont{
+				color:#939393;
+				font-size:.8rem;
+				margin-right:.1rem
+			}
+			.readNum{
+				margin-right:1rem;
+			}
+			/*MUI 去除标题栏与内容栏中间的线*/
+			.mui-bar-nav {
+			-webkit-box-shadow: none;
+			box-shadow: none;
+			} 
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header ">
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+					今日推荐
+				</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll ">
+				<div class="bgTopImg">
+					<img src="../resources/images/tdRecommendHd.png" alt="" />
+					<div class="dataShow">
+						<p class="month">壹月</p>
+						<span class="day">23</span>
+					</div>
+				</div>
+				<div class="module">
+				</div>
+
+			</div>
+			<!--查看更多按钮-->
+			<!--<div class="lookMoreRadio"><a href="javascript:;">查看更多</a></div>-->
+		</div>
+
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script src="../resources/js/download.js "></script>
+		<script type="text/javascript">
+			myFunc(function() {
+				var htmls =
+					`
+					<div class="lookMore">
+						<div class="leftShow">
+							<img class="imgOfInfo" src="../resources/images/currAudioLogo.png" alt="" />
+							<div class="audioListnameMore">
+								<p class="openVip">成语大全</p>
+								<p style="color:#939393" class="memo">共100个成语</p>
+								<p class="showPartIcon">
+									<span class="iconfont readIcon">&#xe684;</span>
+									<span class="readNum">50</span>
+									<span class="iconfont playIcon"></span>
+									<span class="playNum"></span>
+								</p>
+							</div>
+						</div>
+						<span  class="iconfont allrowRight">&#xe61c;</span>
+					</div>`;
+
+				$(".toPlayMusic").tap(function() {
+					osg.open("../voice/voiceSub.html");
+				})
+				$(".div_img").css('height', 210 / 376 * plus.screen.resolutionWidth + 'px');
+
+				/*获取今天得日期*/
+				var currDate = new Date();
+				var currMonth = currDate.getMonth() + 1;
+				var currDay = currDate.getDate();
+				if (currMonth >= 1 && currMonth <= 9) {
+					currMonth = "0" + currMonth;
+				}
+				switch (parseInt(currMonth)) {
+					case 1:
+						$(".month").html("Jan");
+						break;
+					case 2:
+						$(".month").html("Feb");
+						break;
+					case 3:
+						$(".month").html("Mar");
+						break;
+					case 4:
+						$(".month").html("April");
+						break;
+					case 5:
+						$(".month").html("May");
+						break;
+					case 6:
+						$(".month").html("June");
+						break;
+					case 7:
+						$(".month").html("Juny");
+						break;
+					case 8:
+						$(".month").html("Aug");
+						break;
+					case 9:
+						$(".month").html("Sept");
+						break;
+					case 10:
+						$(".month").html("Oct");
+						break;
+					case 11:
+						$(".month").html("Nov");
+						break;
+					default:
+						$(".month").html("Dec")
+				}
+				if (currDay >= 0 && currDay <= 9) {
+					currDay = "0" + currDay;
+				}
+				$(".day").html(currDay);
+				osg.ajax("todayRecommend/query", {
+					tag: 't'
+				}, function(data) {
+					var datas = data.data;
+					showData(datas);
+				})
+
+				function showData(datas) {
+					for (var i = 0; i < datas.length; i++) {
+						if (datas[i].type == 1) {
+							var voices = datas[i].objects;
+							$(".module").append('<p class="lookMoreTi more">' + datas[i].title + '</p>');
+							for (var j = 0; j < voices.length; j++) {
+								var currModule = $(htmls).clone();
+								currModule.find(".memo").hide();
+								currModule.find(".allrowRight").data("data", voices[j]);
+								currModule.find(".allrowRight").html("&#xe606;");
+								currModule.find(".allrowRight").attr("data-down", voices[j]._id);
+								currModule.find(".openVip").html(voices[j].title);
+								currModule.find(".openVip").css("padding-top", "1rem");
+								currModule.find(".readIcon").html("&#xe610;");
+								currModule.find(".readNum").html(voices[j].times);
+								currModule.find(".playIcon").html("&#xe62e;");
+								currModule.find(".playNum").html(voices[j].commentTimes);
+								currModule.find(".imgOfInfo").attr("src", qiniuRoot + voices[j].logo + "!app.voicesmall.img");
+								currModule.attr('id', voices[j]._id);
+								currModule.data('data', voices[j]);
+								currModule.tap(function() {
+									var voice_data = $(this).data('data');
+									if (voice_data.buyType == 1) {
+										if (voices && voices.length > 0) {
+											var vlist = [];
+											for (var f = 0; f < voices.length; f++) {
+												if (voices[f].buyType == 1) {
+													vlist.push(voices[f]);
+												}
+											}
+											osg.set('voice_list', vlist); //把列表缓存到本地
+										}
+										osg.set("voice_now", voice_data);
+										osg.evtFireEvent('update');
+										osg.open('audioPlay.html', {}, null, {
+											im: 1,
+											id: "details"
+										});
+									}
+								});
+								currModule.find(".allrowRight").tap(function() {
+									event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+									var data = $(this).data("data");
+									download("", data);
+									$(this).html("&#xe653;").css("fontSize", "1.2rem");
+									var data = $(this).data("data");
+									download("",data);
+									$(this).html("&#xe653;").css("fontSize","1.2rem");
+									$this = $(this);
+									fileDownload($this);
+									$(this).html("&#xe653;").css("fontSize","1.2rem");
+								});
+								$(".module").append(currModule);
+							}
+							hasDown();
+						} else if (datas[i].type == 2 || datas[i].type == 3) {
+							var vos = datas[i].objects;
+							$(".module").append('<p class="lookMoreTi more">' + datas[i].title + '</p>');
+							for (var j = 0; j < vos.length; j++) {
+								var currModule = $(htmls).clone();
+								currModule.find(".allrowRight").data("data", vos[j]);
+								currModule.find(".allrowRight").html("&#xe61c;");
+								currModule.addClass("lookMoreList");
+								currModule.find(".allrowRight").attr("data-down", vos[j]._id);
+								currModule.find(".openVip").html(vos[j].name);
+								currModule.attr('data-id', vos[j]._id);
+								currModule.data('data', vos[j]);
+								if(datas[i].type==2)
+									currModule.attr("data-info","分类");
+								else
+									currModule.attr("data-info","资源包");
+								/*该资源包或者音频的个数*/
+								currModule.find(".readIcon").html("&#xe684;");
+								currModule.find(".playIcon").html("");
+								currModule.find(".playNum").html("");
+								if(vos[j].count==vos[j].sum)
+									currModule.find(".readNum").html(vos[j].sum+"集");
+								else
+									currModule.find(".readNum").html(vos[j].count+"/"+vos[j].sum+"集");
+								currModule.find(".memo").html(vos[j].memo);
+								currModule.find(".imgOfInfo").attr("src",qiniuRoot+vos[j].logo+"!app.voicesmall.img");
+								$(".module").append(currModule);
+							}
+						}
+					}
+				}
+			});
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+			$(".module").on("tap", ".lookMoreList", function() {
+				var cuId = $(this).attr("data-id");
+				var currCateGory = $(this).attr("data-info");
+				if (cuId) {
+					osg.open('audioList.html', {
+						"categoryId": cuId,
+						"cateGoryInfo": currCateGory
+					}, null, {
+						im: 1
+					});
+				}
+			})
+		</script>
+	</body>
+
+</html>

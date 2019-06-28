@@ -1,0 +1,818 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			/*头部搜索*/
+			.mui-bar-nav {
+				background: #fff;
+				box-shadow: none;
+				padding-right:0;
+				text-align: center;
+			}
+			.mui-bar-nav .search{
+				display:inline-block;
+				width:90%;
+				height:2.2rem;
+				background:rgba(245,245,245,1);
+				border:1px solid rgba(245, 245, 246, 0.55);
+				border-radius:30px;
+				padding-left:.6rem;
+				line-height: 2rem;
+				vertical-align: middle;
+				text-align: left;
+			}
+			.mui-bar-nav .search>span{
+				color:#C8CCCC;
+				font-size:1.1rem;
+				width:8%;
+			}
+			.mui-bar-nav .search .toSearchAudio{
+				display:inline-block;
+				width:74%;
+				background:rgba(245,245,245,1);
+				padding-left:0;
+				color:rgba(182,182,189,1);
+				height:1rem;
+				font-size:.9rem;
+			}
+			/*头部搜索完*/
+			.proBanner{
+				width:100%;
+			}
+			.proBanner>img{
+				width:100%;
+			}
+			.content{
+				padding-top: 0.2rem;
+			}
+			.xyBanner .mui-scroll-wrapper .mui-slider{
+				border-radius:0;
+			}
+			.tags{
+				height:3rem;
+				border-bottom:1px solid #F5F6F7;
+				margin-bottom:1.5rem;
+			}
+			.tags>div{
+				display:inline-block;
+				width:24%;
+				height:3rem;
+				text-align:center;
+				line-height:3rem;
+			}
+			.tags>div>a{
+				display:inline-block;
+				width:100%;
+				height:3rem;
+				line-height:3rem;
+				color:#121212;
+				font-size:1rem;
+			}
+			.tags>div.tagActive>a{
+				border-bottom:2px solid #D32424;
+				color:#D32424;
+			}
+			.bookInfo{
+			   width:94%;
+			   margin-left:3%;
+			}
+			.bookInfo .moduleImgShow>div{
+				width:48%;
+				display:inline-block;
+				text-align:left;
+				font-size:.9rem;
+				margin-bottom:.5rem;
+			}
+			.bookInfo .moduleImgShow>div .bookCover{
+				height:10rem;
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				border-radius:10px;
+				text-align:center;
+				padding-top:.4rem;
+			}
+			.bookInfo .moduleImgShow>div:nth-child(2n){
+				margin-left:2.5%;
+			}
+			.bookInfo .grussLike .moduleImgShow>div:nth-child(2n){
+				margin-left:0;
+				margin-right:2.5%;
+			}
+			.bookInfo .moduleImgShow>div .bookCover>img{
+				height:90%;
+			}
+			.bookInfo .moduleImgShow>div .bookDesc{
+				padding:.5rem .1rem 0 .1rem;
+				color:rgba(36,39,54,1);
+				line-height:1.5rem;
+			}
+			.vipPrice{
+				font-size:.8rem;
+				color:#E4B57F;
+				font-weight:bold;
+				display:none;
+			}
+			.currVipPrice>a,
+			.vipPrice>a{
+				display:inline-block;
+				width:2rem;
+				background:rgba(236,191,139,1);
+				border-radius:4px;
+				text-align: center;
+				font-size:.6rem;
+				color:#fff;
+				margin-left:.2rem;
+			}
+			.shoppingCart{
+				position: absolute;
+				display:inline-block;
+				padding:.2rem .5rem;
+				right:0;
+				font-size:1.2rem;
+				color:#D32424;
+			}
+			.bookInfo .moduleImgShow>div .allPrice{
+				color:#D32424;
+				position: relative;
+			}
+			.allBook,.newBook,.sellWell,.grussLike{
+				display:none;
+			}
+			.moduleShow{
+				display:block !important;
+			}
+			.template>p{
+				padding-left:.5rem !important;
+				margin-bottom:0 !important
+			}
+			.template>p:last-child{
+				margin:.2rem 0  .5rem 0!important
+			}
+			/*全部*/
+			.allBook{
+				width:100%;
+				margin:0;padding:0;
+				margin-left:-3%;
+				margin-top:-1.4rem;
+			}
+			.allBook .allBookShow,.allBook ul{
+				display:inline-block;
+			}
+			.allBook .leftMenu{
+				width:25%;
+			} 
+			ul.leftMenu>li{
+				list-style:none;
+				width:100%;
+				height:3rem;
+				background:#F5F6F7;
+				text-align: center;
+				line-height:3rem;
+				position: relative;
+			}
+			ul.leftMenu>li>span{
+				display:block;
+				width:3px;
+				height:1rem;
+				position:absolute;
+				top:47%;
+				left:0;
+				transform:translateY(-50%);
+				background:transparent;
+			}
+			ul.leftMenu>li.active{
+				background:#ffffff;
+				font-weight:bold;
+			}
+			ul.leftMenu>li.active>span{
+				background:#D02E2E;
+			}
+			ul.leftMenu>li>a{
+				color:#121212;
+				width:100%;
+			}
+			.allBook .allBookShow{
+				width:73%;
+				margin-left:3%;
+				height:10rem;
+				margin-right:-3%;
+			}
+			.smBanner{
+				width:100%;
+				height:6rem;
+				margin-bottom:1rem;
+			}
+			.smBanner>img{
+				width:100%;
+				height:100%;
+			}
+			.books .oneBook{
+				display:inline-block;
+				width:31%;
+				height:6.8rem;
+				margin-right:1.5%;
+				text-align:center;
+				color:#747682;
+				margin-bottom:.5rem;
+				font-size:.8rem;
+			}
+			.books .oneBook:nth-child(3n){
+				margin-right:0;
+			}
+			.books .oneBook>img{
+				width:100%;
+				height:4.8rem;
+			}
+			/*点击加入购物车*/
+			.shadow .showContent {
+				position: absolute;
+				bottom: 0;
+				height: 80%;
+				width: 100%;
+				background: #fff;
+				text-align: left;
+				padding-top: 1rem;
+			}
+			
+			.showContent .info>div {
+				display: inline-block;
+				height: 8rem;
+			}
+			
+			.showContent .info>div.bookFace {
+				width: 30%;
+				text-align: center;
+			}
+			.showContent .info>div:last-child{
+				width:60%;
+			}
+			.showContent .info>div.bookFace>img {
+				height: 90%;
+			}
+			
+			.stock {
+				color: #939393;
+			}
+			
+			.series {
+				padding: 1rem;
+			}
+			
+			.series>p:first-child {
+				font-weight: bold;
+				color: #121212;
+			}
+			
+			.series .seriesTag>a {
+				display: inline-block;
+				padding: .5rem 1.2rem;
+				font-size: .8rem;
+				color: #121212;
+				background: #F5F5F5;
+				border-radius: 25px;
+				margin: .2rem;
+			}
+			
+			.series .seriesTag>a.selected {
+				background: rgba(253, 241, 240, 1);
+				border: 1px solid rgba(211, 36, 36, 1);
+				border-radius: 25px;
+				color: #D32424;
+			}
+			
+			.payNum {
+				height: 3rem;
+				padding: 1rem;
+			}
+			
+			.payNum>span:first-child {
+				font-weight: bold;
+				color: #121212;
+			}
+			
+			.payNum>div {
+				float: right;
+			}
+			
+			.payNum>div>span {
+				padding: .6rem 1rem;
+				background: #F5F5F5;
+				font-weight: bold;
+				margin: .1rem;
+			}
+			
+			.payNum>div>span.num {
+				padding: .6rem 1.5rem;
+			}
+			
+			.closeShadow {
+				position: absolute;
+				top: .8rem;
+				right: 1rem;
+				font-size: 1.2rem;
+				color: #CCCCCC;
+			}
+			
+			.sure {
+				position: absolute;
+				bottom: 1rem;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.currBokkTitle{
+				width:80%;
+			}
+		</style>
+	</head>
+
+	<body class="xyBanner">
+		<header class="mui-bar mui-bar-nav hasSearch">
+			<div class="search">
+				<span class="iconfont">&#xe651;</span>
+				<span class="toSearchAudio">搜索你想要的书籍</span>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll">
+				<!--轮播开始-->
+				<div class="mui-slider">
+					<div class="mui-slider-group my-slider-group mui-slider-loop">
+						
+					</div>
+					<div class="mui-slider-indicator">
+					   
+					</div>
+				</div>
+
+				<!--猜你喜欢的页签-->
+				<div class="tags">
+					<div class="all" data-isShow="allBook"><a href="javascript:;"></a></div>
+					<div class="like tagActive" data-isShow="grussLike"><a href="javascript:;"></a></div>
+					<div class="hot" data-isShow="sellWell"><a href="javascript:;"></a></div>
+					<div class="new" data-isShow="newBook"><a href="javascript:;"></a></div>
+				</div>
+				<div class="bookInfo">
+					<div class="allBook">
+						<div>
+							<ul class="leftMenu">
+							</ul>
+							<div class="allBookShow" style="height:auto !important">
+								<div class="smBanner"><img src="" alt="" /></div>
+								<div class="books">
+									<div class="oneBook">
+										<img src="" alt="" />
+										<p class="more"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<!--猜你喜欢-->
+					<div class="grussLike moduleShow">
+						<div class="moduleImgShow">
+							<div class="template">
+								<div class="bookCover">
+									<img src="" alt="" />
+								</div>
+								<p class="more2 bookDesc" style="height:3.2rem;"></p>
+								<p class="allPrice">
+									<span class="bookPrice"></span>
+									<span class="vipPrice" style="font-size:.7rem"><span></span><a style="font-size:.5rem;height:1rem !important;line-height:1.1rem;" class="vipTip" href="javascript:;">折扣价</a></span>
+									<span class="iconfont shoppingCart">&#xe614;</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<!--畅销榜-->
+					<div class="sellWell">
+						<div class="moduleImgShow">
+						</div>
+					</div>
+					<!--新书榜-->
+					<div class="newBook">
+						<div class="moduleImgShow">
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<!--点击加入购物车-->
+			<div class="shadow">
+				<div class="showContent">
+					<span class="iconfont closeShadow">&#xe62d;</span>
+					<div class="info">
+						<div class="bookFace">
+							<img src="" alt="" />
+						</div>
+						<div class="currBookInfo">
+							<p class="currBokkTitle more"></p>
+							<p class="currPrice"></p>
+							<p class="currVipPrice"><span></span>
+								<a class="vipTip" style="height:1.2rem;" href="javascript:;">折扣价</a>
+							</p>
+							<p class="stock">库存1000件</p>
+							<!--<p class="selected">已选：“红楼梦单本”</p>-->
+						</div>
+					</div>
+					<div class="series">
+						<!--<p>系列</p>
+						<div class="seriesTag">
+							<a href="javascript:;" class="selected">精装本</a>
+							<a href="javascript:;">四大名著简装</a>
+							<a href="javascript:;">四大名著简装</a>
+							<a href="javascript:;">hah</a>
+							<a href="javascript:;">ahha</a>
+							<a href="javascript:;">四大名著简装</a>
+						</div>-->
+					</div>
+					<div class="payNum">
+						<span class="padyNumTitle">加购数量</span>
+						<div>
+							<span class="subtract">-</span>
+							<span class="num">1</span>
+							<span class="add">+</span>
+						</div>
+					</div>
+					<a class='sure linearGradientBtn' style="color:#fff;">确定</a>
+				</div>
+			</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			var allData="",commentFpi="",ptr,curId="307384295091976882",oldId="";
+			var currGoodsId="",goodsInfo={};
+			var allBookSub=$(".oneBook").clone();
+			$(".oneBook").hide();
+			myFunc(function() {
+				$(".search").tap(function(){
+					event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+					osg.open('favorGoods.html', {
+							'mine': 'search',
+							'type': 'goods'
+						}, null, {
+							im: 1
+						});
+				});
+			
+				/*关闭购物车页面*/
+				plus.webview.hide("card.html");
+				/*切换标签*/
+				$(".tags>div").tap(function(){
+					$(this).addClass("tagActive").siblings().removeClass("tagActive")
+					$(".moduleShow").removeClass("moduleShow");
+					$("."+$(this).attr("data-isShow")).addClass("moduleShow");
+				})
+				
+				/*请求数据*/
+				var template=$(".template").clone();
+				$(".template").hide();
+				osg.ajax("goods/index.do",{},function(data){
+						$('.mui-slider-group').empty();
+	                    $('.mui-slider-indicator').empty();
+						var goods=data.goods;
+						$(".all>a").html(goods[0].tag);
+						$(".like>a").html(goods[1].tag);
+						$(".hot>a").html(goods[2].tag);
+						$(".new>a").html(goods[3].tag);
+						var allBookInfo=goods[0].goods;
+						allData=goods[0].goods;
+						function loop(like,type){
+							for(var i=0;i<like.length;i++){
+								var currBook=template.clone();
+								currBook.find(".bookCover").attr("data-currId",like[i]._id);
+								currBook.find(".shoppingCart").attr("data-BookId",like[i]._id);
+								currBook.find(".bookCover>img").attr("src",qiniuRoot+like[i].logo+ '!app.voicemid.img');
+								currBook.find(".bookDesc").html(like[i].title);
+								if(like[i].price !=like[i].priceOrigin){
+									currBook.find(".bookPrice").html("¥"+parseFloat(like[i].priceOrigin).toFixed(2));
+									currBook.find(".vipPrice").show();
+									currBook.find(".vipPrice>span:first-child").html("¥"+parseFloat(like[i].price).toFixed(2));
+									if(like[i].discount){
+										$(".allPrice .vipTip").html(like[i].discount+"折");
+									}
+								}
+								else
+									currBook.find(".bookPrice").html("¥"+parseFloat(like[i].priceOrigin).toFixed(2));
+								/*if(like[i].isVip==1){
+									currBook.find(".vipPrice").show();
+									currBook.find(".vipPrice>span:first-child").html("¥"+parseFloat(like[i].isVip).toFixed(2));
+								}*/
+								$("."+type+" .moduleImgShow").append(currBook);
+							}
+						}
+						var like=goods[1].goods;
+						loop(like,"grussLike");
+						var hot=goods[2].goods;
+						loop(hot,"sellWell");
+						var newB=goods[3].goods;
+						loop(newB,"newBook");
+						
+						/*全部*/
+						for(var j=0;j<allBookInfo.length;j++){
+							if(j==0){
+								curId = allBookInfo[j]._id;
+								$("ul.leftMenu").append('<li class="active" data-id="'+allBookInfo[j]._id+'" data-allBooksInfo="'+allBookInfo[j]+'"><p>'+allBookInfo[j].name+'</p><span></span></li>');
+							}else{
+								$("ul.leftMenu").append('<li  data-id="'+allBookInfo[j]._id+'"  data-allBooksInfo="'+allBookInfo[j]+'"><p>'+allBookInfo[j].name+'</p><span></span></li>');
+							}
+						}
+						/*默认加载第一个分类的书*/
+						var firDataSub=goods[0].goods[0].flipInfo.data;
+						for(var j=0;j<firDataSub.length;j++){
+							var currOneBook=allBookSub.clone();
+							currOneBook.find("img").attr("src",qiniuRoot+firDataSub[j].logo+ '!app.voicemid.img');
+							currOneBook.find("p").html(firDataSub[j].subTitle);
+							currOneBook.attr("data-id",firDataSub[j]._id);
+							$(".books").append(currOneBook);
+						}
+						/*分类下的banner*/
+						$(".smBanner>img").attr("src",qiniuRoot+data.cBanner[0].banner+'!app.banner');
+						
+						/*轮播*/
+						var banners=data.banners;
+						if(banners.length==0){
+							$('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><a href="javascript:;"><img class="lunbo-img" src="../resources/images/banner2.png" /></a></div>');
+						}
+						if(banners.length==1){
+							$('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><a class="lunbo-href" href="'+banners[0].url+'"><img class="lunbo-img" src="' +qiniuRoot+ banners[0].banner+'!app.banner' + '" /></a></div>');
+						}else if(banners.length>1){
+							$('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><a class="lunbo-href" href="'+banners[banners.length - 1].url+'"><img class="lunbo-img" src="' +qiniuRoot+ banners[banners.length - 1].banner+'!app.banner' + '" /></a></div>');
+	                        $('.mui-slider-indicator').append('<div class="mui-indicator mui-active"></div>');
+	                        for(var i = 0; i <banners.length; i++) {
+	                            $('.mui-slider-group').append('<div class="mui-slider-item"><a class="lunbo-href" href="'+banners[i].url+'"><img class="lunbo-img" src="' +qiniuRoot+ banners[i].banner+'!app.banner' + '" /></a></div>');
+	                        }
+	                        $('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><a class="lunbo-href" href="' + banners[0].url+'"><img class="lunbo-img" src="' +qiniuRoot+banners[0].banner +'!app.banner'+ '" /></a></div>');
+	                        for(var i = 0; i < banners.length - 1; i++) {
+	                            $('.mui-slider-indicator').append('<div class="mui-indicator"></div>');
+	                        }
+							/*轮播*/
+							var gallery = mui('.mui-slider');
+							gallery.slider({
+							  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
+							});	
+						}
+							
+						/*分类点击事件*/
+						$(".leftMenu").on("tap","li",function(e){
+							oldId = curId;
+							$(".books").html("");
+							commentFpi="";
+							var $tar=$(this);
+							$tar.addClass("active").siblings("li").removeClass("active");
+							curId=$(this).attr("data-id");
+							for(var m=0;m<allData.length;m++){
+								if(curId==allData[m]._id && allData[m]._id!="0"&&allData[m].flipInfo){
+				                  var dataSub=allData[m].flipInfo.data;
+				                  addDataToAllBook(dataSub);
+				                }else if(curId==allData[m]._id && allData[m]._id=="0"&& allData[m].goodsSuit){
+				                  var dataSub =allData[m].goodsSuit;
+				                  addDataToAllBook(dataSub,"suit");//套餐
+				                }
+							}
+							if(oldId!=curId && ptr){
+								ptr.refresh(true);
+								findPage(1,null);
+							}
+						})
+				})
+				/*装数据到全部下的分类*/
+				function addDataToAllBook(dataSub,type=""){
+					for(var k=0;k<dataSub.length;k++){
+						var currOneBook=allBookSub.clone();
+						if(type){
+							currOneBook.find("p").attr('data-type',type);
+						}
+						currOneBook.find("img").attr("src",qiniuRoot+dataSub[k].logo+ '!app.voicemid.img');
+						currOneBook.find("p").html(dataSub[k].subTitle);
+						currOneBook.attr("data-id",dataSub[k]._id);
+						$(".books").append(currOneBook);
+					}
+				}
+				
+				/*页面下拉刷新  上拉加载*/
+				//容器初始化
+				var myscroll = $(".coment_scroll")[0];
+				mui(myscroll).pullToRefresh({
+							up: {
+								auto: false,
+								callback: function() {
+									ptr = this;
+									var nextPage="";
+									if(commentFpi) {
+										nextPage = commentFpi.page + 1;
+									} else {
+										nextPage = 1;
+									}
+									findPage(nextPage, {
+										'self': this
+									});
+								}
+							}
+							
+						});
+				//全部商品的分页函数
+				function findPage(page, param) {
+					if(!param) {
+						param = {};
+					}
+					param.self = ptr;
+					if(curId!="0"){
+						osg.ajax('goods/query', {
+							'page': page,
+							'categoryId':curId
+						}, function(data) {
+							// 下拉的情况下，结束下拉刷新状态
+							if(param.pullDown)
+								param.self.endPullDownToRefresh();
+							if(!data) {
+								param.self.endPullUpToRefresh(true);
+								return;
+							}
+							if(page == 1) {
+								$(".books").html('');
+							}
+							commentFpi = data;
+							addDataToAllBook(data.data);
+							param.self.endPullUpToRefresh(data.page >= data.pages);
+						}, {
+							noload: true
+						});
+					}else{
+						param.self.endPullUpToRefresh(true);
+					}
+				}
+				
+				osg.evtAddListener(function(d) {
+					if(d && d == 'toQuanbu') { // 点击banner去少年绘页面
+						$(".moduleShow").removeClass("moduleShow");
+						$(".allBook").addClass("moduleShow");
+						$(".tagActive").removeClass("tagActive");
+						$(".all").addClass("tagActive");
+					}
+				});
+			});
+			$(".books").on("tap",".oneBook",function(){
+				var $tar=$(this);
+				var type = $tar.find("p").attr("data-type");
+				var bookId=$tar.attr("data-id");
+				if(type!='suit')
+					localStorage.setItem("goodsType","oneBook");
+				else//是套餐的情况
+					localStorage.setItem("goodsType","suit");
+				if(bookId){
+					localStorage.setItem("goodsId",bookId);
+					osg.open("details.html",{},null);
+				}
+				
+			})
+			$(".moduleImgShow").on("tap",".bookCover",function(){
+				var $tar=$(this);
+				var bookId=$tar.attr("data-currId");
+				if(bookId){
+					localStorage.setItem("goodsId",bookId);
+					localStorage.setItem("goodsType","oneBook");
+					osg.open("details.html",{},null);
+				}
+					
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+			/*加购的数量加减*/
+			$(".add").tap(function(){
+				var currNum=parseInt($(".num").html());
+				currNum++;
+				$(".num").html(currNum);
+			})
+			$(".subtract").tap(function(){
+				var currNum=parseInt($(".num").html());
+				if(currNum>1)
+					currNum--;
+				$(".num").html(currNum);
+			})
+			$(".closeShadow").tap(function() {
+				$(".num").html("1");
+				$(".shadow").hide();
+			})
+			$(".moduleImgShow").on("tap",".shoppingCart",function(){
+				currGoodsId=$(this).attr("data-BookId");
+				if(!osg.isLogined()) {
+					osg.confirm("请登录！", function() {
+						osg.open('../mine/login.html');
+					});
+				} else {
+					osg.ajax("goods/findById", {"id": currGoodsId}, function(data) {
+						$(".bookFace img").attr("src",qiniuRoot+data.logo+ '!app.voicemid.img');
+						$(".currBokkTitle").html(data.title);
+						/*$(".stock").html("库存" + data.stock + "件");*/
+						$(".currPrice").html(" ¥ " + parseFloat(data.priceOriginStr).toFixed(2));
+						if(parseFloat(data.priceOriginStr).toFixed(2) != parseFloat(data.price).toFixed(2)) {
+							$(".currVipPrice>span").html(" ¥ " + parseFloat(data.price).toFixed(2));
+							$(".currVipPrice>a").html(data.discount+"折");
+						} else {
+							$(".currVipPrice").hide();
+						}
+					})
+					$(".shadow").show();
+				}
+			})
+			$(".sure").tap(function(){
+				var addCartNum=parseInt($(".num").html());
+				if(currGoodsId){
+					osg.ajax("shopping/addCart",{"goodsId":currGoodsId,"count":addCartNum,"type":0},function(data){
+						if(data.success){
+							osg.toast("加入购物车成功");
+							plus.webview.hide("card.html");
+							$(".shadow").hide();
+							$(".num").html("1");
+						}
+					})
+				}
+			})
+			/*轮播点击事件*/
+			mui('.mui-scroll-wrapper').on('tap', '.lunbo-href', function(e) {
+				var url = $(this).attr('href');
+				var id = url.substring(1);
+				var type = url.substring(0,1);
+				openDetail(id,type);
+			});
+			function openDetail(id,type){
+				if('v'==type && id){ //单个音频
+					osg.ajax('voice/findById',{'id':id},function(data){
+							detailCklic(data);
+					})
+				}else if('z'==type){ //资源包
+					var currCateGory='资源包';
+					if(id){
+						osg.open('../home/audioList.html', {
+							"categoryId": id,
+							"cateGoryInfo":currCateGory
+						}, null, {
+							im: 1
+						});
+					}
+				}else if('s'==type){ //商品详情页
+					if(id){
+						localStorage.setItem("goodsId",id);
+						localStorage.setItem("goodsType","oneBook");
+						osg.open("details.html",{},null);
+					}
+				}else if('m'==type){ //少年绘
+					osg.evtFireEvent('toMatch');
+				}else if('d'==type){ //去登录页面
+					if(osg.isLogined()) {
+						osg.toast('你已经登录了！');
+					} else {
+						osg.open('../mine/login.html', {
+						}, null, {
+							im: 1
+						});
+					}
+				}
+			}
+			//去详情页
+			function detailCklic(voice_data){
+				if(voice_data.buyType==1){
+					var list = [voice_data];
+					osg.set('voice_list',list);//把列表缓存到本地
+					osg.set("voice_now",voice_data);
+					var detailsView = plus.webview.getWebviewById("details");
+					if(detailsView){
+						osg.evtFireEvent('update');
+					}
+					osg.open('../home/audioPlay.html', {
+					}, null, {
+						im: 1,
+						id:"details"
+					});
+				}else{
+					if(voice_data.resourcePackId){
+						osg.open('../home/audioList.html', {
+							"categoryId": voice_data.resourcePackId,
+							"cateGoryInfo":"资源包"
+						}, null, {
+							im: 1
+						});
+					}
+				}
+				
+			}
+		</script>
+	</body>
+
+</html>

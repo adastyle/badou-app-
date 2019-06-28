@@ -1,0 +1,266 @@
+{
+  "main.html": {
+    "resources": [
+      "home/tab-webview-subpage-home.html",
+      "mall/tab-webview-subpage-mall.html",
+      "juvenile/tab-webview-subpage-juvenile.html",
+      "mine/tab-webview-subpage-mine.html",
+      "resources/fonts/iconfont.css",
+      "resources/css/mui.min.css",
+      "resources/css/style.css"
+    ],
+    "refer": [
+      "juvenile/tab-webview-subpage-juvenile.html",
+      "mine/tab-webview-subpage-mine.html",
+      "mall/tab-webview-subpage-mall.html",
+      "home/tab-webview-subpage-home.html",
+      "advertise.html"
+    ]
+  },
+  "home/tab-webview-subpage-home.html": {
+    "refer": [
+      "mine/audioDownload.html",
+      "home/hotListen.html",
+      "home/audioPlay.html",
+      "home/audioList.html",
+      "home/audioDownload.html",
+      "home/audioSearch.html",
+      "home/classify.html",
+      "home/gxGeneral.html",
+      "home/todayRecommend.html",
+      "juvenile/onlineAnswer.html",
+      "home/moreWhy.html",
+      "home/highQuilty.html",
+      "home/listening.html",
+      "mine/login.html",
+      "juvenile/testResult.html",
+      "juvenile/firstResult.html",
+      "juvenile/notStarAnswer.html",
+      "juvenile/awardsList.html",
+      "juvenile/haha.html",
+      "home/audioCatList.html",
+      "home/yaya.html"
+    ],
+    "resources": [
+      "resources/images/moneyShow.png",
+      "resources/images/lock.png"
+    ]
+  },
+  "mine/audioDownload.html": {
+    "refer": [
+      "home/audioPlay.html"
+    ]
+  },
+  "home/hotListen.html": {
+    "refer": [
+      "home/audioPlay.html"
+    ]
+  },
+  "mine/tab-webview-subpage-mine.html": {
+    "refer": [
+      "home/hotListen.html",
+      "home/audioDownload.html",
+      "mine/login.html",
+      "mine/update.html",
+      "mall/favorGoods.html",
+      "mine/audioCollect.html",
+      "mine/myAddress.html",
+      "juvenile/activeDownload.html",
+      "mall/card.html",
+      "mall/myOrder.html"
+    ]
+  },
+  "home/audioDownload.html": {
+    "refer": [
+      "home/audioPlay.html"
+    ]
+  },
+  "mall/tab-webview-subpage-mall.html": {
+    "refer": [
+      "home/audioPlay.html",
+      "mall/details.html",
+      "home/audioList.html",
+      "mall/favorGoods.html",
+      "mall/suitdetails.html"
+    ]
+  },
+  "home/audioSearch.html": {
+    "refer": [
+      "home/audioList.html",
+      "home/audioPlay.html",
+      "home/audioCatList.html"
+    ]
+  },
+  "mine/login.html": {
+    "refer": [
+      "mine/userInfo.html",
+      "mine/userAgreement.html"
+    ]
+  },
+  "juvenile/tab-webview-subpage-juvenile.html": {
+    "refer": [
+      "juvenile/userInfo.html",
+      "juvenile/match.html",
+      "juvenile/newsList.html",
+      "juvenile/detail.html",
+      "mine/login.html",
+      "juvenile/payActivity.html",
+      "juvenile/entryInfomation.html"
+    ]
+  },
+  "juvenile/detail.html": {
+    "refer": [
+      "juvenile/userInfo.html"
+    ]
+  },
+  "home/classify.html": {
+    "refer": [
+      "home/propList.html",
+      "home/audioList.html"
+    ]
+  },
+  "home/propList.html": {
+    "refer": [
+      "home/audioList.html"
+    ]
+  },
+  "juvenile/match.html": {
+    "refer": [
+      "juvenile/infoChange.html",
+      "juvenile/myMatchDetail.html",
+      "juvenile/firstResult.html"
+    ]
+  },
+  "home/gxGeneral.html": {
+    "refer": [
+      "home/audioList.html"
+    ]
+  },
+  "home/highQuilty.html": {
+    "refer": [
+      "home/audioList.html"
+    ]
+  },
+  "juvenile/activeDownload.html": {
+    "refer": [
+      "juvenile/proofOfCamp.html"
+    ]
+  },
+  "mall/details.html": {
+    "refer": [
+      "mall/order.html",
+      "mall/suitdetails.html",
+      "mine/login.html",
+      "mall/card.html",
+      "mall/addressList.html",
+      "mall/address.html"
+    ],
+    "resources": [
+      "resources/images/add.png",
+      "resources/images/book.png"
+    ]
+  },
+  "home/listening.html": {
+    "refer": [
+      "home/hotListen.html",
+      "home/audioDownload.html",
+      "mine/audioCollect.html",
+      "home/audioPlay.html"
+    ]
+  },
+  "mine/audioCollect.html": {
+    "refer": [
+      "home/audioList.html"
+    ]
+  },
+  "home/audioList.html": {
+    "refer": [
+      "mine/login.html"
+    ]
+  },
+  "mall/suitdetails.html": {
+    "refer": [
+      "mine/login.html",
+      "mall/suitOrder.html",
+      "mall/address.html"
+    ]
+  },
+  "juvenile/onlineAnswer.html": {
+    "refer": [
+      "juvenile/starAnswer.html",
+      "juvenile/notStarAnswer.html"
+    ]
+  },
+  "juvenile/starAnswer.html": {
+    "refer": [
+      "juvenile/testResult.html"
+    ]
+  },
+  "juvenile/payActivity.html": {
+    "refer": [
+      "juvenile/proofOfCamp.html"
+    ]
+  },
+  "mall/card.html": {
+    "refer": [
+      "mall/tab-webview-subpage-mall.html",
+      "mall/order.html",
+      "mall/address.html"
+    ]
+  },
+  "advertise.html": {
+    "resources": [
+      "resources/images/adver_btn.png",
+      "resources/images/adver1.png"
+    ],
+    "refer": [
+      "home/audioList.html"
+    ]
+  },
+  "mall/addressList.html": {
+    "refer": [
+      "mall/address.html",
+      "mall/details.html",
+      "mall/order.html"
+    ]
+  },
+  "mall/address.html": {
+    "refer": [
+      "mall/order.html",
+      "mine/myAddress.html"
+    ],
+    "resources": [
+      "resources/fonts/iconfont.css",
+      "resources/css/mui.min.css",
+      "resources/css/mui.picker.min.css",
+      "resources/css/style.css"
+    ]
+  },
+  "mall/order.html": {
+    "refer": [
+      "mall/addressList.html",
+      "mall/myOrder.html"
+    ]
+  },
+  "mine/myAddress.html": {
+    "refer": [
+      "mall/address.html"
+    ]
+  },
+  "juvenile/notStarAnswer.html": {
+    "refer": [
+      "juvenile/awardsList.html"
+    ]
+  },
+  "juvenile/testResult.html": {
+    "refer": [
+      "juvenile/rightAnswer.html",
+      "juvenile/errorAnswer.html"
+    ]
+  },
+  "juvenile/entryInfomation.html": {
+    "refer": [
+      "juvenile/userInfo.html"
+    ]
+  }
+}

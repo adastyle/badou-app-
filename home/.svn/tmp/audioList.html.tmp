@@ -1,0 +1,743 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.mui-bar-nav{
+				padding-right:0;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-weight:bold;
+				position: relative;
+				font-size:1.1rem;
+				margin-left:0;
+			}
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+				left:1rem;
+			}
+			.headerTi a{
+				color:#121212;
+				right:1rem;
+				display:inline-block;
+				width:80%;
+				margin:0 auto;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.bgTopImg {
+				width:100%;
+				height:11rem;
+				overflow: hidden;
+				border-bottom:1px solid transparent !important;
+				margin-bottom:0;
+				position:relative;
+			}	
+			.bgTopImg img{
+				width:100%;
+			}
+			/*菜单切换*/
+			.changerBar{
+				list-style:none;
+				position:relative;
+				border-bottom:1px solid #F5F6F7;
+				padding-top:.5rem;
+			}
+			.changerBar:after{
+				display:block;
+				content: "";
+				clear: both;
+			}
+			.changerBar>li{
+				float:left;
+				padding:1rem .1rem;
+				margin:0 1rem;
+			}
+			.changerBar .like{
+				position:absolute;
+				top:60%;
+				right:1rem;
+				text-align: center;
+				color:#747682;
+				font-size:.8rem;
+				transform: translateY(-50%);
+			}
+			.changerBar .like .iconfont{
+				color:#747682;
+			}
+			.changerBar>li.active{
+				color:#D32424;
+				border-bottom:2px solid #D32424;
+			}
+			.allPlay{
+				height:4rem;
+				line-height: 4rem;
+				position:relative;
+				border:1px solid #f5f6f7;
+			}
+			.allPlay>a{
+				margin-left:1rem;
+				padding:.5rem 1rem;
+				background:#f5f6f7;
+				border-radius:25px;
+				color:#121212;
+			}
+			.allPlay>div{
+				position:absolute;
+				right:1rem;
+				top:50%;
+				transform: translateY(-50%);
+			}
+			.allPlay>div>span{
+				font-size:1.1rem;
+				color:#747682;
+			}
+			.allPlay>div>span:first-child{
+				margin-right:1rem;
+			}
+			/*查看更多*/
+			.module{
+				background:#fff;
+				z-index: 1000;
+				margin-bottom:4rem;
+			}
+			.module .lookMore:last-child{
+				border-bottom:1px solid #F5F6F7;
+			}
+			.lookMore{
+				height:7rem;
+				width:100%;
+				padding:0 3%;
+				position:relative;
+				border-bottom:1px solid #F5F6F7;
+				background:#fff;
+				z-index:1000
+			}
+			.lookMore:last-child{
+				border-bottom:#00F7DE;
+			}
+			.lookMoreTi{
+				color:#121212;
+				font-weight: bold;
+				font-size:1.2rem;
+				margin-bottom:0;
+				padding-left:3%;
+				padding-top:.5rem;
+			}
+			.lookMore>div.leftShow>img{
+				width:4rem;
+				height:4rem;
+				margin-top:1.7rem;
+			}
+			.lookMore>div.leftShow>div{
+				display:inline-block;
+				padding-top:1rem;
+			}
+			.lookMore>div.leftShow>div p{
+				margin:0.3rem;
+				font-size:1rem;
+				color:#121212;
+			}
+			.allrowRight{
+				position: absolute;
+				top:50%;
+				right:1rem;
+				transform:translateY(-50%);
+				color:#CCCCCC;
+				text-align: center;
+				font-size:.8rem;
+				padding:.5rem;
+			}
+			.allrowRight.noFree {
+				color:#D32424 !important;
+			}
+			.allrowRight.noFree p{
+				display:block !important;
+			}
+			.fonts>span{
+				margin-right:1rem;
+			}
+			.fonts i.iconfont{
+				margin-right:.1rem;
+				font-size:.9rem;
+			}
+			.cateGoryInfo{
+				width:91%;
+				margin:.5rem 4%;
+			}
+			.audioLists,.cateGoryInfo{
+				display:none;
+			}
+			div.isShow{
+				display:block;
+			}
+			/*底部的购买vip*/
+			.payVipBlock{
+				background:#FFFFFF;
+				color:#121212;
+				padding:0 1rem;
+				font-size:.9rem;
+				display:none
+			}
+			.payVipBlock>div{
+				display:inline-block;
+				text-align: center;
+			}
+			.payVipBlock .tryListen{
+				width:16%;
+				line-height:4rem;
+			}
+			.payVipBlock .PriceCompare{
+				width:26%;
+				height:4rem;
+				padding-top:.8rem;
+				color:#939393;
+				margin:0 .65rem;
+			}
+			.payVipBlock .PriceCompare p{
+				margin-bottom:.2rem;
+				color:#FF9023;
+				font-size:1rem;
+			}
+			.payVipBlock .payVip{
+				height:4rem;
+				line-height:4rem;
+			}
+			.payVipBlock .payVip a{
+				padding:.5rem 1rem;
+				background:linear-gradient(90deg,rgba(236,191,139,1),rgba(252,211,164,1));
+				border-radius:30px;
+				color:#945B2B;
+			}
+			p{
+				padding:0;
+				margin:0;
+			}
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header" style="position:relative">
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+					<a href="javascript:;" class="pageTitle"></a>
+				</p>
+				<span class="iconfont share" style="position:absolute;right:1rem;top:25%">&#xe6a8;</span>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll ">
+				<div class="bgTopImg">
+					<img style="height:100%;height:100%" class="imgOfInfo" src="" alt="" />
+				</div>
+				<ul class="changerBar">
+					<li data-change="cateGoryInfo">简介</li>
+					<li data-change="audioLists" class="active videoCount"></li>
+					<div class="like">
+						<span class="iconfont">&#xe617;</span>
+						<p>收藏</p>
+					</div>
+				</ul>
+				<div class="allPlay">
+					<a class="all_voiceplay"><span class="iconfont">&#xe618;</span>全部播放</a>
+					<div><span class="iconfont"><!--&#xe606;--></span> <span class="iconfont voice_order desc">&#xe661;</span></div>
+				</div>
+				<div class="cateGoryInfo"></div>
+				<div class="audioLists module isShow">
+					<div class="lookMore">
+						<div class="leftShow">
+							<img class="imgOfInfo" style="border-radius:50%!important" src="" alt="" />
+							<div class="audioListnameMore">
+								<p class="openVip">成语大全</p>
+								<p style="color:#939393" class="memo"></p>
+								<p style="color:#939393" class="fonts">
+									<span class="playTimes"><i class="iconfont">&#xe610;</i><span>50</span></span>
+									<span class="commentTimes"><i class="iconfont">&#xe62e;</i><span>50</span></span>
+									<span class="duration"><i class="iconfont">&#xe6a9;</i><span>50</span></span>
+								</p>
+							</div>
+						</div>
+						<div class="allrowRight">
+							<span class="iconfont "></span>
+							<p class="shiting" style="display:none;"></p>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<ul class="lookMoreRadio bottomFixed">
+				<li class="toAudioPlay"><img class="now_logo" src="../resources/images/currAudioLogo.png" alt="" /></li>
+				<li class="toAudioPlay audionameMore" ><span class="now_title">成语大全</span></li>
+				<li class="videoList"><span class="iconfont">&#xe623;</span></li>
+				<li class="isPlay"><span class="iconfont  play_bon">&#xe61d;</span></li>
+			</ul>
+			<!--音频显示的列表-->
+			<div class="audioListShadow">
+				<div class="mui-scroll-wrapper">
+					<ul class="voice_list mui-scroll">
+						<li class="voice_item debug">
+							<img class="voiceOne_logo" src="../resources/images/currAudioLogo.png" alt="" />
+							<span class="voiceOne_title">哈哈哈哈哈哈哈</span>
+							<span class="iconfont delete">&#xe62d;</span>
+						</li>
+					</ul>
+				</div>
+				<p class="closeList">关闭</p>
+				<p class="currPlay">
+					<span class="recents">最近播放的故事</span>
+					<span class="iconfont playing">&#xe61d;</span>
+				</p>
+			</div>
+	
+			<div class="bottomFixed payVipBlock">
+				<div class="tryListen"><span class="iconfont">&#xe618;</span>试听</div>
+				<div class="PriceCompare">
+					<p>300元购买</p>
+					<s>原价399元</s>
+				</div>
+				<div class="payVip"><a href="javascript:;"><span class="iconfont">&#xe604;</span><span class="showdiatance">开通会员免费听</span></a></div>
+			</div>
+		</div>
+		<div class="pay_menu mui-scroll-wrapper" style="z-index: 10000;">
+				<div class="pay_bar">
+					<div class="pay_btn ali_pay">
+						<i class="icon iconfont">&#xe634;</i>
+						<div>支付宝</div>
+					</div>
+					<div class="pay_btn wx_pay">
+						<i class="icon iconfont">&#xe603;</i>
+						<div>微信支付</div>
+					</div>
+				</div>
+		</div>
+		<!--分享-->
+		<div class="shareChoose" style="z-index: 10000;">
+			<div>
+				<ul>
+					<li class="wechat">
+						<img style="width:3rem" src="../resources/images/weixin.png" alt="" />
+						<p>微信</p>
+					</li>
+					<li class="pengyouquan">
+						<img style="width:3rem" src="../resources/images/pengyouquan.png" alt="" />
+						<p>朋友圈</p>
+					</li>
+				</ul>
+				<p class="Cancelshare">取消</p>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/js/download.js "></script>
+		<script type="text/javascript">
+			var isPaly=false;
+			var payid = "",
+				channel = {},
+				type,
+				buyType,voices,cdata,shareMsg={};
+				
+			myFunc(function() {
+				var detailsView = plus.webview.getWebviewById("details");
+				var cateGoryInfo=osg.param("cateGoryInfo");
+				var categoryId="",resourcePackId="";
+				if(cateGoryInfo=="分类"){
+					categoryId=osg.param("categoryId");
+					osg.ajax("voice/queryVoiceCategoryById",{"categoryId":categoryId},function(data){
+					cdata=data;
+					resourcesAndCateGoryData(data)
+					$(".lookMoreRadio").show();
+					$(".payVipBlock").hide();
+				})
+				}
+				else if(cateGoryInfo=="资源包"){
+					resourcePackId=osg.param("categoryId");
+					payid=resourcePackId;
+					osg.ajax("voice/queryresourcePackById",{"categoryId":resourcePackId},function(data){
+						cdata=data;
+						buyType=data.buyType;
+						resourcesAndCateGoryData(data);
+						var user = osg.currentUser();
+						if((data.buyType==1 || data.payed || (buyType==0&&user&&user.isVip) || (mui.os.ios && osg.settingValue('isPublish') == 1))&&detailsView){//免费
+							$(".lookMoreRadio").show();
+							$(".payVipBlock").hide();
+						}else if((data.buyType==2&&!data.payed)||(data.buyType==0&&user&&!user.isVip)||(data.buyType==0&&!user)){//data.buyType==2 vip独享   ==0的时候是收费
+							if(data.buyType==0){
+								$(".payVip").addClass("monthVip");
+								$(".payVip").removeClass("yearVip");
+								$(".payVipBlock .showdiatance").html("开通会员免费听");
+							}else{
+								$(".payVip").addClass("yearVip");
+								$(".payVip").removeClass("monthVip");
+								$(".payVipBlock .showdiatance").html("年卡会员"+data.vipPrice+"元");
+							}
+								
+							$(".lookMoreRadio").hide();
+							$(".payVipBlock").show();
+							if(data.price==data.discountPrice){
+								$(".payVipBlock s").hide();
+								$(".payVipBlock .PriceCompare").css("lineHeight","2.5rem")
+								$(".payVipBlock .PriceCompare>p").html(data.price+"元购买");
+							}else{
+								$(".payVipBlock .PriceCompare>p").html(data.discountPrice+"元购买");
+								$(".payVipBlock .PriceCompare>s").html("原价"+data.price+"元");
+							}
+						}
+						
+						if(mui.os.ios && osg.settingValue('isPublish') == 1){
+							$(".payVipBlock").hide();
+						}
+						shareMsg={
+							href: "http://www.badou001.cn/badou/i/shareList.do?resourcePackId="+data._id,
+				            title: data.name,
+				            content: data.memo,
+				            thumbs: [qiniuRoot + data.logo+"!app.share"],
+				            pictures: [qiniuRoot + data.logo+"!app.share"],
+						}
+					})
+				}
+				var htmls=$(".lookMore").clone();
+				$(".lookMore").hide();
+				function resourcesAndCateGoryData(data){
+					$(".pageTitle").html(data.name);
+					$(".videoCount").html(data.mold+data.count);
+					$(".bgTopImg").find(".imgOfInfo").attr("src",qiniuRoot+data.banner+'!app.voiceResource.img')
+					$(".cateGoryInfo").html(data.content);
+					$(".cateGoryInfo img").removeAttr("height").css("width","100%");
+					if(osg.isLogined() && data.favored) {
+						$(".like>.iconfont").html("&#xe64d").css("color", "rgba(211,36,36,1)");
+					}
+				}
+				findPage(categoryId,resourcePackId,"DESC");//默认升序
+				
+				function findPage(categoryId, resourcePackId,order) {
+					osg.ajax("voice/cat",{"categoryId":categoryId,"resourcePackId":resourcePackId,"sortOrder":order},function(data){
+						voices=data.data;
+						if(!voices||voices.length<=0){
+							$(".all_voiceplay").hide();
+						}
+						var user = osg.currentUser();
+						for(var i=0;i<data.data.length;i++){
+							var currModule=htmls.clone();
+							currModule.find(".imgOfInfo").attr("src",qiniuRoot+data.data[i].logo+'!app.voicesmall.img');
+							currModule.find(".openVip").html(data.data[i].title);
+							currModule.find(".memo").html(data.data[i].memo);
+							currModule.find(".fonts .playTimes>span").html(data.data[i].times);
+							currModule.find(".fonts .commentTimes>span").html(data.data[i].commentTimes);
+							currModule.find(".fonts .duration>span").html(data.data[i].strDuration);
+							if((data.data[i].buyType==1&&data.data[i].resourcePack.buyType==1) || data.data[i].payed 
+							|| (data.data[i].resourcePack.buyType==0&&user&&user.isVip)
+							|| (mui.os.ios && osg.settingValue('isPublish') == 1)){//免费或者已购买
+								currModule.find(".allrowRight>span").html("&#xe606;");
+								currModule.find(".allrowRight").data("data",data.data[i]);
+								currModule.find(".allrowRight").find(".iconfont").attr("data-down",data.data[i]._id);
+								currModule.find(".allrowRight").removeClass("noFree");
+								currModule.find(".allrowRight").tap(function() {
+									event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+									$this = $(this);
+									fileDownload($this);
+									$(this).find(".iconfont").html("&#xe653;").css("fontSize","1.2rem");
+								});	
+							}else if(data.data[i].resourcePack.buyType!=1&&data.data[i].buyType==1){
+								currModule.find(".allrowRight>span").html("&#xe61d;");
+								currModule.find(".allrowRight").addClass("noFree");
+								currModule.find(".allrowRight").find(".shiting").text("试听");
+							}
+							if(mui.os.ios && osg.settingValue('isPublish') == 1){
+								currModule.find(".allrowRight").find(".shiting").text("");
+							}
+							currModule.attr("id",data.data[i]._id);
+							currModule.data("data",data.data[i]);
+							currModule.tap(function() {
+								var user = osg.currentUser();
+								var voice_data = $(this).data("data");
+								osg.ajax('voice/canLook', {
+									'voiceId': voice_data._id
+								}, function(str) {
+									if("success"==str || voice_data.buyType==1 || (mui.os.ios && osg.settingValue('isPublish') == 1)){
+										if("success"==str || (mui.os.ios && osg.settingValue('isPublish') == 1)){
+											osg.set('voice_list',data.data);//把列表缓存到本地
+										}else{
+											if(data.data&&data.data.length>0){
+												var vlist = [];
+												for(var i=0;i<data.data.length;i++){
+													if(data.data[i].buyType==1){
+														vlist.push(data.data[i]);
+													}
+												}
+												osg.set('voice_list',vlist);//把列表缓存到本地
+											}
+											
+										}
+									    osg.set("voice_now",voice_data);
+									    osg.evtFireEvent('update');
+										osg.open('audioPlay.html', {
+										}, null, {
+											im: 1,
+											id:"details"
+										});
+									}else{
+										osg.toast("请购买后再听！");
+									}
+								}, {
+									noload: true
+								});
+							});	
+							$(".module").append(currModule);
+						}
+						hasDown();
+					});
+				}
+				
+				/*支付相关开始*/
+				mui('.content').on('tap', '.monthVip', function(e) {
+					var user = osg.currentUser();
+					if(osg.isLogined()) {
+						if(payid){
+							type=0;
+							payid="month";//月卡typeId存month
+							doShowPayMenu();
+						}
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html', null, null, {
+								im: 1
+							});
+						});
+					}
+				});
+				mui('.content').on('tap', '.yearVip', function(e) {
+					if(osg.isLogined()) {
+						if(payid){
+							type=2;
+							payid=resourcePackId;
+							doShowPayMenu();
+						}
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html', null, null, {
+								im: 1
+							});
+						});
+					}
+				});
+				$(".PriceCompare").tap(function() {
+					if(osg.isLogined()) {
+						if(payid){
+							type=2;
+							payid=resourcePackId;
+							doShowPayMenu();
+						}
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html', null, null, {
+								im: 1
+							});
+						});
+					}
+				});
+				$(".pay_menu").tap(function() {
+					$(".pay_menu").fadeOut();
+				});
+
+				function doShowPayMenu() {
+					if(mui.os.ios && (plus.runtime.version + '') == '1.5')
+						pay('alipay', payid);
+					else
+						$(".pay_menu").fadeIn();
+				}
+				$(".ali_pay").tap(function() {
+					pay('alipay', payid);
+				});
+				$(".wx_pay").tap(function() {
+					
+					pay('wxpay', payid);
+				});
+				// 获取支付通道
+				plus.payment.getChannels(function(channels) {
+					for(var i = 0; i < channels.length; i++) {
+						var c = channels[i];
+						if(c.serviceReady)
+							channel[c.id] = c;
+						//alert(c.id + ":" + c.description + ":" + c.serviceReady);
+					}
+				}, function(e) {
+					alert("获取支付通道失败：" + e.message);
+				});
+
+				function pay(id, typeId) {
+					$(".pay_menu").fadeOut();
+					var url;
+					if(id == 'alipay')
+						url = '/order/payali';
+					else if(id == 'wxpay')
+						url = '/order/payweixin';
+					else
+						return;
+
+					osg.ajax(url, {
+						"typeId": typeId,
+						"type": type,
+						"addressId":"",
+						"count":0
+					}, function(d) {
+						plus.payment.request(channel[id], d, function(result) {
+							// 支付成功
+							osg.toast('支付成功！');
+							$(".lookMoreRadio").show();
+							$(".payVipBlock").hide();
+							osg.ajax('user/mine', null, function(data) {
+							if(!data)
+								return;
+							var u = data;
+							var token = osg.currentToken();
+							var userInfo = {
+								'user': data,
+								'token': token
+							}
+							osg.currentUserSet(userInfo);
+							}, {
+								noload: true
+							});
+						}, function(error) {
+							// 支付失败
+							if(error.code == 62000) {
+								osg.toast('支付失败--您未安装此应用，请选择其他支付方式 。');
+							} else {
+								osg.toast('支付失败:' + error.code);
+							}
+						});
+					});
+				}
+				/*支付相关结束*/
+				
+				/*播放状态判断*/
+				var isPlay = osg.get('isPlay');
+				if(isPlay){
+					$(".play_bon").html("&#xe63c;");
+				}else{
+					$(".play_bon").html("&#xe61d;");
+				}
+				//排序点击事件
+				$(".voice_order").tap(function() {
+					if($(this).hasClass("asc")){
+						$(".module").children().remove();
+						findPage(categoryId,resourcePackId,"DESC");//改为降序
+						$(this).removeClass("asc");
+						$(this).addClass("desc");
+						$(this).html("&#xe664;");
+					}else if($(this).hasClass("desc")){
+						$(".module").children().remove();
+						findPage(categoryId,resourcePackId,"ASC");//改为升序
+						$(this).removeClass("desc");
+						$(this).addClass("asc");
+						$(this).html("&#xe661;");
+					}
+				});
+				//全部播放点击事件
+				$(".all_voiceplay").tap(function() {
+					var freelist = [];
+					for(var i=0;i<voices.length;i++){
+						voice_data = voices[i];
+						if(voice_data.buyType==1 || voice_data.resourcePack.payed 
+						|| (voice_data.resourcePack.buyType==0&&user&&user.isVip)){
+							freelist.push(voice_data);
+						}
+					}
+					osg.set('voice_list',freelist);//把列表缓存到本地
+					osg.set("voice_now",freelist[0]);
+					osg.evtFireEvent('update');
+					osg.open('audioPlay.html', {
+					}, null, {
+						im: 1,
+						id:"details"
+					});
+				});
+				//试听点击事件
+				$(".tryListen").tap(function() {
+					var freelist = [];
+					for(var i=0;i<voices.length;i++){
+						voice_data = voices[i];
+						if(voice_data.buyType==1){
+							freelist.push(voice_data);
+						}
+					}
+					osg.set('voice_list',freelist);//把列表缓存到本地
+					osg.set("voice_now",freelist[0]);
+					osg.evtFireEvent('update');
+					osg.open('audioPlay.html', {
+					}, null, {
+						im: 1,
+						id:"details"
+					});
+				});
+				//收藏点击事件
+				$(".like").tap(function() {
+					if(osg.isLogined()) {
+						var typeId=osg.param("categoryId");
+						if(cdata && cdata.favored) {
+							osg.ajax('favor/deleFavor', {
+								'type': 3,
+								'typeId': typeId
+							}, function(data) {
+								cdata.favored = false;
+								osg.toast("取消收藏成功！");
+								$(".like>.iconfont").html("&#xe613;").css("color","#747682");
+							}, {
+								noload: true
+							});
+						} else {
+							osg.ajax('favor/addFavor', {
+								'type': 3,
+								'typeId': typeId
+							}, function(data) {
+								cdata.favored = true;
+								osg.toast("收藏成功");
+								$(".like>.iconfont").html("&#xe64d").css("color", "rgba(211,36,36,1)");
+							});
+						}
+					} else {
+						osg.open("../mine/login.html");
+					}
+				});
+				
+			});
+			/*屏幕滑动*/
+			$(".changerBar").on("tap","li",function(){
+				var currClass=$(this).attr("data-change");
+				$(this).addClass("active").siblings("li").removeClass("active");
+				$(".isShow").removeClass("isShow");
+				$("."+$(this).attr("data-change")).addClass("isShow");
+				if($(this).attr("data-change")=="cateGoryInfo")
+					$(".allPlay").hide();
+				else	
+					$(".allPlay").show();
+				
+			})
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+		<script src="../resources/js/voice.now.js"></script>
+		<script src="../resources/js/share.js"></script>
+	</body>
+
+</html>

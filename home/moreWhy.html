@@ -1,0 +1,355 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.bgTopImg {
+				width:100%;
+				height:13rem;
+				overflow: hidden;
+				border-bottom:1px solid transparent !important;
+				margin-bottom:0;
+				position:relative;
+			}	
+			.bgTopImg img{
+				width:100%;
+			}
+			.dataShow{
+				position:absolute;
+				bottom:4rem;
+				left:7rem;
+				width:65%;
+				height:4rem;
+				color:#121212;
+			}
+			.dataShow a{
+				padding:.4rem 1.2rem;
+				background:rgba(238,78,78,1);
+				border-radius:10px;
+				color:#fff;
+				position:absolute;
+				right:0;
+				top:.4rem;
+			}
+			.mui-bar~.mui-scroll-wrapper{
+				margin-top:0 !important;			
+			}
+			.mui-bar-nav{
+				background:transparent !important;
+			}
+			.pageTitle{
+				margin-bottom:.2rem;
+			}
+			.subscriber{
+				font-size:.9rem;
+			}
+			.gxTitle{
+				height:2rem;
+				line-height:.4rem;
+				position:relative;
+				margin:0 3%;;
+			}
+			.gxTitle .order{
+				position: absolute;
+				right:0;
+				top:-.5rem;
+				color:#939393;
+			}
+			.gxTitle .order>span{
+				display: inline-block;
+				font-size:18px;
+				vertical-align: middle;
+			}
+			.gxTitle .order>span:last-child{
+				width:1rem;
+				line-height: .7rem;
+				vertical-align: middle;
+				font-size:.7rem;
+				margin-left:.1rem;
+			}
+			/*下边列表部分*/
+			.lookMoreTi{
+				color:#121212;
+				margin-bottom:0;
+				padding:.5rem 0;
+				padding-left:3%;
+				background:#F5F6F7;
+			}
+			.lookMore{
+				width:100%;
+				padding:0 3%;
+				position:relative;
+				background:#fff;
+				margin:1rem 0;
+			}
+			
+			.lookMore>div.leftShow>img{
+				width:4rem;
+				height:4rem;
+				margin-top:.5rem;
+				border-radius:4px;
+			}
+			.lookMore>div.leftShow>div{
+				display:inline-block;
+			}
+			.lookMore>div.leftShow>div p{
+				margin:0.2rem;
+				font-size:.9rem;
+				color:#121212;
+			}
+			.allrowRight{
+				position: absolute;
+				top:50%;
+				right:1rem;
+				transform:translateY(-50%);
+				color:#CCCCCC;
+				text-align: center;
+				padding:.5rem;
+			}
+			.showPartIcon{
+				color:#939393 !important;
+			}
+			.showPartIcon .iconfont{
+				color:#939393;
+				font-size:.8rem;
+				margin-right:.1rem
+			}
+			.readNum{
+				margin-right:1rem;
+			}
+			/*MUI 去除标题栏与内容栏中间的线*/
+			.mui-bar-nav {
+			-webkit-box-shadow: none;
+			box-shadow: none;
+			}
+		</style>
+	</head>
+
+	<body class="la">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header ">
+				<p class="headerTi mui-action-back">
+					<span class="iconfont" style="color:#121212">&#xe60e;</span>
+				</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll ">
+				<div class="bgTopImg">
+					<img src="../resources/images/whys.png" alt="" />
+				</div>
+				<p class="gxTitle">
+					<span class='update'></span>
+					<span class="order"><span class="iconfont voice_order desc">&#xe661;</span><span>排序</span></span>
+				</p>
+				<div class="module">
+				</div>
+			</div>
+		</div>
+		
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script src="../resources/js/download.js "></script>
+		<script type="text/javascript">
+			var  voiceFpi,ptr;
+			myFunc(function() {
+				var htmls=`
+					<div class="lookMore">
+						<div class="leftShow">
+							<img class="imgOfInfo" src="../resources/images/currAudioLogo.png" alt="" />
+							<div class="audioListnameMore">
+								<p class="openVip">成语大全</p>
+								<p style="color:#939393" class="memo">共100个成语</p>
+								<p class="showPartIcon">
+									<span class="iconfont readIcon">&#xe684;</span>
+									<span class="readNum">50</span>
+									<span class="iconfont playIcon"></span>
+									<span class="playNum"></span>
+								</p>
+							</div>
+						</div>
+						<span  class="iconfont allrowRight">&#xe61c;</span>
+					</div>`;
+					
+					$(".div_img").css('height', 210 / 376 * plus.screen.resolutionWidth + 'px');
+					
+					myscroll = $(".coment_scroll")[0];
+					mui(myscroll).pullToRefresh({
+						up: {
+							auto: true,
+							callback: function() {
+								ptr = this;
+								var nextPage;
+								if(voiceFpi)
+									nextPage = voiceFpi.page + 1;
+								else
+									nextPage = 1;
+	
+								findPage(nextPage, {
+									'self': this
+								},"DESC");
+							}
+						},
+					});
+					
+					//分页函数
+				function findPage(page, param,order) {
+					if(!param) {
+						param = {};
+					}
+					param.self = ptr;
+					osg.ajax('todayRecommend/query', {
+					'page': page,
+					"tag" : 't',
+					"sortOrder":order
+					}, function(data) {
+						// 下拉的情况下，结束下拉刷新状态
+						if(param.pullDown)
+							param.self.endPullDownToRefresh();
+						if(!data) {
+							param.self.endPullUpToRefresh(true);
+							return;
+						}
+						if(page == 1) {
+							$("#module").html('');
+						}
+						voiceFpi = data;
+						var datas=data.data;
+						$(".update").html("已更新"+data.total*2+"条");
+						for(var i=0;i<datas.length;i++){
+							var vos = datas[i].objects;
+							if(datas[i].type==1){
+								getVoiceItem(vos,datas[i]);
+							}else if (datas[i].type == 2 || datas[i].type == 3) {
+								getResourcePackItem(vos,datas[i]);
+							}
+						}
+						param.self.endPullUpToRefresh(data.page >= data.pages);
+					});
+				}
+				
+				function getVoiceItem(vos,c) {
+					$(".module").append('<p class="lookMoreTi more">'+c.title+'</p>');
+					for(var j=0;j<vos.length;j++){
+						var currModule=$(htmls).clone();
+						currModule.find(".memo").hide();
+						currModule.find(".allrowRight").data("data",vos[j]);
+						currModule.find(".allrowRight").attr("data-down",vos[j]._id);
+						currModule.find(".allrowRight").html("&#xe606;");
+						currModule.find(".openVip").html(vos[j].title);
+						currModule.find(".openVip").css("padding-top","1rem");
+						currModule.find(".readIcon").html("&#xe610;");
+						currModule.find(".readNum").html(vos[j].times);
+						currModule.find(".playIcon").html("&#xe62e;");
+						currModule.find(".playNum").html(vos[j].commentTimes);
+						currModule.find(".imgOfInfo").attr("src",qiniuRoot+vos[j].logo+"!app.voicesmall.img");
+						currModule.attr('id', vos[j]._id);
+						currModule.data('data', vos[j]);
+						currModule.tap(function(){
+							var voice_data = $(this).data('data');
+							if(voice_data.buyType==1){
+								if(vos && vos.length>0){
+									var vlist = [];
+									for(var f=0;f<vos.length;f++){
+										if(vos[f].buyType==1){
+											vlist.push(vos[f]);
+										}
+									}
+									osg.set('voice_list',vlist);//把列表缓存到本地
+								}
+								osg.set("voice_now",voice_data);
+								osg.evtFireEvent('update');
+								osg.open('audioPlay.html', {
+								}, null, {
+									im: 1,
+									id:"details"
+								});
+							}
+						});
+						currModule.find(".allrowRight").tap(function(){
+							event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+							$this = $(this);
+							fileDownload($this);
+							$(this).html("&#xe653;").css("fontSize","1.2rem");
+						});
+						$(".module").append(currModule);
+					}
+					hasDown();
+				}
+				
+				function getResourcePackItem(vos,c) {
+					$(".module").append('<p class="lookMoreTi more">' + c.title + '</p>');
+					for (var j = 0; j < vos.length; j++) {
+						var currModule = $(htmls).clone();
+						currModule.find(".allrowRight").data("data", vos[j]);
+						currModule.find(".allrowRight").html("&#xe61c;");
+						currModule.addClass("lookMoreList");
+						currModule.find(".allrowRight").attr("data-down", vos[j]._id);
+						currModule.find(".openVip").html(vos[j].name);
+						currModule.attr('data-id', vos[j]._id);
+						currModule.data('data', vos[j]);
+						if(c.type==2)
+							currModule.attr("data-info","分类");
+						else
+							currModule.attr("data-info","资源包");
+						/*该资源包或者音频的个数*/
+						currModule.find(".readIcon").html("&#xe684;");
+						currModule.find(".playIcon").html("");
+						currModule.find(".playNum").html("");
+						if(vos[j].count==vos[j].sum)
+							currModule.find(".readNum").html(vos[j].sum+"集");
+						else
+							currModule.find(".readNum").html(vos[j].count+"/"+vos[j].sum+"集");
+						currModule.find(".memo").html(vos[j].memo);
+						currModule.find(".imgOfInfo").attr("src",qiniuRoot+vos[j].logo+"!app.voicesmall.img");
+						$(".module").append(currModule);
+					}
+				}
+				//排序点击事件
+				$(".order").tap(function() {
+					$this = $(this).find(".voice_order");
+					if($this.hasClass("asc")){
+						$(".module").children().remove();
+						findPage(1,null,"DESC");//改为降序
+						$this.removeClass("asc");
+						$this.addClass("desc");
+						$this.html("&#xe661;");
+					}else if($this.hasClass("desc")){
+						$(".module").children().remove();
+						findPage(1,null,"ASC");//改为升序
+						$this.removeClass("desc");
+						$this.addClass("asc");
+						$this.html("&#xe664;");
+					}
+				});
+			});
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+			
+			$(".module").on("tap",".lookMoreList",function(){
+				var cuId=$(this).attr("data-id");
+				var currCateGory=$(this).attr("data-info");
+				if(cuId)
+					osg.open("audioList.html",{"categoryId":cuId,"cateGoryInfo":currCateGory});
+			})
+			
+			
+		</script>
+	</body>
+
+</html>

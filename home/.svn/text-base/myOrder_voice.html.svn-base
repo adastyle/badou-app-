@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.contents{
+			   width:93%;
+			   margin:0 auto;
+			}
+			.bigTitle{
+				font-size:1.2rem;
+				margin:1rem 0;
+			}
+			.jpContent>ul{
+				list-style: none;
+				overflow: hidden;
+				margin-bottom:.7rem;
+			}
+			.jpContent>ul li{
+				float:left;
+				font-size:.9rem;
+				height:1.5rem;
+				margin-right: 1rem;
+				position:relative;
+			}
+			.jpContent>ul li.active:after{
+				display:block;
+				content:"";
+				width:30%;
+				height:2px;
+				background:#D32424;
+				position:absolute;
+				bottom:0;
+				left:50%;
+				transform:translateX(-50%);
+			}
+			.changeBox1{
+				text-align: center;
+			}
+			.changeBox1>div{
+				display:inline-block;
+				width:31%;
+				text-align: left;
+			}
+			.changeBox1>div:nth-child(2){
+				margin:0 3.4%;
+			}
+			.changeBox1>div .resources{
+				position: relative;
+				width:100%;
+			}
+			.changeBox1>div .resources img{
+				width:100%;
+				border-radius:10px;
+			}
+			.changeBox1>div .resources a{
+				position:absolute;
+				left:.5rem;
+				bottom:.5rem;
+				font-size:.8rem !important;
+				color:#fff;
+			}
+			.changeBox1>div>p{
+				width:90%;
+				font-size:.9rem;
+			}
+			/*蒙学经典*/
+			.newsTitle{
+				font-size:.9rem;
+			}
+			.moduleBanner{
+				position:relative;
+			}
+			.moduleBanner>img:first-child{
+				width:100%;
+			}
+			.moduleImgShow p.curTitle{
+				margin:0;
+				margin-top:.3rem;
+				text-align: left;
+			}
+			.moduleImgShow>div{
+				display:inline-block;
+				width:48%;
+				margin-bottom:1.5rem;
+				font-size:.9rem;
+			}
+			.oneBanner{
+				padding-bottom:.5rem;
+			}
+			.moduleImgShow>div img{
+				border-radius: 4px;		
+				width:100%;	
+			}
+			.moduleImgShow>div:nth-child(2n){
+				margin-left:3.5%;
+			}
+			
+			.hasResources .resources{
+				position: relative;
+				width:100%;
+			}
+			.hasResources .resources img{
+				width:100%;
+				border-radius:4px;
+			}
+			.hasResources .resources a{
+				position:absolute;
+				left:.5rem;
+				bottom:.5rem;
+				font-size:.8rem !important;
+				color:#fff;
+			}
+			.hasResources>p{
+				width:90%;
+				font-size:.9rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back" style="padding:.5rem;">&#xe60e;</span>
+				<h1 class="mui-title" style="color:#121212">已购买的</h1>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll coment_scroll">
+				<div class="contents">
+					<!--四张图-->
+					<div class='fourthImg'>
+						<p class="bigTitle">最近购买</p>
+						<div class="moduleImgShow"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script type="text/javascript">
+			myFunc(function() {
+				var aSquare=`<div class="hasResources">
+								<div class="resources">
+									<img src="" alt="" />
+									<a>
+										<span class="iconfont">&#xe672;</span>
+										<span  class="nums"></span>
+									</a>
+								</div>
+								<p class="more curTitle"></p>
+							</div>`
+							
+				var fourthImg = $(".fourthImg").clone();
+				$(".fourthImg").empty();
+				osg.ajax("order/query", {
+					"goods": "voiceResourcePack"
+				}, function(data) {
+					var temp = fourthImg.clone();
+					for (var i = 0; i < data.data.length; i++) {
+						var vrp = data.data[i];
+						var tempSquare=$(aSquare).clone();
+						tempSquare.find("img").attr("src",qiniuRoot+vrp.info.logo+'!app.voicezheng.img');
+						tempSquare.attr("data-id",vrp.info._id);
+						tempSquare.find(".nums").html(vrp.info.count+" / "+vrp.info.sum+"个");
+						tempSquare.find(".curTitle").html(vrp.info.name);
+						tempSquare.tap(function(){
+							event.stopPropagation();
+							var id = $(this).attr('data-id');
+							osg.open("audioList.html",{"categoryId":id,"cateGoryInfo":"资源包"});
+						})
+						temp.find('.moduleImgShow').append(tempSquare);
+						$(".fourthImg").append(temp);
+					}
+				})
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+</html>

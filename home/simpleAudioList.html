@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.lookMore{
+				height:8rem;
+				width:100%;
+				padding:0 3%;
+				position:relative;
+				border-bottom:1px solid #F5F6F7;
+				background:#fff;
+				z-index:1000
+			}
+			.lookMore>div.leftShow>img{
+				width:7rem;
+				height:5rem;
+				margin-top:1.5rem;
+				border-radius:4px
+			}
+			.lookMore>div.leftShow>div{
+				display:inline-block;
+				padding-top:1.3rem;
+			}
+			.lookMore>div.leftShow>div p{
+				margin:0.3rem;
+				font-size:1rem;
+				color:#121212;
+			}
+			.allrowRight{
+				position: absolute;
+				top:50%;
+				right:1rem;
+				transform:translateY(-50%);
+				color:#CCCCCC;
+				text-align: center;
+			}
+			
+		</style>
+	</head>
+
+	<body class="xyBanner">
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p>蒙学系列</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll ">
+				<!--搜索资源包-->
+				<div class="searchResult">
+					<div class="lookMore">
+						<div class="leftShow">
+							<img class="imgOfInfo" src="../resources/images/currAudioLogo.png" alt="" />
+							<div>
+								<p class="openVip">成语大全</p>
+								<p style="color:#939393" class="memo">共100个成语</p>
+								<p style="color:#939393" class="fonts">
+									<span class="playTimes"><i class="iconfont" style="margin-right:.3rem">&#xe684;</i><span>50</span></span>
+								</p>
+							</div>
+						</div>
+						<span class="iconfont allrowRight">&#xe61c;</span>
+					</div>
+					<div class="lookMore">
+						<div class="leftShow">
+							<img class="imgOfInfo" src="../resources/images/currAudioLogo.png" alt="" />
+							<div>
+								<p class="openVip">成语大全</p>
+								<p style="color:#939393" class="memo">共100个成语</p>
+								<p style="color:#939393" class="fonts">
+									<span class="playTimes"><i class="iconfont" style="margin-right:.3rem">&#xe684;</i><span>50</span></span>
+								</p>
+							</div>
+						</div>
+						<span class="iconfont allrowRight">&#xe61c;</span>
+					</div>
+					<div class="lookMore">
+						<div class="leftShow">
+							<img class="imgOfInfo" src="../resources/images/currAudioLogo.png" alt="" />
+							<div>
+								<p class="openVip">成语大全</p>
+								<p style="color:#939393" class="memo">共100个成语</p>
+								<p style="color:#939393" class="fonts">
+									<span class="playTimes"><i class="iconfont" style="margin-right:.3rem">&#xe684;</i><span>50</span></span>
+								</p>
+							</div>
+						</div>
+						<span class="iconfont allrowRight">&#xe61c;</span>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/division.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script type="text/javascript">
+			myFunc(function() {
+				
+			})
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.ContentTips{
+				padding-left:.5rem;
+				padding-right:.6rem;
+				text-align:justify;
+				margin:0 .3rem;
+				font-weight: normal;
+			}
+			.needBold{
+				font-weight: 700;
+				padding-top:10px;
+			}
+			.mui-title{
+				color:#121212;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav ">
+			<a class="mui-action-back iconfont">&#xe60e;</a>
+			<h1 class="mui-title">用户隐私协议</h1>
+		</header>
+		<div class="mui-scroll-wrapper ">
+			<div class="mui-scroll ">
+				<p style="color:#0B8ED1;font-weight:700; text-align:center;padding-top:1rem">《八斗国学用户隐私协议》</p>
+				<div class="ContentTips" style="padding-left:9px;">
+					<p class="needBold">【注意】:</p>
+					<span>欢迎使用北京优兔帮教育科技有限公司为您提供的八斗国学软件或服务。请您（下称“用户”）仔细阅读以下全部内容（特别是粗体下划线标注的内容）。如果您为未满 18周岁的自然人，请在法定监护人的陪同下阅读本协议，并特别注意未成年人使用条款。如用户使用八斗国学软件或服务，即表示用户（无论个人或者单位）与北京优兔帮教育科技有限公司（下称 “八斗国学”）已达成协议，自愿接受本服务条款所有内容。此后，用户不得以未阅读本服务条款内容作任何形式的抗辩。</span>
+					<p>1.用户充分理解并同意用户信息包括用户的隐私信息和非隐私信息两种。隐私信息是指那些能够对用户进行个人辨识的信息，包括但不限于用户真实姓名，身份证号，手机号码，IP地址，设备识别码或其他涉及用户个人身份识别的信息。而非隐私信息是指记录在八斗国学服务器的，用户在使用八斗国学服务时的行为习惯等基本信息和用户隐私信息外的一切普通信息，以及用户同意公开的用户隐私信息。用户充分理解并同意八斗国学主动、被动收集用户信息，也充分理解并同意八斗国学收集非隐私信息的目的是为用户提供尽可能多的个人化网上服务以及为广告商提供一个方便的途径来接触到适合的用户，同时可以发送具有相关性的内容和广告。用户不得擅自窃取或以其他方式获取八斗国学平台中的用户隐私或非隐私信息，不得非法出售或者非法向他人提供上述用户隐私或非隐私信息。</p>
+					<p>2.八斗国学不会在未经合法用户授权时，公开、编辑或透露用户隐私信息及保存在八斗国学中的非公开内容，除非有下列情况的，八斗国学可使用、公开、编辑或透露用户隐私信息及保存在八斗国学中的非公开内容：</p>
+					<p>(1) 有关法律规定或八斗国学合法服务程序规定；</p>
+					<p>(2) 在紧急情况下，为维护用户及公众的权益；</p>
+					<p>(3) 为维护八斗国学自身的合法权利；</p>
+					<p>(4) 基于安全防范、诈骗监测和安全风控等网络安全事宜的；</p>
+					<p>(5) 其他需要公开、编辑或透露个人信息的情况。</p>
+					<p>3.在以下（包括但不限于）几种情况下，用户同意八斗国学使用其用户信息：</p>
+					<p>(1) 在进行促销或抽奖时， 八斗国学可能会与赞助商共享用户隐私信息，在这些情况下八斗国学会在发送用户隐私信息之前进行提示，用户可以通过不参与来终止传送过程；</p>
+					<p>(2) 用户购买在八斗国学列出的商品时，用户提供的个人信息（例如用户的信用卡号和联系信息）会提供给商家，这些商家会进行数据收集操作，但八斗国学对商家的此种操作不负任何责任；</p>
+					<p>(3)八斗国学会向用户发送关于八斗国学不同产品和服务的信息或者八斗国学认为用户会感兴趣的其他产品和服务。如果用户不希望收到这样的邮件，只需在提供用户信息时或其他任何时候告知即可。另外，八斗国学会竭尽全力保护用户信息，但八斗国学不能确信或保证任何个人信息的安全性，用户须自己承担风险。比如用户联机公布可被公众访问的个人信息时，用户有可能会收到未经用户同意的消息；八斗国学的合作伙伴和可通过八斗国学访问的第三方因特网站点和服务或通过抽奖、促销等活动得知用户个人信息的其他第三方会进行独立的数据收集工作等活动，八斗国学对用户及其他任何第三方的上述行为，不负担任何责任。</p>
+					<p>(4) 八斗国学在完善八斗国学提供的各项服务的过程中需自行或向八斗国学合作的第三方提供和使用其用户信息的。八斗国学承诺如向第三方提供的，第三方需同意遵守用户信息保密义务。</p>
+					<p>(5) 其他经过用户事先确认同意的使用情况。</p>
+					<p>4.八斗国学收集的信息将成为八斗国学常规商业档案的一部分，且有可能因为转让、合并、收购、重组等原因而被转移到八斗国学的继任公司或者指定的一方。用户同意八斗国学善意使用收集的信息，且采取各项措施保证信息安全。</p>
+					<p style="text-align: right;">北京优兔帮教育科技有限公司</p>
+					<p style="text-align: right;">2019年3月26日</p>
+					
+				</div>
+			</div>
+		</div>
+		<script src="../resources/js/mui.min.js"></script>
+		<script src="../resources/js/jquery.min.js"></script>
+		<script src="../resources/js/common.js"></script>
+		<script src="../resources/js/mui.pullToRefresh.js"></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js"></script>
+	</body>
+	<script>
+		myFunc(function() {
+			
+		})
+	</script>
+</html>

@@ -1,0 +1,405 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			p{
+				margin-bottom:0;
+			}
+			.mui-bar-nav {
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+			.contents{
+				width:94%;
+				margin:0 auto;
+				padding-top:1rem;
+			}
+			/*头部切换*/
+			.changeBar{
+				text-align: center;
+				color:#121212;
+				border-bottom:1px solid #F5F6F7;
+			}
+			.changeBar >li{
+				display:inline-block;
+				width:49%;
+				height:4rem;
+				text-align: center;
+				padding-top:.5rem;
+			}
+			.changeBar >li p{
+				padding-top:.3rem;
+			}
+			.changeBar >li.active{
+				color:#D32424
+			}
+			.changeBar >li.myCollect{
+				position:relative;
+			}
+			.changeBar >li.myCollect:after{
+				display:block;
+				content: "";
+				position: absolute;
+				top:.5rem;
+				right:0;
+				width:1px;
+				height:80%;
+				background:#F5F6F7;
+			}
+			.likes{
+				display:none;
+			}
+			
+			/*空收藏的时候*/
+			.emptyCard{
+				text-align: center;
+				padding-top:2rem;
+				display:none;
+			}
+			.emptyCard>img{
+				height:9rem;
+			}
+			.emptyCard>div>a{
+				display:inline-block;
+				width:8rem;
+				height:2rem;
+				line-height:2rem;
+				border-radius:25px;
+				border:1px solid #EE4E4E;
+				background:#EE4E4E;
+				color:#fff;
+				margin:.3rem;
+			}
+			.emptyCard>div>a.toCollect{
+				background: #fff;
+				color:#EE4E4E;
+			}
+			/*我的收藏*/
+			.lookMore{
+				height:7rem;
+				width:100%;
+				padding:0 3%;
+				position:relative;
+				border-bottom:10px solid #F5F6F7;
+				background:#fff;
+				z-index:1000
+			}
+			.lookMore:last-child{
+				border-bottom:#00F7DE;
+			}
+			.lookMoreTi{
+				color:#121212;
+				font-weight: bold;
+				font-size:1.2rem;
+				margin-bottom:0;
+				padding-left:3%;
+				padding-top:.5rem;
+			}
+			.lookMore>div.leftShow>img{
+				width:4rem;
+				border-radius:10px;
+				margin-top:1.6rem;
+				
+			}
+			.lookMore>div.leftShow>div{
+				display:inline-block;
+				padding-top:1rem;
+			}
+			.lookMore>div.leftShow>div p{
+				margin:0.3rem;
+				font-size:1rem;
+				color:#121212;
+			}
+			.allrowRight{
+				position: absolute;
+				top:50%;
+				right:.4rem;
+				transform:translateY(-50%);
+				color:#CCCCCC;
+				padding:.5rem;
+			}
+			.lookMoreRadio{
+				position: fixed;
+				bottom:0;
+				height:4rem;
+				width:100%;
+				background:#F5F6F7;
+				text-align: center;
+				line-height:4rem;
+				z-index:1000;
+			}
+			.lookMoreRadio>a{
+				display:inline-block;
+				width:5rem;
+				height:2rem;
+				background:#fff;
+				color:#747682;
+				text-align: center;
+				line-height: 2.2rem;
+				box-shadow:0px 0px 11px 1px rgba(220,220,220,0.3);
+				border-radius:25px;
+			}
+			.showPartIcon{
+				color:#939393 !important;
+			}
+			.showPartIcon .iconfont{
+				font-size:.8rem;
+				margin-right:.1rem
+			}
+			.readNum{
+				margin-right:1rem;
+				font-size:.8rem;
+			}
+			/*我的喜欢*/
+			/*调整标题开始*/
+			.headerTi>span{
+				position:absolute !important;
+				font-size:1rem !important;
+				top:50%;
+				transform:translateY(-50%);
+			}
+			.headerTi>span:first-child{
+				left:4%;
+			}
+			.headerTi a{
+				color:#121212;
+			}
+			.mui-action-back{
+				width:100%;
+				text-align: center !important;
+				font-size:1.2rem;
+				font-weight:bold;
+				position: relative;
+				margin-left:0
+			}
+			.header p{
+				padding:0;
+				margin:0;
+			}
+			/*调整标题结束*/
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="header">
+				<!--<span class="iconfont mui-action-back">&#xe60e;</span>
+				<p style="position:relative">
+					<span>我的收藏</span>
+				</p>-->
+				<p class="headerTi mui-action-back">
+					<span class="iconfont">&#xe60e;</span>
+					<a href="javascript:;" class="pageTitle">我的收藏</a>
+				</p>
+			</div>
+		</header>
+		<div class="mui-scroll-wrapper content">
+			<div class="mui-scroll coment_scroll">
+				<ul class="changeBar">
+					<li class="myCollect active" data-currShow="collects">
+						<span class="iconfont">&#xe617;</span>
+						<p>我的收藏</p>
+					</li>
+					<li class="myLike" data-currShow="likes">
+						<span class="iconfont">&#xe628;</span>
+						<p>我喜欢的</p>
+					</li>
+				</ul>
+				<div class="contents">
+					<!--空收藏的时候-->
+					<div class="emptyCard">
+						<img src="../resources/images/empterCollect.png" alt="" />
+						<p style="color:#A6A6A6;margin:1rem 0;">还没有收藏内容</p>
+						<div>
+							<a href="javascript:;" class="findGood">发现好内容</a>
+						</div>
+					</div>
+					<!--购物车-->
+					<div class="collects">
+						<div class="lookMore lookMorepack">
+							<div class="leftShow">
+								<img class="imgOfInfo" src="../resources/images/currAudioLogo.png" alt="" />
+								<div class="audioListnameMore">
+									<p class="openVip">成语大全</p>
+									<p style="color:#939393" class="memo">共100个成语</p>
+									<p class="showPartIcon">
+										<span class="iconfont readIcon">&#xe684;</span>
+										<span class="readNum">50/100集</span>
+									</p>
+								</div>
+							</div>
+							<span  class="iconfont allrowRight">&#xe61c;</span>
+						</div>
+					</div>
+					<div class="likes">
+						<div class="lookMore lookMorelikes">
+							<div class="leftShow">
+								<img class="imgOfInfo" src="../resources/images/currAudioLogo.png" alt="" />
+								<div class="audioListnameMore">
+									<p class="openVip"  style="padding-top:.7rem;margin-bottom:.7rem;">成语大全</p>
+									<!--<p style="color:#939393" class="memo">共100个成语</p>-->
+									<p class="showPartIcon">
+										<span class="iconfont readIcon">&#xe6a9;</span>
+										<span class="readNum"></span>
+									</p>
+								</div>
+							</div>
+							<span  class="iconfont allrowRight">&#xe606;</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../resources/js/EventWrapper.js"></script>
+		<script src="../resources/js/download.js "></script>
+	</body>
+	<script type="text/javascript">
+		var likesList=[],packList=[];
+		var voiceTemp= $(".lookMorelikes").clone();
+		$(".lookMorelikes").remove();
+		var packTemp= $(".lookMorepack").clone();
+		$(".lookMorepack").remove();
+		myFunc(function() {
+			hotAjax("voice");
+			hotAjax("voiceResourcePack");
+			$(".changeBar").on("tap","li",function(){
+				$(this).addClass("active").siblings("li").removeClass("active");
+				$("."+$(this).attr("data-currShow")).show();
+				$("."+$(this).siblings("li").attr("data-currShow")).hide();
+				var str = $(this).find("p").text();
+				if("我喜欢的"==str){
+					if(likesList && likesList.length>0){
+						$(".emptyCard").hide();
+					}else{
+						$(".emptyCard").show();
+					}
+					
+				}
+				if("我的收藏"==str){
+					if(packList && packList.length>0){
+						$(".emptyCard").hide();
+					}else{
+						$(".emptyCard").show();
+					}
+				}
+			});
+			//发现好内容点击事件
+			$(".findGood").tap(function(){
+				osg.evtFireEvent('favorToVoicehome');
+			});
+			function hotAjax(type){
+				osg.ajax('favor/fpByUserId', {
+					'type': type
+				}, function(data) {
+					if("voice"==type){
+						likesList = data.data;
+						if(likesList && likesList.length>0)
+							$(".emptyCard").hide();
+						else
+							$(".emptyCard").show();
+						for(var i = 0; i < data.data.length; i++) {
+							var oneData = data.data[i].info;
+							getItem(oneData);
+						}
+						hasDown();
+					}
+					if("voiceResourcePack"==type){
+						packList = data.data;
+						if(packList && packList.length>0)
+							$(".emptyCard").hide();
+						else
+							$(".emptyCard").show();
+						for(var i = 0; i < data.data.length; i++) {
+							var oneData = data.data[i].info;
+							packItem(oneData);
+						}
+					}
+				}, {
+					noload: true
+				});
+			}
+			
+			function getItem(oneData){
+				var voi = voiceTemp.clone();
+				voi.find(".imgOfInfo").attr("src",qiniuRoot+oneData.logo+'!app.voicesmall.img');
+				voi.find(".openVip").text(oneData.title);
+				voi.find(".readNum").text(oneData.strDuration);
+				voi.find(".allrowRight").data('data', oneData);
+				voi.find(".allrowRight").attr("data-down",oneData._id);
+				voi.data('data', oneData);
+				voi.tap(function(){
+					var voice_data = $(this).data('data');
+					if(voice_data.buyType==1){
+						if(likesList && likesList.length>0){
+							var vlist = [];
+							for(var i=0;i<likesList.length;i++){
+								if(likesList[i].info.buyType==1){
+									vlist.push(likesList[i].info);
+								}
+							}
+							osg.set('voice_list',vlist);//把列表缓存到本地
+						}
+						osg.set("voice_now",voice_data);
+						osg.evtFireEvent('update');
+						osg.open('../home/audioPlay.html', {
+						}, null, {
+							im: 1,
+							id:"details"
+						});
+					}else{
+						if(voice_data.resourcePackId){
+							osg.open('../home/audioList.html', {
+								"categoryId": voice_data.resourcePackId,
+								"cateGoryInfo":"资源包"
+							}, null, {
+								im: 1
+							});
+						}
+					}
+				});
+				voi.find(".allrowRight").tap(function(){
+					event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+					var data = $(this).data("data");
+					download("",data);
+					$(this).html("&#xe653;").css("fontSize","1.2rem");
+				});
+				$(".likes").append(voi);
+			}
+			
+			function packItem(oneData){
+				var pack = packTemp.clone();
+				pack.find(".imgOfInfo").attr("src",qiniuRoot+oneData.logo+'!app.voicesmall.img');
+				pack.find(".openVip").text(oneData.name);
+				pack.find(".memo").text(oneData.memo);
+				pack.find(".readNum").text(oneData.sum+"集");
+				pack.attr("data-id",oneData._id);
+				pack.tap(function(){
+					var cuId=$(this).attr("data-id");
+					osg.open('../home/audioList.html', {
+						"categoryId":cuId,
+						"cateGoryInfo":"资源包"
+					}, null, {
+						im: 1
+					});
+				});
+				$(".collects").append(pack);
+			}
+			
+		})
+	</script>
+</html>

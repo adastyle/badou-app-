@@ -1,0 +1,818 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../resources/css/mui.min.css" rel="stylesheet" />
+		<link href="../resources/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../resources/css/style.css" rel="stylesheet" />
+		<link href="../resources/fonts/iconfont.css" rel="stylesheet">
+		<style>
+			.lrPart>div {
+				display: inline-block;
+				height: 4rem;
+				padding-left: .6rem;
+				margin-bottom: .5rem;
+				padding-top:1rem;
+			}
+			
+			.lrPart>div.left {
+				width: 58%;
+			}
+			
+			.lrPart>div.right {
+				width: 40%;
+				height: 4rem;
+				line-height: 4rem;
+				padding-top: .4rem;
+				float: right;
+			}
+			
+			.userInfo>div.toLogin>div {
+				display: inline-block;
+			}
+			
+			.userInfo>div.toLogin .userName {
+				font-size: 1rem;
+				color: #242736;
+				margin: 0;
+				padding-top: .4rem;
+				width:7rem;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			
+			.userInfo>div>img {
+				border-radius: 50%;
+				width: 4.375rem;
+				height: 4.375rem;
+			}
+			
+			.userInfo .toLogin .playTimes {
+				font-size: .9rem;
+				color: #939393;
+				margin: 0;
+			}
+			
+			.userInfo .score>div {
+				width: 7rem;
+				height: 2.3rem;
+				background: linear-gradient(-45deg, rgba(245, 39, 37, 1), rgba(249, 120, 114, 1));
+				border-radius: 32px 0px 0px 32px;
+				color: #FFFFFF;
+				font-size: .9rem;
+				text-align: center;
+				line-height: 2.3rem;
+				float: right;
+			}
+			
+			.VIP{
+				width:100%;
+				padding:0rem 3% 1rem 3%;
+				border-bottom:8px solid #F5F6F7;
+			}
+			.VIP>div{
+				width:48%;
+				display:inline-block;
+				height:6rem;
+				color:#fff;
+				text-align: center;
+				padding-top:1.5rem;
+				padding-left:.5rem;
+			}
+			.VIP>div>div{
+				display:inline-block;
+				text-align: left;
+				font-size:.9rem;
+				vertical-align: middle;
+			}
+			.VIP .iconfont{
+				font-size:1.5rem;
+			}
+			.VIP>div>div>p{
+				margin-bottom:.2rem;
+				font-size:1rem;
+			}
+			.VIP>div.leftVip{
+				background:linear-gradient(0deg,rgba(236,191,139,1),rgba(252,211,164,1));
+				box-shadow:3px 3px 7px 0px rgba(240,196,145,0.28);
+				border-radius:10px;
+				margin-right:2%;
+				text-align: left;
+			}
+			.VIP>div.leftVip p{
+				color:#7B4C0F;
+				font-size:1rem;
+			}
+			.VIP>div.rightNotice{
+				background:linear-gradient(0deg,rgba(249,208,112,1),rgba(253,223,150,1));
+				box-shadow:0px -6px 24px 6px rgba(242,181,37,0.1);
+				border-radius:10px;
+				text-align: left;
+			}
+			.VIP>div.rightNotice p{
+				color:#A37301;
+			}
+			ul.menu {
+				list-style: none;
+			}
+			
+			ul.menu>li {
+				width: 100%;
+				height: 3.5rem;
+				border-bottom: 1px solid #F5F6F7;
+				padding: 0 .3rem 0 1.1rem;
+				line-height: 3.5rem;
+				color: #2C2C2C;
+				position: relative;
+			}
+			
+			ul.menu>li:last-child {
+				border-bottom: none;
+			}
+			
+			ul.menu>li>span:first-child {
+				color:#FF9023;
+				font-size: 1.2rem;
+				margin-right: .4rem;
+			}
+			
+			ul.menu>li .more {
+				color: #CCCCCC;
+				font-size: 1rem;
+				position: absolute;
+				right: 1.2rem;
+			}
+			
+			ul.menu>li .toBind {
+				color: #CCCCCC;
+				font-size: 1rem;
+				position: absolute;
+				right: 1.2rem;
+				top: 0;
+			}
+			
+			ul.menu>li .more>span {
+				margin-right: .3rem;
+				color: #2C2C2C;
+			}
+			/*退出登录*/
+			
+			.exitLogin {
+				display: none;
+				margin: 1.5rem 0 ;
+			}
+			
+			.exit {
+				display: block;
+				background: #fff;
+				width: 70%;
+				height: 2.5rem;
+				border-radius: 10px;
+				color: #747682;
+				margin: 0 auto;
+				text-align: center;
+				line-height: 2.5rem;
+				border: 1px solid rgba(204, 204, 204, 1);
+				border-radius: 35px;
+			}
+			
+			/*分类title*/
+			.classifyModule{
+				border-bottom:8px solid #F5F6F7;
+				width:93%;
+				margin:0 auto;
+				padding:1rem 0;
+				/*text-align: center;*/
+			}
+			
+			.classifyTitle{
+				font-size:1.1rem;
+				font-weight:bold;
+				color:#121212;
+				border-bottom:1px solid #F5F6F7;
+				margin-bottom:2rem;
+				padding:.5rem 0;
+			}
+			.classifyTags>li{
+				display:inline-block;
+				width:24%;
+				height:4.3rem;
+				margin:.3rem 0;
+				text-align: center;
+				color:#2C2C2C;
+				font-size:.9rem;
+				position:relative;
+			}
+			.classifyTags>li .iconfont{
+				color:#D32424;
+				font-size:1.5rem;
+			}
+			.mall li .iconfont{
+				color:#FF9023;
+			}
+			.times{
+				display:block;
+				width:1rem;
+				height:1rem;
+				background:#FF9023;
+				color:#fff;
+				border-radius:50%;
+				position: absolute;
+				right:0;
+				top:-.5rem;
+				text-align: center;
+				line-height:1.1rem;
+				font-size:.7rem;
+			}
+			.update_btn{
+				display:none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--<header class="mui-bar mui-bar-nav" style="text-align:right;padding-right:5%;">
+			<span class="iconfont" style="font-size:1.2rem;color:#121212；display:inline-block;height:2.8rem;
+				line-height:2.8rem;">&#xe793;</span>
+		</header>-->
+		<div class="mui-scroll-wrapper content" style="padding-top:1.5rem;padding-bottom:1.5rem;">
+			<div class="mui-scroll coment_scroll">
+				<div class="lrPart userInfo">
+					<div class="toLogin left">
+						<img class="avator" style="width:2.5rem;height:2.5rem;border-radius:50%" src="../resources/images/personAvator.png" alt="" />
+						<div>
+							<p class="userName">去登录</p>
+							<p class="playTimes">点击头像登录</p>
+						</div>
+					</div>
+					<!--<div class="score right">
+						<div>
+							<span class="iconfont">&#xe600;</span> 签到领积分
+						</div>
+					</div>-->
+				</div>
+				<!--开通会员-->
+				<!--<div class="VIP">
+					<div class="leftVip">
+						<span class="iconfont">&#xe604;</span>
+						<div>
+							<p>开通VIP会员</p>
+							<span>精品课程会员畅听</span>
+						</div>
+					</div>
+					<div class="rightNotice">
+						<span class="iconfont" style="font-size:1.8rem">&#xe793;</span>
+						<div>
+							<p>我的消息</p>
+							<span>暂无未读消息</span>
+						</div>
+					</div>
+				</div>-->
+				<!--音视频-->
+				<div class="audios classifyModule" style="border-top:8px solid #f5f6f7">
+					<p class="classifyTitle audioOrVideo">音视频</p>
+					<ul class="classifyTags">
+						<!--<li>
+							<p class="iconfont">&#xe614;</p>
+							<span>已购买的</span>
+						</li>-->
+						<li class="btn_history">
+							<p class="iconfont">&#xe752;</p>
+							<span>最近播放</span>
+						</li>
+						<li class="btn_favor_voice">
+							<p class="iconfont">&#xe613;</p>
+							<span>我的收藏</span>
+						</li>
+						<li class="btn_download">
+							<p class="iconfont">&#xe615;</p>
+							<span>我的下载</span>
+						</li>
+						<!--<li>
+							<p class="iconfont">&#xe60f;</p>
+							<span>我的订阅</span>
+						</li>-->
+					</ul>
+				</div>
+				<!--商城-->
+				<div class="mall classifyModule">
+					<p class="classifyTitle">商城</p>
+					<ul class="classifyTags">
+						<li class="myOrder">
+							<p class="iconfont">&#xe60c;</p>
+							<span>我的订单</span>
+						</li>
+						<li class="card">
+							<p class="iconfont">&#xe614;</p>
+							<span>购物车</span>
+							<!--<span class="collectTimes times">3</span>-->
+						</li>
+						<!--<li>
+							<p class="iconfont">&#xe671;</p>
+							<span>待收货</span>
+						</li>-->
+						<!--<li>
+							<p class="iconfont">&#xe702;</p>
+							<span>待评价</span>
+							<span class="collectTimes times">3</span>
+						</li>-->
+						<!--<li>
+							<p class="iconfont">&#xe60b;</p>
+							<span>退款/售后</span>
+						</li>-->
+						<li class="btn_favor_goods">
+							<p class="iconfont">&#xe613;</p>
+							<span>我的收藏</span>
+						</li>
+						<li class="my_goodsHistroy">
+							<p class="iconfont">&#xe718;</p>
+							<span>我的浏览</span>
+						</li>
+						<li class="btn_myaddress">
+							<p class="iconfont">&#xe6d0;</p>
+							<span>我的地址</span>
+						</li>
+					</ul>
+				</div>
+				<!--少年荟-->
+				<div class="juvenile classifyModule">
+					<p class="classifyTitle">少年荟</p>
+					<ul class="classifyTags">
+						<li class="update_match">
+							<p class="iconfont">&#xe702;</p>
+							<span>我的信息</span>
+						</li>
+					<!--<li class="match_tijiao">
+							<p class="iconfont">&#xe709;</p>
+							<span>作品提交</span>
+						</li>-->
+						<li class="match_jindu">
+							<p class="iconfont">&#xe609;</p>
+							<span>活动进度</span>
+						</li>
+						<li class="match_book">
+							<p class="iconfont">&#xe69d;</p>
+							<span>指导用书</span>
+						</li>
+						<!--<li>
+							<p class="iconfont">&#xe612;</p>
+							<span>学习中心</span>
+						</li>-->
+					</ul>
+				</div>
+				<!--菜单-->
+				<ul class="menu">
+					<!--<li class="bang_btn">
+						<span class="iconfont">&#xe622;</span> 绑定账号
+						<div class="toBind">
+							<span class="iconfont">&#xe721;</span>
+							<span class="iconfont">&#xe677;</span>
+							<span class="iconfont">&#xe62b;</span>
+							<span class="iconfont">&#xe61c;</span>
+						</div>
+					</li>-->
+					<li class="kefu_btn">
+						<span class="iconfont">&#xe670;</span> 联系客服
+						<span class="more iconfont">&#xe61c;</span>
+					</li>
+					<li class="update_btn">
+						<span class="iconfont">&#xe643;</span> 检查更新
+						<span class="more iconfont">&#xe61c;</span>
+					</li>
+					<!--<li class="rate_btn">
+						<span class="iconfont">&#xe644;</span> 为八斗评分
+						<span class="more iconfont">&#xe61c;</span>
+					</li>-->
+					<li class="about_btn">
+						<span class="iconfont">&#xe641;</span> 关于我们
+						<span class="more iconfont">&#xe61c;</span>
+					</li>
+				</ul>
+				<p class="exitLogin">
+					<span class="exit">退出当前账号</span>
+				</p>
+			</div>
+		</div>
+		<script src="../resources/js/jquery.min.js "></script>
+		<script src="../resources/js/mui.min.js "></script>
+		<script src="../resources/js/jquery.jplayer.min.js "></script>
+		<script src="../resources/js/common.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.js "></script>
+		<script src="../resources/js/mui.pullToRefresh.material.js "></script>
+		<script src="../resources/js/mui.picker.min.js"></script>
+		<script src="../resources/js/mui.poppicker.js"></script>
+		<script src="../resources/js/download.js "></script>
+		<script type="text/javascript">
+			myFunc(function() {
+				/*轮播*/
+				document.addEventListener("pause", onAppPause, false);
+
+				function onAppPause() {
+					loadMine();
+				}
+
+				function loadMine() {
+					if(!osg.isLogined())
+						return;
+					osg.ajax('user/mine', null, function(data) {
+						if(!data)
+							return;
+						var u = data;
+						var token = osg.currentToken();
+						var userInfo = {
+							'user': data,
+							'token': token
+						}
+						osg.currentUserSet(userInfo);
+						osg.evtFireEvent('login');
+					}, {
+						noload: true
+					});
+				}
+
+				function currentState() {
+					if(osg.isLogined()) {
+						var u = osg.currentUser();
+						if(u.nickname){
+							$(".userName").html(u.nickname);
+						}else{
+							$(".userName").html(u.phone)
+						}
+						if(u.avatar) {
+							$(".avator").attr("src", qiniuRoot + u.avatar+'!app.avatar');
+						}else{
+							$(".avator").attr("src", u.headimgurl);
+						}
+						$(".playTimes").hide();
+						$(".exitLogin").show();
+					} else {
+						$(".avator").attr('src', '../resources/images/avator.png');
+						$(".userName").html("请登录");
+						$(".playTimes").show();
+						$(".exitLogin").hide();
+					}
+				}
+
+				currentState();
+
+				osg.evtAddListener(function(d) {
+					if(d && (d == 'login' || d == 'logout')) { // 登录、退出事件
+						currentState();
+					} else if(d && d == 'change_student') { // 学生基本信息修改
+						loadMine();
+					} else if(d && d == 'dodownload') {
+						var data = osg.getObj('dodownload');
+						download("",data);
+					}
+				});
+
+				$(".avator").tap(function() {
+					event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+					if(osg.isLogined()){
+						plus.nativeUI.actionSheet({
+							cancel: "取消",
+							buttons: [{
+								title: "拍照"
+							}, {
+								title: "从相册选择"
+							}]
+						}, function(event) {
+							var index = event.index;
+							switch(index) {
+								case 1: // 拍照
+									osg.pickImageFromCamera(function(f) {
+										osg.uploadFile(f, function(fid) {
+											doAvatarUploaded(fid);
+										})
+									});
+									break;
+								case 2: // 从相册选择
+									osg.pickImageFromGallery(1, function(f) {
+										osg.uploadFile(f, function(fid) {
+											doAvatarUploaded(fid);
+										})
+									})
+									break;
+							}
+						});
+					}else{
+						osg.open("../mine/login.html");
+					}
+				});
+				$(".toLogin").tap(function() {
+					if(osg.isLogined()){
+						
+					}else{
+						osg.open("../mine/login.html");
+					}
+				});
+				$(".userName").tap(function() {
+					event.stopPropagation(); // 禁止事件冒泡到父节点点击事件
+					if(osg.isLogined()){
+						osg.open("update.html");
+					}else{
+						osg.open("../mine/login.html");
+					}
+				});
+				/*更换头像*/
+				function doAvatarUploaded(fileid) {
+					avatar = fileid[0];
+					var param = {
+						avatar: avatar,
+					};
+					osg.ajax('user/updateAvatar', param, function(d) {
+						$(".avator").attr("src", qiniuRoot + d.data.avatar+'!app.avatar');
+						var token = osg.currentToken();
+						var userInfo = {
+							'user': d.data,
+							'token': token
+						}
+						osg.currentUserSet(userInfo);
+						osg.evtFireEvent('changeAvator');
+					});
+				}
+				/*最近播放*/
+				$(".btn_history").tap(function() {
+					osg.open('../home/hotListen.html', {
+						"voiceInfo":"最近播放"
+					}, null, {
+						im: 1
+					});
+				});
+				/*我的下载*/
+				$(".btn_download").tap(function() {
+					osg.open('../home/audioDownload.html', {}, null, {im: 1});
+				});
+				/*我的浏览*/
+				$(".my_goodsHistroy").tap(function() {
+					if(osg.isLogined()) {
+						osg.open('../mall/favorGoods.html', {
+							'mine': 'history',
+							'type': 'goods'
+						}, null, {
+							im: 1
+						});
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html', null, null, {
+								im: 1
+							});
+						});
+					}
+				});
+				/*收藏*/
+				$(".btn_favor_voice").tap(function() {
+					if(osg.isLogined()) {
+						osg.open('audioCollect.html');
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html', null, null, {
+								im: 1
+							});
+						});
+					}
+				});
+				/*商品收藏*/
+				$(".btn_favor_goods").tap(function() {
+					if(osg.isLogined()) {
+						osg.open('../mall/favorGoods.html', {
+							'mine': 'favor',
+							'type': 'goods'
+						}, null, {
+							im: 1
+						});
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html', null, null, {
+								im: 1
+							});
+						});
+					}
+				});
+				// 我的地址
+				$(".btn_myaddress").tap(function() {
+					if(osg.isLogined()) {
+						osg.open('myAddress.html');
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html', null, null, {
+								im: 1
+							});
+						});
+					}
+				});
+				// 竞赛信息修改
+				$(".update_match").tap(function() {
+					if(osg.isLogined()) {
+						osg.open('../juvenile/match.html', {
+							}, null, {
+								im: 1
+							});
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html', null, null, {
+								im: 1
+							});
+						});
+					}
+				});
+				// 赛事进度
+				$(".match_jindu").tap(function() {
+					if(osg.isLogined()) {
+						osg.open('../juvenile/match.html', {ma:1
+						}, null, {
+							im: 1
+						});
+					} else {
+						osg.confirm("请登录！", function() {
+							osg.open('../mine/login.html', null, null, {
+								im: 1
+							});
+						});
+					}
+				});
+				// 指导用书
+				$(".match_book").tap(function() {
+					osg.evtFireEvent('MytoMallAll');
+				});
+				// 绑定账户
+				$(".bang_btn").tap(function() {
+					osg.toast('功能建设中...');
+				});
+				// 客服
+				$(".kefu_btn").tap(function() {
+					var btnArray = ['拨打', '取消'];         
+					var phone = "010-84097195";         
+					mui.confirm('是否拨打' + phone + '?', '提示', btnArray, function(e) {            
+						if(e.index == 0) {               
+							plus.device.dial(phone, false);            
+						}         
+					});
+				});
+				// 苹果上架隐藏检查更新按钮
+				if(mui.os.ios && osg.settingValue('isPublish') == 1){
+					$(".update_btn").hide();
+				}else{
+					$(".update_btn").show();
+				}
+				// 检查更新
+				$(".update_btn").tap(function() {
+					checkWgt();
+				});
+
+				function checkWgt() {
+					// 检查是否有新的wgt资源包
+					plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo) {
+						osg.ajax('user/appResume', {
+							cv: wgtinfo.version
+						}, function(data) {
+							if(data && data.fileidUrl) { // 有升级包
+								var fileid = data.fileid,
+									url = data.fileidUrl;
+								osg.confirm("有新的升级包，是否现在更新？", function() {
+									downloadWgt(fileid, url);
+								});
+							} else
+								osg.alert('已经是最新版本！');
+						});
+					});
+				}
+				function downloadWgt(fileid, url) {
+					osg.download(url, function(fn) {
+						plus.io.resolveLocalFileSystemURL(fn, function(file) {
+							plus.io.resolveLocalFileSystemURL('_downloads', function(dir) {
+								file.moveTo(dir, fileid);
+								var ul = '_downloads/' + fileid;
+								//ul = plus.io.convertLocalFileSystemURL(ul);
+								//alert(ul);
+								plus.runtime.install(ul, {
+									force: true
+								}, function() {
+									//更新完成，重启应用
+									osg.confirm("升级包下载完成，是否立即重启？", function() {
+										setTimeout(function() {
+											plus.runtime.restart();
+										}, 1000);
+
+									});
+								}, function(e) {
+									alert("更新失败(" + e.code + "): " + e.message);
+								});
+							});
+						});
+
+					}, true);
+				}
+				//去评分
+				$(".rate_btn").tap(function() {
+					osg.toast('功能建设中...');
+					/*if(mui.os.ios) {
+						location.href = "https://itunes.apple.com/cn/app/%E9%AB%98%E8%80%83%E7%99%BE%E7%A7%91/id1377474659?mt=8";
+					} else if(mui.os.android) {
+						plus.runtime.openURL("market://details?id=cn.gaokaobaike3", function(e) {
+							plus.runtime.openURL("market://details?id=cn.gaokaobaike3", function(e) {
+								osg.alert("360手机助手和应用宝，一个都没装，暂时无法评分，感谢支持");
+							}, "com.qihoo.appstore");
+						}, "com.tencent.android.qqdownloader");
+					}*/
+				});
+				// 关于
+				$('.about_btn').tap(function() {
+					osg.open('about.html');
+				});
+				
+				
+				
+			});
+			/*屏幕滑动*/
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true
+			});
+
+			//退出
+			$('.exit').tap(function() {
+				if(mui.os.ios) {
+					osg.confirm('确认退出？', function() {
+						// 获取推送clientid（个推）
+						var cinfo = plus.push.getClientInfo(),
+							clientid = cinfo.clientid;
+						var device = mui.os.ios ? 'ios' : 'android';
+						osg.ajax('user/logout', {
+							clientid: clientid,
+							device: device
+						}, function(data) {
+							//注销账号
+							osg.logout();
+							/*osg.closeMe();*/
+							osg.evtFireEvent('logout');
+						}, 'POST');
+					})
+					return;
+				}
+				var btnArray = [{
+					title: "退出登录"
+				}, {
+					title: "直接关闭应用"
+				}];
+				plus.nativeUI.actionSheet({
+					cancel: "取消",
+					buttons: btnArray
+				}, function(event) {
+					var index = event.index;
+					switch(index) {
+						case 1:
+							// 获取推送clientid（个推）
+							var cinfo = plus.push.getClientInfo(),
+								clientid = cinfo.clientid;
+							var device = mui.os.ios ? 'ios' : 'android';
+							osg.ajax('user/logout', {
+								clientid: clientid,
+								device: device
+							}, function(data) {
+								//注销账号
+								osg.logout();
+								/*osg.closeMe();*/
+								osg.evtFireEvent('logout');
+
+							}, 'POST');
+							break;
+						case 2:
+							plus.runtime.quit();
+							break;
+					}
+				});
+			}, false);
+			$(".myOrder").tap(function(){
+				if(osg.isLogined()) {
+					osg.open('../mall/myOrder.html', {
+					}, null, {
+						im: 1
+					});
+				} else {
+					osg.confirm("请登录！", function() {
+						osg.open('../mine/login.html', null, null, {
+							im: 1
+						});
+					});
+				}
+			})
+			/*购物车*/
+			$(".card").tap(function(){
+				if(osg.isLogined()) {
+					osg.open("../mall/card.html");
+				} else {
+					osg.confirm("请登录！", function() {
+						osg.open('../mine/login.html', null, null, {
+							im: 1
+						});
+					});
+				}
+			})
+		</script>
+	</body>
+
+</html>
